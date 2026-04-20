@@ -12,7 +12,12 @@
   const _depth = Math.max(0, _parts.length - (_path.endsWith('/') ? 0 : 1));
   const base = '../'.repeat(_depth);
 
-  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  // Only default to index.html at the site root; subdirectory index pages
+  // (e.g. /blog/) should not light up the Home nav item.
+  const _isRoot = _path === '/' || _path === '/index.html' || _path === '';
+  const currentPage = _isRoot
+    ? 'index.html'
+    : (_path.split('/').pop() || '__none__');
 
   const pages = [
     { href: `${base}index.html`, label: 'Home' },
