@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 450">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        font-family: AvenirNext-DemiBold, 'Avenir Next';
+        font-size: 225px;
+        font-weight: 300;
+      }
+
+      .cls-2 {
+        fill: #290099;
+      }
+    </style>
+  </defs>
+  <g id="Layer_2">
+    <path class="cls-2" d="M246.776,398.036c181.007-78.775,158.6-313.185,158.6-313.185-106.486-11.712-158.6-46.503-158.6-46.503,0,0-52.114,34.791-158.6,46.503,0,0-22.407,234.41,158.6,313.185"/>
+  </g>
+  <g id="C">
+    <text class="cls-1" transform="translate(159.318 284.761)"><tspan x="0" y="0">C</tspan></text>
+  </g>
+</svg>
