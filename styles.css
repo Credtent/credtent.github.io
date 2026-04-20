@@ -486,7 +486,6 @@ section { width: 100%; }
 
 /* ── Who We Serve ─────────────────────────────────────────── */
 .wws-header {
-  max-width: 720px;
   margin-bottom: 48px;
 }
 .wws-header h2 {
@@ -943,6 +942,7 @@ section { width: 100%; }
 
 /* ── Section Header ───────────────────────────────────────── */
 .section-header {
+  max-width: 720px;
   margin-bottom: 56px;
 }
 

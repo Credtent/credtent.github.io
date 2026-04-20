@@ -51,6 +51,7 @@ Push to `main` → GitHub Pages rebuilds automatically. No CI, no build step.
   - Subsection headings: `clamp(1.4rem, 2.5vw, 2rem)` (≤ 32px)
   - Prose headings: `1.5rem` (24px)
   - `.cta-banner h2` is an intentional exception at 36px max.
+- **Section header measure:** `.section-header` blocks (eyebrow + h2 + description paragraph) are constrained to `max-width: 720px` (≈ 80ch at 16px body) for typographic readability. `.pricing-section-header .section-header` overrides to 640px and `text-align: left` because it sits in a two-column flex layout.
 - **`components.js` base path** auto-computes `../` prefixes by directory depth so subdirectory pages (`/parking/`, `/parking/blog/`, future deeper paths) get correct nav links without an allowlist.
 - **Photos live at the repo root** with Unsplash filenames preserved, referenced from `styles.css` as CSS backgrounds.
 - **`/parking/`** holds unfinished pages. Excluded via both `robots.txt` (`Disallow: /parking/`) and per-page `<meta name="robots" content="noindex, nofollow">`.
