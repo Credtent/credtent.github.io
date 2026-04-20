@@ -484,16 +484,6 @@ section { width: 100%; }
 }
 .dashboard-stat-value.orange { color: var(--c-orange); }
 
-/* ── Who We Serve ─────────────────────────────────────────── */
-.wws-header {
-  margin-bottom: 48px;
-}
-.wws-header h2 {
-  /* font-size inherits from base h2: clamp(1.8rem, 3vw, 2.5rem) */
-  color: var(--c-heading);
-  margin: 16px 0 16px;
-  line-height: 1.2;
-}
 .wws-header p {
   font-size: 16px;
   color: var(--c-body);
