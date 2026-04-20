@@ -14,6 +14,17 @@
   <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#290099">
   <meta name="msapplication-TileColor" content="#152153">
   <meta name="theme-color" content="#ffffff">
+  <script>
+    // Any missing /blog/* URL (old post links from the previous site)
+    // should fall through to the blog coming-soon page. Do this before
+    // paint to avoid a flash of the 404.
+    (function () {
+      var p = location.pathname;
+      if (/^\/blog(\/|$)/i.test(p) && p !== '/blog/' && p !== '/blog/index.html') {
+        location.replace('/blog/');
+      }
+    })();
+  </script>
   <style>
     .err-wrap {
       min-height: calc(100vh - var(--nav-h, 72px));

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Coming Soon — Credtent</title>
+  <meta name="description" content="The Credtent blog is moving. In the meantime, follow our writing on Medium and Substack." />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/favicon/site.webmanifest">
+  <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#290099">
+  <meta name="msapplication-TileColor" content="#152153">
+  <meta name="theme-color" content="#ffffff">
+  <style>
+    .soon-wrap {
+      min-height: calc(100vh - var(--nav-h, 72px));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 40px;
+      background: var(--c-bg-light);
+    }
+    .soon-inner {
+      text-align: center;
+      max-width: 640px;
+    }
+    .soon-eyebrow {
+      display: inline-block;
+      font-family: var(--f-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--c-purple);
+      margin-bottom: 20px;
+    }
+    .soon-title {
+      font-family: var(--f-serif);
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      color: var(--c-heading);
+      margin: 0 0 20px;
+      line-height: 1.15;
+    }
+    .soon-body p {
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--c-body);
+      margin: 0 0 14px;
+    }
+    .soon-ctas {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 36px;
+    }
+    .soon-ctas .btn svg {
+      width: 18px;
+      height: 18px;
+    }
+    .soon-footnote {
+      margin-top: 32px;
+      font-size: 14px;
+      color: var(--c-muted);
+    }
+    .soon-footnote a {
+      color: var(--c-purple);
+      text-decoration: none;
+    }
+    .soon-footnote a:hover { text-decoration: underline; }
+
+    @media (max-width: 640px) {
+      .soon-wrap { padding: 60px 20px; }
+      .soon-ctas { flex-direction: column; align-items: stretch; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="nav-placeholder"></div>
+
+<div class="soon-wrap">
+  <div class="soon-inner">
+    <h1 class="soon-title">Blog Coming Soon</h1>
+    <div class="soon-body">
+      <p>We're rebuilding our publication on this domain. While we're at it, our writing — on AI licensing, creator rights, and the future of training data — can be found on Medium and Substack.</p>
+    </div>
+
+    <div class="soon-ctas">
+      <a href="https://medium.com/credtent-on-content" class="btn btn-primary" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.54 12a6.8 6.8 0 0 1-6.77 6.82A6.8 6.8 0 0 1 0 12a6.8 6.8 0 0 1 6.77-6.82A6.8 6.8 0 0 1 13.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>
+        Credtent on Medium
+      </a>
+      <a href="https://credtent.substack.com/" class="btn btn-primary" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg>
+        Credtent on Substack
+      </a>
+    </div>
+
+    <p class="soon-footnote">Looking for something else? <a href="/">Back to credtent.org</a></p>
+  </div>
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script src="../components.js"></script>
+</body>
+</html>
