@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>404 — Credtent</title>
+  <meta name="description" content="Page not found." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/favicon/site.webmanifest">
+  <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#290099">
+  <meta name="msapplication-TileColor" content="#152153">
+  <meta name="theme-color" content="#ffffff">
+  <style>
+    .err-wrap {
+      min-height: calc(100vh - var(--nav-h, 72px));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 40px;
+      background: var(--c-bg-light);
+    }
+    .err-inner {
+      text-align: center;
+      max-width: 720px;
+    }
+    .err-shrug {
+      font-family: var(--f-mono);
+      font-size: clamp(3rem, 10vw, 8rem);
+      line-height: 1;
+      color: var(--c-navy);
+      letter-spacing: -0.02em;
+      margin: 0 0 40px;
+      white-space: nowrap;
+      user-select: none;
+    }
+    .err-title {
+      font-family: var(--f-serif);
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      color: var(--c-heading);
+      margin: 0 0 20px;
+      line-height: 1.15;
+    }
+    .err-body p {
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--c-body);
+      margin: 0 0 12px;
+    }
+    .err-body p:last-child {
+      font-style: italic;
+      color: var(--c-muted);
+      margin-top: 24px;
+    }
+    .err-cta {
+      margin-top: 40px;
+    }
+    @media (max-width: 640px) {
+      .err-wrap { padding: 60px 20px; }
+      .err-shrug { font-size: clamp(2.5rem, 18vw, 5rem); }
+    }
+  </style>
+</head>
+<body>
+
+<div id="nav-placeholder"></div>
+
+<div class="err-wrap">
+  <div class="err-inner">
+    <div class="err-shrug" aria-hidden="true">¯\_(ツ)_/¯</div>
+    <h1 class="err-title">404: Page Not Found</h1>
+    <div class="err-body">
+      <p>Good news for AI companies: this is the one page on our site you're welcome to scrape.</p>
+      <p>Everything else? We can help you with a license, or please stop scraping now.</p>
+      <p>Welcome to Credtent, where even errors have terms.</p>
+    </div>
+    <div class="err-cta">
+      <a href="/" class="btn btn-primary">Back to Home</a>
+    </div>
+  </div>
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script src="components.js"></script>
+</body>
+</html>
