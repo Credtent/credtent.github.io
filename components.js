@@ -5,7 +5,7 @@
 (function () {
   // Detect if page is in a subdirectory (e.g. /blog/) and set base path accordingly
   const _parts = window.location.pathname.split('/').filter(Boolean);
-  const _subDirs = ['blog', 'team'];
+  const _subDirs = ['blog', 'team', 'parking'];
   const base = (_parts.length >= 2 && _subDirs.includes(_parts[_parts.length - 2])) ? '../' : '';
 
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
@@ -14,10 +14,8 @@
     { href: `${base}index.html`, label: 'Home' },
     { href: `${base}for-ai-companies.html`, label: 'AI Companies' },
     { href: `${base}for-content-owners.html`, label: 'Content Owners' },
-    // { href: `${base}services.html`, label: 'Services' },
     { href: `${base}about.html`, label: 'About' },
     { href: `${base}faq.html`, label: 'FAQ' },
-    // { href: `${base}blog.html`, label: 'Blog' },
     { href: `${base}pricing.html`, label: 'Pricing' },
   ];
 
@@ -183,11 +181,6 @@
       hero.appendChild(makeGrad('purple', pair.p, pDur, pDel));
       hero.appendChild(makeGrad('orange', pair.o, oDur, oDel));
     });
-  }
-
-  function inject(id, html) {
-    const el = document.getElementById(id);
-    if (el) el.outerHTML = html;
   }
 
   document.addEventListener('DOMContentLoaded', function () {
