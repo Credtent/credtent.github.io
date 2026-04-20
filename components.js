@@ -3,10 +3,14 @@
 // <div id="nav-placeholder"></div> / <div id="footer-placeholder"></div>
 
 (function () {
-  // Detect if page is in a subdirectory (e.g. /blog/) and set base path accordingly
-  const _parts = window.location.pathname.split('/').filter(Boolean);
-  const _subDirs = ['blog', 'team', 'parking'];
-  const base = (_parts.length >= 2 && _subDirs.includes(_parts[_parts.length - 2])) ? '../' : '';
+  // Compute base path as '../' repeated per directory depth so nav/footer
+  // links resolve correctly from any nesting level (root, /parking/,
+  // /parking/blog/, etc.). Trailing-slash URLs (directory indexes) are
+  // treated as one level shallower since their last segment is the dir itself.
+  const _path = window.location.pathname;
+  const _parts = _path.split('/').filter(Boolean);
+  const _depth = Math.max(0, _parts.length - (_path.endsWith('/') ? 0 : 1));
+  const base = '../'.repeat(_depth);
 
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
 
