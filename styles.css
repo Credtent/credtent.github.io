@@ -820,16 +820,7 @@ section { width: 100%; }
 
 /* ── Photo Banner ──────────────────────────────────────────── */
 .photo-banner {
-  /* Match photo's native aspect (1600×353) so the full image is visible
-     at all desktop widths without any crop. min-height kicks in at
-     narrow viewports where the aspect-ratio height would clip the
-     centered content — there cover crops the sides, which is fine. */
-  aspect-ratio: 1600 / 353;
-  min-height: 220px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px 40px;
+  padding: 80px 40px;
   background:
     linear-gradient(rgba(255,255,255,0.72), rgba(255,255,255,0.72)),
     url('alexander-korte-5eIKzXXMMZw-unsplash.jpg') center/cover no-repeat;
@@ -837,6 +828,22 @@ section { width: 100%; }
 }
 .photo-banner-inner {
   max-width: var(--content);
+  margin: 0 auto;
+}
+
+/* On wider viewports match the photo's native aspect ratio (1600×353)
+   so the whole image is visible without cropping top/bottom. Narrower
+   viewports fall back to the padding-based layout above, where cover
+   will crop the sides — unavoidable at this aspect ratio. */
+@media (min-width: 900px) {
+  .photo-banner {
+    aspect-ratio: 1600 / 353;
+    min-height: 240px;
+    padding: 24px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 /* ── Creator Split ────────────────────────────────────────── */
