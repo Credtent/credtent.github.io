@@ -490,7 +490,7 @@ section { width: 100%; }
   margin-bottom: 48px;
 }
 .wws-header h2 {
-  font-size: clamp(1.8rem, 3vw, 2.75rem);
+  /* font-size inherits from base h2: clamp(1.8rem, 3vw, 2.5rem) */
   color: var(--c-heading);
   margin: 16px 0 16px;
   line-height: 1.2;
@@ -723,7 +723,7 @@ section { width: 100%; }
   padding: 48px;
 }
 .aic-retro h2 {
-  font-size: clamp(1.4rem, 2.5vw, 1.875rem);
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
   color: var(--c-heading);
   margin: 12px 0 12px;
 }
@@ -2114,7 +2114,7 @@ section { width: 100%; }
   color: var(--c-body);
 }
 .post-body h2 {
-  font-size: 1.375rem;
+  font-size: 1.5rem;
   color: var(--c-heading);
   margin: 44px 0 14px;
   line-height: 1.3;
@@ -2245,7 +2245,7 @@ section { width: 100%; }
 }
 
 .legal-content h2 {
-  font-size: 1.375rem;
+  font-size: 1.5rem;
   margin-top: 48px;
   margin-bottom: 14px;
   padding-bottom: 10px;
