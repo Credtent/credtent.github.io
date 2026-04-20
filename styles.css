@@ -484,11 +484,6 @@ section { width: 100%; }
 }
 .dashboard-stat-value.orange { color: var(--c-orange); }
 
-.wws-header p {
-  font-size: 16px;
-  color: var(--c-body);
-  line-height: 1.7;
-}
 .wws-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
