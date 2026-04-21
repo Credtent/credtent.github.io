@@ -15,11 +15,15 @@
   <meta name="theme-color" content="#ffffff">
   <style>
     .soon-wrap {
-      min-height: calc(100vh - var(--nav-h, 72px));
+      --_footer-h: 340px;
+      --_nav-h: var(--nav-h, 72px);
+      --_avail: calc(100vh - var(--_nav-h) - var(--_footer-h));
+      min-height: calc(100vh - var(--_footer-h));
+      box-sizing: border-box;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
-      padding: 80px 40px;
+      padding: calc(var(--_nav-h) + var(--_avail) * 3 / 17) 40px 60px;
       background: var(--c-bg-light);
     }
     .soon-inner {
@@ -71,8 +75,11 @@
     }
     .soon-footnote a:hover { text-decoration: underline; }
 
-    @media (max-width: 640px) {
-      .soon-wrap { padding: 60px 20px; }
+    @media (max-width: 900px) {
+      .soon-wrap {
+        min-height: auto;
+        padding: calc(var(--_nav-h) + 60px) 20px 60px;
+      }
       .soon-ctas { flex-direction: column; align-items: stretch; }
     }
   </style>

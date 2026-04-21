@@ -27,11 +27,15 @@
   </script>
   <style>
     .err-wrap {
-      min-height: calc(100vh - var(--nav-h, 72px));
+      --_footer-h: 340px;
+      --_nav-h: var(--nav-h, 72px);
+      --_avail: calc(100vh - var(--_nav-h) - var(--_footer-h));
+      min-height: calc(100vh - var(--_footer-h));
+      box-sizing: border-box;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
-      padding: 80px 40px;
+      padding: calc(var(--_nav-h) + var(--_avail) * 3 / 17) 40px 60px;
       background: var(--c-bg-light);
     }
     .err-inner {
@@ -69,9 +73,15 @@
     .err-cta {
       margin-top: 40px;
     }
-    @media (max-width: 640px) {
-      .err-wrap { padding: 60px 20px; }
-      .err-shrug { font-size: clamp(2.5rem, 18vw, 5rem); }
+    @media (max-width: 900px) {
+      .err-wrap {
+        min-height: auto;
+        padding: calc(var(--_nav-h) + 60px) 20px 60px;
+      }
+      .err-shrug {
+        font-size: clamp(2rem, 14vw, 5rem);
+        white-space: normal;
+      }
     }
   </style>
 </head>
