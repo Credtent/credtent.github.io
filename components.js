@@ -51,6 +51,7 @@
     </a>
     <div class="nav-links">${navLinks}</div>
     <div class="nav-auth">
+      <a href="https://registry.credtent.org/auth/sign-in" class="signin" target="_blank" rel="noopener">Creator Sign In</a>
       <a href="https://tally.so/r/2ExeBp" class="signup" target="_blank" rel="noopener">Investor Inquiries</a>
     </div>
     <button class="nav-hamburger" id="nav-hamburger-btn" aria-label="Open menu" aria-expanded="false">
@@ -63,7 +64,7 @@
   </div>
 </nav>
 <div class="nav-mobile-menu" id="nav-mobile-menu" aria-hidden="true">
-  <div class="nav-mobile-links">${mobileLinks}</div>
+  <div class="nav-mobile-links">${mobileLinks}<a href="https://registry.credtent.org/auth/sign-in" target="_blank" rel="noopener">Creator Sign In</a></div>
   <div class="nav-mobile-divider"></div>
   <div class="nav-mobile-auth">
     <a href="https://tally.so/r/2ExeBp" class="signup" target="_blank" rel="noopener">Investor Inquiries</a>
@@ -128,6 +129,7 @@
         <li><a href="${base}for-ai-companies.html">Licensing-as-a-Service</a></li>
         <li><a href="${base}for-ai-companies.html">Compliance-as-a-Service</a></li>
         <li><a href="${base}for-content-owners.html">Enterprise Solutions</a></li>
+        <li><a href="https://registry.credtent.org/auth/sign-in" target="_blank" rel="noopener">Creative Registry</a></li>
       </ul>
     </div>
     <div class="footer-col">
