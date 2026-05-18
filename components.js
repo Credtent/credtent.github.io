@@ -133,6 +133,13 @@
       </ul>
     </div>
     <div class="footer-col">
+      <h5>Partnerships</h5>
+      <ul>
+        <li><a href="${base}wga.html">Writers Guild of America</a></li>
+        <li><a href="${base}lws.html">London Writers' Salon</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
       <h5>Talk to Us</h5>
       <ul>
         <li><a href="${base}for-content-owners.html#talk-content">Content Partners</a></li>

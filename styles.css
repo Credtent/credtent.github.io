@@ -732,6 +732,7 @@ section { width: 100%; }
 .co-feature-card h4 { font-size: 1rem; color: var(--c-heading); font-weight: 700; margin-bottom: 10px; }
 .co-feature-card p { font-size: 14px; color: var(--c-body); line-height: 1.7; margin: 0; }
 .co-steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; position: relative; }
+.co-steps-grid.co-steps-3 { grid-template-columns: repeat(3, 1fr); }
 .co-steps-grid::before { content: ''; position: absolute; top: 52px; left: 40px; right: 40px; height: 1px; background: var(--c-border); }
 .co-step { background: #fff; border: 1px solid var(--c-border); border-radius: var(--r-card); padding: 24px; position: relative; }
 .co-step .step-num { position: relative; z-index: 1; background: var(--c-navy); }
@@ -1203,16 +1204,17 @@ section { width: 100%; }
   max-width: var(--content-lg);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.8fr 1.4fr 1fr 1fr;
-  gap: 40px;
+  grid-template-columns: 1.8fr 1fr 1fr 1fr 1fr;
+  gap: 36px;
   padding-bottom: 48px;
   border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 .footer-quicklinks-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0 24px;
+  grid-template-columns: 1fr;
+  gap: 10px 24px;
 }
+.footer-quicklinks-grid > ul + ul { margin-top: 0; }
 
 .footer-brand p {
   font-size: 13px;
@@ -2397,6 +2399,7 @@ section { width: 100%; }
   .co-covered-grid { grid-template-columns: 1fr; gap: 40px; }
   .co-features-grid { grid-template-columns: 1fr; }
   .co-steps-grid { grid-template-columns: 1fr 1fr; }
+  .co-steps-grid.co-steps-3 { grid-template-columns: 1fr; }
   .co-steps-grid::before { display: none; }
   .fco-economics { grid-template-columns: 1fr; gap: 32px; }
 
