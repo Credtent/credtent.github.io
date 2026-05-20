@@ -20,8 +20,7 @@
       font-size: 17px;
       line-height: 1.75;
       color: var(--c-body);
-      max-width: 760px;
-      margin: 0 auto;
+      margin: 0;
     }
     .std-intro a {
       color: var(--c-purple);
@@ -43,7 +42,6 @@
       font-size: 16px;
       line-height: 1.75;
       color: var(--c-body);
-      max-width: 760px;
       margin: 0 0 20px;
     }
     .std-section > p:last-child { margin-bottom: 0; }
@@ -155,18 +153,21 @@
       background: var(--c-bg-light);
       border: 1px solid var(--c-border);
       border-radius: var(--r-card);
-      padding: 20px;
+      overflow: hidden;
       font-size: 13px;
       color: var(--c-body);
       line-height: 1.6;
       display: flex;
       flex-direction: column;
-      gap: 12px;
     }
     .std-badge-card img {
-      width: 72px;
-      height: 72px;
+      width: 100%;
+      aspect-ratio: 1 / 1;
       display: block;
+      object-fit: cover;
+    }
+    .std-badge-card .std-badge-text {
+      padding: 16px 20px 20px;
     }
     .std-badge-card strong {
       display: block;
@@ -252,7 +253,7 @@
   <div class="page-hero-content">
     <div class="eyebrow" style="margin-bottom:20px">The Standards Landscape</div>
     <h1>A Working Catalog of AI Disclosure Standards</h1>
-    <p>The badges, registries, watermarks, and protocols that help audiences answer one question: how was this made? Maintained by Credtent.</p>
+    <p>The badges, registries, watermarks, and protocols that help audiences answer one question: how was this made?</p>
     <div class="std-updated">Last updated 2026-05-20</div>
   </div>
 </section>
@@ -277,29 +278,29 @@
       <div class="std-badge-grid">
         <div class="std-badge-card">
           <img src="badges/human-composed-creation-badge.svg" alt="HCC — Human-Composed Creation badge">
-          <div>
-            <strong>HCC — Human-Composed Creation <span style="color:var(--c-purple);font-weight:400">(purple)</span></strong>
+          <div class="std-badge-text">
+            <strong>HCC — Human-Composed Creation</strong>
             No AI-generated creative content in the final work. The creator can stand behind every creative element as their own.
           </div>
         </div>
         <div class="std-badge-card">
           <img src="badges/ai-assisted-creation-badge.svg" alt="AAC — AI-Assisted Creation badge">
-          <div>
-            <strong>AAC — AI-Assisted Creation <span style="color:#2e7d32;font-weight:400">(green)</span></strong>
+          <div class="std-badge-text">
+            <strong>AAC — AI-Assisted Creation</strong>
             AI contributed to the work, with substantial human transformation. The middle ground, intentionally broad.
           </div>
         </div>
         <div class="std-badge-card">
           <img src="badges/ai-composed-creation-badge.svg" alt="ACC — AI-Composed Creation badge">
-          <div>
-            <strong>ACC — AI-Composed Creation <span style="color:var(--c-orange);font-weight:400">(orange)</span></strong>
+          <div class="std-badge-text">
+            <strong>ACC — AI-Composed Creation</strong>
             AI generated most or all of the creative content. Human involvement was limited to prompting and minor corrections.
           </div>
         </div>
         <div class="std-badge-card">
           <img src="badges/legacy-creation-badge.svg" alt="Legacy HCC badge">
-          <div>
-            <strong>Legacy HCC <span style="color:var(--c-purple);font-weight:400">(purple)</span></strong>
+          <div class="std-badge-text">
+            <strong>Legacy HCC</strong>
             Work created before November 2022 — the public release of ChatGPT. Acknowledges historical context without requiring case-by-case analysis of pre-2022 work.
           </div>
         </div>
@@ -622,7 +623,7 @@
 
     <!-- ── Closing tagline ── -->
     <div class="std-section">
-      <p style="font-size:15px;font-style:italic;color:var(--c-muted);max-width:700px;margin:0">Credtent is a Public Benefit Corporation. Our badges are free to use. We charge for expert-led certification because expert review is real labor and deserves real compensation. We aim to do well by doing good.</p>
+      <p style="font-size:15px;font-style:italic;color:var(--c-muted);margin:0">Credtent is a Public Benefit Corporation. Our badges are free to use. We charge for expert-led certification because expert review is real labor and deserves real compensation. We aim to do well by doing good.</p>
     </div>
 
   </div>
