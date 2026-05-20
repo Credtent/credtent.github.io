@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The AI Disclosure Standards Landscape — Credtent</title>
+  <meta name="description" content="A working catalog of AI disclosure standards — the badges, registries, watermarks, and protocols that help audiences understand how creative work was made. Maintained by Credtent." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/favicon/site.webmanifest">
+  <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#290099">
+  <meta name="msapplication-TileColor" content="#152153">
+  <meta name="theme-color" content="#ffffff">
+  <style>
+    /* ── Standards page ──────────────────────────────────────── */
+    .std-intro {
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--c-body);
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .std-intro a {
+      color: var(--c-purple);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .std-intro a:hover { color: var(--c-navy); }
+
+    .std-section { border-top: 1px solid var(--c-border); padding-top: 56px; margin-top: 56px; }
+    .std-section:first-child { border-top: none; padding-top: 0; margin-top: 0; }
+
+    .std-section h2 {
+      font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+      color: var(--c-heading);
+      margin: 0 0 20px;
+    }
+    .std-section > p,
+    .std-section .std-body {
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--c-body);
+      max-width: 760px;
+      margin: 0 0 20px;
+    }
+    .std-section > p:last-child { margin-bottom: 0; }
+
+    /* Category label chip */
+    .std-category-label {
+      display: inline-block;
+      font-family: var(--f-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--c-purple);
+      background: rgba(41,0,153,0.07);
+      border: 1px solid rgba(41,0,153,0.15);
+      border-radius: 100px;
+      padding: 4px 12px;
+      margin-bottom: 16px;
+    }
+
+    /* Table */
+    .std-table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-card);
+      margin: 28px 0;
+    }
+    .std-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .std-table thead tr {
+      background: var(--c-bg-light);
+      border-bottom: 1px solid var(--c-border);
+    }
+    .std-table th {
+      padding: 12px 20px;
+      text-align: left;
+      font-family: var(--f-sans);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--c-muted);
+      white-space: nowrap;
+    }
+    .std-table td {
+      padding: 16px 20px;
+      vertical-align: top;
+      border-bottom: 1px solid var(--c-border);
+      color: var(--c-body);
+      line-height: 1.6;
+    }
+    .std-table tr:last-child td { border-bottom: none; }
+    .std-table tbody tr:hover { background: rgba(0,0,0,0.02); }
+    .std-table td:first-child { font-weight: 600; color: var(--c-heading); min-width: 200px; }
+    .std-table td:last-child { white-space: nowrap; }
+    .std-table a {
+      color: var(--c-purple);
+      text-decoration: none;
+      font-size: 13px;
+    }
+    .std-table a:hover { text-decoration: underline; }
+
+    /* Working note callout */
+    .std-note {
+      background: var(--c-bg-light);
+      border-left: 3px solid var(--c-purple);
+      border-radius: 0 10px 10px 0;
+      padding: 18px 22px;
+      margin: 0 0 8px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--c-body);
+    }
+    .std-note strong {
+      display: block;
+      font-size: 11px;
+      font-family: var(--f-mono);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--c-purple);
+      margin-bottom: 6px;
+    }
+
+    /* Sub-sections (h3, h4) */
+    .std-section h3 {
+      font-size: 1.15rem;
+      color: var(--c-heading);
+      margin: 32px 0 8px;
+    }
+    .std-section h4 {
+      font-size: 0.95rem;
+      color: var(--c-heading);
+      font-weight: 700;
+      margin: 24px 0 6px;
+    }
+
+    /* Credtent badge showcase */
+    .std-badge-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 24px 0;
+    }
+    .std-badge-card {
+      background: var(--c-bg-light);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-card);
+      padding: 20px;
+      font-size: 13px;
+      color: var(--c-body);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .std-badge-card img {
+      width: 72px;
+      height: 72px;
+      display: block;
+    }
+    .std-badge-card strong {
+      display: block;
+      font-size: 13px;
+      color: var(--c-heading);
+      margin-bottom: 4px;
+    }
+
+    /* CTA link */
+    .std-cta-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--c-purple);
+      text-decoration: none;
+    }
+    .std-cta-link:hover { text-decoration: underline; }
+    .std-cta-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    /* "What's missing" number list */
+    .std-number-list { list-style: none; padding: 0; margin: 24px 0 0; display: flex; flex-direction: column; gap: 28px; }
+    .std-number-item { display: flex; gap: 20px; }
+    .std-number-item .num {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--c-navy);
+      color: #fff;
+      font-family: var(--f-mono);
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+    .std-number-item h3 { font-size: 1rem; margin: 0 0 6px; color: var(--c-heading); }
+    .std-number-item p { font-size: 14px; line-height: 1.7; color: var(--c-body); margin: 0; }
+
+    /* Two-axes layout */
+    .std-axes-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 24px 0 0;
+    }
+    .std-axis-card {
+      background: var(--c-bg-light);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-card);
+      padding: 22px 24px;
+    }
+    .std-axis-card h4 { font-size: 0.95rem; color: var(--c-heading); margin: 0 0 8px; }
+    .std-axis-card p { font-size: 14px; line-height: 1.7; color: var(--c-body); margin: 0 0 10px; }
+    .std-axis-card p:last-child { margin-bottom: 0; }
+
+    /* Last updated tag */
+    .std-updated {
+      display: inline-block;
+      font-family: var(--f-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-top: 14px;
+    }
+
+    @media (max-width: 720px) {
+      .std-axes-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="nav-placeholder"></div>
+
+<!-- ══ HERO ══════════════════════════════════════════════════ -->
+<section class="page-hero">
+  <div class="page-hero-content">
+    <div class="eyebrow" style="margin-bottom:20px">The Standards Landscape</div>
+    <h1>A Working Catalog of AI Disclosure Standards</h1>
+    <p>The badges, registries, watermarks, and protocols that help audiences answer one question: how was this made? Maintained by Credtent.</p>
+    <div class="std-updated">Last updated 2026-05-20</div>
+  </div>
+</section>
+
+<!-- ══ INTRO ═════════════════════════════════════════════════ -->
+<section class="section-pad" style="background:#fff;padding-bottom:0">
+  <div class="container">
+    <p class="std-intro">This is a map of every effort we know about — grouped by what each one actually does, with links out to every originating organization. We built it because the people working on these problems deserve to find each other, and because audiences deserve a single place to compare what each effort offers. Learn more about <a href="#how-to-read">how to read this page</a>.</p>
+  </div>
+</section>
+
+<!-- ══ MAIN CONTENT ═══════════════════════════════════════════ -->
+<section class="section-pad" style="background:#fff">
+  <div class="container">
+
+    <!-- ── Credtent Creative Origin Badges ── -->
+    <div class="std-section">
+      <span class="std-category-label">For Reference</span>
+      <h2>Credtent Creative Origin Badges</h2>
+      <p>Credtent's Creative Origin system has been in market since early 2024. The badges appear on physical product packaging across the industry. We give them away. The symbols are free to use under our open license. We charge for expert-led certification, which is the layer that makes the badges trustworthy when something more than self-declaration is needed.</p>
+
+      <div class="std-badge-grid">
+        <div class="std-badge-card">
+          <img src="badges/human-composed-creation-badge.svg" alt="HCC — Human-Composed Creation badge">
+          <div>
+            <strong>HCC — Human-Composed Creation <span style="color:var(--c-purple);font-weight:400">(purple)</span></strong>
+            No AI-generated creative content in the final work. The creator can stand behind every creative element as their own.
+          </div>
+        </div>
+        <div class="std-badge-card">
+          <img src="badges/ai-assisted-creation-badge.svg" alt="AAC — AI-Assisted Creation badge">
+          <div>
+            <strong>AAC — AI-Assisted Creation <span style="color:#2e7d32;font-weight:400">(green)</span></strong>
+            AI contributed to the work, with substantial human transformation. The middle ground, intentionally broad.
+          </div>
+        </div>
+        <div class="std-badge-card">
+          <img src="badges/ai-composed-creation-badge.svg" alt="ACC — AI-Composed Creation badge">
+          <div>
+            <strong>ACC — AI-Composed Creation <span style="color:var(--c-orange);font-weight:400">(orange)</span></strong>
+            AI generated most or all of the creative content. Human involvement was limited to prompting and minor corrections.
+          </div>
+        </div>
+        <div class="std-badge-card">
+          <img src="badges/legacy-creation-badge.svg" alt="Legacy HCC badge">
+          <div>
+            <strong>Legacy HCC <span style="color:var(--c-purple);font-weight:400">(purple)</span></strong>
+            Work created before November 2022 — the public release of ChatGPT. Acknowledges historical context without requiring case-by-case analysis of pre-2022 work.
+          </div>
+        </div>
+      </div>
+
+      <p>The badges are designed to look like elements of the periodic table — scientific, universal, recognizable across mediums. Our brand is deliberately off the badges so they can be adopted broadly.</p>
+      <p>Our Creative Origin badges have been in market since early 2024. The Authors Guild's "Human Authored" certification converged on the same definitional ground our standard already occupied — the de minimis exception, the editor-test framing, the requirement for written agreements with ghostwriters and developmental editors — and our v3.1 standard (May 2026) makes that common ground explicit. We work the same way with the Tabletop Game Designers Guild, co-defining HCC, AAC, and ACC for game design with designers Elizabeth Hargrave and Matt Leacock, and we are in conversation with the Creative Coalition on AI (where Ted Tremper is the executive responsible) and with music industry organizations to ensure the standards reflect the realities of each medium.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:16px">
+        <a href="https://badges.credtent.org/creative-origin" target="_blank" rel="noopener" class="std-cta-link">Browse the badges <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        <a href="for-content-owners.html" class="std-cta-link">Ethical Sourcing Badge <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+      <p style="font-size:13px;color:var(--c-muted);margin-top:10px">Full v3.1 standard: Creative Origin Guide v3.1 (in review)</p>
+    </div>
+
+    <!-- ── Technical Provenance ── -->
+    <div class="std-section">
+      <span class="std-category-label">Category 1</span>
+      <h2>Technical Provenance</h2>
+      <p>These efforts answer questions like "is this AI-generated" or "what was the chain of custody" at the technical level. They use watermarks, cryptographic signatures, or content credentials embedded at the point of creation. They are infrastructure-grade and machine-readable. They are also defeasible by a screenshot or a re-compression, which is why most of the people working in this space describe them as complementary to authorship certification rather than substitutes for it.</p>
+
+      <div class="std-table-wrap">
+        <table class="std-table">
+          <thead>
+            <tr>
+              <th>Effort</th>
+              <th>What it does</th>
+              <th>Learn more</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>C2PA — Coalition for Content Provenance and Authenticity</td>
+              <td>Open technical standard for embedding cryptographic provenance metadata in images, video, audio, and text. Backed by the Linux Foundation, Adobe, Microsoft, BBC, and others. The most widely adopted technical provenance standard.</td>
+              <td><a href="https://c2pa.org" target="_blank" rel="noopener">c2pa.org</a></td>
+            </tr>
+            <tr>
+              <td>Adobe Content Authenticity Initiative (CAI)</td>
+              <td>Adobe-led membership initiative implementing C2PA. Powers Content Credentials in Photoshop, Firefly, and other Adobe tools. Over 5,000 members.</td>
+              <td><a href="https://contentauthenticity.org" target="_blank" rel="noopener">contentauthenticity.org</a></td>
+            </tr>
+            <tr>
+              <td>Google SynthID</td>
+              <td>DeepMind watermarking for AI-generated images, text, video, and audio. Embeds invisible signals at generation time. Detector launched May 2025; over 10 billion pieces watermarked.</td>
+              <td><a href="https://deepmind.google" target="_blank" rel="noopener">deepmind.google</a></td>
+            </tr>
+            <tr>
+              <td>Microsoft Content Credentials</td>
+              <td>C2PA-based provenance integrated across M365 and Azure AI tooling.</td>
+              <td><a href="https://microsoft.com" target="_blank" rel="noopener">microsoft.com</a></td>
+            </tr>
+            <tr>
+              <td>Meta AI Labeling and Meta Seal</td>
+              <td>Invisible watermark plus C2PA scanning across Facebook, Instagram, and Threads. Meta Seal was open-sourced in November 2025.</td>
+              <td><a href="https://about.meta.com" target="_blank" rel="noopener">about.meta.com</a></td>
+            </tr>
+            <tr>
+              <td>Truepic</td>
+              <td>Hardware-secured photo and video provenance for high-trust use cases — insurance, finance. C2PA-compliant.</td>
+              <td><a href="https://truepic.com" target="_blank" rel="noopener">truepic.com</a></td>
+            </tr>
+            <tr>
+              <td>Project Origin</td>
+              <td>Provenance specifically for journalism. Partners include the New York Times, BBC, Microsoft, and CBC.</td>
+              <td><a href="https://originproject.info" target="_blank" rel="noopener">originproject.info</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="std-note">
+        <strong>A working note</strong>
+        Technical provenance is genuinely valuable, and creators should support C2PA-aware tools where they can. The watermark arms race is also real, however, and watermarks degrade through normal use — screenshots, recompression, format conversion. This is one of the reasons Credtent's certification is human-led. A signal can be stripped, but a published expert assessment cannot be retroactively unprinted.
+      </div>
+    </div>
+
+    <!-- ── Authorship and Human-Composition Certification ── -->
+    <div class="std-section">
+      <span class="std-category-label">Category 2</span>
+      <h2>Authorship and Human-Composition Certification</h2>
+      <p>These efforts answer the question of who composed a work and to what extent AI was involved. This is closer to Credtent's domain. Some are membership-backed and include identity verification. Some are self-declaration only.</p>
+
+      <div class="std-table-wrap">
+        <table class="std-table">
+          <thead>
+            <tr>
+              <th>Effort</th>
+              <th>What it does</th>
+              <th>Learn more</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Authors Guild Human Authored Certification</td>
+              <td>Membership-verified certification that the body text of a book was human-authored, with a de minimis exception for trivial AI tool use, and an editor-test framing for AI-assisted editing. Credtent's v3.1 HCC standard is closely aligned with this.</td>
+              <td><a href="https://authorsguild.org" target="_blank" rel="noopener">authorsguild.org</a></td>
+            </tr>
+            <tr>
+              <td>Society of Authors (UK) Human Authored</td>
+              <td>Parallel scheme for UK authors, using the same logo mark and a similar definition. Launched March 2026 at the London Book Fair.</td>
+              <td><a href="https://societyofauthors.org" target="_blank" rel="noopener">societyofauthors.org</a></td>
+            </tr>
+            <tr>
+              <td>Not By AI</td>
+              <td>Independent badge for content claimed to be at least 90% human-created. Subscription model for commercial use.</td>
+              <td><a href="https://notbyai.fyi" target="_blank" rel="noopener">notbyai.fyi</a></td>
+            </tr>
+            <tr>
+              <td>Cara</td>
+              <td>Artist platform with an anti-AI ethos. "NoAI" tag on uploads, platform-level enforcement against AI art, and an integration with Glaze announced.</td>
+              <td><a href="https://cara.app" target="_blank" rel="noopener">cara.app</a></td>
+            </tr>
+            <tr>
+              <td>Independent artist badges and community marks</td>
+              <td>A constellation of independent badge designs and community-led initiatives. Most are self-declared marks rather than verified certifications.</td>
+              <td><a href="https://www.google.com/search?q=no+AI+badge" target="_blank" rel="noopener">Search "No AI badge"</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="std-note">
+        <strong>A note on self-declaration</strong>
+        Several of these efforts are self-declared with no independent verification layer. We respect the creators behind them, and the concerns they reflect are legitimate. Self-declaration is a starting point. For high-trust applications — publishing, broadcast, commercial licensing — the standard needs to include a verification mechanism. Credtent's expert-led certification model is one answer to that. The general principle: a novelist is best placed to verify a novel, a screenwriter to verify a screenplay, a game designer to verify a game design.
+      </div>
+    </div>
+
+    <!-- ── Licensing and Consent Protocols ── -->
+    <div class="std-section">
+      <span class="std-category-label">Category 3</span>
+      <h2>Licensing and Consent Protocols</h2>
+      <p>These efforts let creators express machine-readable rules about how their work or identity may be used. They are not badges in the traditional sense. They are signals at the point of access, attached to a web page, a metadata field, or a registry entry.</p>
+
+      <div class="std-table-wrap">
+        <table class="std-table">
+          <thead>
+            <tr>
+              <th>Effort</th>
+              <th>What it does</th>
+              <th>Learn more</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Really Simple Licensing (RSL), publisher-led</td>
+              <td>Open technical protocol for content owners to express AI training and usage permissions. Backers include Reddit, Yahoo, Medium, and others. Co-founded by Eckart Walther.</td>
+              <td><a href="https://rslstandard.org" target="_blank" rel="noopener">rslstandard.org</a></td>
+            </tr>
+            <tr>
+              <td>TDM Reservation Protocol</td>
+              <td>W3C-developed protocol for expressing text-and-data-mining opt-outs at the website level. Important for EU AI Act compliance.</td>
+              <td><a href="https://w3.org" target="_blank" rel="noopener">w3.org</a></td>
+            </tr>
+            <tr>
+              <td>IETF AI Preferences (AIPREF)</td>
+              <td>IETF working group developing extensions to robots.txt and HTTP headers for AI-specific access control.</td>
+              <td><a href="https://ietf.org" target="_blank" rel="noopener">ietf.org</a></td>
+            </tr>
+            <tr>
+              <td>RSL Media, the Human Consent Standard</td>
+              <td>Nonprofit launched May 12, 2026. A free public registry opening June 2026 for individuals to declare AI permissions for their creative work and personal identity — "allowed," "allowed with terms," or "prohibited." Built on the RSL protocol. Co-founded by Cate Blanchett, Nikki Hexum, Doug Leeds, and Eckart Walther.</td>
+              <td><a href="https://rslmedia.org" target="_blank" rel="noopener">rslmedia.org</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="std-note">
+        <strong>A note on the two RSLs</strong>
+        RSL (publisher-led, technical protocol) and RSL Media (the consent registry) are different organizations that share a co-founder (Eckart Walther) and a common technical foundation. The first focuses on licensing AI training data for content owners. The second focuses on name, image, and likeness (NIL) and individual creator consent. Both are adjacent to Credtent's work, addressing different parts of the same creator-rights stack. Where partnership makes sense, we welcome it.
+      </div>
+    </div>
+
+    <!-- ── Industry and Institutional Mandates ── -->
+    <div class="std-section">
+      <span class="std-category-label">Category 4</span>
+      <h2>Industry and Institutional Mandates</h2>
+      <p>These are not badges. They are rules set by industry bodies, regulators, or institutional gatekeepers that change the default for entire categories of work.</p>
+
+      <div class="std-table-wrap">
+        <table class="std-table">
+          <thead>
+            <tr>
+              <th>Effort</th>
+              <th>What it does</th>
+              <th>Learn more</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Academy of Motion Picture Arts and Sciences, AI Disclosure</td>
+              <td>2026 Oscars rules updated to require AI tool disclosure in submitted films. An institutional forcing function.</td>
+              <td><a href="https://oscars.org" target="_blank" rel="noopener">oscars.org</a></td>
+            </tr>
+            <tr>
+              <td>SAG-AFTRA, Digital Replica Protections</td>
+              <td>Contractual disclosure and consent framework for performers' digital replicas and AI-generated likenesses.</td>
+              <td><a href="https://sagaftra.org" target="_blank" rel="noopener">sagaftra.org</a></td>
+            </tr>
+            <tr>
+              <td>VES On-Set Data Initiative</td>
+              <td>Disclosure framework for on-set data capture in film production, built by a Creative Coalition on AI member.</td>
+              <td><a href="https://ves-on-set-data.org" target="_blank" rel="noopener">ves-on-set-data.org</a></td>
+            </tr>
+            <tr>
+              <td>EU AI Act, Article 50 Transparency</td>
+              <td>Regulatory mandate for general-purpose AI model providers, including training-content summaries and watermarking. Full transparency obligations effective August 2, 2026.</td>
+              <td><a href="https://digital-strategy.ec.europa.eu" target="_blank" rel="noopener">digital-strategy.ec.europa.eu</a></td>
+            </tr>
+            <tr>
+              <td>California SB 942, AI Transparency Act</td>
+              <td>State law mandating disclosure tools, visible labels, and watermarks for covered AI providers serving California. Effective August 2, 2026.</td>
+              <td><a href="https://leginfo.ca.gov" target="_blank" rel="noopener">leginfo.ca.gov</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>These mandates create a regulatory forcing function for the rest of the landscape. By August 2, 2026, both California and the European Union will require some form of AI disclosure for covered providers. Credtent's certification and badge framework is designed to operate alongside these mandates and, where useful, to simplify compliance for the creators and rights-holders affected.</p>
+
+      <div class="std-note" style="margin-top:32px">
+        <strong>Help us keep this current</strong>
+        This page is a working document. If we have miscategorized your work, missed an effort, or gotten a fact wrong, we want to hear from you. We update this catalog as the landscape evolves.
+        <a href="mailto:feedback@credtent.org" class="std-cta-link" style="margin-top:10px">Suggest a correction or addition <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+
+      <hr style="border:none;border-top:1px solid var(--c-border);margin:32px 0">
+
+      <div class="std-note" style="border-left-color:var(--c-orange)">
+        <strong style="color:var(--c-orange)">Case study: licensing fragmentation in AI music</strong>
+        <p style="font-size:14px;line-height:1.7;color:var(--c-body);margin:0 0 12px">Disclosure standards do their best work when the underlying licensing landscape is itself legible. AI music in 2026 is the clearest current case of how fragmented that picture has become, and we include it here because it illustrates what the standards layer is for.</p>
+        <p style="font-size:14px;line-height:1.7;color:var(--c-body);margin:0 0 12px">The journalist Benjamin James, who publishes the STVDIO+ newsletter as musicben, recently mapped eight AI music platforms against the three major labels (Warner, Universal, Sony) and the two largest indie organizations (Merlin, Kobalt). The picture sorts into five distinct postures:</p>
+        <ul style="font-size:14px;line-height:1.7;color:var(--c-body);margin:0 0 12px;padding-left:20px;display:flex;flex-direction:column;gap:6px">
+          <li><strong>Ask for forgiveness.</strong> Suno trained on unlicensed music, was sued by all three majors, has settled with Warner only, and has no deals with the indies. Suno is now a $5 billion company.</li>
+          <li><strong>Major-label partner deals.</strong> Udio (originally unlicensed, since settled with Universal and Warner, with further deals at Merlin and Kobalt), Spotify (deals with all three majors and Merlin for AI music features), and Klay (deals with all three majors, product still to come).</li>
+          <li><strong>Indie-first.</strong> ElevenLabs cut the first significant Merlin deal, then a Kobalt deal, before approaching majors.</li>
+          <li><strong>Royalty-free foundations.</strong> Stable Audio started on stock libraries and has since added Universal and Warner. Ace-Step is open-source and trained on royalty-free, open-source catalogs.</li>
+          <li><strong>Platform terms-of-service claims.</strong> Google Lyria claims training rights through YouTube's terms of service, has a limited license with Universal, and is being sued by several independent artists.</li>
+        </ul>
+        <p style="font-size:14px;line-height:1.7;color:var(--c-body);margin:0 0 12px">What this shows is that within a single creative medium, the licensing question fragments into five distinct postures, none of which is transparent to the consumer or to the downstream creators sampling these tools. A music release in 2026 may incorporate output from any one of these platforms, generated under any of these regimes, and the audience has no signal that distinguishes them.</p>
+        <p style="font-size:14px;line-height:1.7;color:var(--c-body);margin:0 0 12px">That is the gap our Creative Origin standard, applied to music, is built to address. The HCC, AAC, and ACC badges do not adjudicate which AI platform is legitimate. They give the human creator a way to declare what they used and on what terms, and they let the audience decide what that means for them.</p>
+        <p style="font-size:12px;color:var(--c-muted);margin:0">Source: STVDIO+ newsletter on Substack, "Suno: and why the music industry is built by those that 'ask forgiveness'" by Benjamin James, May 13, 2026. The map above reflects the source's own categorization. For Credtent publications that depend on a specific licensing claim, we cross-reference primary sources (court filings, label press releases) before publishing.</p>
+      </div>
+    </div>
+
+    <!-- ── How to Read This Page ── -->
+    <div class="std-section" id="how-to-read">
+      <h2>How to Read This Page</h2>
+      <p>We sort each effort along two axes.</p>
+
+      <div class="std-axes-grid">
+        <div class="std-axis-card">
+          <h4>Technical provenance vs. human-led certification</h4>
+          <p>Technical systems like C2PA and SynthID answer <em>where</em> content came from. They embed cryptographic or perceptual signals at the point of creation.</p>
+          <p>Human-led certification answers <em>who</em> composed a work, with a person — often an expert in the medium — making and standing behind the assessment.</p>
+          <p>These are different questions, and the answers belong in the same stack, not in competition.</p>
+        </div>
+        <div class="std-axis-card">
+          <h4>Level of substantiation</h4>
+          <p>Some efforts are backed by real technology, real industry partnerships, or real review processes. Others are self-declared logos with no independent verification layer.</p>
+          <p>Both categories represent real creator concerns. The difference matters for what kind of trust a badge can actually carry.</p>
+          <p>Credtent operates on the human-led certification side. We work alongside technical-provenance partners and recommend creators support C2PA-aware tools where they can. The point is layered trust, not a single answer.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── The Tower of Babel Problem ── -->
+    <div class="std-section">
+      <h2>The Tower of Babel Problem</h2>
+      <p>At the first General Assembly of the Creative Coalition on AI in April 2026, the room described the state of AI disclosure for creative work in one phrase: the Tower of Babel.</p>
+      <p>By mid-2026 there are more than a dozen separate badge schemes, registries, watermarking systems, and licensing protocols. They share a premise — that the people who consume creative work deserve to know how it was made. They differ on almost everything else: what gets disclosed, who verifies it, whether the answer is a cryptographic hash or a human signature, whether the goal is consumer trust or legal protection or licensing leverage.</p>
+      <p>The proliferation is not malicious. Most of these efforts come from real creator concern, and the people behind them are working in good faith. The result, though, is that audiences are now asked to learn a dozen logos and remember what each one promises. That is not how trust gets built.</p>
+      <p>This page is Credtent's working catalog of the landscape. We did not build it to argue against the other efforts. We built it because most of them are addressing real problems, and because we believe a partnership posture serves the space better than a competitive one. Where there is common ground, we want to be a partner. Where there isn't, we still want our readers to be able to follow the link and decide for themselves.</p>
+    </div>
+
+    <!-- ── What We Think the Landscape Needs ── -->
+    <div class="std-section">
+      <h2>What We Think the Landscape Needs</h2>
+      <p>We built this catalog because we believe four things are still under-served across the current set of efforts.</p>
+
+      <ul class="std-number-list">
+        <li class="std-number-item">
+          <div class="num">1</div>
+          <div>
+            <h3>The middle ground</h3>
+            <p>Most efforts treat the question as binary: human-made or AI-made. The reality of creative work in 2026 is that a great deal of it sits in the AAC middle, where there is meaningful human contribution and meaningful AI assistance. The system needs vocabulary for that range, not a refusal to acknowledge it.</p>
+          </div>
+        </li>
+        <li class="std-number-item">
+          <div class="num">2</div>
+          <div>
+            <h3>Cross-medium consistency</h3>
+            <p>A novelist, a game designer, a songwriter, and a film producer all face the same disclosure question. Most existing systems are medium-specific. A common standard across mediums — designed to look the same on a book cover as on a game box as on a music release page — is what audiences need in order to develop trust they can carry from one purchase to the next.</p>
+          </div>
+        </li>
+        <li class="std-number-item">
+          <div class="num">3</div>
+          <div>
+            <h3>Expert verification</h3>
+            <p>Most schemes rely on self-declaration. Self-declaration is a useful starting point, and it can stand on its own for low-stakes contexts. For higher-stakes contexts — commercial licensing, publishing contracts, certification of provenance for litigation or for the Copyright Office — the standard benefits from a verification layer. Credtent's Credibility Council and certification process exist for that layer.</p>
+          </div>
+        </li>
+        <li class="std-number-item">
+          <div class="num">4</div>
+          <div>
+            <h3>Consumer-facing simplicity</h3>
+            <p>An audience member who wants to know how a creative work was made should not have to recognize a dozen different logos and remember what each one promises. The answer is convergence, not addition. That is what the Tower of Babel framing captures.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ── Partner First, Consolidate Second ── -->
+    <div class="std-section">
+      <h2>Partner First, Consolidate Second</h2>
+      <p>Credtent's commitment is to partner first and consolidate second. We are aligning with the Authors Guild's Human Authored certification rather than competing with it. We reference C2PA openly and recommend creators support C2PA-aware tools. We work with the Creative Coalition on AI, the Tabletop Game Designers Guild, music industry organizations, and others to make sure the standards we publish reflect the realities of each medium.</p>
+      <p>Our approach is scientific and grounded. The same discipline that goes into building a defensible patent — clear definitions, well-bounded claims, language that holds up in front of lawyers, regulators, and the people affected by it — is what we apply to the Creative Origin standard.</p>
+      <p>Where we cannot find common ground with another effort, we will say so honestly and let our readers follow the link to learn more. We are not afraid to share the alternatives. The goal is a landscape that audiences can actually navigate.</p>
+      <p>We launched our Creative Origin badges in early 2024. They have been on physical products for over a year. We did the work first because someone had to, and we did it as a Public Benefit Corporation because we believe the architecture of trust should not depend on celebrity attention or grant funding to survive. If you are working on a standard in this space and you want to talk, we are easy to find.</p>
+    </div>
+
+    <!-- ── Closing tagline ── -->
+    <div class="std-section">
+      <p style="font-size:15px;font-style:italic;color:var(--c-muted);max-width:700px;margin:0">Credtent is a Public Benefit Corporation. Our badges are free to use. We charge for expert-led certification because expert review is real labor and deserves real compensation. We aim to do well by doing good.</p>
+    </div>
+
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+<script src="components.js"></script>
+</body>
+</html>
