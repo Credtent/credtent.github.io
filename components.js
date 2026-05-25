@@ -26,6 +26,7 @@
     { href: `${base}about.html`, label: 'About' },
     { href: `${base}faq.html`, label: 'FAQ' },
     { href: `${base}pricing.html`, label: 'Pricing' },
+    { href: `${base}blog/`, label: 'Blog' },
   ];
 
   const navLinks = pages.map(p => {
@@ -120,6 +121,7 @@
           <li><a href="${base}about.html">About</a></li>
           <li><a href="${base}faq.html">FAQ</a></li>
           <li><a href="${base}pricing.html">Pricing</a></li>
+          <li><a href="${base}blog/">Blog</a></li>
         </ul>
       </div>
     </div>

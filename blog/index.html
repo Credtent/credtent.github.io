@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Blog — Coming Soon — Credtent</title>
-  <meta name="description" content="The Credtent blog is moving. In the meantime, follow our writing on Medium and Substack." />
+  <title>Blog — Credtent</title>
+  <meta name="description" content="Writing from Credtent on AI, creative rights, copyright, and the future of human authorship. Published on Substack and Medium." />
   <link rel="stylesheet" href="../styles.css" />
   <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
@@ -14,73 +14,119 @@
   <meta name="msapplication-TileColor" content="#152153">
   <meta name="theme-color" content="#ffffff">
   <style>
-    .soon-wrap {
-      --_footer-h: 340px;
-      --_nav-h: var(--nav-h, 72px);
-      --_avail: calc(100vh - var(--_nav-h) - var(--_footer-h));
-      min-height: calc(100vh - var(--_footer-h));
-      box-sizing: border-box;
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .blog-card {
+      background: #fff;
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-card);
+      padding: 28px;
       display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding: calc(var(--_nav-h) + var(--_avail) * 3 / 17) 40px 60px;
-      background: var(--c-bg-light);
+      flex-direction: column;
+      gap: 14px;
+      transition: box-shadow 0.18s ease, transform 0.18s ease;
     }
-    .soon-inner {
-      text-align: center;
-      max-width: 640px;
+    .blog-card:hover {
+      box-shadow: 0 6px 24px rgba(41,0,153,0.09);
+      transform: translateY(-2px);
     }
-    .soon-eyebrow {
-      display: inline-block;
+    .blog-card-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .blog-source {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
       font-family: var(--f-mono);
       font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
+      font-weight: 700;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 20px;
+      line-height: 1;
+    }
+    .blog-source.substack {
+      background: #fff7ee;
+      color: #e06a00;
+      border: 1px solid #f5d4ae;
+    }
+    .blog-source.medium {
+      background: #f3f0ff;
       color: var(--c-purple);
-      margin-bottom: 20px;
+      border: 1px solid #d4caff;
     }
-    .soon-title {
-      font-family: var(--f-serif);
-      font-size: clamp(1.8rem, 3vw, 2.5rem);
-      color: var(--c-heading);
-      margin: 0 0 20px;
-      line-height: 1.15;
+    .blog-source svg {
+      width: 11px;
+      height: 11px;
+      flex-shrink: 0;
     }
-    .soon-body p {
-      font-size: 17px;
-      line-height: 1.6;
-      color: var(--c-body);
-      margin: 0 0 14px;
-    }
-    .soon-ctas {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 36px;
-    }
-    .soon-ctas .btn svg {
-      width: 18px;
-      height: 18px;
-    }
-    .soon-footnote {
-      margin-top: 32px;
-      font-size: 14px;
+    .blog-date {
+      font-family: var(--f-mono);
+      font-size: 11px;
       color: var(--c-muted);
+      letter-spacing: 0.04em;
     }
-    .soon-footnote a {
+    .blog-card h3 {
+      font-size: 1.1rem;
+      line-height: 1.4;
+      color: var(--c-heading);
+      margin: 0;
+    }
+    .blog-card p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--c-body);
+      margin: 0;
+      flex: 1;
+    }
+    .blog-read-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 13px;
+      font-weight: 700;
       color: var(--c-purple);
       text-decoration: none;
+      margin-top: 4px;
     }
-    .soon-footnote a:hover { text-decoration: underline; }
+    .blog-read-link:hover { text-decoration: underline; }
+    .blog-read-link svg { width: 13px; height: 13px; }
 
-    @media (max-width: 900px) {
-      .soon-wrap {
-        min-height: auto;
-        padding: calc(var(--_nav-h) + 60px) 20px 60px;
-      }
-      .soon-ctas { flex-direction: column; align-items: stretch; }
+    .blog-channels {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+    .blog-channel-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 14px;
+      font-weight: 600;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      padding: 9px 16px;
+      border-radius: 8px;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .blog-channel-link:hover {
+      background: rgba(255,255,255,0.14);
+      border-color: rgba(255,255,255,0.35);
+    }
+    .blog-channel-link svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    @media (max-width: 600px) {
+      .blog-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -88,30 +134,132 @@
 
 <div id="nav-placeholder"></div>
 
-<div class="soon-wrap">
-  <div class="soon-inner">
-    <h1 class="soon-title">Blog Coming Soon</h1>
-    <div class="soon-body">
-      <p>We're rebuilding our publication on this domain. While we're at it, our writing — on AI licensing, creator rights, and the future of training data — can be found on Medium and Substack.</p>
-    </div>
-
-    <div class="soon-ctas">
-      <a href="https://medium.com/credtent-on-content" class="btn btn-primary" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.54 12a6.8 6.8 0 0 1-6.77 6.82A6.8 6.8 0 0 1 0 12a6.8 6.8 0 0 1 6.77-6.82A6.8 6.8 0 0 1 13.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>
-        Credtent on Medium
-      </a>
-      <a href="https://credtent.substack.com/" class="btn btn-primary" target="_blank" rel="noopener">
+<!-- ══ HERO ══════════════════════════════════════════════════ -->
+<section class="page-hero">
+  <div class="page-hero-content">
+    <div class="eyebrow" style="margin-bottom:20px">Writing</div>
+    <h1>The Credtent Blog</h1>
+    <p>Our thinking on AI, creative rights, copyright, and what it means to make something human in 2026. Published on Substack and Medium.</p>
+    <div class="blog-channels">
+      <a href="https://credtent.substack.com/" target="_blank" rel="noopener" class="blog-channel-link">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg>
-        Credtent on Substack
+        Follow on Substack
+      </a>
+      <a href="https://medium.com/credtent-on-content" target="_blank" rel="noopener" class="blog-channel-link">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.54 12a6.8 6.8 0 0 1-6.77 6.82A6.8 6.8 0 0 1 0 12a6.8 6.8 0 0 1 6.77-6.82A6.8 6.8 0 0 1 13.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>
+        Follow on Medium
       </a>
     </div>
-
-    <p class="soon-footnote">Looking for something else? <a href="/">Back to credtent.org</a></p>
   </div>
-</div>
+</section>
+
+<!-- ══ POSTS ═════════════════════════════════════════════════ -->
+<section class="section-pad" style="background:var(--c-bg-light)">
+  <div class="container">
+
+    <div class="blog-grid">
+
+      <!-- The Creative Fatalism Trap -->
+      <article class="blog-card">
+        <div class="blog-card-meta">
+          <span class="blog-source medium">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.54 12a6.8 6.8 0 0 1-6.77 6.82A6.8 6.8 0 0 1 0 12a6.8 6.8 0 0 1 6.77-6.82A6.8 6.8 0 0 1 13.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>
+            Medium
+          </span>
+          <span class="blog-date">Mar 24, 2026</span>
+        </div>
+        <h3>The Creative Fatalism Trap in the Age of AI</h3>
+        <p>Why "the scrapers are going to take my work anyway" is the most dangerous sentence in creative IP protection — and what the winning move actually looks like.</p>
+        <a href="https://medium.com/credtent-on-content/the-creative-fatalism-trap-in-the-age-of-ai-e486ba739818" target="_blank" rel="noopener" class="blog-read-link">
+          Read on Medium <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+      </article>
+
+      <!-- UK AI Copyright -->
+      <article class="blog-card">
+        <div class="blog-card-meta">
+          <span class="blog-source medium">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.54 12a6.8 6.8 0 0 1-6.77 6.82A6.8 6.8 0 0 1 0 12a6.8 6.8 0 0 1 6.77-6.82A6.8 6.8 0 0 1 13.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>
+            Medium
+          </span>
+          <span class="blog-date">Mar 24, 2026</span>
+        </div>
+        <h3>The UK's AI Copyright Update Is Newtonian. Style Protection Requires Einstein.</h3>
+        <p>The UK's latest copyright ruling is a genuine win — but classical copyright was built to protect expressions, not creative voice. A different framework is needed for a different era.</p>
+        <a href="https://medium.com/credtent-on-content/the-uks-ai-copyright-update-is-newtonian-style-protection-requires-einstein-512bf1cf9ab5" target="_blank" rel="noopener" class="blog-read-link">
+          Read on Medium <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+      </article>
+
+      <!-- Anthropic $1.5B -->
+      <article class="blog-card">
+        <div class="blog-card-meta">
+          <span class="blog-source medium">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.54 12a6.8 6.8 0 0 1-6.77 6.82A6.8 6.8 0 0 1 0 12a6.8 6.8 0 0 1 6.77-6.82A6.8 6.8 0 0 1 13.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>
+            Medium
+          </span>
+          <span class="blog-date">Dec 23, 2025</span>
+        </div>
+        <h3>Anthropic's $1.5B Payout: Are Opt-Out Law Firms Taking Writers for a Ride?</h3>
+        <p>Law firms are now recruiting writers to reject Anthropic's copyright settlement and pursue private litigation instead. We ask whether that strategy serves creators — or their counsel.</p>
+        <a href="https://medium.com/credtent-on-content/anthropics-1-5b-payout-are-opt-out-law-firms-taking-writers-for-a-ride-4558db806176" target="_blank" rel="noopener" class="blog-read-link">
+          Read on Medium <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+      </article>
+
+      <!-- Human-Composed -->
+      <article class="blog-card">
+        <div class="blog-card-meta">
+          <span class="blog-source substack">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg>
+            Substack
+          </span>
+          <span class="blog-date">Jun 24, 2025</span>
+        </div>
+        <h3>Human-Composed: Why AI Creation and Human Creativity Remain Fundamentally Different</h3>
+        <p>A response to the MIT Technology Review's argument that AI and human creativity work similarly — and why statistical pattern synthesis is nothing like a lifetime of lived experience.</p>
+        <a href="https://credtent.substack.com/p/human-composed-why-ai-creation-and" target="_blank" rel="noopener" class="blog-read-link">
+          Read on Substack <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+      </article>
+
+      <!-- Unfair Use -->
+      <article class="blog-card">
+        <div class="blog-card-meta">
+          <span class="blog-source substack">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg>
+            Substack
+          </span>
+          <span class="blog-date">Apr 1, 2025</span>
+        </div>
+        <h3>Unfair Use: Denormalizing AI Theft</h3>
+        <p>The creative economy spent a decade normalizing content aggregation. AI training is the same pattern at a different scale — and the moment to stop treating it as inevitable is now.</p>
+        <a href="https://credtent.substack.com/p/unfair-use-denormalizing-ai-theft" target="_blank" rel="noopener" class="blog-read-link">
+          Read on Substack <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+      </article>
+
+      <!-- HollywoodGPT -->
+      <article class="blog-card">
+        <div class="blog-card-meta">
+          <span class="blog-source substack">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg>
+            Substack
+          </span>
+          <span class="blog-date">Mar 29, 2025</span>
+        </div>
+        <h3>HollywoodGPT: AI Controversy and the Oscars</h3>
+        <p>The AI disclosure debate hit the Academy Awards with <em>The Brutalist</em> and <em>Emilia Pérez</em>. What the controversy reveals about creative integrity, and what the industry still hasn't decided.</p>
+        <a href="https://credtent.substack.com/p/hollywoodgpt-ai-controversy-and-the-85e" target="_blank" rel="noopener" class="blog-read-link">
+          Read on Substack <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+      </article>
+
+    </div>
+  </div>
+</section>
 
 <div id="footer-placeholder"></div>
-
 <script src="../components.js"></script>
 </body>
 </html>
