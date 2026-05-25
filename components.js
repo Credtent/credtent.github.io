@@ -26,7 +26,7 @@
     { href: `${base}about.html`, label: 'About' },
     { href: `${base}faq.html`, label: 'FAQ' },
     { href: `${base}pricing.html`, label: 'Pricing' },
-    { href: `${base}blog/index.html`, label: 'Blog' },
+    { href: `${base}blog.html`, label: 'Blog' },
   ];
 
   const navLinks = pages.map(p => {
