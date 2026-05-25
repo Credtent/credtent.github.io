@@ -26,6 +26,29 @@ jobs:
             --exclude ".github/*" \
             --exclude "README.md"
 
+      - name: Deploy CloudFront Function
+        run: |
+          FUNCTION_NAME="credtent-staging-rewrite-index"
+
+          if aws cloudfront describe-function --name "$FUNCTION_NAME" > /dev/null 2>&1; then
+            ETAG=$(aws cloudfront describe-function --name "$FUNCTION_NAME" --query 'ETag' --output text)
+            aws cloudfront update-function \
+              --name "$FUNCTION_NAME" \
+              --function-config Comment="Rewrite directory paths to index.html",Runtime="cloudfront-js-2.0" \
+              --function-code fileb://cloudfront-functions/rewrite-index.js \
+              --if-match "$ETAG"
+          else
+            aws cloudfront create-function \
+              --name "$FUNCTION_NAME" \
+              --function-config Comment="Rewrite directory paths to index.html",Runtime="cloudfront-js-2.0" \
+              --function-code fileb://cloudfront-functions/rewrite-index.js
+          fi
+
+          ETAG=$(aws cloudfront describe-function --name "$FUNCTION_NAME" --query 'ETag' --output text)
+          aws cloudfront publish-function \
+            --name "$FUNCTION_NAME" \
+            --if-match "$ETAG"
+
       - name: Invalidate CloudFront cache
         run: |
           aws cloudfront create-invalidation \
