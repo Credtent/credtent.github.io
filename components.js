@@ -20,13 +20,12 @@
     : (_path.split('/').pop() || '__none__');
 
   const pages = [
-    { href: `${base}index.html`, label: 'Home' },
     { href: `${base}for-ai-companies.html`, label: 'AI Companies' },
     { href: `${base}for-content-owners.html`, label: 'Content Owners' },
     { href: `${base}about.html`, label: 'About' },
     { href: `${base}faq.html`, label: 'FAQ' },
-    { href: `${base}pricing.html`, label: 'Pricing' },
     { href: `${base}blog.html`, label: 'Blog' },
+    { href: `${base}pricing.html`, label: 'Pricing' },
   ];
 
   const navLinks = pages.map(p => {
@@ -120,8 +119,8 @@
         <ul>
           <li><a href="${base}about.html">About</a></li>
           <li><a href="${base}faq.html">FAQ</a></li>
+          <li><a href="${base}blog.html">Blog</a></li>
           <li><a href="${base}pricing.html">Pricing</a></li>
-          <li><a href="${base}blog/">Blog</a></li>
         </ul>
       </div>
     </div>
