@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creative Origin: Credtent Certification</title>
+  <meta name="description" content="The Credtent Creative Origin badge means the content you're reading was human-authored and human-edited, verified by independent expert reviewers, not an automated detector." />
+  <link rel="stylesheet" href="https://interactivism.github.io/credtent/styles.css" />
+  <style>
+    /* ── Verified-by panel (hero visual) ─────────────────────── */
+    .corpus-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--r-card);
+      padding: 28px;
+      color: #fff;
+    }
+    .corpus-card .cc-title {
+      font-family: var(--f-mono);
+      font-size: 0.72rem;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 18px;
+    }
+    .corpus-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .corpus-card ul li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.85);
+    }
+    .corpus-card ul li::before {
+      content: "✓";
+      color: var(--c-orange);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ── What we verify (3-column feature grid) ──────────────── */
+    .feat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 32px;
+    }
+    @media (max-width: 860px) { .feat-grid { grid-template-columns: 1fr; } }
+    .feat-card {
+      background: #fff;
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-card);
+      padding: 24px;
+    }
+    .feat-card h4 {
+      color: var(--c-heading);
+      margin: 14px 0 8px;
+      font-family: var(--f-display);
+      font-size: 1.1rem;
+    }
+    .feat-card p { color: var(--c-body); font-size: 0.95rem; margin: 0; }
+    .feat-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(41,0,153,0.08);
+      color: var(--c-purple);
+    }
+    .feat-icon.orange { background: rgba(235,141,30,0.12); color: var(--c-orange); }
+
+    /* ── Process steps ───────────────────────────────────────── */
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-top: 32px;
+    }
+    @media (max-width: 900px) { .process-steps { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 520px)  { .process-steps { grid-template-columns: 1fr; } }
+    .process-step {
+      background: #fff;
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-card);
+      padding: 24px;
+    }
+    .process-step .ps-num {
+      font-family: var(--f-mono);
+      font-size: 0.72rem;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      color: var(--c-purple);
+      margin-bottom: 10px;
+    }
+    .process-step h4 { margin: 0 0 8px; color: var(--c-heading); font-size: 1rem; }
+    .process-step p  { margin: 0; color: var(--c-body); font-size: 0.9rem; }
+
+    /* ── Three badges explainer ──────────────────────────────── */
+    .badges-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 32px;
+    }
+    @media (max-width: 860px) { .badges-row { grid-template-columns: 1fr; } }
+    .badge-card {
+      background: #fff;
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-card);
+      padding: 28px;
+    }
+    .badge-card.featured {
+      border: 2px solid var(--c-purple);
+      box-shadow: 0 12px 30px rgba(41,0,153,0.10);
+    }
+    .badge-card .badge-tag {
+      font-family: var(--f-mono);
+      font-size: 0.68rem;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--c-muted);
+      margin-bottom: 12px;
+    }
+    .badge-card .badge-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(41,0,153,0.08);
+      color: var(--c-purple);
+      margin-bottom: 16px;
+    }
+    .badge-card .badge-icon.orange { background: rgba(235,141,30,0.12); color: var(--c-orange); }
+    .badge-card .badge-icon.navy   { background: rgba(21,33,83,0.10);   color: var(--c-navy);  }
+    .badge-card h4 { color: var(--c-heading); margin: 0 0 10px; font-family: var(--f-display); font-size: 1.05rem; }
+    .badge-card p  { color: var(--c-body); font-size: 0.93rem; margin: 0; }
+
+    /* ── Why neutral / dark band ─────────────────────────────── */
+    .neutral-band {
+      background: var(--c-navy);
+      color: #fff;
+      border-radius: 20px;
+      padding: 48px;
+      display: flex;
+      gap: 40px;
+      align-items: center;
+      flex-wrap: wrap;
+      position: relative;
+      overflow: hidden;
+    }
+    .neutral-band::before {
+      content: "";
+      position: absolute;
+      top: -80px; right: -40px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(124,99,194,0.4) 0%, rgba(41,0,153,0) 70%);
+      pointer-events: none;
+    }
+    .neutral-band h2 { color: #fff; margin: 10px 0 14px; }
+    .neutral-band p  { color: rgba(255,255,255,0.75); }
+
+    /* ── Tally form wrapper ──────────────────────────────────── */
+    .tally-wrapper {
+      background: #fff;
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-card);
+      padding: 40px;
+      max-width: 680px;
+      margin: 40px auto 0;
+    }
+    @media (max-width: 700px) { .tally-wrapper { padding: 24px; } }
+
+    /* ── CTA band ────────────────────────────────────────────── */
+    .cta-band {
+      background: linear-gradient(120deg, var(--c-purple) 0%, #4a1fb8 55%, var(--c-orange) 165%);
+      border-top: 4px solid var(--c-orange);
+      border-radius: 20px;
+      padding: 56px 48px;
+      display: flex;
+      gap: 36px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-band::before {
+      content: "";
+      position: absolute;
+      top: -80px; right: -40px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(235,141,30,0.35) 0%, rgba(235,141,30,0) 70%);
+      pointer-events: none;
+    }
+    .cta-band h2 { color: #fff; margin: 10px 0 14px; }
+    .cta-band p  { color: rgba(255,255,255,0.75); max-width: 520px; margin: 0; }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-mark">
+        <img src="https://interactivism.github.io/credtent/credtent-logo-mark.svg" alt="" width="32" height="37">
+      </div>
+      <div class="nav-wordmark">
+        <img src="https://interactivism.github.io/credtent/credtent-wordmark.svg" alt="Credtent" width="130" height="25">
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="for-ai-companies.html">AI Companies</a>
+      <a href="for-content-owners.html" style="color:var(--c-purple);font-weight:600">Content Owners</a>
+      <a href="about.html">About</a>
+      <a href="faq.html">FAQ</a>
+      <a href="pricing.html">Pricing</a>
+    </div>
+    <div class="nav-auth">
+      <a href="https://tally.so/r/2ExeBp" target="_blank" rel="noopener" class="signup">Investor Inquiries</a>
+    </div>
+    <button class="nav-hamburger" id="nav-hamburger-btn" aria-label="Open menu" aria-expanded="false">
+      <svg width="21" height="16" viewBox="0 0 21 16" fill="none"><rect x="0" y="0" width="21" height="2" rx="1" fill="currentColor"/><rect x="0" y="7" width="21" height="2" rx="1" fill="currentColor"/><rect x="0" y="14" width="21" height="2" rx="1" fill="currentColor"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- ══ HERO ══════════════════════════════════════════════════════ -->
+<section class="hero-dark">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="eyebrow">Creative Origin: Credtent Certification</div>
+      <h1>This Badge Means <span class="accent">Humans Made It</span></h1>
+      <p class="hero-desc">
+        The Creative Origin badge certifies that the content you're reading was conceived, written, and edited by human authors and editors. Credtent's independent reviewers verified the process behind it, not just the finished text.
+      </p>
+      <p class="hero-desc" style="font-style:italic;font-size:0.95rem;color:rgba(255,255,255,0.75);margin-top:14px">
+        Not an AI detector. Not a checklist. A verified record of human craft.
+      </p>
+      <div class="hero-actions">
+        <a href="#what-was-verified" class="btn btn-primary">What Was Verified</a>
+        <a href="#get-certified" class="btn btn-outline-white">Get Certified</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="corpus-card">
+        <div class="cc-title">What Creative Origin Certifies</div>
+        <ul>
+          <li>Human-authored and human-edited content</li>
+          <li>Expert-in-the-loop review at every editorial stage</li>
+          <li>Clear disclosure of any AI tool usage</li>
+          <li>Audit-ready editorial chain of custody</li>
+          <li>Verified organizational process, not just a single piece</li>
+          <li>Annual renewal as standards evolve</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TRUST STRIP ════════════════════════════════════════════════ -->
+<div class="trust-strip">
+  <div class="trust-inner" style="justify-content:center;flex-wrap:wrap;gap:28px">
+    <span class="trust-pbc">Delaware Public Benefit Corp</span>
+    <div class="trust-item">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="#290099" d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="m9 12 2 2 4-4"/></svg>
+      Independent, industry-practitioner review
+    </div>
+    <div class="trust-item">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="#290099" d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="m9 12 2 2 4-4"/></svg>
+      Covers editorial and media content of all types
+    </div>
+    <div class="trust-item">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="#290099" d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="m9 12 2 2 4-4"/></svg>
+      Structurally neutral: we don't publish or compete
+    </div>
+  </div>
+</div>
+
+<!-- ══ WHAT WAS VERIFIED ══════════════════════════════════════════ -->
+<section class="section-pad" id="what-was-verified" style="background:linear-gradient(180deg,#fff 0%,#f4f1fb 100%)">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow" style="color:var(--c-purple)">What the Badge Means</div>
+      <h2>Verified Process, Not Just a Score</h2>
+      <p>Creative Origin is not an AI detector. Detectors score finished text for statistical signatures, and can be fooled. Credtent reviews the editorial process behind the content: who wrote it, who edited it, what tools were used, and how oversight was maintained at every stage.</p>
+    </div>
+
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="feat-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h4>Human Authorship Verified</h4>
+        <p>Credtent reviewers confirm the content was conceived and written by human authors. Author attestations are on file in the certification record.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon orange">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <h4>Editorial Process Documented</h4>
+        <p>We review the full editorial workflow: assignment, drafting, editing, fact-checking, and publication. Context is what makes this certification defensible.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h4>AI Use Disclosed</h4>
+        <p>If AI tools were used in any part of the process, they are identified and disclosed in the certification record. Transparency is required; absence of AI is not.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <h4>Independent Reviewer</h4>
+        <p>Reviews are conducted by Credtent-trained practitioners from editorial, journalism, and media backgrounds. You get a named reviewer, not a queue.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon orange">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <h4>Queryable Public Record</h4>
+        <p>Every badge links to a public certification record in the Credtent registry. Readers, buyers, and platforms can verify it independently at any time.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg>
+        </div>
+        <h4>Annual Renewal</h4>
+        <p>Standards evolve as the industry does. Annual renewal keeps the certification current and the badge valid across distribution partners and platforms.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WHO WE CERTIFY ════════════════════════════════════════════ -->
+<section class="section-pad" style="background:linear-gradient(135deg,#f7f8fc 0%,#efe9f9 100%)">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow" style="color:var(--c-orange)">Who We Certify</div>
+      <h2>Any Organization That Publishes Human-Authored Content</h2>
+      <p>Creative Origin is not limited to books. Credtent certifies the editorial and publishing processes of organizations across media, journalism, trade publications, newsletters, and digital content wherever human authorship and editorial oversight are the standard.</p>
+    </div>
+
+    <div class="feat-grid">
+      <div class="feat-card" style="border-top:3px solid var(--c-purple)">
+        <h4>Trade and Specialty Media</h4>
+        <p>Industry publications, trade magazines, and vertical media outlets that publish expert editorial content. Cannabis Business Times is among the certified publishers and media organizations in the Credtent registry.</p>
+      </div>
+      <div class="feat-card" style="border-top:3px solid var(--c-orange)">
+        <h4>News and Journalism Organizations</h4>
+        <p>Digital newsrooms, regional papers, and independent journalism operations committed to human reporting and editorial accountability in an era when that distinction matters.</p>
+      </div>
+      <div class="feat-card" style="border-top:3px solid var(--c-navy)">
+        <h4>Books and Long-Form Publishing</h4>
+        <p>Trade publishers, academic presses, and independent houses that want a trusted, third-party signal for booksellers, librarians, and readers, covering catalog-level or title-level certification.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ HOW IT WORKS ════════════════════════════════════════════════ -->
+<section class="section-pad" id="how-it-works" style="background:#fff">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow" style="color:var(--c-purple)">How It Works</div>
+      <h2>Expert Review, Not Automated Scoring</h2>
+      <p>Certification is human-led by practitioners with backgrounds in editorial, journalism, and publishing. The process takes your organizational context seriously, at the same quality bar AI can never apply.</p>
+    </div>
+
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="ps-num">Step 01</div>
+        <h4>Submit Your Process</h4>
+        <p>Provide editorial process documentation, author or editorial attestations, and your AI use policy. Our reviewer team contacts you within five business days.</p>
+      </div>
+      <div class="process-step">
+        <div class="ps-num">Step 02</div>
+        <h4>Expert Review</h4>
+        <p>A Credtent-trained practitioner evaluates your documentation against the Creative Origin standard. Questions go to a named reviewer, not a ticket queue.</p>
+      </div>
+      <div class="process-step">
+        <div class="ps-num">Step 03</div>
+        <h4>Certification Decision</h4>
+        <p>You receive a detailed review letter. Certified organizations get a badge, a public certification record in the Credtent registry, and display rights.</p>
+      </div>
+      <div class="process-step">
+        <div class="ps-num">Step 04</div>
+        <h4>Annual Renewal</h4>
+        <p>Standards evolve as the industry does. Annual renewal keeps your certification current and your badge valid across distribution partners and platforms.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WHY NEUTRAL ════════════════════════════════════════════════ -->
+<section class="section-pad" style="background:linear-gradient(135deg,#f7f8fc 0%,#efe9f9 100%)">
+  <div class="container">
+    <div class="neutral-band">
+      <div style="flex:1;min-width:240px;position:relative;z-index:1">
+        <div class="eyebrow" style="color:rgba(255,255,255,0.6);margin-bottom:12px">Why Credtent</div>
+        <h2>Neutral. Independent. Built to Be Trusted by Both Sides.</h2>
+        <p>
+          Credtent is a Delaware Public Benefit Corporation. We don't publish. We don't train AI models. We don't compete with any organization we certify. That structural neutrality is exactly why the badge carries weight: Credtent has no incentive to pass or fail any applicant.
+        </p>
+        <p style="margin-top:14px">
+          Our certification process was reviewed and accepted by the Writers Guild of America. WGA members receive a discount on certification fees.
+        </p>
+      </div>
+      <div style="position:relative;z-index:1;flex:1;min-width:240px">
+        <div class="corpus-card">
+          <div class="cc-title">What Sets Credtent Apart</div>
+          <ul>
+            <li>Structurally independent: no publisher, AI company, or platform ownership</li>
+            <li>Expert-led review by industry practitioners, not automated detectors</li>
+            <li>Context-aware: hybrid workflows are certifiable with transparent disclosure</li>
+            <li>WGA-reviewed process on public record</li>
+            <li>Registry-backed: every badge is queryable and verifiable</li>
+            <li>Covers all content types: editorial, media, journalism, and books</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ THE THREE BADGES ════════════════════════════════════════════ -->
+<section class="section-pad" style="background:#fff">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow">Credtent's Badge System</div>
+      <h2>Creative Origin Is One of Three Credtent Badges</h2>
+      <p>Credtent operates three distinct certification programs, each addressing a different question in the content and AI ecosystem. Creative Origin is the one that answers: "Was this made by humans?"</p>
+    </div>
+
+    <div class="badges-row">
+      <div class="badge-card featured">
+        <div class="badge-tag">This Badge</div>
+        <div class="badge-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h4>Creative Origin</h4>
+        <p>Certifies that published works and editorial processes are human-authored and human-edited. Designed for publishers, media organizations, and journalists who want verified provenance for their content.</p>
+      </div>
+
+      <div class="badge-card">
+        <div class="badge-tag">Also Available</div>
+        <div class="badge-icon orange">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h4>Creative Consent</h4>
+        <p>Certifies that AI licensing of content was authorized and consented to by the original rights holders. Designed for platforms and AI companies that want to demonstrate rights-compliant content use.</p>
+      </div>
+
+      <div class="badge-card">
+        <div class="badge-tag">Also Available</div>
+        <div class="badge-icon navy">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h4>Commercial Safety</h4>
+        <p>Certifies that an AI company's training data practices and disclosure standards meet the requirements of emerging regulations, including the EU AI Act and California AB 2013.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ GET CERTIFIED ══════════════════════════════════════════════ -->
+<section class="section-pad" id="get-certified" style="background:var(--c-bg-light)">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow" style="color:var(--c-purple)">Get Certified</div>
+      <h2>Tell Us About Your Editorial Process.</h2>
+      <p>Describe your organization, content type, and editorial workflow. Our reviewer team will come back with a certification scope and fee estimate within five business days.</p>
+    </div>
+
+    <div class="tally-wrapper">
+      <iframe
+        data-tally-src="https://tally.so/embed/nroELN?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+        loading="lazy"
+        width="100%"
+        height="400"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0"
+        title="Creative Origin Certification Inquiry"
+        style="border:none;width:100%"
+      ></iframe>
+      <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+      <p style="text-align:center;color:var(--c-muted);font-size:0.85rem;margin-top:20px">
+        Prefer email? Reach us at <a href="mailto:publishers@credtent.org" style="color:var(--c-purple)">publishers@credtent.org</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FINAL CTA ═══════════════════════════════════════════════════ -->
+<section class="section-pad" style="background:#fff">
+  <div class="container">
+    <div class="cta-band">
+      <div style="position:relative;z-index:1">
+        <div class="eyebrow" style="margin-bottom:12px">Ready When You Are</div>
+        <h2>Get Your Editorial Process Certified</h2>
+        <p>Start with a certification scope and fee estimate, no commitment. Once certified, your catalog can also list for AI licensing across the full badge ecosystem.</p>
+      </div>
+      <div style="position:relative;z-index:1;display:flex;gap:12px;flex-wrap:wrap">
+        <a href="#get-certified" class="btn btn-primary">Start Certification</a>
+        <a href="mailto:publishers@credtent.org" class="btn btn-outline-white">Talk to a Reviewer</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <div class="footer-logo-mark">
+          <img src="https://interactivism.github.io/credtent/credtent-logo-mark.svg" alt="" width="32" height="37">
+        </div>
+        <div class="footer-wordmark">
+          <img src="https://interactivism.github.io/credtent/credtent-wordmark.svg" alt="Credtent" width="130" height="25">
+        </div>
+      </div>
+      <p>Credtent Inc. is a Delaware Public Benefit Corporation, a neutral, third-party utility uniting creatives and AI for mutual prosperity.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Quick Links</h5>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="for-ai-companies.html">AI Companies</a></li>
+        <li><a href="for-content-owners.html">Content Owners</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Badges</h5>
+      <ul>
+        <li><a href="#">Creative Origin</a></li>
+        <li><a href="#">Creative Consent</a></li>
+        <li><a href="#">Commercial Safety</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Talk to Us</h5>
+      <ul>
+        <li><a href="for-content-owners.html#talk">Content Partners</a></li>
+        <li><a href="for-ai-companies.html#talk">AI Companies</a></li>
+        <li><a href="mailto:publishers@credtent.org">Certification Inquiries</a></li>
+        <li><a href="mailto:invest@credtent.org">Investors</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copyright">© 2026 Credtent Inc. All rights reserved.</span>
+    <div class="footer-legal">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    const GRAD_PAIRS = [
+      { p: { top: '-160px', right: '-110px' }, o: { bottom: '-100px', left: '-80px' } },
+      { p: { top: '-140px', left:  '-100px' }, o: { bottom:  '-80px', right:'-60px' } },
+      { p: { bottom:'-110px', right:'-90px' }, o: { top:    '-120px', left: '-75px' } },
+    ];
+    document.querySelectorAll('.hero-dark').forEach(function (hero) {
+      const pair = GRAD_PAIRS[Math.floor(Math.random() * GRAD_PAIRS.length)];
+      ['purple','orange'].forEach(function(type){
+        const pos = type === 'purple' ? pair.p : pair.o;
+        const el = document.createElement('div');
+        el.className = 'hero-grad hero-grad-' + type;
+        Object.assign(el.style, {
+          top: pos.top || 'auto', right: pos.right || 'auto',
+          bottom: pos.bottom || 'auto', left: pos.left || 'auto',
+          animation: 'drift-' + type + ' 22s ease-in-out infinite',
+        });
+        hero.appendChild(el);
+      });
+    });
+  })();
+
+  (function() {
+    const btn = document.getElementById('nav-hamburger-btn');
+    if (btn) {
+      btn.addEventListener('click', function() {
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', !expanded);
+        document.querySelector('.nav-links').classList.toggle('mobile-open');
+      });
+    }
+  })();
+</script>
+</body>
+</html>
