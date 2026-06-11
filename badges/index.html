@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Credtent Badge Systems | Credtent</title>
+  <meta name="description" content="Three badge systems, one for each side of the rights economy: Creative Origin for creators, Creative Consent for platforms, and Commercial Safety for AI companies." />
+  <link rel="canonical" href="https://www.credtent.org/badges/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Credtent" />
+  <meta property="og:title" content="The Credtent Badge Systems | Credtent" />
+  <meta property="og:description" content="Creative Origin for creators, Creative Consent for platforms, Commercial Safety for AI companies." />
+  <meta property="og:url" content="https://www.credtent.org/badges/" />
+  <link rel="stylesheet" href="../styles.css" />
+  <!--
+    org-resources-repurpose (Vonnegut copy frame Part 5, section 5.3).
+    Badge art: only the canonical EB-approved files (HCC #290099, AAC
+    #208354, ACC #C94F03), served from this directory. Never fabricate or
+    redraw badge graphics. Schema is Niven's pre-publish pass.
+  -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/favicon/site.webmanifest">
+  <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#290099">
+  <meta name="msapplication-TileColor" content="#152153">
+  <meta name="theme-color" content="#ffffff">
+  <style>
+    .badge-system { border-top: 1px solid var(--c-border); padding-top: 56px; margin-top: 56px; }
+    .badge-system:first-child { border-top: none; padding-top: 0; margin-top: 0; }
+    .badge-system h2 { font-size: clamp(1.4rem, 2.2vw, 1.85rem); color: var(--c-heading); margin: 0 0 8px; }
+    .badge-system .audience {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--c-purple);
+      margin-bottom: 14px;
+    }
+    .badge-system p { font-size: 16px; line-height: 1.75; color: var(--c-body); margin: 0 0 20px; max-width: 720px; }
+    .badge-art-row { display: flex; gap: 22px; flex-wrap: wrap; margin: 24px 0; }
+    .badge-art { text-align: center; }
+    .badge-art img { width: 130px; height: 130px; border-radius: 12px; display: block; }
+    .badge-art figcaption {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      color: var(--c-muted);
+      margin-top: 10px;
+    }
+    .tier-list { list-style: none; padding: 0; margin: 0; max-width: 720px; }
+    .tier-list li {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--c-border);
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--c-body);
+    }
+    .tier-list li:last-child { border-bottom: none; }
+    .tier-list strong { color: var(--c-heading); }
+  </style>
+</head>
+<body>
+
+<div id="nav-placeholder"></div>
+
+<section class="page-hero">
+  <div class="page-hero-content">
+    <div class="eyebrow">Badges</div>
+    <h1>The badge systems.</h1>
+    <p>Three badge systems, one for each side of the rights economy. All certification is human-led and expert-led, and applies to works and organizational processes, not individuals.</p>
+  </div>
+</section>
+
+<section class="section-pad" style="background:#fff">
+  <div class="container">
+
+    <div class="badge-system">
+      <div class="audience">For Creators</div>
+      <h2>Creative Origin</h2>
+      <p>Signals the role of AI in a specific creative work.</p>
+      <div class="badge-art-row">
+        <figure class="badge-art" style="margin:0">
+          <img src="human-composed-creation-badge.svg" alt="Human Composed Creation badge" />
+          <figcaption>HCC</figcaption>
+        </figure>
+        <figure class="badge-art" style="margin:0">
+          <img src="ai-assisted-creation-badge.svg" alt="AI Assisted Creation badge" />
+          <figcaption>AAC</figcaption>
+        </figure>
+        <figure class="badge-art" style="margin:0">
+          <img src="ai-composed-creation-badge.svg" alt="AI Composed Creation badge" />
+          <figcaption>ACC</figcaption>
+        </figure>
+      </div>
+      <ul class="tier-list">
+        <li><strong>HCC (Human Composed Creation):</strong> the work was composed by a human.</li>
+        <li><strong>AAC (AI Assisted Creation):</strong> a human composed the work with AI assistance.</li>
+        <li><strong>ACC (AI Composed Creation):</strong> the work was composed by AI.</li>
+      </ul>
+    </div>
+
+    <div class="badge-system">
+      <div class="audience">For Platforms</div>
+      <h2>Creative Consent</h2>
+      <p>Rates how a platform uses your data, content, and metadata, and whether it respects your work with regard to AI training.</p>
+      <ul class="tier-list">
+        <li><strong>Tiers:</strong> CCF, CCO, CCN.</li>
+      </ul>
+    </div>
+
+    <div class="badge-system">
+      <div class="audience">For AI Companies</div>
+      <h2>Commercial Safety</h2>
+      <p>IP-safety certification for AI models.</p>
+      <ul class="tier-list">
+        <li><strong>Levels:</strong> Full, Guardrail, Provisional.</li>
+      </ul>
+    </div>
+
+    <div class="badge-system">
+      <p style="font-style:italic;color:var(--c-muted);font-size:15px">Our badges are free to use. We charge for expert-led certification because expert review is real labor and deserves real compensation. Looking for the wider landscape? <a href="../standards.html" style="color:var(--c-purple)">Browse the AI disclosure standards catalog</a>.</p>
+    </div>
+
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+<script src="../components.js"></script>
+</body>
+</html>
