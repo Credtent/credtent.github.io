@@ -1,5 +1,5 @@
 /* =============================================================
-   Credtent Design System — Shared Stylesheet
+   Credtent Design System: Shared Stylesheet
    Based on Figma mockups (Home & About, 1920w)
    ============================================================= */
 
@@ -835,7 +835,7 @@ section { width: 100%; }
 /* On wider viewports match the photo's native aspect ratio (1600×353)
    so the whole image is visible without cropping top/bottom. Narrower
    viewports fall back to the padding-based layout above, where cover
-   will crop the sides — unavoidable at this aspect ratio. */
+   will crop the sides, unavoidable at this aspect ratio. */
 @media (min-width: 900px) {
   .photo-banner {
     aspect-ratio: 1600 / 353;
@@ -1204,8 +1204,8 @@ section { width: 100%; }
   max-width: var(--content-lg);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.8fr 1fr 1fr 1fr 1fr;
-  gap: 36px;
+  grid-template-columns: 1.6fr 1.2fr 1fr 1fr 1fr 1fr;
+  gap: 32px;
   padding-bottom: 48px;
   border-bottom: 1px solid rgba(255,255,255,0.1);
 }
@@ -2408,7 +2408,7 @@ section { width: 100%; }
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;        /* Firefox */
-    padding-right: 24px;          /* peek hint — last tab doesn't butt against edge */
+    padding-right: 24px;          /* peek hint: last tab doesn't butt against edge */
   }
   .faq-tabs::-webkit-scrollbar { display: none; } /* Chrome/Safari */
 

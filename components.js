@@ -22,6 +22,7 @@
   const pages = [
     { href: `${base}for-ai-companies.html`, label: 'AI Companies' },
     { href: `${base}for-content-owners.html`, label: 'Content Owners' },
+    { href: `${base}certified-publisher.html`, label: 'Certification' },
     { href: `${base}about.html`, label: 'About' },
     { href: `${base}faq.html`, label: 'FAQ' },
     { href: `${base}blog.html`, label: 'Blog' },
@@ -131,6 +132,15 @@
         <li><a href="${base}for-ai-companies.html">Compliance-as-a-Service</a></li>
         <li><a href="${base}for-content-owners.html">Enterprise Solutions</a></li>
         <li><a href="https://registry.credtent.org/auth/sign-in" target="_blank" rel="noopener">Creative Registry</a></li>
+        <li><a href="${base}opt-out.html">Free Opt-Out</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Badges</h5>
+      <ul>
+        <li><a href="${base}certified-publisher.html#creative-origin">Creative Origin</a></li>
+        <li><a href="${base}certified-publisher.html#creative-consent">Creative Consent</a></li>
+        <li><a href="${base}certified-publisher.html#commercial-safety">Commercial Safety</a></li>
       </ul>
     </div>
     <div class="footer-col">

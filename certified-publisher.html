@@ -3,9 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Creative Origin: Credtent Certification</title>
-  <meta name="description" content="The Credtent Creative Origin badge means the content you're reading was human-authored and human-edited, verified by independent expert reviewers, not an automated detector." />
-  <link rel="stylesheet" href="https://interactivism.github.io/credtent/styles.css" />
+  <title>Credtent Certification: Creative Origin, Creative Consent, and Commercial Safety</title>
+  <meta name="description" content="The Credtent Creative Origin badge means the content you're reading was human-authored and human-edited, verified by independent expert reviewers, not an automated detector. Learn how Creative Origin, Creative Consent, and Commercial Safety certification work." />
+  <link rel="canonical" href="https://credtent.org/certified-publisher" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Credtent" />
+  <meta property="og:title" content="Credtent Certification: Creative Origin, Creative Consent, and Commercial Safety" />
+  <meta property="og:description" content="The Credtent Creative Origin badge certifies human-authored, human-edited content, verified by independent expert reviewers. Creative Consent and Commercial Safety complete the three-badge system." />
+  <meta property="og:url" content="https://credtent.org/certified-publisher" />
+  <meta property="og:image" content="https://credtent.org/credtent-logo-mark.svg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@credtent" />
+  <meta name="twitter:title" content="Credtent Certification: Creative Origin, Creative Consent, and Commercial Safety" />
+  <meta name="twitter:description" content="Expert-led certification of human-authored content, consented AI licensing, and regulation-ready training-data practices." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/favicon/site.webmanifest">
+  <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#290099">
+  <meta name="msapplication-TileColor" content="#152153">
+  <meta name="theme-color" content="#ffffff">
   <style>
     /* ── Verified-by panel (hero visual) ─────────────────────── */
     .corpus-card {
@@ -209,31 +227,7 @@
 </head>
 <body>
 
-<nav class="nav">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo">
-      <div class="nav-logo-mark">
-        <img src="https://interactivism.github.io/credtent/credtent-logo-mark.svg" alt="" width="32" height="37">
-      </div>
-      <div class="nav-wordmark">
-        <img src="https://interactivism.github.io/credtent/credtent-wordmark.svg" alt="Credtent" width="130" height="25">
-      </div>
-    </a>
-    <div class="nav-links">
-      <a href="for-ai-companies.html">AI Companies</a>
-      <a href="for-content-owners.html" style="color:var(--c-purple);font-weight:600">Content Owners</a>
-      <a href="about.html">About</a>
-      <a href="faq.html">FAQ</a>
-      <a href="pricing.html">Pricing</a>
-    </div>
-    <div class="nav-auth">
-      <a href="https://tally.so/r/2ExeBp" target="_blank" rel="noopener" class="signup">Investor Inquiries</a>
-    </div>
-    <button class="nav-hamburger" id="nav-hamburger-btn" aria-label="Open menu" aria-expanded="false">
-      <svg width="21" height="16" viewBox="0 0 21 16" fill="none"><rect x="0" y="0" width="21" height="2" rx="1" fill="currentColor"/><rect x="0" y="7" width="21" height="2" rx="1" fill="currentColor"/><rect x="0" y="14" width="21" height="2" rx="1" fill="currentColor"/></svg>
-    </button>
-  </div>
-</nav>
+<div id="nav-placeholder"></div>
 
 <!-- ══ HERO ══════════════════════════════════════════════════════ -->
 <section class="hero-dark">
@@ -436,7 +430,7 @@
 </section>
 
 <!-- ══ THE THREE BADGES ════════════════════════════════════════════ -->
-<section class="section-pad" style="background:#fff">
+<section class="section-pad" id="three-badges" style="background:#fff">
   <div class="container">
     <div class="section-header">
       <div class="eyebrow">Credtent's Badge System</div>
@@ -445,7 +439,7 @@
     </div>
 
     <div class="badges-row">
-      <div class="badge-card featured">
+      <div class="badge-card featured" id="creative-origin">
         <div class="badge-tag">This Badge</div>
         <div class="badge-icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
@@ -454,7 +448,7 @@
         <p>Certifies that published works and editorial processes are human-authored and human-edited. Designed for publishers, media organizations, and journalists who want verified provenance for their content.</p>
       </div>
 
-      <div class="badge-card">
+      <div class="badge-card" id="creative-consent">
         <div class="badge-tag">Also Available</div>
         <div class="badge-icon orange">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -463,7 +457,7 @@
         <p>Certifies that AI licensing of content was authorized and consented to by the original rights holders. Designed for platforms and AI companies that want to demonstrate rights-compliant content use.</p>
       </div>
 
-      <div class="badge-card">
+      <div class="badge-card" id="commercial-safety">
         <div class="badge-tag">Also Available</div>
         <div class="badge-icon navy">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
@@ -521,90 +515,7 @@
   </div>
 </section>
 
-<footer class="footer">
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <div class="footer-logo">
-        <div class="footer-logo-mark">
-          <img src="https://interactivism.github.io/credtent/credtent-logo-mark.svg" alt="" width="32" height="37">
-        </div>
-        <div class="footer-wordmark">
-          <img src="https://interactivism.github.io/credtent/credtent-wordmark.svg" alt="Credtent" width="130" height="25">
-        </div>
-      </div>
-      <p>Credtent Inc. is a Delaware Public Benefit Corporation, a neutral, third-party utility uniting creatives and AI for mutual prosperity.</p>
-    </div>
-    <div class="footer-col">
-      <h5>Quick Links</h5>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="for-ai-companies.html">AI Companies</a></li>
-        <li><a href="for-content-owners.html">Content Owners</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="faq.html">FAQ</a></li>
-        <li><a href="pricing.html">Pricing</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h5>Badges</h5>
-      <ul>
-        <li><a href="#">Creative Origin</a></li>
-        <li><a href="#">Creative Consent</a></li>
-        <li><a href="#">Commercial Safety</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h5>Talk to Us</h5>
-      <ul>
-        <li><a href="for-content-owners.html#talk">Content Partners</a></li>
-        <li><a href="for-ai-companies.html#talk">AI Companies</a></li>
-        <li><a href="mailto:publishers@credtent.org">Certification Inquiries</a></li>
-        <li><a href="mailto:invest@credtent.org">Investors</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span class="footer-copyright">© 2026 Credtent Inc. All rights reserved.</span>
-    <div class="footer-legal">
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Service</a>
-    </div>
-  </div>
-</footer>
-
-<script>
-  (function () {
-    const GRAD_PAIRS = [
-      { p: { top: '-160px', right: '-110px' }, o: { bottom: '-100px', left: '-80px' } },
-      { p: { top: '-140px', left:  '-100px' }, o: { bottom:  '-80px', right:'-60px' } },
-      { p: { bottom:'-110px', right:'-90px' }, o: { top:    '-120px', left: '-75px' } },
-    ];
-    document.querySelectorAll('.hero-dark').forEach(function (hero) {
-      const pair = GRAD_PAIRS[Math.floor(Math.random() * GRAD_PAIRS.length)];
-      ['purple','orange'].forEach(function(type){
-        const pos = type === 'purple' ? pair.p : pair.o;
-        const el = document.createElement('div');
-        el.className = 'hero-grad hero-grad-' + type;
-        Object.assign(el.style, {
-          top: pos.top || 'auto', right: pos.right || 'auto',
-          bottom: pos.bottom || 'auto', left: pos.left || 'auto',
-          animation: 'drift-' + type + ' 22s ease-in-out infinite',
-        });
-        hero.appendChild(el);
-      });
-    });
-  })();
-
-  (function() {
-    const btn = document.getElementById('nav-hamburger-btn');
-    if (btn) {
-      btn.addEventListener('click', function() {
-        const expanded = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', !expanded);
-        document.querySelector('.nav-links').classList.toggle('mobile-open');
-      });
-    }
-  })();
-</script>
+<div id="footer-placeholder"></div>
+<script src="components.js"></script>
 </body>
 </html>
