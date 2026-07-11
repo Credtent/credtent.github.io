@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Creative Origin Badge Builder | Credtent</title>
+  <meta name="description" content="Make your Creative Origin disclosure badge in about a minute. Free, no account needed. Choose Human Composed, AI-assisted, or AI-generated and download an SVG or PNG with embedded disclosure metadata." />
+  <link rel="canonical" href="https://credtent.org/badge-builder" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Credtent" />
+  <meta property="og:title" content="Free Creative Origin Badge Builder | Credtent" />
+  <meta property="og:description" content="Pick your label, generate the encoded badge, and add it to your work. Free, no account needed." />
+  <meta property="og:url" content="https://credtent.org/badge-builder" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Free Creative Origin Badge Builder | Credtent" />
+  <meta name="twitter:description" content="Pick your label, generate the encoded badge, and add it to your work. Free, no account needed." />
+  <link rel="stylesheet" href="styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Creative Origin Badge Builder",
+    "url": "https://credtent.org/badge-builder",
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Free in-browser tool that generates a self-declared Creative Origin disclosure badge (Human Composed, AI-assisted, or AI-generated) with embedded machine-readable disclosure metadata, downloadable as SVG or PNG.",
+    "publisher": { "@type": "Organization", "name": "Credtent", "url": "https://credtent.org" }
+  }
+  </script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/favicon/site.webmanifest">
+  <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#290099">
+  <meta name="msapplication-TileColor" content="#152153">
+  <meta name="theme-color" content="#ffffff">
+  <style>
+    /* ── Badge builder ─────────────────────────────────────────── */
+    .maker-card {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff;
+      border: 1px solid var(--c-border);
+      border-radius: 18px;
+      box-shadow: 0 8px 28px rgba(28, 35, 64, 0.07);
+      padding: 40px;
+    }
+    .step + .step {
+      margin-top: 36px;
+      padding-top: 36px;
+      border-top: 1px solid var(--c-border);
+    }
+    .step-eyebrow {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--c-purple);
+      margin: 0 0 6px;
+    }
+    .step-title {
+      font-size: 1.35rem;
+      color: var(--c-heading);
+      margin: 0 0 20px;
+      line-height: 1.25;
+    }
+    .tier-group { display: flex; flex-direction: column; gap: 12px; }
+    .tier-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+      text-align: left;
+      font: inherit;
+      background: #fff;
+      border: 1px solid var(--c-border);
+      border-radius: 12px;
+      padding: 16px 18px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .tier-row:hover { border-color: rgba(28, 35, 64, 0.3); }
+    .tier-row.is-selected {
+      background: rgba(41, 0, 153, 0.05);
+      border: 2px solid var(--c-purple);
+      padding: 15px 17px;
+    }
+    .tier-row:focus-visible { outline: 2px solid var(--c-purple); outline-offset: 2px; }
+    .tier-icon { width: 44px; height: 44px; border-radius: 8px; flex-shrink: 0; }
+    .tier-icon.tier-hcc { background: #290099; }
+    .tier-icon.tier-aac { background: #208354; }
+    .tier-icon.tier-acc { background: #C94F03; }
+    .tier-text { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+    .tier-name { font-weight: 700; font-size: 16px; color: var(--c-heading); }
+    .tier-blurb { font-size: 14px; color: var(--c-muted); line-height: 1.5; }
+    .tier-radio {
+      width: 22px; height: 22px; border-radius: 50%;
+      border: 2px solid var(--c-border); flex-shrink: 0; position: relative;
+    }
+    .tier-row.is-selected .tier-radio { border-color: var(--c-purple); }
+    .tier-row.is-selected .tier-radio::after {
+      content: ''; position: absolute; inset: 4px; border-radius: 50%; background: var(--c-purple);
+    }
+    .generate-row { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+    .generate-btn {
+      font: inherit; font-weight: 700; font-size: 16px; color: #fff;
+      background: var(--c-purple); border: none; border-radius: 8px;
+      padding: 13px 26px; cursor: pointer; transition: opacity 0.2s;
+    }
+    .generate-btn:hover { opacity: 0.92; }
+    .generate-btn:disabled { opacity: 0.6; cursor: default; }
+    .generate-help { font-size: 14px; color: var(--c-muted); margin: 0; }
+    .result-grid { display: grid; grid-template-columns: 220px 1fr; gap: 28px; align-items: start; }
+    .result-preview svg { width: 100%; height: auto; border-radius: 12px; display: block; }
+    .result-class { font-weight: 700; font-size: 16px; color: var(--c-heading); margin: 0 0 12px; }
+    .status-pill {
+      font-size: 14px; color: var(--c-heading); line-height: 1.55;
+      background: #eaf7f0; border: 1px solid #b9e3cd; border-radius: 12px;
+      padding: 12px 16px; margin: 0 0 18px;
+    }
+    .status-pill.error { background: #fdf0ec; border-color: #f0c5b4; }
+    .result-downloads { display: flex; gap: 12px; flex-wrap: wrap; }
+    .download-btn {
+      font-weight: 700; font-size: 14px; border-radius: 8px;
+      padding: 11px 20px; text-decoration: none; cursor: pointer;
+    }
+    .download-btn.primary { background: var(--c-purple); color: #fff; }
+    .download-btn.secondary { background: #fff; color: var(--c-purple); border: 1px solid var(--c-purple); }
+    .disclosure-note {
+      max-width: 900px; margin: 28px auto 0;
+      background: var(--c-bg-light); border: 1px solid var(--c-border); border-radius: 12px;
+      padding: 18px 22px; font-size: 14px; color: var(--c-body); line-height: 1.65;
+    }
+    .disclosure-note strong { color: var(--c-heading); }
+    @media (max-width: 720px) {
+      .maker-card { padding: 24px; }
+      .result-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="nav-placeholder"></div>
+
+<!-- ══ PAGE HERO ══════════════════════════════════════════════ -->
+<section class="page-hero">
+  <div class="page-hero-content">
+    <div class="eyebrow" style="margin-bottom:16px">Free Badge Builder</div>
+    <h1>Make your badge in about a minute</h1>
+    <p>Pick your label, generate the encoded badge, and add it to your work. It is free, it takes about a minute, and you do not need a Credtent account. The badge you get is the Creative Origin 4.0 format: a visible label a reader sees, and an encoded disclosure a machine can read.</p>
+  </div>
+</section>
+
+<!-- ══ BUILDER ════════════════════════════════════════════════ -->
+<section class="section-pad" style="background:var(--c-bg-light)">
+  <div class="container">
+    <div class="maker-card">
+
+      <!-- Step 1: choose how the work was made -->
+      <div class="step">
+        <p class="step-eyebrow">Step 1</p>
+        <h2 class="step-title">Choose how your work was made</h2>
+        <div class="tier-group" id="tier-group" role="radiogroup" aria-label="Choose how your work was made">
+          <button class="tier-row is-selected" type="button" role="radio" aria-checked="true" data-tier="hcc" aria-describedby="blurb-hcc">
+            <span class="tier-icon tier-hcc" aria-hidden="true"></span>
+            <span class="tier-text">
+              <span class="tier-name">Human Composed</span>
+              <span class="tier-blurb" id="blurb-hcc">Made by a person, without generative AI composing the work.</span>
+            </span>
+            <span class="tier-radio" aria-hidden="true"></span>
+          </button>
+          <button class="tier-row" type="button" role="radio" aria-checked="false" data-tier="aac" aria-describedby="blurb-aac">
+            <span class="tier-icon tier-aac" aria-hidden="true"></span>
+            <span class="tier-text">
+              <span class="tier-name">AI-assisted</span>
+              <span class="tier-blurb" id="blurb-aac">A person made it with help from AI tools.</span>
+            </span>
+            <span class="tier-radio" aria-hidden="true"></span>
+          </button>
+          <button class="tier-row" type="button" role="radio" aria-checked="false" data-tier="acc" aria-describedby="blurb-acc">
+            <span class="tier-icon tier-acc" aria-hidden="true"></span>
+            <span class="tier-text">
+              <span class="tier-name">AI-generated</span>
+              <span class="tier-blurb" id="blurb-acc">Generated by AI.</span>
+            </span>
+            <span class="tier-radio" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 2: generate -->
+      <div class="step">
+        <p class="step-eyebrow">Step 2</p>
+        <h2 class="step-title">Generate your badge</h2>
+        <div class="generate-row">
+          <button class="generate-btn" id="generate-btn" type="button" aria-busy="false">Generate badge</button>
+          <p class="generate-help">The free path is self declared. No sign-in, no cost.</p>
+        </div>
+      </div>
+
+      <!-- Step 3: result (revealed after generation) -->
+      <div class="step result-step" id="result-step" hidden aria-live="polite">
+        <p class="step-eyebrow">Step 3</p>
+        <h2 class="step-title">Your badge is ready</h2>
+        <div class="result-grid">
+          <div class="result-preview" id="result-preview"></div>
+          <div class="result-meta">
+            <p class="result-class" id="result-class"></p>
+            <p class="status-pill" id="status-pill"></p>
+            <div class="result-downloads">
+              <a class="download-btn primary" id="download-svg" download="creative-origin-badge.svg">Download SVG</a>
+              <a class="download-btn secondary" id="download-png" download="creative-origin-badge.png">Download PNG</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="disclosure-note">
+      <strong>What this badge is, and is not.</strong> The badge builder produces a free
+      <strong>disclosure badge</strong>: you declare your own Creative Origin classification, and the
+      badge carries that self-declared disclosure in readable metadata. It is not a Credtent
+      certification. <strong>Certified badges</strong> come through Credtent's paid, expert-reviewed
+      certification process, which verifies your classification and adds a registry record.
+      <a href="certified-publisher.html" style="color:var(--c-purple)">Learn about certification</a>.
+    </p>
+  </div>
+</section>
+
+<!-- ══ CERTIFIED UPSELL ═══════════════════════════════════════ -->
+<section class="section-pad-sm" style="background:#fff">
+  <div class="container">
+    <div class="cta-band">
+      <div style="position:relative;z-index:1">
+        <div class="eyebrow" style="margin-bottom:12px">Go Further</div>
+        <h2>Get the certified seal</h2>
+        <p>A self-declared badge states your own classification. Expert certification verifies it, adds the Credtent certified seal, and records it in the registry.</p>
+      </div>
+      <div style="position:relative;z-index:1;display:flex;gap:12px;flex-wrap:wrap">
+        <a href="certified-publisher.html" class="btn btn-primary">See certification</a>
+        <a href="badges/" class="btn btn-outline-white">All three badge systems</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+<script src="components.js"></script>
+<script src="badge-builder.js"></script>
+<script>
+(function () {
+  'use strict';
+  var Builder = window.CredtentBadgeBuilder;
+
+  var BASE_SVG_URLS = {
+    hcc: 'badges/creative-origin-human-composed.svg',
+    aac: 'badges/creative-origin-ai-assisted.svg',
+    acc: 'badges/creative-origin-ai-generated.svg'
+  };
+  var baseSvgCache = {};
+
+  function fetchBaseSvg(tier) {
+    if (baseSvgCache[tier]) return Promise.resolve(baseSvgCache[tier]);
+    return fetch(BASE_SVG_URLS[tier]).then(function (res) {
+      if (!res.ok) throw new Error('badge art fetch failed: ' + res.status);
+      return res.text();
+    }).then(function (text) {
+      baseSvgCache[tier] = text;
+      return text;
+    });
+  }
+
+  var selected = 'hcc';
+  var group = document.getElementById('tier-group');
+  var rows = Array.prototype.slice.call(document.querySelectorAll('.tier-row'));
+
+  function selectTier(tier) {
+    selected = tier;
+    rows.forEach(function (row) {
+      var isSel = row.dataset.tier === tier;
+      row.classList.toggle('is-selected', isSel);
+      row.setAttribute('aria-checked', String(isSel));
+    });
+  }
+
+  rows.forEach(function (row) {
+    row.addEventListener('click', function () { selectTier(row.dataset.tier); });
+  });
+
+  // Keyboard support for the radiogroup: arrow keys move selection.
+  if (group) {
+    group.addEventListener('keydown', function (e) {
+      var idx = rows.findIndex(function (r) { return r.dataset.tier === selected; });
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+        e.preventDefault();
+        var next = rows[(idx + 1) % rows.length];
+        selectTier(next.dataset.tier);
+        next.focus();
+      } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+        e.preventDefault();
+        var prev = rows[(idx - 1 + rows.length) % rows.length];
+        selectTier(prev.dataset.tier);
+        prev.focus();
+      }
+    });
+  }
+
+  function svgToPngDataUrl(svg) {
+    return new Promise(function (resolve, reject) {
+      var blob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
+      var url = URL.createObjectURL(blob);
+      var img = new Image();
+      img.onload = function () {
+        var size = 1001;
+        var canvas = document.createElement('canvas');
+        canvas.width = size;
+        canvas.height = size;
+        var ctx = canvas.getContext('2d');
+        if (!ctx) {
+          URL.revokeObjectURL(url);
+          reject(new Error('no canvas context'));
+          return;
+        }
+        ctx.drawImage(img, 0, 0, size, size);
+        URL.revokeObjectURL(url);
+        resolve(canvas.toDataURL('image/png'));
+      };
+      img.onerror = function () {
+        URL.revokeObjectURL(url);
+        reject(new Error('svg rasterize failed'));
+      };
+      img.src = url;
+    });
+  }
+
+  var btn = document.getElementById('generate-btn');
+  var resultStep = document.getElementById('result-step');
+  var preview = document.getElementById('result-preview');
+  var classLine = document.getElementById('result-class');
+  var statusPill = document.getElementById('status-pill');
+  var dlSvg = document.getElementById('download-svg');
+  var dlPng = document.getElementById('download-png');
+
+  if (btn) btn.addEventListener('click', function () {
+    btn.setAttribute('aria-busy', 'true');
+    btn.disabled = true;
+    var original = btn.textContent;
+    btn.textContent = 'Generating';
+    var tier = selected;
+
+    fetchBaseSvg(tier).then(function (baseSvg) {
+      var result = Builder.generateBadge(tier, baseSvg);
+
+      if (preview) preview.innerHTML = result.svg;
+      if (classLine) classLine.textContent = result.label + ', self declared';
+      if (statusPill) {
+        statusPill.classList.remove('error');
+        statusPill.textContent = result.statusLine;
+      }
+
+      if (dlSvg) {
+        dlSvg.href = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(result.svg);
+        dlSvg.download = 'creative-origin-' + tier + '.svg';
+        dlSvg.hidden = false;
+      }
+
+      var pngStep = dlPng
+        ? svgToPngDataUrl(result.svg).then(function (pngUrl) {
+            dlPng.href = pngUrl;
+            dlPng.download = 'creative-origin-' + tier + '.png';
+            dlPng.hidden = false;
+          }).catch(function () {
+            // PNG is a nicety; if rasterization fails, hide it and keep SVG.
+            dlPng.hidden = true;
+          })
+        : Promise.resolve();
+
+      return pngStep.then(function () {
+        if (resultStep) {
+          resultStep.hidden = false;
+          resultStep.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      });
+    }).catch(function () {
+      if (statusPill) {
+        statusPill.classList.add('error');
+        statusPill.textContent = 'Something went wrong loading the badge art. Please reload the page and try again.';
+      }
+      if (classLine) classLine.textContent = '';
+      if (preview) preview.innerHTML = '';
+      if (dlSvg) dlSvg.hidden = true;
+      if (dlPng) dlPng.hidden = true;
+      if (resultStep) resultStep.hidden = false;
+    }).then(function () {
+      btn.setAttribute('aria-busy', 'false');
+      btn.disabled = false;
+      btn.textContent = original;
+    });
+  });
+})();
+</script>
+</body>
+</html>
