@@ -92,6 +92,8 @@
     .tier-icon.tier-hcc { background: #290099; }
     .tier-icon.tier-aac { background: #208354; }
     .tier-icon.tier-acc { background: #C94F03; }
+    /* Legacy swatch matches Brackett's 4.0-style legacy art background. */
+    .tier-icon.tier-legacy { background: #9F2B61; }
     .tier-text { flex: 1; display: flex; flex-direction: column; gap: 3px; }
     .tier-name { font-weight: 700; font-size: 16px; color: var(--c-heading); }
     .tier-blurb { font-size: 14px; color: var(--c-muted); line-height: 1.5; }
@@ -134,6 +136,28 @@
       padding: 18px 22px; font-size: 14px; color: var(--c-body); line-height: 1.65;
     }
     .disclosure-note strong { color: var(--c-heading); }
+    /* ── Skippable email-capture gate ──────────────────────────── */
+    .gate-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(21, 33, 83, 0.55);
+      display: none; align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    .gate-overlay.open { display: flex; }
+    .gate-card {
+      background: #fff; border-radius: 16px; max-width: 520px; width: 100%;
+      max-height: 90vh; overflow-y: auto; padding: 28px;
+      box-shadow: 0 18px 48px rgba(28, 35, 64, 0.25);
+    }
+    .gate-card h2 { font-size: 1.25rem; color: var(--c-heading); margin: 0 0 8px; }
+    .gate-card p { font-size: 14px; color: var(--c-body); line-height: 1.6; margin: 0 0 16px; }
+    .gate-actions { display: flex; justify-content: flex-end; margin-top: 14px; }
+    .gate-skip {
+      font: inherit; font-size: 14px; font-weight: 600; color: var(--c-purple);
+      background: none; border: 1px solid var(--c-purple); border-radius: 8px;
+      padding: 10px 18px; cursor: pointer;
+    }
+    .gate-skip:hover { background: rgba(41, 0, 153, 0.06); }
     @media (max-width: 720px) {
       .maker-card { padding: 24px; }
       .result-grid { grid-template-columns: 1fr; }
@@ -187,6 +211,14 @@
             </span>
             <span class="tier-radio" aria-hidden="true"></span>
           </button>
+          <button class="tier-row" type="button" role="radio" aria-checked="false" data-tier="legacy" aria-describedby="blurb-legacy">
+            <span class="tier-icon tier-legacy" aria-hidden="true"></span>
+            <span class="tier-text">
+              <span class="tier-name">Legacy Creation</span>
+              <span class="tier-blurb" id="blurb-legacy">Made before November 2022, predating generative AI tools.</span>
+            </span>
+            <span class="tier-radio" aria-hidden="true"></span>
+          </button>
         </div>
       </div>
 
@@ -227,7 +259,15 @@
       badge carries that self-declared disclosure in readable metadata. It is not a Credtent
       certification. <strong>Certified badges</strong> come through Credtent's paid, expert-reviewed
       certification process, which verifies your classification and adds a registry record.
-      <a href="certified-publisher.html" style="color:var(--c-purple)">Learn about certification</a>.
+      <a href="certified-publisher.html?role=publisher-content-owner" style="color:var(--c-purple)">Learn about certification</a>.
+    </p>
+
+    <p class="disclosure-note">
+      <strong>Working in more than one format?</strong> The
+      <a href="https://registry.credtent.org/creative-origin" target="_blank" rel="noopener" style="color:var(--c-purple)">multi-format Creative Origin composer</a>
+      builds a combined origin bar for works that mix text, art, music, code, video, and voices,
+      with a separate origin declared per component. It is an earlier generation of the badge tool
+      and displays the earlier badge designs.
     </p>
   </div>
 </section>
@@ -242,12 +282,26 @@
         <p>A self-declared badge states your own classification. Expert certification verifies it, adds the Credtent certified seal, and records it in the registry.</p>
       </div>
       <div style="position:relative;z-index:1;display:flex;gap:12px;flex-wrap:wrap">
-        <a href="certified-publisher.html" class="btn btn-primary">See certification</a>
+        <a href="certified-publisher.html?role=publisher-content-owner" class="btn btn-primary">See certification</a>
         <a href="badges/" class="btn btn-outline-white">All three badge systems</a>
       </div>
     </div>
   </div>
 </section>
+
+<!-- Skippable email-capture gate before the first download. Port of the
+     original registry builder's optional pre-download email form. Dormant
+     until the Tally form ID is set in the builder script below. -->
+<div class="gate-overlay" id="email-gate" role="dialog" aria-modal="true" aria-labelledby="email-gate-title">
+  <div class="gate-card">
+    <h2 id="email-gate-title">Before you download</h2>
+    <p>Optional: leave your email and we will keep you posted on the badge program. Or skip straight to your download.</p>
+    <iframe id="email-gate-frame" title="Badge builder email capture" loading="lazy" width="100%" height="220" frameborder="0" style="border:none;width:100%"></iframe>
+    <div class="gate-actions">
+      <button type="button" class="gate-skip" id="email-gate-skip">Skip and download</button>
+    </div>
+  </div>
+</div>
 
 <div id="footer-placeholder"></div>
 <script src="components.js"></script>
@@ -260,7 +314,9 @@
   var BASE_SVG_URLS = {
     hcc: 'badges/creative-origin-human-composed.svg',
     aac: 'badges/creative-origin-ai-assisted.svg',
-    acc: 'badges/creative-origin-ai-generated.svg'
+    acc: 'badges/creative-origin-ai-generated.svg',
+    // Legacy art by Brackett in the 4.0 plain-language style.
+    legacy: 'badges/creative-origin-legacy.svg'
   };
   var baseSvgCache = {};
 
@@ -364,6 +420,80 @@
       if (link.el) link.el.hidden = hidden;
     });
   }
+
+  // ── Skippable email-capture gate (EB decision 2026-07-11) ──────
+  // Intercepts the FIRST download only, shows an optional Tally email
+  // form with a which-badge hidden field, and always offers "Skip and
+  // download". Dormant while EMAIL_GATE_TALLY_FORM_ID is empty.
+  // NEEDS-EB: create the Tally form (email field + hidden field "badge"),
+  // then set its ID here (the token in tally.so/r/XXXXXX).
+  var EMAIL_GATE_TALLY_FORM_ID = '';
+  var GATE_DONE_KEY = 'credtent_badge_email_gate_v1';
+  var gateOverlay = document.getElementById('email-gate');
+  var gateFrame = document.getElementById('email-gate-frame');
+  var gateSkip = document.getElementById('email-gate-skip');
+  var gatePendingLink = null;
+  var gateBypass = false;
+
+  function gateAlreadyDone() {
+    try { return localStorage.getItem(GATE_DONE_KEY) === 'done'; }
+    catch (e) { return true; }
+  }
+  function markGateDone() {
+    try { localStorage.setItem(GATE_DONE_KEY, 'done'); } catch (e) { /* ignore */ }
+  }
+  function openGate(link) {
+    gatePendingLink = link;
+    gateFrame.src = 'https://tally.so/embed/' + EMAIL_GATE_TALLY_FORM_ID +
+      '?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1&badge=' +
+      encodeURIComponent(selected);
+    gateOverlay.classList.add('open');
+    gateSkip.focus();
+  }
+  function closeGate(resumeDownload) {
+    gateOverlay.classList.remove('open');
+    var link = gatePendingLink;
+    gatePendingLink = null;
+    if (resumeDownload && link) {
+      gateBypass = true;
+      link.click();
+      gateBypass = false;
+    }
+  }
+  function wireEmailGate(downloadEls) {
+    if (!gateOverlay || !gateFrame || !gateSkip) return;
+    downloadEls.forEach(function (el) {
+      if (!el) return;
+      el.addEventListener('click', function (e) {
+        if (!EMAIL_GATE_TALLY_FORM_ID || gateBypass || gateAlreadyDone()) return;
+        e.preventDefault();
+        openGate(el);
+      });
+    });
+    gateSkip.addEventListener('click', function () {
+      markGateDone();
+      closeGate(true);
+    });
+    gateOverlay.addEventListener('click', function (e) {
+      if (e.target === gateOverlay) closeGate(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && gateOverlay.classList.contains('open')) closeGate(false);
+    });
+    window.addEventListener('message', function (e) {
+      if (e.origin !== 'https://tally.so' || typeof e.data !== 'string') return;
+      try {
+        var payload = JSON.parse(e.data);
+        if (payload && payload.event === 'Tally.FormSubmitted' &&
+            gateOverlay.classList.contains('open')) {
+          markGateDone();
+          closeGate(true);
+        }
+      } catch (err) { /* not a Tally event */ }
+    });
+  }
+
+  wireEmailGate([dlSvg].concat(pngLinks.map(function (link) { return link.el; })));
 
   if (btn) btn.addEventListener('click', function () {
     btn.setAttribute('aria-busy', 'true');

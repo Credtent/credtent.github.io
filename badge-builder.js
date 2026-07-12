@@ -32,18 +32,29 @@
   var CREATIVE_ORIGIN_STANDARD_VERSION = 'creative-origin/4.0';
   var CREATIVE_ORIGIN_ISSUING_AUTHORITY = 'Credtent';
 
-  /** Locked plain-language disclosure labels, keyed off the tier. */
+  /**
+   * Locked plain-language disclosure labels, keyed off the tier.
+   * 'legacy' is the fourth builder tier restored from the original registry
+   * builder (EB decision 2026-07-11): Legacy Creation, for works made before
+   * November 2022, predating generative AI tools.
+   */
   var CREATIVE_ORIGIN_DISCLOSURE_LABELS = {
     hcc: 'Human Composed',
     aac: 'AI-assisted',
-    acc: 'AI-generated'
+    acc: 'AI-generated',
+    legacy: 'Legacy Creation'
   };
 
-  /** Stable machine token per tier (snake_case, regulator-aligned). */
+  /**
+   * Stable machine token per tier (snake_case, regulator-aligned).
+   * Legacy uses the existing 4.0 vocabulary: origin_class human_composed with
+   * the manifest's legacy_flag set true, rather than inventing a new token.
+   */
   var CREATIVE_ORIGIN_CLASS_TOKEN = {
     hcc: 'human_composed',
     aac: 'ai_assisted',
-    acc: 'ai_generated'
+    acc: 'ai_generated',
+    legacy: 'human_composed'
   };
 
   /**
@@ -55,7 +66,8 @@
   var EU_ARTICLE_50_BINARY_MAP = {
     hcc: [],
     aac: ['eu-ai-act:art50:ai_generated'],
-    acc: ['eu-ai-act:art50:ai_generated']
+    acc: ['eu-ai-act:art50:ai_generated'],
+    legacy: []
   };
 
   function disclosureLabel(origin) {
@@ -77,7 +89,7 @@
       origin_label: disclosureLabel(input.origin),
       assertion_basis: input.assertionBasis,
       issuing_authority: CREATIVE_ORIGIN_ISSUING_AUTHORITY,
-      legacy_flag: false,
+      legacy_flag: input.origin === 'legacy',
       regulatory_map: regulatoryMapFor(input.origin)
     };
   }
@@ -93,8 +105,15 @@
       basis === 'expert_certified'
         ? 'expert certified by Credtent'
         : 'self declared by the creator';
+    // The legacy sentence adds the pre-November-2022 clause; the three core
+    // tier sentences stay byte-identical to the 4.0 engine.
+    var legacyClause =
+      origin === 'legacy'
+        ? ' The work was made before November 2022, predating generative AI tools.'
+        : '';
     return (
-      'Creative Origin: ' + label + '. This classification is ' + basisPhrase +
+      'Creative Origin: ' + label + '.' + legacyClause +
+      ' This classification is ' + basisPhrase +
       ' and maps onto the EU AI Act Article 50 transparency label.'
     );
   }
