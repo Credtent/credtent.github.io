@@ -211,7 +211,9 @@
             <p class="status-pill" id="status-pill"></p>
             <div class="result-downloads">
               <a class="download-btn primary" id="download-svg" download="creative-origin-badge.svg">Download SVG</a>
-              <a class="download-btn secondary" id="download-png" download="creative-origin-badge.png">Download PNG</a>
+              <a class="download-btn secondary" id="download-png-large" download="creative-origin-badge.png">PNG Large (1000)</a>
+              <a class="download-btn secondary" id="download-png-medium" download="creative-origin-badge.png">PNG Medium (400)</a>
+              <a class="download-btn secondary" id="download-png-small" download="creative-origin-badge.png">PNG Small (200)</a>
             </div>
           </div>
         </div>
@@ -308,25 +310,36 @@
     });
   }
 
-  function svgToPngDataUrl(svg) {
+  // PNG size options carried over from the original registry badge builder
+  // (Large / Medium / Small).
+  var PNG_SIZES = [
+    { id: 'download-png-large', size: 1000 },
+    { id: 'download-png-medium', size: 400 },
+    { id: 'download-png-small', size: 200 }
+  ];
+
+  function svgToPngDataUrls(svg, sizes) {
     return new Promise(function (resolve, reject) {
       var blob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
       var url = URL.createObjectURL(blob);
       var img = new Image();
       img.onload = function () {
-        var size = 1001;
-        var canvas = document.createElement('canvas');
-        canvas.width = size;
-        canvas.height = size;
-        var ctx = canvas.getContext('2d');
-        if (!ctx) {
+        try {
+          var out = sizes.map(function (size) {
+            var canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            var ctx = canvas.getContext('2d');
+            if (!ctx) throw new Error('no canvas context');
+            ctx.drawImage(img, 0, 0, size, size);
+            return canvas.toDataURL('image/png');
+          });
           URL.revokeObjectURL(url);
-          reject(new Error('no canvas context'));
-          return;
+          resolve(out);
+        } catch (err) {
+          URL.revokeObjectURL(url);
+          reject(err);
         }
-        ctx.drawImage(img, 0, 0, size, size);
-        URL.revokeObjectURL(url);
-        resolve(canvas.toDataURL('image/png'));
       };
       img.onerror = function () {
         URL.revokeObjectURL(url);
@@ -342,7 +355,15 @@
   var classLine = document.getElementById('result-class');
   var statusPill = document.getElementById('status-pill');
   var dlSvg = document.getElementById('download-svg');
-  var dlPng = document.getElementById('download-png');
+  var pngLinks = PNG_SIZES.map(function (opt) {
+    return { el: document.getElementById(opt.id), size: opt.size };
+  });
+
+  function setPngLinksHidden(hidden) {
+    pngLinks.forEach(function (link) {
+      if (link.el) link.el.hidden = hidden;
+    });
+  }
 
   if (btn) btn.addEventListener('click', function () {
     btn.setAttribute('aria-busy', 'true');
@@ -367,16 +388,20 @@
         dlSvg.hidden = false;
       }
 
-      var pngStep = dlPng
-        ? svgToPngDataUrl(result.svg).then(function (pngUrl) {
-            dlPng.href = pngUrl;
-            dlPng.download = 'creative-origin-' + tier + '.png';
-            dlPng.hidden = false;
-          }).catch(function () {
-            // PNG is a nicety; if rasterization fails, hide it and keep SVG.
-            dlPng.hidden = true;
-          })
-        : Promise.resolve();
+      var pngStep = svgToPngDataUrls(
+        result.svg,
+        pngLinks.map(function (link) { return link.size; })
+      ).then(function (urls) {
+        pngLinks.forEach(function (link, i) {
+          if (!link.el) return;
+          link.el.href = urls[i];
+          link.el.download = 'creative-origin-' + tier + '-' + link.size + 'x' + link.size + '.png';
+          link.el.hidden = false;
+        });
+      }).catch(function () {
+        // PNG is a nicety; if rasterization fails, hide it and keep SVG.
+        setPngLinksHidden(true);
+      });
 
       return pngStep.then(function () {
         if (resultStep) {
@@ -392,7 +417,7 @@
       if (classLine) classLine.textContent = '';
       if (preview) preview.innerHTML = '';
       if (dlSvg) dlSvg.hidden = true;
-      if (dlPng) dlPng.hidden = true;
+      setPngLinksHidden(true);
       if (resultStep) resultStep.hidden = false;
     }).then(function () {
       btn.setAttribute('aria-busy', 'false');
