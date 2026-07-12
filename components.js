@@ -19,26 +19,49 @@
     ? 'index.html'
     : (_path.split('/').pop() || '__none__');
 
+  // Five top-level items plus a Resources dropdown (About, FAQ, Blog).
   const pages = [
     { href: `${base}for-ai-companies.html`, label: 'AI Companies' },
     { href: `${base}for-content-owners.html`, label: 'Content Owners' },
-    { href: `${base}certified-publisher.html`, label: 'Certification' },
     { href: `${base}badges/`, label: 'Badges' },
-    { href: `${base}about.html`, label: 'About' },
-    { href: `${base}faq.html`, label: 'FAQ' },
-    { href: `${base}blog.html`, label: 'Blog' },
+    { href: `${base}certified-publisher.html`, label: 'Certification' },
     { href: `${base}pricing.html`, label: 'Pricing' },
   ];
 
+  const resourcePages = [
+    { href: `${base}about.html`, label: 'About' },
+    { href: `${base}faq.html`, label: 'FAQ' },
+    { href: `${base}blog.html`, label: 'Blog' },
+  ];
+
+  const isActive = p => p.href.endsWith(currentPage);
+  const resourcesActive = resourcePages.some(isActive);
+
+  const caretSVG =
+    '<svg class="caret" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">' +
+    '<path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
   const navLinks = pages.map(p => {
-    const active = p.href.endsWith(currentPage) ? ' class="active"' : '';
+    const active = isActive(p) ? ' class="active"' : '';
     return `<a href="${p.href}"${active}>${p.label}</a>`;
-  }).join('');
+  }).join('') +
+    `<div class="nav-dropdown" id="nav-resources">
+      <button type="button" class="nav-dropdown-btn${resourcesActive ? ' active' : ''}" id="nav-resources-btn"
+        aria-haspopup="true" aria-expanded="false" aria-controls="nav-resources-menu">Resources ${caretSVG}</button>
+      <div class="nav-dropdown-menu" id="nav-resources-menu" role="menu" aria-label="Resources">
+        ${resourcePages.map(p => `<a role="menuitem" href="${p.href}"${isActive(p) ? ' class="active"' : ''}>${p.label}</a>`).join('')}
+      </div>
+    </div>`;
 
   const mobileLinks = pages.map(p => {
-    const active = p.href.endsWith(currentPage) ? ' class="active"' : '';
+    const active = isActive(p) ? ' class="active"' : '';
     return `<a href="${p.href}"${active}>${p.label}</a>`;
-  }).join('');
+  }).join('') +
+    `<button type="button" class="nav-mobile-subtoggle${resourcesActive ? ' active' : ''}" id="nav-mobile-resources-btn"
+      aria-expanded="${resourcesActive ? 'true' : 'false'}" aria-controls="nav-mobile-resources">Resources ${caretSVG}</button>
+    <div class="nav-mobile-sublinks" id="nav-mobile-resources"${resourcesActive ? '' : ' hidden'}>
+      ${resourcePages.map(p => `<a href="${p.href}"${isActive(p) ? ' class="active"' : ''}>${p.label}</a>`).join('')}
+    </div>`;
 
   const navHTML = `
 <nav class="nav">
@@ -318,6 +341,75 @@
       } else if (!consent) {
         showBanner();
       }
+    }());
+
+    // ── Resources dropdown (desktop) ─────────────────────────────
+    (function () {
+      const wrap = document.getElementById('nav-resources');
+      const btn = document.getElementById('nav-resources-btn');
+      const menu = document.getElementById('nav-resources-menu');
+      if (!wrap || !btn || !menu) return;
+
+      const items = Array.prototype.slice.call(menu.querySelectorAll('a'));
+
+      function setOpen(open) {
+        menu.classList.toggle('open', open);
+        btn.setAttribute('aria-expanded', String(open));
+      }
+      function isOpen() { return menu.classList.contains('open'); }
+
+      btn.addEventListener('click', function () { setOpen(!isOpen()); });
+
+      // Keyboard: ArrowDown opens and focuses the first item; arrows move
+      // within the menu; Escape closes and returns focus to the button.
+      btn.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          setOpen(true);
+          if (items[0]) items[0].focus();
+        } else if (e.key === 'Escape') {
+          setOpen(false);
+        }
+      });
+      menu.addEventListener('keydown', function (e) {
+        const idx = items.indexOf(document.activeElement);
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          const next = items[Math.min(idx + 1, items.length - 1)];
+          if (next) next.focus();
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          if (idx <= 0) { setOpen(false); btn.focus(); }
+          else items[idx - 1].focus();
+        } else if (e.key === 'Escape') {
+          setOpen(false);
+          btn.focus();
+        }
+      });
+
+      // Pointer niceties: open on hover, close when the pointer leaves.
+      wrap.addEventListener('mouseenter', function () { setOpen(true); });
+      wrap.addEventListener('mouseleave', function () { setOpen(false); });
+
+      // Close on click outside or when focus leaves the dropdown.
+      document.addEventListener('click', function (e) {
+        if (isOpen() && !wrap.contains(e.target)) setOpen(false);
+      });
+      wrap.addEventListener('focusout', function (e) {
+        if (!wrap.contains(e.relatedTarget)) setOpen(false);
+      });
+    }());
+
+    // ── Resources inline expander (mobile) ───────────────────────
+    (function () {
+      const toggle = document.getElementById('nav-mobile-resources-btn');
+      const sublinks = document.getElementById('nav-mobile-resources');
+      if (!toggle || !sublinks) return;
+      toggle.addEventListener('click', function () {
+        const open = sublinks.hidden;
+        sublinks.hidden = !open;
+        toggle.setAttribute('aria-expanded', String(open));
+      });
     }());
 
     // Mobile hamburger toggle
