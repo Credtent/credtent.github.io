@@ -387,9 +387,9 @@
         }
       });
 
-      // Pointer niceties: open on hover, close when the pointer leaves.
-      wrap.addEventListener('mouseenter', function () { setOpen(true); });
-      wrap.addEventListener('mouseleave', function () { setOpen(false); });
+      // Deliberately no hover-open: hover plus click-toggle fight each
+      // other (hover opens, the follow-up click instantly closes). Click
+      // and keyboard are the single predictable interaction.
 
       // Close on click outside or when focus leaves the dropdown.
       document.addEventListener('click', function (e) {
