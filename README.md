@@ -32,9 +32,15 @@ Plain HTML + CSS + vanilla JavaScript. No build step. Deployed via GitHub Pages 
 ## Local development
 
 ```bash
-python3 -m http.server 8787
-# open http://localhost:8787
+npx serve
+# open http://localhost:3000
 ```
+
+Use `npx serve` (not `python3 -m http.server`). `serve` resolves clean URLs
+by default (`/badge-builder` → `badge-builder.html`), matching how GitHub
+Pages serves the extensionless canonical URLs in production. The Python
+server does not, so extensionless links 404 there and the preview lies to
+you about production behavior.
 
 ## Deployment
 

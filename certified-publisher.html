@@ -436,7 +436,7 @@
     <div class="section-header">
       <div class="eyebrow">Credtent's Badge System</div>
       <h2>Creative Origin Is One of Three Credtent Badges</h2>
-      <p>Credtent operates three distinct certification programs, each addressing a different question in the content and AI ecosystem. Creative Origin is the one that answers: "Was this made by humans?"</p>
+      <p>Credtent operates three distinct certification programs, each addressing a different question in the content and AI ecosystem. Creative Origin is the one that answers: "Was this made by humans?" See the <a href="badges/" style="color:var(--c-purple)">badge systems overview</a>, or make a free self-declared disclosure badge with the <a href="badge-builder.html" style="color:var(--c-purple)">badge builder</a>.</p>
     </div>
 
     <div class="badges-row">
@@ -485,6 +485,23 @@
         title="Creative Origin Certification Inquiry"
         style="border:none;width:100%"
       ></iframe>
+      <script>
+        // Unified inquiry form: badge CTAs arrive with
+        // ?role=platform | ai-company | publisher-content-owner
+        // (Creative Consent, Commercial Safety, Creative Origin respectively).
+        // Forward the role to the Tally embed as a prefill parameter so the
+        // form's hidden "role" field (and any role question prefill) captures
+        // which badge system the visitor came from. Must run before the Tally
+        // loader below reads data-tally-src.
+        (function () {
+          var role = new URLSearchParams(window.location.search).get('role');
+          var allowed = ['platform', 'ai-company', 'publisher-content-owner'];
+          if (role && allowed.indexOf(role) !== -1) {
+            var frame = document.querySelector('iframe[data-tally-src]');
+            if (frame) frame.dataset.tallySrc += '&role=' + encodeURIComponent(role);
+          }
+        })();
+      </script>
       <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
       <p style="text-align:center;color:var(--c-muted);font-size:0.85rem;margin-top:20px">
         Prefer email? Reach us at <a href="mailto:publishers@credtent.org" style="color:var(--c-purple)">publishers@credtent.org</a>
