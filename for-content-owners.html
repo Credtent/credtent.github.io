@@ -20,12 +20,55 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Service",
-    "serviceType": "Catalog licensing and provenance certification for rights holders",
-    "provider": { "@type": "Organization", "name": "Credtent", "url": "https://credtent.org" },
-    "areaServed": "Worldwide",
-    "audience": { "@type": "Audience", "audienceType": "Content owners and rights holders" },
-    "description": "Credtent lists rights holders' catalogs for AI training-data licensing, routing 85% of every licensing deal to the rights holder while they retain full IP ownership. Credtent handles discovery, negotiation, compliance, and quarterly royalty distribution."
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://credtent.org/#organization",
+        "name": "Credtent",
+        "legalName": "Credtent Inc.",
+        "url": "https://credtent.org",
+        "logo": "https://credtent.org/credtent-logo-mark.svg",
+        "foundingDate": "2023",
+        "description": "Neutral licensing infrastructure that connects AI companies with rights-cleared, provenance-verified training data, and lets creators register works for opt-out, licensing, or both.",
+        "founder": { "@type": "Person", "name": "Eric R. Burgess" },
+        "sameAs": [
+          "https://www.linkedin.com/company/credtent/",
+          "https://x.com/credtent",
+          "https://bsky.app/profile/credtent.bsky.social",
+          "https://www.instagram.com/credtentofficial/",
+          "https://www.facebook.com/profile.php?id=61554185681148",
+          "https://credtent.substack.com/",
+          "https://medium.com/credtent-on-content",
+          "https://www.forbes.com/sites/jonathanreichental/2026/04/29/ais-data-surge-demands-action-in-a-new-battle-over-creator-rights/"
+        ],
+        "memberOf": { "@type": "Organization", "name": "Content Authenticity Initiative", "url": "https://contentauthenticity.org" }
+      },
+      {
+        "@type": "Service",
+        "serviceType": "Catalog licensing and provenance certification for rights holders",
+        "provider": { "@id": "https://credtent.org/#organization" },
+        "areaServed": "Worldwide",
+        "audience": { "@type": "Audience", "audienceType": "Content owners and rights holders" },
+        "description": "Credtent lists rights holders' catalogs for AI training-data licensing, routing 85% of every licensing deal to the rights holder while they retain full IP ownership. Credtent handles discovery, negotiation, compliance, and quarterly royalty distribution."
+      },
+      {
+        "@type": "Service",
+        "@id": "https://credtent.org/#service-registry",
+        "name": "Independent Creative Registry",
+        "serviceType": "Multimodal creative work registry for AI-training licensing and opt-out",
+        "provider": { "@id": "https://credtent.org/#organization" },
+        "areaServed": "Worldwide",
+        "description": "Credtent's Independent Creative Registry lets rights holders register text, audio, video, image, and structured-data works, then license them for AI training, opt out of AI training entirely, or both, with provenance tagging and Creative Origin certification."
+      },
+      {
+        "@type": "Product",
+        "@id": "https://credtent.org/#product-creative-origin-badge",
+        "name": "Creative Origin Badges",
+        "description": "Credtent's Creative Origin badge certifies the human-composed origin of a registered work, giving AI buyers, platforms, and audiences a neutral, third-party provenance attestation.",
+        "brand": { "@id": "https://credtent.org/#organization" },
+        "category": "Creative provenance certification"
+      }
+    ]
   }
   </script>
   <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
