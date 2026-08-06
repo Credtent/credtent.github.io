@@ -40,8 +40,8 @@
    */
   var CREATIVE_ORIGIN_DISCLOSURE_LABELS = {
     hcc: 'Human Composed',
-    aac: 'AI-assisted',
-    acc: 'AI-generated',
+    aac: 'AI-Assisted',
+    acc: 'AI-Generated',
     legacy: 'Legacy Creation'
   };
 
