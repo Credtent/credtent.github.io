@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creative Consent Badges: How Platforms Treat Your Content | Credtent</title>
+  <meta name="description" content="A platform-by-platform guide to how social, video, and publishing platforms treat your work when it comes to AI training. Three badges: Full Protection, Optional Protection, No Protection. Maintained by Credtent." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/favicon/site.webmanifest">
+  <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#290099">
+  <meta name="msapplication-TileColor" content="#152153">
+  <meta name="theme-color" content="#ffffff">
+  <style>
+    /* ── Creative Consent directory ─────────────────────────── */
+    .cc-intro { font-size:17px; line-height:1.75; color:var(--c-body); margin:0 0 20px; }
+    .cc-intro a { color:var(--c-purple); text-decoration:underline; text-underline-offset:3px; }
+    .cc-intro a:hover { color:var(--c-navy); }
+
+    .cc-section { border-top:1px solid var(--c-border); padding-top:56px; margin-top:56px; }
+    .cc-section:first-child { border-top:none; padding-top:0; margin-top:0; }
+    .cc-section h2 { font-size:clamp(1.4rem,2.2vw,1.85rem); color:var(--c-heading); margin:0 0 20px; }
+    .cc-section > p { font-size:16px; line-height:1.75; color:var(--c-body); margin:0 0 20px; }
+
+    /* Tier chips. Typographic only: the CCF/CCO/CCN badge ARTWORK does not
+       exist yet and is Brackett's to design. Do not substitute an improvised mark. */
+    .cc-chip {
+      display:inline-flex; align-items:center; gap:8px;
+      font-family:var(--f-mono); font-size:11px; font-weight:600;
+      letter-spacing:.1em; text-transform:uppercase;
+      padding:6px 12px; border-radius:100px; white-space:nowrap;
+    }
+    .cc-chip .cc-code { font-weight:700; }
+    .cc-chip-full { color:#0d5c3f; background:rgba(32,131,84,.09); border:1px solid rgba(32,131,84,.28); }
+    .cc-chip-opt  { color:#8a5200; background:rgba(201,79,3,.09);  border:1px solid rgba(201,79,3,.28); }
+    .cc-chip-none { color:#8c1c1c; background:rgba(160,30,30,.08); border:1px solid rgba(160,30,30,.26); }
+    /* Tier deliberately withheld. Not a rating, and must never be styled like one. */
+    .cc-chip-review { color:#4a4a55; background:rgba(90,90,105,.07); border:1px dashed rgba(90,90,105,.35); }
+
+    .cc-tierhead { display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin:0 0 10px; }
+    .cc-tierhead h3 { margin:0; font-size:1.15rem; color:var(--c-heading); }
+    .cc-tierdesc { font-size:15px; line-height:1.7; color:var(--c-body); margin:0 0 28px; }
+
+    /* Platform card */
+    .cc-card {
+      border:1px solid var(--c-border); border-radius:10px;
+      padding:22px 24px; margin:0 0 16px; background:#fff;
+    }
+    .cc-card-head { display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; margin-bottom:12px; }
+    .cc-card-head h4 { margin:0; font-size:1.05rem; color:var(--c-heading); }
+    .cc-line { font-size:15px; line-height:1.7; color:var(--c-body); margin:0 0 14px; }
+    .cc-label {
+      font-family:var(--f-mono); font-size:10px; font-weight:600; letter-spacing:.1em;
+      text-transform:uppercase; color:var(--c-muted); display:block; margin:0 0 6px;
+    }
+    .cc-quote {
+      font-size:14px; line-height:1.7; color:var(--c-body);
+      border-left:3px solid var(--c-border); padding:2px 0 2px 14px; margin:0 0 14px;
+      font-style:italic;
+    }
+    .cc-meta { font-size:13px; line-height:1.7; color:var(--c-muted); margin:0; }
+    .cc-meta a { color:var(--c-purple); text-decoration:underline; text-underline-offset:2px; }
+
+    /* Verification state */
+    .cc-vstate { font-family:var(--f-mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; padding:3px 8px; border-radius:4px; }
+    .cc-v-ok    { color:#0d5c3f; background:rgba(32,131,84,.10); }
+    .cc-v-todo  { color:#8a5200; background:rgba(201,79,3,.10); }
+
+    /* Scaffold-only reviewer banner. DELETE THIS BLOCK BEFORE LAUNCH. */
+    .cc-scaffold {
+      background:#fffbe6; border:2px dashed #c94f03; border-radius:10px;
+      padding:24px 26px; margin:0 0 40px;
+    }
+    .cc-scaffold h2 { font-size:1.1rem; color:#8a3d00; margin:0 0 12px; }
+    .cc-scaffold p, .cc-scaffold li { font-size:14.5px; line-height:1.7; color:#5c3a12; }
+    .cc-scaffold ol { margin:0 0 12px; padding-left:22px; }
+    .cc-scaffold li { margin-bottom:10px; }
+
+    /* Sits on the dark hero, so it takes hero-appropriate contrast, matching
+       .std-updated on standards.html. The muted token is for light backgrounds. */
+    .cc-updated {
+      display:inline-block; font-family:var(--f-mono); font-size:11px;
+      letter-spacing:.08em; text-transform:uppercase;
+      color:rgba(255,255,255,.72);
+      background:rgba(201,79,3,.28); border:1px solid rgba(255,255,255,.28);
+      border-radius:100px; padding:5px 12px;
+    }
+    @media (max-width:600px){ .cc-card { padding:18px; } }
+  </style>
+</head>
+<body>
+
+<div id="nav-placeholder"></div>
+
+<!-- ══ HERO ══════════════════════════════════════════════════ -->
+<section class="page-hero">
+  <div class="page-hero-content">
+    <div class="eyebrow" style="margin-bottom:20px">Creative Consent</div>
+    <h1>What Happens to Your Work When You Post It</h1>
+    <p>Every platform has already decided whether your content can be used to train AI. Most of them decided it in a document you agreed to without reading. This is that decision, platform by platform, in plain language.</p>
+    <div class="cc-updated">Scaffold, not yet published. Last edited 2026-08-11.</div>
+  </div>
+</section>
+
+<section class="section-pad" style="background:#fff">
+  <div class="container">
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SCAFFOLD-ONLY REVIEWER BLOCK. DELETE BEFORE LAUNCH.
+         ═══════════════════════════════════════════════════════════════ -->
+    <div class="cc-scaffold">
+      <h2>Scaffold notes. Delete this block before launch.</h2>
+      <p><strong>Source:</strong> platform ratings and quoted clauses come from the existing Credtent research doc "Understanding Your Creative Rights: A Deep Dive into the Credtent Creative Consent Badge System" (Google Doc <code>1orYEYG…v2D4sE</code>), which already covers 13 platforms. Vimeo is new and was verified 2026-08-11.</p>
+
+      <p><strong>EB decisions, 2026-08-11, applied to this page:</strong></p>
+      <ol>
+        <li><strong>Hybrid badge assignment.</strong> Assign a tier where our sources agree; withhold the tier where they do not, show the clause anyway, and mark it under review. Eleven platforms carry a tier. Three do not: YouTube, Meta, BlueSky. A withheld tier is not a rating and must never be styled to look like one.</li>
+        <li><strong>Two launch beats.</strong> This page ships in beat 1 with the Aegis launch. No named AI company appears until beat 2, after a 14-day right-of-reply window.</li>
+        <li><strong>Cherryh reviews this page and the AI-company directory</strong> before either goes public.</li>
+        <li><strong>Commercial Safety explainer ships names-only</strong>, since no canonical per-level criteria exist yet.</li>
+      </ol>
+
+      <p><strong>Still open, and each is mechanical rather than a decision:</strong></p>
+      <ol>
+        <li><strong>Retrieval dates are missing for the 13 doc-sourced platforms.</strong> Every clause needs a date because terms change without notice. Each card carries a verification chip; only Vimeo is green. The rest need someone to open the terms, confirm the clause is live, and stamp the date. This is the bulk of the remaining work.</li>
+        <li><strong>Resolve the three withheld tiers.</strong> YouTube needs the Google-versus-third-party question settled. Meta needs a jurisdiction call, since its objection mechanism is far more real under GDPR than in the US; recommend rating to the weakest jurisdiction and noting the exception. BlueSky needs the methodology question answered: recommend the badge measure platform policy, with scraping exposure as a separate field on every card, which is the only way BlueSky and Vimeo can be rated consistently.</li>
+        <li><strong>Fix "B Corp" in the two Drive source docs.</strong> Credtent is a Delaware Public Benefit Corporation. B Corp is a B Lab certification we do not hold and the term is protected. Corrected here; wrong at the source. Tiptree found the same error in a second doc, along with a "leading authority" claim that should also not be ported.</li>
+      </ol>
+
+      <p><strong>Not built, deliberately:</strong> the CCF / CCO / CCN badge <em>artwork</em> does not exist. Only a generic <code>creative-consent-badge.svg</code> is in the repo. Tier marks are Brackett's to design, so this page uses typographic chips as placeholders. Also not built: client-side search and the submit box, JSON-LD structured data (Niven), and the AI-company directory, which is beat 2.</p>
+    </div>
+
+    <!-- ══ INTRO ═══════════════════════════════════════════════ -->
+    <div class="cc-section">
+      <p class="cc-intro">If you post a video on one platform, it may be training a model tomorrow. Post the same video somewhere else and the platform's own terms forbid that. Nothing on the surface tells you which is which, and the answer is buried in a terms-of-service document that changes without telling you.</p>
+      <p class="cc-intro">Creative Consent badges fix that. Three ratings, one per platform, describing exactly one thing: <strong>what the platform's own terms permit when it comes to training AI on the work you post there.</strong> We read the terms, quote the clause that decides it, link the source, and date it.</p>
+      <p class="cc-intro">This is not a ranking of which platforms are good. It is a statement of what you are agreeing to. Some creators will read a No Protection rating and post anyway, because the reach is worth it. That is a legitimate choice. It should just be an informed one.</p>
+    </div>
+
+    <!-- ══ HOW TO READ ═════════════════════════════════════════ -->
+    <div class="cc-section" id="how-to-read">
+      <h2>The three badges</h2>
+
+      <div class="cc-tierhead">
+        <span class="cc-chip cc-chip-full"><span class="cc-code">CCF</span> Full Protection</span>
+      </div>
+      <p class="cc-tierdesc">The platform's terms prohibit using your content to train AI. It does not train its own generative models on your work, and it does not share your work with third parties for training. This is the strongest position a platform can take, and very few take it.</p>
+
+      <div class="cc-tierhead">
+        <span class="cc-chip cc-chip-opt"><span class="cc-code">CCO</span> Optional Protection</span>
+      </div>
+      <p class="cc-tierdesc">Your content can be used for AI training, but you can stop it. There is a clear, free opt-out. In most cases you are opted in by default, so the protection only exists if you go and switch it on. Opt-outs are also usually forward-looking: they stop future use and do not remove work already absorbed into a model.</p>
+
+      <div class="cc-tierhead">
+        <span class="cc-chip cc-chip-none"><span class="cc-code">CCN</span> No Protection</span>
+      </div>
+      <p class="cc-tierdesc">The platform's terms permit training on your content and there is no way to opt out. Usually this rides on a broad, perpetual, royalty-free license you granted when you signed up. Posting is the consent.</p>
+
+      <div class="cc-tierhead">
+        <span class="cc-chip cc-chip-review">Under review</span>
+      </div>
+      <p class="cc-tierdesc">Some platforms do not yet have a rating here, and we would rather say so than guess. These are cases where a platform's stated policy and its practical effect point in different directions, or where the control that exists covers less than it appears to. We show you the clause and explain the open question. A withheld rating is not a low rating, and it is not an accusation. It means we have not finished the work.</p>
+    </div>
+
+    <!-- ══ FULL PROTECTION ═════════════════════════════════════ -->
+    <div class="cc-section">
+      <div class="cc-tierhead">
+        <h3>Full Protection</h3>
+        <span class="cc-chip cc-chip-full"><span class="cc-code">CCF</span></span>
+      </div>
+
+      <div class="cc-card">
+        <div class="cc-card-head">
+          <h4>Vimeo</h4>
+          <span class="cc-vstate cc-v-ok">Verified 2026-08-11</span>
+        </div>
+        <p class="cc-line">Vimeo's AI Addendum states it will not allow generative AI models to be trained on videos hosted on the platform without explicit user consent, including on free accounts. It also prohibits unauthorized scraping by model companies, and its third-party providers have agreed not to train on user inputs or outputs.</p>
+        <span class="cc-label">What to keep in mind</span>
+        <p class="cc-line">A policy against scraping is not a technical barrier. Vimeo commits not to permit training and to pursue unauthorized scraping, which is meaningfully more than most platforms offer, but public video remains reachable by a determined scraper.</p>
+        <p class="cc-meta">Source: <a href="https://vimeo.com/legal/service-terms/ai">Vimeo Artificial Intelligence Addendum</a> (dated 3 March 2026) and <a href="https://vimeo.com/blog/post/vimeos-position-on-ai">Vimeo's position on AI</a>. Retrieved 2026-08-11.</p>
+      </div>
+
+      <div class="cc-card">
+        <div class="cc-card-head">
+          <h4>Ghost</h4>
+          <span class="cc-vstate cc-v-todo">Needs date stamp</span>
+        </div>
+        <p class="cc-line">Ghost's terms do not claim any right to use your content for AI training. The license you grant is broad in form but explicitly bounded in purpose.</p>
+        <span class="cc-label">The clause that decides it</span>
+        <p class="cc-quote">"perpetual, irrevocable, world-wide, sublicensable, royalty-free, and non-exclusive" license, limited to "displaying, distributing and promoting your site"</p>
+        <span class="cc-label">What to keep in mind</span>
+        <p class="cc-line">Ghost's terms are silent on AI training rather than prohibitive. Silence means they claim no right to do it, which is why this rates Full Protection, but it also means you may want <code>robots.txt</code> rules of your own against outside crawlers. Ghost is self-hosted or Ghost-hosted, so that control is genuinely yours.</p>
+        <p class="cc-meta">Source: <a href="https://ghost.org/terms/">Ghost Terms of Service</a>. Retrieval date to confirm.</p>
+      </div>
+
+      <div class="cc-card">
+        <div class="cc-card-head">
+          <h4>Medium</h4>
+          <span class="cc-vstate cc-v-todo">Needs date stamp</span>
+        </div>
+        <p class="cc-line">Medium has stated a default opt-out from AI training and updated its <code>robots.txt</code> to block AI crawlers. Protection is on by default rather than something you have to find.</p>
+        <span class="cc-label">What to keep in mind</span>
+        <p class="cc-quote">"a nonexclusive, royalty-free, worldwide, fully paid, and sublicensable license to use, reproduce, modify, adapt, publish, translate, create derivative works from, distribute, publicly perform and display your content… in all media formats and distribution methods now known or later developed"</p>
+        <p class="cc-line">The general content license remains broad. It is not an AI-training license and Medium's stated position is against training, but the breadth is worth knowing about.</p>
+        <p class="cc-meta">Source: <a href="https://policy.medium.com/medium-terms-of-service-9db0094a1e0f">Medium Terms of Service</a>. Retrieval date to confirm.</p>
+      </div>
+    </div>
+
+    <!-- ══ OPTIONAL PROTECTION ═════════════════════════════════ -->
+    <div class="cc-section">
+      <div class="cc-tierhead">
+        <h3>Optional Protection</h3>
+        <span class="cc-chip cc-chip-opt"><span class="cc-code">CCO</span></span>
+      </div>
+      <p class="cc-tierdesc">On every platform below, the protection exists only if you go and turn it on.</p>
+
+      <div class="cc-card">
+        <div class="cc-card-head">
+          <h4>LinkedIn</h4>
+          <span class="cc-vstate cc-v-todo">Needs date stamp</span>
+        </div>
+        <p class="cc-line">LinkedIn uses member data for AI training and provides an opt-out in settings.</p>
+        <span class="cc-label">The clause that decides it</span>
+        <p class="cc-quote">"A worldwide, transferable and sublicensable right to use, copy, modify, distribute, publish, process, and analyze information and content that you provide through our Services, without any further consent, notice and/or compensation to you or others"</p>
+        <span class="cc-label">What to keep in mind</span>
+        <p class="cc-line">LinkedIn reportedly began using member data for AI training before updating its terms to say so. The opt-out is not retroactive, so anything already used remains in the models.</p>
+        <p class="cc-meta">Source: <a href="https://www.linkedin.com/legal/user-agreement">LinkedIn User Agreement</a>. Retrieval date to confirm.</p>
+      </div>
+
+      <div class="cc-card">
+        <div class="cc-card-head">
+          <h4>Substack</h4>
+          <span class="cc-vstate cc-v-todo">Needs date stamp</span>
+        </div>
+        <p class="cc-line">Substack provides an explicit publication-level setting to block AI training on your posts.</p>
+        <span class="cc-label">What to keep in mind</span>
+        <p class="cc-quote">"You hereby grant Substack a license to translate, modify, reproduce, and otherwise act with respect to your Posts to enable us to provide, improve, and notify you about new features within Substack."</p>
+        <p class="cc-line">The license is described as perpetual, irrevocable and worldwide, though bounded to operating the platform.</p>
+        <p class="cc-meta">Source: <a href="https://substack.com/tos">Substack Terms of Use</a>. Retrieval date to confirm.</p>
+      </div>
+
+      <div class="cc-card">
+        <div class="cc-card-head">
+          <h4>Pinterest</h4>
+          <span class="cc-vstate cc-v-todo">Needs date stamp</span>
+        </div>
+        <p class="cc-line">Pinterest permits use of user content for AI training and offers an opt-out.</p>
+        <span class="cc-label">The clause that decides it</span>
+        <p class="cc-quote">"a worldwide, non-exclusive, royalty-free, sublicensable and transferable license to use, reproduce, distribute, prepare derivative works of, display, and perform the User Content in connection with the Service and Pinterest's… business"</p>
+        <span class="cc-label">What to keep in mind</span>
+        <p class="cc-line">AI training is not named in the main Terms of Service. It appears in separate help articles, which makes it easy to miss.</p>
+        <p class="cc-meta">Source: <a href="https://policy.pinterest.com/terms-of-service">Pinterest Terms of Service</a>. Retrieval date to confirm.</p>
+      </div>
+
+      <div class="cc-card">
+        <div class="cc-card-head">
+          <h4>Snapchat</h4>
+          <span class="cc-vstate cc-v-todo">Needs date stamp</span>
+        </div>
+        <p class="cc-line">Snap uses public content to develop and train its generative AI features, with an opt-out available.</p>
+        <span class="cc-label">The clause that decides it</span>
+        <p class="cc-quote">"You allow us to use your content to provide, improve, and promote our services… Our Services include AI-enabled features: These features use the inputs directed by you to generate outputs"</p>
+        <span class="cc-label">What to keep in mind</span>
+        <p class="cc-line">The opt-out applies to future use of public content. It does not retroactively remove anything already used for training.</p>
+        <p class="cc-meta">Source: <a href="https://www.snap.com/terms">Snap Inc. Terms of Service</a>. Retrieval date to confirm.</p>
+      </div>
+
+      <div class="cc-card">
+        <div class="cc-card-head">
+          <h4>Beehiiv</h4>
+          <span class="cc-vstate cc-v-todo">Needs date stamp</span>
+        </div>
+        <p class="cc-line">Beehiiv offers a mechanism to block AI from using newsletter content for training, alongside its own AI writing features.</p>
+        <span class="cc-label">What to keep in mind</span>
+        <p class="cc-line">The main Terms of Use and Publisher Agreement do not clearly address AI training of publisher content, which leaves the position more ambiguous than it should be for a platform that ships AI features.</p>
+        <p class="cc-meta">Source: <a href="https://www.beehiiv.com/pa">Beehiiv Publisher Agreement</a>. Retrieval date to confirm.</p>
+      </div>
+    </div>
+
+    <!-- ══ NO PROTECTION ═══════════════════════════════════════ -->
+    <div class="cc-section">
+      <div class="cc-tierhead">
+        <h3>No Protection</h3>
+        <span class="cc-chip cc-chip-none"><span class="cc-code">CCN</span></span>
+      </div>
+      <p class="cc-tierdesc">On these platforms, posting is the consent. There is no switch to find.</p>
+
+      <div class="cc-card">
+        <div class="cc-card-head">
+          <h4>Reddit</h4>
+          <span class="cc-vstate cc-v-todo">Needs date stamp</span>
+        </div>
+        <p class="cc-line">Reddit states in its User Agreement that it uses your content to train AI, and licenses it onward to partners. There is no opt-out.</p>
+        <span class="cc-label">The clause that decides it</span>
+        <p class="cc-quote">"This license includes the right for us to make Your Content available for syndication, broadcast, distribution, or publication by other companies… For example, this license includes the right to use Your Content to train AI and machine learning models"</p>
+        <p class="cc-meta">Source: <a href="https://redditinc.com/policies/user-agreement">Reddit User Agreement</a>. Retrieval date to confirm.</p>
+      </div>
+
+      <div class="cc-card">
+        <div class="cc-card-head">
+          <h4>X (formerly Twitter)</h4>
+          <span class="cc-vstate cc-v-todo">Needs date stamp</span>
+        </div>
+        <p class="cc-line">X's terms permit use of your content for AI training, with no opt-out.</p>
+        <span class="cc-label">The clause that decides it</span>
+        <p class="cc-quote">"You retain ownership and rights to any of your Content you post or share, and you provide us with a broad, royalty-free license to make your Content available to the rest of the world and to let others do the same"</p>
+        <p class="cc-meta">Source: <a href="https://x.com/en/tos">X Terms of Service</a>. Retrieval date to confirm.</p>
+      </div>
+
+      <div class="cc-card">
+        <div class="cc-card-head">
+          <h4>TikTok</h4>
+          <span class="cc-vstate cc-v-todo">Needs date stamp</span>
+        </div>
+        <p class="cc-line">TikTok's license over user content is broad enough to encompass AI training, and there is no clear opt-out.</p>
+        <span class="cc-label">The clause that decides it</span>
+        <p class="cc-quote">"a perpetual, irrevocable, non-exclusive, worldwide, royalty-free, sublicensable and transferable license to use, reproduce, distribute, prepare derivative works of, display, and perform the User Content in connection with the Services and TikTok's… business"</p>
+        <span class="cc-label">What to keep in mind</span>
+        <p class="cc-line">AI training is not named explicitly. The rating rests on the breadth of the license combined with the absence of any opt-out.</p>
+        <p class="cc-meta">Source: <a href="https://www.tiktok.com/legal/page/us/terms-of-service/en">TikTok Terms of Service</a>. Retrieval date to confirm.</p>
+      </div>
+
+    </div>
+
+    <!-- ══ UNDER REVIEW ════════════════════════════════════════ -->
+    <div class="cc-section">
+      <div class="cc-tierhead">
+        <h3>Under review</h3>
+        <span class="cc-chip cc-chip-review">Tier withheld</span>
+      </div>
+      <p class="cc-tierdesc">We have read the terms for these three and we are not ready to put a rating on them. Each one raises a question our sources answer differently. The clause is below either way, because the clause is the part you actually need.</p>
+
+      <div class="cc-card">
+        <div class="cc-card-head">
+          <h4>YouTube</h4>
+          <span class="cc-vstate cc-v-todo">Tier withheld</span>
+        </div>
+        <p class="cc-line">YouTube provides a setting in Studio Content Manager controlling whether <strong>third-party</strong> companies may train AI models on your videos.</p>
+        <span class="cc-label">Why we are not rating it yet</span>
+        <p class="cc-line">That setting governs third parties. <strong>Google's own use of YouTube content to train Google's own models is a separate question, and the third-party control does not clearly reach it.</strong> Rating YouTube as Optional Protection on the strength of a control that may not cover the largest AI developer with access to the content would tell you something misleading. We are establishing the scope of Google's own use before we assign a tier.</p>
+        <span class="cc-label">What to keep in mind now</span>
+        <p class="cc-line">The main Terms of Service do not discuss AI training at all. Everything on this subject lives in separate policy pages and Studio settings, which is itself worth knowing.</p>
+        <p class="cc-meta">Source: <a href="https://www.youtube.com/static?template=terms">YouTube Terms of Service</a> plus Studio Content Manager settings. Needs verification and a date.</p>
+      </div>
+
+      <div class="cc-card">
+        <div class="cc-card-head">
+          <h4>Meta: Facebook, Instagram, WhatsApp, Threads</h4>
+          <span class="cc-vstate cc-v-todo">Tier withheld</span>
+        </div>
+        <p class="cc-line">Meta uses content and interactions to train its AI and offers an objection mechanism.</p>
+        <span class="cc-label">Why we are not rating it yet</span>
+        <p class="cc-line">How real that objection mechanism is depends heavily on where you live. It is substantially more available to users covered by GDPR in the EU and UK than to users in the United States. A single global rating would be wrong for one of those audiences, so we are deciding whether to rate to the weakest jurisdiction or to show the split.</p>
+        <span class="cc-label">The clause</span>
+        <p class="cc-quote">"Meta may share certain information about you that is processed when using the AIs with third parties… By using AIs, you are instructing us to share your information with third parties… Those third parties will use any information we share – which may include personal information about you or others – in accordance with those third parties' privacy policies"</p>
+        <span class="cc-label">What to keep in mind now</span>
+        <p class="cc-line">Meta also states it may review your interactions with its AI features, including message content, and that review "may be automated or manual (human)."</p>
+        <p class="cc-meta">Source: <a href="https://www.facebook.com/legal/ai-terms">Meta AI Terms of Service</a>. Retrieval date to confirm.</p>
+      </div>
+
+      <div class="cc-card">
+        <div class="cc-card-head">
+          <h4>BlueSky</h4>
+          <span class="cc-vstate cc-v-todo">Tier withheld</span>
+        </div>
+        <p class="cc-line">BlueSky has publicly said it does not intend to train generative AI on user data. It is also built on an open API, so public posts are trivially collectable by third parties.</p>
+        <span class="cc-label">Why we are not rating it yet</span>
+        <p class="cc-line">This is a question about our own method rather than about BlueSky. If the badge measures what a platform's terms permit, BlueSky rates well. If it measures real-world exposure, it does not. We cannot rate BlueSky low for scraping it does not control while rating other platforms with comparable stated policies high, so we are settling the method first. Our working answer is that the badge should measure platform policy, with scraping exposure shown separately on every card.</p>
+        <p class="cc-meta">Source: <a href="https://bsky.social/about/support/tos">BlueSky Terms of Service</a>. Retrieval date to confirm.</p>
+      </div>
+    </div>
+
+    <!-- ══ METHOD ══════════════════════════════════════════════ -->
+    <div class="cc-section" id="method">
+      <h2>How we rate, and what these badges do not tell you</h2>
+      <p>We read the platform's own published terms, privacy policy, and AI-specific policies. We quote the clause that decides the rating, link the source, and record the date we read it. Where a platform's stated position and its practical effect differ, we say so on the card rather than burying it in the rating.</p>
+      <p><strong>These badges describe permission, not behavior.</strong> A Full Protection rating means the platform's terms forbid training on your work. It is not a finding that no model has ever been trained on it. Scrapers ignore terms, and a rating cannot stop them.</p>
+      <p><strong>Opt-outs are almost never retroactive.</strong> On most Optional Protection platforms, switching the setting off stops future use and leaves anything already absorbed exactly where it is.</p>
+      <p><strong>Terms change without notice.</strong> Several platforms on this page changed their AI position in the last two years, sometimes before updating the terms that described it. Every card carries the date we last checked. If a date looks old, treat it as old.</p>
+      <p><strong>We rate the platform, not the company's whole conduct.</strong> This is a narrow question about one thing: what the terms permit regarding AI training on work you post.</p>
+    </div>
+
+    <!-- ══ RIGHT OF REPLY ══════════════════════════════════════ -->
+    <div class="cc-section" id="corrections">
+      <h2>If you are a platform and we have this wrong</h2>
+      <p>We would rather be accurate than fast. If your terms have changed, if we have read a clause wrongly, or if a control exists that we did not find, tell us and we will correct the entry and note the correction date on the card.</p>
+      <p>The same channel is open if you want to talk about how your platform is represented here, about licensing, or about honoring the opt-out reservations Credtent files on behalf of the creators in its registry. Write to <a href="mailto:registry@credtent.com">registry@credtent.com</a>.</p>
+      <p style="font-size:15px;font-style:italic;color:var(--c-muted)">Credtent is a Delaware Public Benefit Corporation. Our badges are free to use. We charge for expert-led certification because expert review is real labor and deserves real compensation.</p>
+    </div>
+
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+<script src="components.js"></script>
+</body>
+</html>
