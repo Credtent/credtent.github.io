@@ -17,34 +17,52 @@
   <meta name="twitter:title" content="About Credtent: Neutral AI Licensing Infrastructure (PBC)" />
   <meta name="twitter:description" content="Credtent is neutral licensing infrastructure connecting AI companies with rights-cleared, provenance-verified training data. A Delaware Public Benefit Corporation." />
   <link rel="stylesheet" href="styles.css" />
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Credtent",
-    "legalName": "Credtent Inc.",
-    "url": "https://credtent.com",
-    "logo": "https://credtent.com/credtent-logo-mark.svg",
-    "description": "Neutral licensing infrastructure that connects AI companies with rights-cleared, provenance-verified training data, and lets creators register works for opt-out, licensing, or both.",
-    "founder": { "@type": "Person", "name": "Eric R. Burgess" },
-    "sameAs": [
-      "https://www.linkedin.com/company/credtent/",
-      "https://x.com/credtent",
-      "https://bsky.app/profile/credtent.bsky.social",
-      "https://www.instagram.com/credtentofficial/",
-      "https://www.facebook.com/profile.php?id=61554185681148",
-      "https://credtent.substack.com/",
-      "https://medium.com/credtent-on-content"
+  <script type="application/ld+json" data-clarke-aeo="org">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://credtent.com/#organization",
+  "name": "Credtent",
+  "legalName": "Credtent Inc.",
+  "url": "https://credtent.com",
+  "logo": "https://credtent.com/credtent-logo-mark.svg",
+  "description": "Neutral licensing infrastructure that connects AI companies with rights-cleared, provenance-verified training data, and lets creators register works for opt-out, licensing, or both.",
+  "founder": {
+    "@type": "Person",
+    "name": "E.R. Burgess",
+    "alternateName": [
+      "Eric R. Burgess",
+      "Eric Burgess"
     ],
-    "memberOf": { "@type": "Organization", "name": "Content Authenticity Initiative" },
-    "knowsAbout": [
-      "AI training data licensing",
-      "creative provenance certification",
-      "human-composed content certification",
-      "AI content provenance"
+    "sameAs": [
+      "https://www.linkedin.com/in/erburgess",
+      "https://burgessing.substack.com"
     ]
-  }
+  },
+  "sameAs": [
+    "https://www.linkedin.com/company/credtent/",
+    "https://x.com/credtent",
+    "https://bsky.app/profile/credtent.bsky.social",
+    "https://www.instagram.com/credtentofficial/",
+    "https://www.facebook.com/profile.php?id=61554185681148",
+    "https://credtent.substack.com/",
+    "https://medium.com/credtent-on-content"
+  ],
+  "memberOf": {
+    "@type": "Organization",
+    "name": "Content Authenticity Initiative"
+  },
+  "knowsAbout": [
+    "AI content licensing",
+    "content provenance certification",
+    "AI compliance certification",
+    "creator rights and consent",
+    "human-composed content certification",
+    "AI content provenance"
+  ]
+}
   </script>
+
   <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
@@ -52,6 +70,25 @@
   <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#290099">
   <meta name="msapplication-TileColor" content="#152153">
   <meta name="theme-color" content="#ffffff">
+  <!-- TODO(Le Guin + EB): Review markup is STUBBED, do not un-comment until real quotes land.
+       Le Guin is sourcing public-cleared testimonial quotes; each needs EB-approved customer sign-off.
+       Eligible authors: only the five signed customers (Sports Reference, Science and Medicine Group,
+       Twin Sisters Online Media, Cannabis Business Times, Vix Foster Productions).
+       GUARDRAIL: named quote only. NO reviewRating and NO aggregateRating until real numeric ratings exist.
+       When a cleared quote is in hand, emit per page:
+  <script type="application/ld+json" data-clarke-aeo="review">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Credtent",
+    "review": {
+      "@type": "Review",
+      "author": { "@type": "Organization", "name": "SIGNED_CUSTOMER_NAME" },
+      "reviewBody": "PUBLIC_CLEARED_QUOTE_TEXT"
+    }
+  }
+  </script>
+  -->
 </head>
 <body>
 

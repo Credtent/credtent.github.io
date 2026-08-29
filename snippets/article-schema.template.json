@@ -1,0 +1,19 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "ARTICLE_TITLE",
+  "author": {
+    "@type": "Person",
+    "name": "E.R. Burgess",
+    "alternateName": ["Eric R. Burgess", "Eric Burgess"],
+    "sameAs": ["https://www.linkedin.com/in/erburgess", "https://burgessing.substack.com"]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Credtent",
+    "logo": { "@type": "ImageObject", "url": "https://credtent.com/credtent-logo-mark.svg" }
+  },
+  "datePublished": "YYYY-MM-DD",
+  "dateModified": "YYYY-MM-DD",
+  "mainEntityOfPage": "CANONICAL_ARTICLE_URL"
+}
