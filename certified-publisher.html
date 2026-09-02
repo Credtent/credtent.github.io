@@ -248,7 +248,7 @@
     </div>
 
     <div class="hero-visual" style="display:flex;flex-direction:column;align-items:center;gap:24px">
-      <img src="badges/human-composed-creation-badge.svg" alt="Credtent Creative Origin: Human-Composed Creation badge" style="width:180px;height:180px;display:block">
+      <img src="/badges/human-composed-creation-badge.svg" alt="Credtent Creative Origin: Human-Composed Creation badge" style="width:180px;height:180px;display:block">
       <div class="corpus-card" style="width:100%">
         <div class="cc-title">What Creative Origin Certifies</div>
         <ul>
@@ -436,29 +436,29 @@
     <div class="section-header">
       <div class="eyebrow">Credtent's Badge System</div>
       <h2>Creative Origin Is One of Three Credtent Badges</h2>
-      <p>Credtent operates three distinct certification programs, each addressing a different question in the content and AI ecosystem. Creative Origin is the one that answers: "Was this made by humans?" See the <a href="badges/" style="color:var(--c-purple)">badge systems overview</a>, or make a free self-declared disclosure badge with the <a href="badge-builder.html" style="color:var(--c-purple)">badge builder</a>.</p>
+      <p>Credtent operates three distinct certification programs, each addressing a different question in the content and AI ecosystem. Creative Origin is the one that answers: "Was this made by humans?" See the <a href="/badges/" style="color:var(--c-purple)">badge systems overview</a>, or make a free self-declared disclosure badge with the <a href="badge-builder.html" style="color:var(--c-purple)">badge builder</a>.</p>
     </div>
 
     <div class="badges-row">
       <div class="badge-card featured" id="creative-origin">
         <div class="badge-tag">This Badge</div>
-        <img src="badges/human-composed-creation-badge.svg" alt="Credtent Creative Origin badge" style="width:48px;height:48px;border-radius:12px;margin-bottom:16px;display:block">
+        <img src="/badges/human-composed-creation-badge.svg" alt="Credtent Creative Origin badge" style="width:48px;height:48px;border-radius:12px;margin-bottom:16px;display:block">
         <h4>Creative Origin</h4>
         <p>Certifies that published works and editorial processes are human-authored and human-edited. Designed for publishers, media organizations, and journalists who want verified provenance for their content.</p>
       </div>
 
       <div class="badge-card" id="creative-consent">
         <div class="badge-tag">Also Available</div>
-        <img src="badges/creative-consent-badge.svg" alt="Credtent Creative Consent badge" style="width:48px;height:48px;border-radius:12px;margin-bottom:16px;display:block">
+        <img src="/badges/creative-consent-badge.svg" alt="Credtent Creative Consent badge" style="width:48px;height:48px;border-radius:12px;margin-bottom:16px;display:block">
         <h4>Creative Consent</h4>
         <p>Certifies that AI licensing of content was authorized and consented to by the original rights holders. Designed for platforms and AI companies that want to demonstrate rights-compliant content use.</p>
       </div>
 
       <div class="badge-card" id="commercial-safety">
         <div class="badge-tag">Also Available</div>
-        <img src="badges/commercial-safety-badge.svg" alt="Credtent Commercial Safety badge" style="width:48px;height:48px;border-radius:12px;margin-bottom:16px;display:block">
+        <img src="/badges/commercial-safety-badge.svg" alt="Credtent Commercial Safety badge" style="width:48px;height:48px;border-radius:12px;margin-bottom:16px;display:block">
         <h4>Commercial Safety</h4>
-        <p>Certifies that an AI company's training data practices and disclosure standards meet the requirements of emerging regulations, including the EU AI Act and California AB 2013.</p>
+        <p>Commercial Safety. Levels: Full, Guardrail, Provisional.</p>
       </div>
     </div>
   </div>
@@ -474,36 +474,7 @@
     </div>
 
     <div class="tally-wrapper">
-      <iframe
-        data-tally-src="https://tally.so/embed/nroELN?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
-        loading="lazy"
-        width="100%"
-        height="400"
-        frameborder="0"
-        marginheight="0"
-        marginwidth="0"
-        title="Creative Origin Certification Inquiry"
-        style="border:none;width:100%"
-      ></iframe>
-      <script>
-        // Unified inquiry form: badge CTAs arrive with
-        // ?role=platform | ai-company | publisher-content-owner
-        // (Creative Consent, Commercial Safety, Creative Origin respectively).
-        // Forward the role to the Tally embed as a prefill parameter so the
-        // form's hidden "role" field (and any role question prefill) captures
-        // which badge system the visitor came from. Must run before the Tally
-        // loader below reads data-tally-src.
-        (function () {
-          var role = new URLSearchParams(window.location.search).get('role');
-          var allowed = ['platform', 'ai-company', 'publisher-content-owner'];
-          if (role && allowed.indexOf(role) !== -1) {
-            var frame = document.querySelector('iframe[data-tally-src]');
-            if (frame) frame.dataset.tallySrc += '&role=' + encodeURIComponent(role);
-          }
-        })();
-      </script>
-      <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
-      <p style="text-align:center;color:var(--c-muted);font-size:0.85rem;margin-top:20px">
+      <p style="text-align:center;color:var(--c-body);font-size:1rem;line-height:1.7;margin:0">
         Prefer email? Reach us at <a href="mailto:publishers@credtent.org" style="color:var(--c-purple)">publishers@credtent.org</a>
       </p>
     </div>
