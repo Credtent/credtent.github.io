@@ -153,7 +153,7 @@
       <h5>Services</h5>
       <ul>
         <li><a href="${base}for-ai-companies.html">Licensing-as-a-Service</a></li>
-        <li><a href="${base}for-ai-companies.html">Compliance-as-a-Service</a></li>
+        <li><a href="${base}for-ai-companies.html">Disclosure pack</a></li>
         <li><a href="${base}for-content-owners.html">Enterprise Solutions</a></li>
         <li><a href="https://registry.credtent.org/auth/sign-in" target="_blank" rel="noopener">Creative Registry</a></li>
         <li><a href="${base}opt-out.html">Free Opt-Out</a></li>
