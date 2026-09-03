@@ -20,28 +20,46 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Credtent",
-    "legalName": "Credtent Inc.",
-    "url": "https://credtent.org",
-    "logo": "https://credtent.org/credtent-logo-mark.svg",
-    "description": "Neutral licensing infrastructure that connects AI companies with rights-cleared, provenance-verified training data, and lets creators register works for opt-out, licensing, or both.",
-    "founder": { "@type": "Person", "name": "Eric R. Burgess" },
-    "sameAs": [
-      "https://www.linkedin.com/company/credtent/",
-      "https://x.com/credtent",
-      "https://bsky.app/profile/credtent.bsky.social",
-      "https://www.instagram.com/credtentofficial/",
-      "https://www.facebook.com/profile.php?id=61554185681148",
-      "https://credtent.substack.com/",
-      "https://medium.com/credtent-on-content"
-    ],
-    "memberOf": { "@type": "Organization", "name": "Content Authenticity Initiative" },
-    "knowsAbout": [
-      "AI training data licensing",
-      "creative provenance certification",
-      "human-composed content certification",
-      "AI content provenance"
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://credtent.org/#organization",
+        "name": "Credtent",
+        "legalName": "Credtent, Inc.",
+        "url": "https://credtent.org",
+        "email": "hello@credtent.org",
+        "foundingDate": "2023",
+        "description": "Neutral licensing infrastructure for AI training data: independent creative registry, licensing agent/marketplace, and provenance badges. Delaware Public Benefit Corporation. Licenses include the rights the contracting holders warranted, a named manifest, and a disclosure pack. Indemnity, if any, is only as written in the signed license.",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "1822 E. Rt. 66, Suite A353",
+          "addressLocality": "Glendora",
+          "addressRegion": "CA",
+          "postalCode": "91740",
+          "addressCountry": "US"
+        },
+        "sameAs": [
+          "https://www.linkedin.com/company/credtent",
+          "https://www.cbinsights.com/company/credtent"
+        ],
+        "founder": { "@id": "https://credtent.org/about#eric-r-burgess" }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://credtent.org/#website",
+        "url": "https://credtent.org",
+        "name": "Credtent",
+        "publisher": { "@id": "https://credtent.org/#organization" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://credtent.org/about#eric-r-burgess",
+        "name": "Eric R. Burgess",
+        "jobTitle": "Founder and CEO",
+        "worksFor": { "@id": "https://credtent.org/#organization" },
+        "url": "https://credtent.org/about",
+        "sameAs": ["https://www.linkedin.com/in/erburgess"]
+      }
     ]
   }
   </script>
