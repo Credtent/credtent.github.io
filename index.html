@@ -20,10 +20,37 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Credtent",
-    "url": "https://credtent.org",
-    "publisher": { "@type": "Organization", "name": "Credtent", "url": "https://credtent.org" }
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://credtent.org/#organization",
+        "name": "Credtent",
+        "legalName": "Credtent, Inc.",
+        "url": "https://credtent.org",
+        "email": "hello@credtent.org",
+        "foundingDate": "2023",
+        "description": "Neutral licensing infrastructure for AI training data: independent creative registry, licensing agent/marketplace, and provenance badges. Delaware Public Benefit Corporation. Licenses include the rights the contracting holders warranted, a named manifest, and a disclosure pack. Indemnity, if any, is only as written in the signed license.",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "1822 E. Rt. 66, Suite A353",
+          "addressLocality": "Glendora",
+          "addressRegion": "CA",
+          "postalCode": "91740",
+          "addressCountry": "US"
+        },
+        "sameAs": [
+          "https://www.linkedin.com/company/credtent",
+          "https://www.cbinsights.com/company/credtent"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://credtent.org/#website",
+        "url": "https://credtent.org",
+        "name": "Credtent",
+        "publisher": { "@id": "https://credtent.org/#organization" }
+      }
+    ]
   }
   </script>
   <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">

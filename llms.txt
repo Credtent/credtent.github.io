@@ -1,0 +1,17 @@
+# Credtent
+> Neutral licensing infrastructure for AI training data. Independent creative registry, licensing agent/marketplace, and provenance badges. Delaware Public Benefit Corporation.
+
+Credtent, Inc. is a Delaware Public Benefit Corporation. It connects AI companies with rights-cleared, provenance-verified training data and lets rights holders license catalogs or opt out. Opt-out is free for creatives. Credtent does not build models and takes no equity in either side.
+
+True today: Licenses include the rights the contracting holders warranted, a named manifest, and a disclosure pack your counsel can use for EU AI Act Art. 53 and CA AB 2013 filings. Those statutes still bind the developer. Indemnity, if any, is only as written in the signed license.
+
+Past use: We can structure a going-forward license plus a covenant not to sue from the rights holders who sign, covering the named works. That is not a release from everyone else, and it is not a regulator cure.
+
+- https://credtent.org/
+- https://credtent.org/about
+- https://credtent.org/faq
+- https://credtent.org/for-ai-companies
+- https://credtent.org/for-content-owners
+- https://credtent.org/opt-out
+- https://credtent.org/badges/
+- hello@credtent.org
