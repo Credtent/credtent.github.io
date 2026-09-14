@@ -77,7 +77,7 @@
     <div class="nav-links">${navLinks}</div>
     <div class="nav-auth">
       <a href="https://registry.credtent.org/auth/sign-in" class="signin" target="_blank" rel="noopener">Creator Sign In</a>
-      <a href="https://tally.so/r/2ExeBp" class="signup" target="_blank" rel="noopener">Investor Inquiries</a>
+      <a href="https://app.credtent.org/inquiries/investor" class="signup" target="_blank" rel="noopener">Investor Inquiries</a>
     </div>
     <button class="nav-hamburger" id="nav-hamburger-btn" aria-label="Open menu" aria-expanded="false">
       <svg width="21" height="16" viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -92,7 +92,7 @@
   <div class="nav-mobile-links">${mobileLinks}<a href="https://registry.credtent.org/auth/sign-in" target="_blank" rel="noopener">Creator Sign In</a></div>
   <div class="nav-mobile-divider"></div>
   <div class="nav-mobile-auth">
-    <a href="https://tally.so/r/2ExeBp" class="signup" target="_blank" rel="noopener">Investor Inquiries</a>
+    <a href="https://app.credtent.org/inquiries/investor" class="signup" target="_blank" rel="noopener">Investor Inquiries</a>
   </div>
 </div>`;
 
@@ -181,7 +181,7 @@
       <ul>
         <li><a href="${base}for-content-owners.html#talk-content">Content Partners</a></li>
         <li><a href="${base}for-ai-companies.html#talk-licensing">AI Companies</a></li>
-        <li><a href="https://tally.so/r/2ExeBp" target="_blank" rel="noopener">Investors</a></li>
+        <li><a href="https://app.credtent.org/inquiries/investor" target="_blank" rel="noopener">Investors</a></li>
       </ul>
     </div>
   </div>
