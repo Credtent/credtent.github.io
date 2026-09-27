@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About Credtent: Neutral AI Licensing Infrastructure (PBC)</title>
   <meta name="description" content="Credtent is neutral licensing infrastructure that connects AI companies with rights-cleared, provenance-verified training data. A Delaware Public Benefit Corporation founded by Eric R. Burgess, routing 85% of licensing revenue to rights holders." />
-  <link rel="canonical" href="https://credtent.org/about.html" />
+  <link rel="canonical" href="https://credtent.com/about.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Credtent" />
   <meta property="og:title" content="About Credtent: Neutral AI Licensing Infrastructure (PBC)" />
   <meta property="og:description" content="Credtent is neutral licensing infrastructure that connects AI companies with rights-cleared, provenance-verified training data. A Delaware Public Benefit Corporation founded by Eric R. Burgess." />
-  <meta property="og:url" content="https://credtent.org/about.html" />
-  <meta property="og:image" content="https://credtent.org/credtent-logo-mark.svg" />
+  <meta property="og:url" content="https://credtent.com/about.html" />
+  <meta property="og:image" content="https://credtent.com/credtent-logo-mark.svg" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@credtent" />
   <meta name="twitter:title" content="About Credtent: Neutral AI Licensing Infrastructure (PBC)" />
@@ -23,10 +23,10 @@
     "@graph": [
       {
         "@type": "Organization",
-        "@id": "https://credtent.org/#organization",
+        "@id": "https://credtent.com/#organization",
         "name": "Credtent",
         "legalName": "Credtent, Inc.",
-        "url": "https://credtent.org",
+        "url": "https://credtent.com",
         "email": "hello@credtent.org",
         "foundingDate": "2023",
         "description": "Neutral licensing infrastructure for AI training data: independent creative registry, licensing agent/marketplace, and provenance badges. Delaware Public Benefit Corporation. Licenses include the rights the contracting holders warranted, a named manifest, and a disclosure pack. Indemnity, if any, is only as written in the signed license.",
@@ -42,22 +42,33 @@
           "https://www.linkedin.com/company/credtent",
           "https://www.cbinsights.com/company/credtent"
         ],
-        "founder": { "@id": "https://credtent.org/about#eric-r-burgess" }
+        "memberOf": {
+          "@type": "Organization",
+          "name": "Content Authenticity Initiative",
+          "url": "https://contentauthenticity.org"
+        },
+        "knowsAbout": [
+          "AI training data licensing",
+          "Content provenance",
+          "Human authorship certification",
+          "AI licensing valuation"
+        ],
+        "founder": { "@id": "https://credtent.com/about#eric-r-burgess" }
       },
       {
         "@type": "WebSite",
-        "@id": "https://credtent.org/#website",
-        "url": "https://credtent.org",
+        "@id": "https://credtent.com/#website",
+        "url": "https://credtent.com",
         "name": "Credtent",
-        "publisher": { "@id": "https://credtent.org/#organization" }
+        "publisher": { "@id": "https://credtent.com/#organization" }
       },
       {
         "@type": "Person",
-        "@id": "https://credtent.org/about#eric-r-burgess",
+        "@id": "https://credtent.com/about#eric-r-burgess",
         "name": "Eric R. Burgess",
         "jobTitle": "Founder and CEO",
-        "worksFor": { "@id": "https://credtent.org/#organization" },
-        "url": "https://credtent.org/about",
+        "worksFor": { "@id": "https://credtent.com/#organization" },
+        "url": "https://credtent.com/about",
         "sameAs": ["https://www.linkedin.com/in/erburgess"]
       }
     ]

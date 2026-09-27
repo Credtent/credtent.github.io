@@ -19,7 +19,7 @@
     ? 'index.html'
     : (_path.split('/').pop() || '__none__');
 
-  // Five top-level items plus a Resources dropdown (About, FAQ, Blog).
+  // Five top-level items plus a Resources dropdown (About, FAQ, Guides, Blog).
   const pages = [
     { href: `${base}for-ai-companies.html`, label: 'AI Companies' },
     { href: `${base}for-content-owners.html`, label: 'Content Owners' },
@@ -31,6 +31,7 @@
   const resourcePages = [
     { href: `${base}about.html`, label: 'About' },
     { href: `${base}faq.html`, label: 'FAQ' },
+    { href: `${base}guides/`, label: 'Guides' },
     { href: `${base}blog.html`, label: 'Blog' },
   ];
 
@@ -144,6 +145,7 @@
         <ul>
           <li><a href="${base}about.html">About</a></li>
           <li><a href="${base}faq.html">FAQ</a></li>
+          <li><a href="${base}guides/">Guides</a></li>
           <li><a href="${base}blog.html">Blog</a></li>
           <li><a href="${base}pricing.html">Pricing</a></li>
         </ul>
