@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /parking/
 
-Sitemap: https://credtent.org/sitemap.xml
+Sitemap: https://credtent.com/sitemap.xml
