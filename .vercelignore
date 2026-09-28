@@ -1,0 +1,27 @@
+# Files the credtent-site Vercel project must not serve.
+# GitHub Pages and the S3 workflow ignore this file.
+
+# Repo and tooling files, not site content.
+.git
+.github
+.claude
+.vercel
+.DS_Store
+.gitignore
+.vercelignore
+README.md
+
+# GitHub Pages custom-domain file. Pages still needs it (rollback path);
+# Vercel has no use for it.
+/CNAME
+
+# The indexable robots.txt stays for GitHub Pages on credtent.org. On Vercel it
+# must not exist, because the filesystem takes precedence over rewrites and the
+# /robots.txt -> /robots-vercel.txt rewrite would otherwise never fire.
+/robots.txt
+
+# Unfinished pages. Nothing live links here; Pages already noindexes them.
+/parking
+
+# Schema templates (present on the revamp staging branch), not pages.
+/snippets

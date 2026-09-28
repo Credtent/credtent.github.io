@@ -1,0 +1,6 @@
+# Served only by the credtent-site Vercel project, at credtent-site.vercel.app/robots.txt,
+# through the /robots.txt rewrite in vercel.json (robots.txt itself is in .vercelignore).
+# GitHub Pages ignores vercel.json, so credtent.org keeps serving the indexable robots.txt.
+# credtent.com/robots.txt is served by Aegis and is never proxied to this project.
+User-agent: *
+Disallow: /
