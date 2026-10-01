@@ -15,7 +15,7 @@ Credtent does four things: it licenses rights-cleared training data, it runs a f
 - [For content owners](https://credtent.com/for-content-owners): list a catalog, keep full IP ownership and 85% of every deal Credtent closes
 - [Free opt-out](https://credtent.com/opt-out): register works once; the opt-out is free and reversible
 - [Pricing](https://credtent.com/pricing): custom enterprise licensing for AI companies; 85/15 for content partners; free opt-out, $49/year Licensing, and $99/year Premium Licensing for individual creators
-- [About](https://credtent.com/about): Delaware Public Benefit Corporation; bylaws prevent acquisition by any major AI company or big-tech platform
+- [About](https://credtent.com/about): Delaware Public Benefit Corporation
 - [FAQ](https://credtent.com/faq)
 
 ## Badge systems
