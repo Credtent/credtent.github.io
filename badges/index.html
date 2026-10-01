@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Credtent Badge Systems | Credtent</title>
   <meta name="description" content="Three badge systems, one for each side of the rights economy: Creative Origin for creators and publishers, Creative Consent for platforms, and Commercial Safety for AI companies." />
-  <link rel="canonical" href="https://credtent.org/badges/" />
+  <link rel="canonical" href="https://credtent.com/badges/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Credtent" />
   <meta property="og:title" content="The Credtent Badge Systems | Credtent" />
   <meta property="og:description" content="Creative Origin for creators and publishers, Creative Consent for platforms, Commercial Safety for AI companies." />
-  <meta property="og:url" content="https://credtent.org/badges/" />
+  <meta property="og:url" content="https://credtent.com/badges/" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="The Credtent Badge Systems | Credtent" />
   <meta name="twitter:description" content="Creative Origin for creators and publishers, Creative Consent for platforms, Commercial Safety for AI companies." />
@@ -18,11 +18,113 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "The Credtent Badge Systems",
-    "url": "https://credtent.org/badges/",
-    "description": "Overview of Credtent's three badge systems: Creative Origin for creators and publishers, Creative Consent for platforms, and Commercial Safety for AI companies.",
-    "publisher": { "@type": "Organization", "name": "Credtent", "url": "https://credtent.org" }
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://credtent.com/badges/#webpage",
+        "name": "The Credtent Badge Systems",
+        "url": "https://credtent.com/badges/",
+        "description": "Overview of Credtent's three badge systems: Creative Origin for creators and publishers, Creative Consent for platforms, and Commercial Safety for AI companies.",
+        "publisher": {
+          "@id": "https://credtent.com/#organization"
+        }
+      },
+      {
+        "@type": "Service",
+        "@id": "https://credtent.com/badges/#creative-origin",
+        "name": "Creative Origin",
+        "serviceType": "Human authorship and AI disclosure certification",
+        "provider": {
+          "@id": "https://credtent.com/#organization"
+        },
+        "audience": {
+          "@type": "Audience",
+          "audienceType": "Creators and publishers"
+        },
+        "areaServed": "Worldwide",
+        "description": "Creative Origin discloses the role of AI in a creative work. Tiers: Human Composed, AI-Assisted, AI-Generated, and Legacy Creation for works made before November 2022. Self-declared badges are free; Human Composed and AI-Assisted can be certified after expert review, with a public record in the Credtent registry.",
+        "url": "https://credtent.com/badges/",
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Self-declared Creative Origin badge",
+            "price": "0",
+            "priceCurrency": "USD",
+            "url": "https://credtent.com/badge-builder"
+          }
+        ]
+      },
+      {
+        "@type": "Service",
+        "@id": "https://credtent.com/badges/#creative-consent",
+        "name": "Creative Consent",
+        "serviceType": "Platform consent rating for AI training",
+        "provider": {
+          "@id": "https://credtent.com/#organization"
+        },
+        "audience": {
+          "@type": "Audience",
+          "audienceType": "Platforms"
+        },
+        "areaServed": "Worldwide",
+        "description": "Creative Consent rates how a platform treats creator content, data, and metadata, and whether it respects creators' choices about AI training. Tiers: Full Protection, Optional Protection, and No Protection.",
+        "url": "https://credtent.com/badges/"
+      },
+      {
+        "@type": "Service",
+        "@id": "https://credtent.com/badges/#commercial-safety",
+        "name": "Commercial Safety",
+        "serviceType": "AI training practice certification",
+        "provider": {
+          "@id": "https://credtent.com/#organization"
+        },
+        "audience": {
+          "@type": "Audience",
+          "audienceType": "AI companies"
+        },
+        "areaServed": "Worldwide",
+        "description": "Commercial Safety certifies an AI company's training practices at Full, Guardrail, or Provisional level.",
+        "url": "https://credtent.com/badges/"
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://credtent.com/badges/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What are Credtent's three badge systems?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Creative Origin, for creators and publishers, discloses how AI was involved in a work. Creative Consent, for platforms, rates how a platform treats creator content and AI training choices at Full, Optional, or No Protection. Commercial Safety, for AI companies, certifies training practices at Full, Guardrail, or Provisional level."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are Credtent badges free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Credtent's disclosure badges are free to use, and a self-declared Creative Origin badge can be made with the free badge builder in about a minute without an account. Expert-led certification is paid, because expert review is real labor."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Credtent certify people?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Credtent certifies works and organizational processes. Certification is human-led and expert-led."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is Credtent part of the Content Credentials ecosystem?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Credtent is a member of the Content Authenticity Initiative (CAI), the community that promotes adoption of Content Credentials. Credtent's badges work alongside Content Credentials by recording the result of an expert review of authorship or licensing."
+            }
+          }
+        ]
+      }
+    ]
   }
   </script>
   <!--
@@ -133,6 +235,12 @@
       <div class="audience">For Platforms</div>
       <h2>Creative Consent</h2>
       <p>Demonstrates that a platform licenses and uses creator content on rights-compliant terms: how it treats creator data, content, and metadata, and whether it respects creators' choices about AI training. For platforms that want to show creators, in a standardized way, that consent is honored.</p>
+      <div class="badge-art-row">
+        <figure class="badge-art">
+          <img src="creative-consent-badge.svg" alt="Credtent Creative Consent badge" width="130" height="130" />
+          <figcaption>Creative Consent</figcaption>
+        </figure>
+      </div>
       <ul class="tier-list">
         <li><strong>Full Protection:</strong> the platform does not use creator content for AI training, does not use it internally for generative AI, and does not share it with third parties for AI training.</li>
         <li><strong>Optional Protection:</strong> the platform gives users a choice about AI training use, with a clear, cost-free, and simple opt-out.</li>
@@ -147,6 +255,12 @@
       <div class="audience">For AI Companies</div>
       <h2>Commercial Safety</h2>
       <p>Commercial Safety. Badge levels:</p>
+      <div class="badge-art-row">
+        <figure class="badge-art">
+          <img src="commercial-safety-badge.svg" alt="Credtent Commercial Safety badge" width="130" height="130" />
+          <figcaption>Commercial Safety</figcaption>
+        </figure>
+      </div>
       <ul class="tier-list">
         <li><strong>Full</strong></li>
         <li><strong>Guardrail</strong></li>
@@ -155,6 +269,28 @@
       <div class="badge-actions">
         <a href="../certified-publisher.html?role=ai-company#get-certified" class="btn btn-orange">Start a certification inquiry</a>
       </div>
+    </div>
+
+    <div class="badge-system">
+      <div class="page-faq" id="faq" style="margin:0">
+      <h2>Badge questions</h2>
+      <div class="page-faq-item">
+        <h3>What are Credtent's three badge systems?</h3>
+        <p>Creative Origin, for creators and publishers, discloses how AI was involved in a work. Creative Consent, for platforms, rates how a platform treats creator content and AI training choices at Full, Optional, or No Protection. Commercial Safety, for AI companies, certifies training practices at Full, Guardrail, or Provisional level.</p>
+      </div>
+      <div class="page-faq-item">
+        <h3>Are Credtent badges free?</h3>
+        <p>Credtent's disclosure badges are free to use, and a self-declared Creative Origin badge can be made with the free badge builder in about a minute without an account. Expert-led certification is paid, because expert review is real labor.</p>
+      </div>
+      <div class="page-faq-item">
+        <h3>Does Credtent certify people?</h3>
+        <p>Credtent certifies works and organizational processes. Certification is human-led and expert-led.</p>
+      </div>
+      <div class="page-faq-item">
+        <h3>Is Credtent part of the Content Credentials ecosystem?</h3>
+        <p>Credtent is a member of the Content Authenticity Initiative (CAI), the community that promotes adoption of Content Credentials. Credtent's badges work alongside Content Credentials by recording the result of an expert review of authorship or licensing.</p>
+      </div>
+    </div>
     </div>
 
     <div class="badge-system">

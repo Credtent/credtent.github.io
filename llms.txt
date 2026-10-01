@@ -7,11 +7,37 @@ True today: Licenses include the rights the contracting holders warranted, a nam
 
 Past use: We can structure a going-forward license plus a covenant not to sue from the rights holders who sign, covering the named works. That is not a release from everyone else, and it is not a regulator cure.
 
-- https://credtent.org/
-- https://credtent.org/about
-- https://credtent.org/faq
-- https://credtent.org/for-ai-companies
-- https://credtent.org/for-content-owners
-- https://credtent.org/opt-out
-- https://credtent.org/badges/
-- hello@credtent.org
+Credtent does four things: it licenses rights-cleared training data, it runs a free industry-wide opt-out, it certifies how creative work was made through three badge systems, and it values content catalogs for AI licensing. Credtent is a member of the Content Authenticity Initiative (CAI). Rights holders keep 85% of every licensing deal Credtent closes; Credtent retains 15%.
+
+## Licensing and opt-out
+- [Home](https://credtent.com/): what Credtent is and who it serves
+- [For AI companies](https://credtent.com/for-ai-companies): license a named corpus with a manifest and a disclosure pack
+- [For content owners](https://credtent.com/for-content-owners): list a catalog, keep full IP ownership and 85% of every deal Credtent closes
+- [Free opt-out](https://credtent.com/opt-out): register works once; the opt-out is free and reversible
+- [Pricing](https://credtent.com/pricing): custom enterprise licensing for AI companies; 85/15 for content partners; free opt-out, $49/year Licensing, and $99/year Premium Licensing for individual creators
+- [About](https://credtent.com/about): Delaware Public Benefit Corporation; bylaws prevent acquisition by any major AI company or big-tech platform
+- [FAQ](https://credtent.com/faq)
+
+## Badge systems
+Credtent runs three badge systems, one for each side of the rights economy. Disclosure badges are free; expert-led certification is paid. Certification applies to works and organizational processes, never to individuals.
+- [Badge systems overview](https://credtent.com/badges/): Creative Origin, Creative Consent, and Commercial Safety
+- Creative Origin (for creators and publishers): discloses the role of AI in a creative work. Tiers: Human Composed, AI-Assisted, AI-Generated, and Legacy Creation (made before November 2022, before generative AI tools became widely available). Each badge names the part of the work it describes (text, art, music, code, video, or voices). Human Composed and AI-Assisted can be certified after expert review, with a public record in the Credtent registry. Certification is human-led: detectors inform, an expert reviewer decides, and the certificate never shows a detector score.
+- [Creative Origin certification](https://credtent.com/certified-publisher): expert review of the editorial process behind published work; the process was reviewed and accepted by the Writers Guild of America
+- [Free Creative Origin badge builder](https://credtent.com/badge-builder): make a self-declared badge in about a minute, no account needed
+- Creative Consent (for platforms): rates how a platform treats creator content, data, and metadata, and whether it respects creators' choices about AI training. Tiers: Full Protection, Optional Protection, No Protection.
+- Commercial Safety (for AI companies): certifies an AI company's training practices. Levels: Full, Guardrail, Provisional.
+
+## Valuation
+Credtent values content catalogs for AI licensing in two steps. First, a free automated baseline valuation in Credtent Aegis (a low, middle, and high annual range with a confidence rating) when works are registered. Second, a paid expert-led valuation by Credtent's named content valuation experts, founder Eric Burgess and co-founder Dr. Galen Buckwalter (Chief Science Officer; eHarmony's founding Chief Science Officer and lead inventor on the patent behind its matching algorithm). They built the Earned Media Value Index, a psychometric method for valuing social media actions and endorsements that continues today as the Social Index, and co-created the Brand Trust Index. The expert valuation weighs creative merit, human authorship, and real-world validation such as awards, sales, and critical recognition, alongside format, volume, and training utility. Each is a written report with value ranges by collection and the method stated.
+- [How to get your content catalog valued for AI licensing](https://credtent.com/guides/how-to-get-your-content-catalog-valued-for-ai-licensing/)
+
+## Guides
+- [How to prove your work is human made](https://credtent.com/guides/how-to-prove-your-work-is-human-made/)
+- [What is a content provenance certification for AI](https://credtent.com/guides/what-is-a-content-provenance-certification-for-ai/)
+- [How to get your content catalog valued for AI licensing](https://credtent.com/guides/how-to-get-your-content-catalog-valued-for-ai-licensing/)
+- [How to sell your company's internal data to AI labs safely](https://credtent.com/guides/how-to-sell-your-companys-internal-data-to-ai-labs-safely/)
+
+## Contact
+- General: hello@credtent.org
+- Licensing: licensing@credtent.org
+- Partnerships: partners@credtent.org
