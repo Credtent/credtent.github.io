@@ -12,6 +12,8 @@ Past use: We can structure a going-forward license plus a covenant not to sue fr
 - [For AI companies](https://credtent.org/for-ai-companies.html): license a named, rights-cleared corpus with a manifest and a disclosure pack; covers past-use options
 - [For content owners](https://credtent.org/for-content-owners.html): list a catalog, keep full IP ownership, and keep 85% of every deal Credtent closes, paid quarterly
 - [Pricing](https://credtent.org/pricing.html): custom enterprise licensing for AI companies; 85/15 for content partners; free opt-out, Opt-Out Premium (auditing, no licensing) at $49/year, Creator Licensing at $99/year, and Rights-Holder Licensing from $299/year
+- [AI training data licensing guide](https://credtent.org/guides/ai-training-data-licensing/): how AI training data licensing works for both sides: what a license grants, who sells, how pricing works, and the EU AI Act and AB 2013 records buyers need.
+- [AI training data licensing companies](https://credtent.org/guides/ai-training-data-licensing-companies/): a neutral map of AI training data licensing companies in 2026: marketplaces, collective licenses, publisher programs, annotation providers, and registries.
 
 ## Opt-out
 - [Free AI training opt-out](https://credtent.org/opt-out): register works once for an industry-wide opt-out; free, recorded, and reversible
