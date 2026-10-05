@@ -22,7 +22,7 @@
     "@context": "https://schema.org",
     "@type": "Service",
     "serviceType": "Catalog licensing and provenance certification for rights holders",
-    "provider": { "@type": "Organization", "name": "Credtent", "url": "https://credtent.org" },
+    "provider": { "@id": "https://credtent.org/#organization" },
     "areaServed": "Worldwide",
     "audience": { "@type": "Audience", "audienceType": "Content owners and rights holders" },
     "description": "Credtent lists rights holders' catalogs for AI training-data licensing, routing 85% of every licensing deal to the rights holder while they retain full IP ownership. Credtent handles discovery, negotiation, compliance, and quarterly royalty distribution."
@@ -35,6 +35,153 @@
   <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#290099">
   <meta name="msapplication-TileColor" content="#152153">
   <meta name="theme-color" content="#ffffff">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://credtent.org/#organization",
+        "name": "Credtent",
+        "legalName": "Credtent, Inc.",
+        "url": "https://credtent.org",
+        "logo": "https://credtent.org/credtent-logo-mark.svg",
+        "email": "hello@credtent.org",
+        "foundingDate": "2023",
+        "description": "Credtent is neutral licensing infrastructure for AI training data licensing: an independent creative registry, a licensing agent and marketplace, and provenance badges. It connects AI companies with rights-cleared, provenance-verified training data and lets rights holders license their catalogs or opt out for free. Delaware Public Benefit Corporation.",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "1822 E. Rt. 66, Suite A353",
+          "addressLocality": "Glendora",
+          "addressRegion": "CA",
+          "postalCode": "91740",
+          "addressCountry": "US"
+        },
+        "founder": {
+          "@id": "https://credtent.org/about#eric-r-burgess"
+        },
+        "memberOf": {
+          "@type": "Organization",
+          "name": "Content Authenticity Initiative",
+          "url": "https://contentauthenticity.org"
+        },
+        "knowsAbout": [
+          "AI training data licensing",
+          "AI content licensing",
+          "rights-cleared training data",
+          "content provenance",
+          "AI training opt-out",
+          "human-made content certification",
+          "content catalog valuation for AI licensing"
+        ],
+        "sameAs": [
+          "https://www.linkedin.com/company/credtent",
+          "https://www.cbinsights.com/company/credtent",
+          "https://credtent.substack.com/",
+          "https://bsky.app/profile/credtent.bsky.social",
+          "https://medium.com/credtent-on-content"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://credtent.org/#website",
+        "url": "https://credtent.org",
+        "name": "Credtent",
+        "publisher": {
+          "@id": "https://credtent.org/#organization"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://credtent.org/about#eric-r-burgess",
+        "name": "Eric R. Burgess",
+        "jobTitle": "Founder and CEO",
+        "worksFor": {
+          "@id": "https://credtent.org/#organization"
+        },
+        "url": "https://credtent.org/about",
+        "knowsAbout": [
+          "AI training data licensing",
+          "content provenance",
+          "creator rights in AI"
+        ],
+        "sameAs": [
+          "https://www.linkedin.com/in/erburgess",
+          "https://burgessing.substack.com/"
+        ]
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://credtent.org/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "For Content Owners",
+        "item": "https://credtent.org/for-content-owners.html"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": "https://credtent.org/for-content-owners.html#faq",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What do I keep when I list my catalog with Credtent?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You keep full IP ownership of everything you list with Credtent. Credtent acts as a licensing agent, not a publisher or co-owner, and holds only limited representation rights for AI licensing that you can terminate at any time. Listing transfers no copyright and no exclusivity. You also keep control over which AI companies and use cases your content is licensed for, because every deal requires your approval before it executes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does Credtent's revenue split work for rights holders?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Credtent routes 85% of gross revenue from every licensing deal directly to the rights holders and data providers whose content was licensed, and retains 15% for platform, legal infrastructure, compliance tooling, and operations. The split is written into every contract and applied to gross revenue."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What do I get as a Credtent content partner?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "As a Credtent content partner you get licensing at scale across AI buyers, anti-plagiarism protection on outputs, provenance certification of your works, usage tracking that shows which licensees used your catalog and at what volume, quarterly royalty distributions, and full retained ownership. Credtent handles the rights-clearance, legal, and compliance layer so your catalog can be licensed repeatedly without you giving up control of it."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I list my catalog with Credtent?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Listing a catalog with Credtent is a four-step process: submit your catalog, Credtent provenance-certifies the content, Credtent closes licensing deals on your behalf, and royalties are distributed to you quarterly under the 85/15 split. You register once and earn on every deal Credtent closes against your catalog."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When do Credtent partners get paid?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Credtent distributes royalties to content partners quarterly. Each distribution includes usage reports showing which licensees used your catalog and at what volume, so you can tie each payment to specific deals. Payments follow the 85/15 split, with 85% of gross licensing revenue going to you as the rights holder."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -218,7 +365,28 @@
   </div>
 </section>
 
-<div id="footer-placeholder"></div>
+<div id="footer-placeholder">
+<nav aria-label="Site" class="static-sitemap">
+  <ul>
+    <li><a href="/">Credtent home</a></li>
+    <li><a href="/for-ai-companies.html">License AI training data</a></li>
+    <li><a href="/for-content-owners.html">License your catalog to AI companies</a></li>
+    <li><a href="/opt-out">Free AI training opt-out</a></li>
+    <li><a href="/pricing.html">Pricing</a></li>
+    <li><a href="/badges/">Badge systems</a></li>
+    <li><a href="/certified-publisher">Creative Origin certification</a></li>
+    <li><a href="/badge-builder">Free badge builder</a></li>
+    <li><a href="/about.html">About Credtent</a></li>
+    <li><a href="/faq.html">FAQ</a></li>
+    <li><a href="/blog">Blog</a></li>
+    <li><a href="/standards">Standards</a></li>
+    <li><a href="/wga">Writers Guild of America</a></li>
+    <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+    <li><a href="/terms-of-service.html">Terms of Service</a></li>
+    <li><a href="/llms.txt">llms.txt</a></li>
+  </ul>
+</nav>
+</div>
 <script src="components.js"></script>
 </body>
 </html>

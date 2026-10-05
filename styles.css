@@ -2586,3 +2586,11 @@ section { width: 100%; }
 .mb-24 { margin-bottom: 24px; }
 .mb-32 { margin-bottom: 32px; }
 .pt-nav { padding-top: var(--nav-h); }
+
+/* Static footer link list. It sits inside #footer-placeholder so crawlers that do
+   not run JavaScript can follow the site's links; components.js replaces it with
+   the full footer on load, so most visitors never see it. */
+.static-sitemap { max-width: 1200px; margin: 0 auto; padding: 32px 24px; border-top: 1px solid var(--c-border); }
+.static-sitemap ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 24px; }
+.static-sitemap a { color: var(--c-body); font-size: 14px; text-decoration: none; }
+.static-sitemap a:hover { color: var(--c-purple); text-decoration: underline; }

@@ -1,17 +1,37 @@
 # Credtent
-> Neutral licensing infrastructure for AI training data. Independent creative registry, licensing agent/marketplace, and provenance badges. Delaware Public Benefit Corporation.
+> Neutral licensing infrastructure for AI training data licensing. Independent creative registry, licensing agent and marketplace, free AI training opt-out, and provenance badges. Delaware Public Benefit Corporation.
 
-Credtent, Inc. is a Delaware Public Benefit Corporation. It connects AI companies with rights-cleared, provenance-verified training data and lets rights holders license catalogs or opt out. Opt-out is free for creatives. Credtent does not build models and takes no equity in either side.
+Credtent, Inc. is a Delaware Public Benefit Corporation. It connects AI companies with rights-cleared, provenance-verified training data and lets rights holders license catalogs or opt out. Opt-out is free for creatives. Credtent does not build models and takes no equity in either side. Credtent is a member of the Content Authenticity Initiative (CAI). Rights holders keep 85% of every licensing deal Credtent closes; Credtent retains 15%.
 
 True today: Licenses include the rights the contracting holders warranted, a named manifest, and a disclosure pack your counsel can use for EU AI Act Art. 53 and CA AB 2013 filings. Those statutes still bind the developer. Indemnity, if any, is only as written in the signed license.
 
 Past use: We can structure a going-forward license plus a covenant not to sue from the rights holders who sign, covering the named works. That is not a release from everyone else, and it is not a regulator cure.
 
-- https://credtent.org/
-- https://credtent.org/about
-- https://credtent.org/faq
-- https://credtent.org/for-ai-companies
-- https://credtent.org/for-content-owners
-- https://credtent.org/opt-out
-- https://credtent.org/badges/
-- hello@credtent.org
+## AI training data licensing
+- [Home](https://credtent.org/): what Credtent is, who it serves, and how licensing works in three steps
+- [For AI companies](https://credtent.org/for-ai-companies.html): license a named, rights-cleared corpus with a manifest and a disclosure pack; covers past-use options
+- [For content owners](https://credtent.org/for-content-owners.html): list a catalog, keep full IP ownership, and keep 85% of every deal Credtent closes, paid quarterly
+- [Pricing](https://credtent.org/pricing.html): custom enterprise licensing for AI companies; 85/15 for content partners; free opt-out, Opt-Out Premium (auditing, no licensing) at $49/year, Creator Licensing at $99/year, and Rights-Holder Licensing from $299/year
+
+## Opt-out
+- [Free AI training opt-out](https://credtent.org/opt-out): register works once for an industry-wide opt-out; free, recorded, and reversible
+
+## Badges and certification
+- [Badge systems overview](https://credtent.org/badges/): Creative Origin for creators and publishers, Creative Consent for platforms, Commercial Safety for AI companies
+- [Creative Origin certification](https://credtent.org/certified-publisher): expert review of the editorial process behind published work, not an automated detector score
+- [Free Creative Origin badge builder](https://credtent.org/badge-builder): make a self-declared disclosure badge in about a minute, no account needed
+- [AI disclosure standards landscape](https://credtent.org/standards): a working catalog of AI disclosure badges, registries, watermarks, and protocols, maintained by Credtent
+
+## About and answers
+- [About](https://credtent.org/about.html): Credtent's structure, founder, and mission
+- [FAQ](https://credtent.org/faq.html): eighteen answers on licensing scope, past use, compliance documentation, the 85/15 split, payment timing, and the opt-out
+- [Blog](https://credtent.org/blog): Credtent writing on AI, creative rights, and copyright, published on Substack and Medium
+
+## Trust and legal
+- [Terms of Service](https://credtent.org/terms-of-service.html): terms governing use of Credtent's website, platform, and services
+- [Privacy Policy](https://credtent.org/privacy-policy.html): how Credtent collects, uses, and protects information
+
+## Contact
+- General: hello@credtent.org
+- Licensing: licensing@credtent.org
+- Partnerships: partners@credtent.org

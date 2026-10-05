@@ -27,9 +27,10 @@
         "name": "Credtent",
         "legalName": "Credtent, Inc.",
         "url": "https://credtent.org",
+        "logo": "https://credtent.org/credtent-logo-mark.svg",
         "email": "hello@credtent.org",
         "foundingDate": "2023",
-        "description": "Neutral licensing infrastructure for AI training data: independent creative registry, licensing agent/marketplace, and provenance badges. Delaware Public Benefit Corporation. Licenses include the rights the contracting holders warranted, a named manifest, and a disclosure pack. Indemnity, if any, is only as written in the signed license.",
+        "description": "Credtent is neutral licensing infrastructure for AI training data licensing: an independent creative registry, a licensing agent and marketplace, and provenance badges. It connects AI companies with rights-cleared, provenance-verified training data and lets rights holders license their catalogs or opt out for free. Delaware Public Benefit Corporation.",
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "1822 E. Rt. 66, Suite A353",
@@ -38,9 +39,29 @@
           "postalCode": "91740",
           "addressCountry": "US"
         },
+        "founder": {
+          "@id": "https://credtent.org/about#eric-r-burgess"
+        },
+        "memberOf": {
+          "@type": "Organization",
+          "name": "Content Authenticity Initiative",
+          "url": "https://contentauthenticity.org"
+        },
+        "knowsAbout": [
+          "AI training data licensing",
+          "AI content licensing",
+          "rights-cleared training data",
+          "content provenance",
+          "AI training opt-out",
+          "human-made content certification",
+          "content catalog valuation for AI licensing"
+        ],
         "sameAs": [
           "https://www.linkedin.com/company/credtent",
-          "https://www.cbinsights.com/company/credtent"
+          "https://www.cbinsights.com/company/credtent",
+          "https://credtent.substack.com/",
+          "https://bsky.app/profile/credtent.bsky.social",
+          "https://medium.com/credtent-on-content"
         ]
       },
       {
@@ -48,7 +69,77 @@
         "@id": "https://credtent.org/#website",
         "url": "https://credtent.org",
         "name": "Credtent",
-        "publisher": { "@id": "https://credtent.org/#organization" }
+        "publisher": {
+          "@id": "https://credtent.org/#organization"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://credtent.org/about#eric-r-burgess",
+        "name": "Eric R. Burgess",
+        "jobTitle": "Founder and CEO",
+        "worksFor": {
+          "@id": "https://credtent.org/#organization"
+        },
+        "url": "https://credtent.org/about",
+        "knowsAbout": [
+          "AI training data licensing",
+          "content provenance",
+          "creator rights in AI"
+        ],
+        "sameAs": [
+          "https://www.linkedin.com/in/erburgess",
+          "https://burgessing.substack.com/"
+        ]
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": "https://credtent.org/#faq",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is Credtent?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Credtent is neutral licensing infrastructure that connects AI companies with rights-cleared, provenance-verified training data, and connects rights holders with a marketplace to license or opt out their work. It sits between content creators and the AI companies that train on their content, handling provenance, contracts, compliance, usage tracking, and royalties. Credtent does not compete with either side, which is why both sides can use it as a neutral registry."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Who does Credtent serve?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Credtent serves two sides of the AI economy: the rights holders who create content and the AI companies that train on it. For rights holders (publishers, studios, labels, archives, and data providers), it offers a marketplace to license catalogs or opt out entirely. For AI companies, it offers rights-cleared, provenance-verified content with compliance documentation. Credtent is the neutral infrastructure layer between them and competes with neither side."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why is a neutral AI training-data licensing market forming?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A licensing market is forming because nearly every AI model now faces negotiation, litigation, or regulation over the content it trained on. That creates structural demand for neutral, legal, scalable licensing infrastructure, and an opportunity for rights holders to be paid for content used in AI training. Credtent builds the rails for this market across publishing and text, film and audiovisual, and music, data, and specialized archives."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does Credtent do for rights holders and AI companies?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Credtent is a multimodal creative registry where rights holders register work across text, audio, video, image, and data, then make it available for AI training or opt it out. It does three things: it lets rights holders monetize through standardized licensing and usage tracking, it protects creators through a free industry-wide opt-out and continuous auditing, and it verifies content with provenance tagging and Creative Origin certification, giving auditors a clear chain of custody."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does Credtent work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Credtent works in three steps. First, rights holders list and certify: they upload catalog metadata, verify ownership, set licensing terms, and Credtent adds provenance tags and Creative Origin certification. Second, AI companies negotiate and license pre-cleared content under standardized terms, with contracts and a disclosure pack. Third, Credtent tracks usage across every licensee and distributes royalties to rights holders on a quarterly cadence."
+        }
       }
     ]
   }
@@ -395,7 +486,28 @@
   </div>
 </section>
 
-<div id="footer-placeholder"></div>
+<div id="footer-placeholder">
+<nav aria-label="Site" class="static-sitemap">
+  <ul>
+    <li><a href="/">Credtent home</a></li>
+    <li><a href="/for-ai-companies.html">License AI training data</a></li>
+    <li><a href="/for-content-owners.html">License your catalog to AI companies</a></li>
+    <li><a href="/opt-out">Free AI training opt-out</a></li>
+    <li><a href="/pricing.html">Pricing</a></li>
+    <li><a href="/badges/">Badge systems</a></li>
+    <li><a href="/certified-publisher">Creative Origin certification</a></li>
+    <li><a href="/badge-builder">Free badge builder</a></li>
+    <li><a href="/about.html">About Credtent</a></li>
+    <li><a href="/faq.html">FAQ</a></li>
+    <li><a href="/blog">Blog</a></li>
+    <li><a href="/standards">Standards</a></li>
+    <li><a href="/wga">Writers Guild of America</a></li>
+    <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+    <li><a href="/terms-of-service.html">Terms of Service</a></li>
+    <li><a href="/llms.txt">llms.txt</a></li>
+  </ul>
+</nav>
+</div>
 
 <!-- ── Video Lightbox ─────────────────────────────────────────── -->
 <div id="video-lightbox" style="

@@ -1,3 +1,33 @@
+# Explicit groups for AI search and AI training crawlers. A named group replaces
+# the * group for that crawler, so each one repeats the /parking/ exclusion.
+User-agent: GPTBot
+Allow: /
+Disallow: /parking/
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /parking/
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /parking/
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /parking/
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /parking/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /parking/
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /parking/
+
 User-agent: *
 Allow: /
 Disallow: /parking/

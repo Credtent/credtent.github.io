@@ -23,7 +23,7 @@
     "@type": "Product",
     "name": "Credtent Individual Creator Plans",
     "description": "Individual creators can register works with Credtent for a free industry-wide opt-out, add auditing with Opt-Out Premium, or choose a licensing plan.",
-    "brand": { "@type": "Organization", "name": "Credtent" },
+    "brand": { "@id": "https://credtent.org/#organization" },
     "offers": [
       {
         "@type": "Offer",
@@ -81,6 +81,145 @@
   <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#290099">
   <meta name="msapplication-TileColor" content="#152153">
   <meta name="theme-color" content="#ffffff">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://credtent.org/#organization",
+        "name": "Credtent",
+        "legalName": "Credtent, Inc.",
+        "url": "https://credtent.org",
+        "logo": "https://credtent.org/credtent-logo-mark.svg",
+        "email": "hello@credtent.org",
+        "foundingDate": "2023",
+        "description": "Credtent is neutral licensing infrastructure for AI training data licensing: an independent creative registry, a licensing agent and marketplace, and provenance badges. It connects AI companies with rights-cleared, provenance-verified training data and lets rights holders license their catalogs or opt out for free. Delaware Public Benefit Corporation.",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "1822 E. Rt. 66, Suite A353",
+          "addressLocality": "Glendora",
+          "addressRegion": "CA",
+          "postalCode": "91740",
+          "addressCountry": "US"
+        },
+        "founder": {
+          "@id": "https://credtent.org/about#eric-r-burgess"
+        },
+        "memberOf": {
+          "@type": "Organization",
+          "name": "Content Authenticity Initiative",
+          "url": "https://contentauthenticity.org"
+        },
+        "knowsAbout": [
+          "AI training data licensing",
+          "AI content licensing",
+          "rights-cleared training data",
+          "content provenance",
+          "AI training opt-out",
+          "human-made content certification",
+          "content catalog valuation for AI licensing"
+        ],
+        "sameAs": [
+          "https://www.linkedin.com/company/credtent",
+          "https://www.cbinsights.com/company/credtent",
+          "https://credtent.substack.com/",
+          "https://bsky.app/profile/credtent.bsky.social",
+          "https://medium.com/credtent-on-content"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://credtent.org/#website",
+        "url": "https://credtent.org",
+        "name": "Credtent",
+        "publisher": {
+          "@id": "https://credtent.org/#organization"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://credtent.org/about#eric-r-burgess",
+        "name": "Eric R. Burgess",
+        "jobTitle": "Founder and CEO",
+        "worksFor": {
+          "@id": "https://credtent.org/#organization"
+        },
+        "url": "https://credtent.org/about",
+        "knowsAbout": [
+          "AI training data licensing",
+          "content provenance",
+          "creator rights in AI"
+        ],
+        "sameAs": [
+          "https://www.linkedin.com/in/erburgess",
+          "https://burgessing.substack.com/"
+        ]
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://credtent.org/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Pricing",
+        "item": "https://credtent.org/pricing.html"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": "https://credtent.org/pricing.html#faq",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How much does Credtent cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Credtent pricing depends on which side of the market you are on. AI companies pay custom enterprise licensing priced per deal. Content partners and rights holders keep 85% of every licensing deal Credtent closes, with Credtent retaining 15%, and a platform fee applies. Individual creators can opt out for free, add auditing with Opt-Out Premium at $49 per year, or license their work with Creator Licensing at $99 per year."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does Credtent cost for AI companies?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "AI companies license training data from Credtent through custom enterprise agreements; there is no fixed public price. Pricing is scoped to the content, the license type, and the size of the organization, because every corpus and use case differs. Each agreement includes a disclosure pack, and pricing is set during a scoping conversation rather than from a published rate card."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does Credtent cost for content partners?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A platform fee applies for content partners, and Credtent retains 15% of each licensing deal it closes and routes the other 85% to the rights holder, under the Starter Partner terms. The Organization License keeps the same 85/15 split and adds enhanced services for larger catalogs, and Enterprise is custom-priced for the largest catalogs. Partners earn when Credtent closes a deal."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does Credtent cost for individual creators?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Individual creators can use Credtent's opt-out for free, forever, with no cost to register works for the industry-wide opt-out. Opt-Out Premium at $49 per year adds access to the auditing system but does not include licensing. Licensing is a separate set of plans: Creator Licensing at $99 per year, and Rights-Holder Licensing starting at $299 per year."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -417,7 +556,28 @@
   </div>
 </section>
 
-<div id="footer-placeholder"></div>
+<div id="footer-placeholder">
+<nav aria-label="Site" class="static-sitemap">
+  <ul>
+    <li><a href="/">Credtent home</a></li>
+    <li><a href="/for-ai-companies.html">License AI training data</a></li>
+    <li><a href="/for-content-owners.html">License your catalog to AI companies</a></li>
+    <li><a href="/opt-out">Free AI training opt-out</a></li>
+    <li><a href="/pricing.html">Pricing</a></li>
+    <li><a href="/badges/">Badge systems</a></li>
+    <li><a href="/certified-publisher">Creative Origin certification</a></li>
+    <li><a href="/badge-builder">Free badge builder</a></li>
+    <li><a href="/about.html">About Credtent</a></li>
+    <li><a href="/faq.html">FAQ</a></li>
+    <li><a href="/blog">Blog</a></li>
+    <li><a href="/standards">Standards</a></li>
+    <li><a href="/wga">Writers Guild of America</a></li>
+    <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+    <li><a href="/terms-of-service.html">Terms of Service</a></li>
+    <li><a href="/llms.txt">llms.txt</a></li>
+  </ul>
+</nav>
+</div>
 
 <script>
   (function () {
