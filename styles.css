@@ -2369,6 +2369,61 @@ section { width: 100%; }
   margin-bottom: 40px;
 }
 
+/* ── Guides ───────────────────────────────────────────────── */
+.guide-content ol {
+  list-style: decimal;
+  padding-left: 24px;
+  margin-bottom: 16px;
+}
+.guide-content ol li {
+  font-size: 15px;
+  color: var(--c-body);
+  margin-bottom: 8px;
+  line-height: 1.7;
+}
+.guide-content a { color: var(--c-purple); text-decoration: underline; }
+.guide-breadcrumb {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  color: var(--c-muted);
+  margin-bottom: 28px;
+}
+.guide-breadcrumb a { color: var(--c-muted); text-decoration: none; }
+.guide-breadcrumb a:hover { color: var(--c-purple); text-decoration: underline; }
+.guide-content .answer-capsule {
+  background: var(--c-bg-light);
+  border-left: 3px solid var(--c-purple);
+  border-radius: 0 10px 10px 0;
+  padding: 18px 22px;
+  color: var(--c-heading);
+  font-weight: 600;
+}
+.guide-content .answer-capsule--lead { font-size: 16px; margin-bottom: 24px; }
+.guide-faq-item { border-bottom: 1px solid var(--c-border); padding: 4px 0 10px; }
+.guide-faq-item:last-of-type { border-bottom: none; }
+.guide-content .guide-more { margin-top: 48px; font-weight: 600; }
+
+.guide-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+.guide-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #fff;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-card);
+  padding: 28px;
+  text-decoration: none;
+  transition: box-shadow 0.18s ease, transform 0.18s ease;
+}
+.guide-card:hover { box-shadow: 0 6px 24px rgba(41,0,153,0.09); transform: translateY(-2px); }
+.guide-card h2 { font-size: 1.15rem; line-height: 1.4; color: var(--c-heading); margin: 0; }
+.guide-card p { font-size: 14px; line-height: 1.7; color: var(--c-body); margin: 0; flex: 1; }
+.guide-card-link { font-size: 13px; font-weight: 700; color: var(--c-purple); }
+
 /* ── LWS Partnership Page ─────────────────────────────────── */
 .lws-logo-row {
   display: flex;
@@ -2594,3 +2649,10 @@ section { width: 100%; }
 .static-sitemap ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 24px; }
 .static-sitemap a { color: var(--c-body); font-size: 14px; text-decoration: none; }
 .static-sitemap a:hover { color: var(--c-purple); text-decoration: underline; }
+
+/* Guide tables (company map) */
+.guide-table-wrap { overflow-x: auto; margin: 0 0 24px; }
+.guide-table { width: 100%; border-collapse: collapse; font-size: 14px; line-height: 1.6; }
+.guide-table th, .guide-table td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--c-border); color: var(--c-body); }
+.guide-table th { color: var(--c-heading); font-weight: 700; }
+.guide-table td a { word-break: break-all; }
