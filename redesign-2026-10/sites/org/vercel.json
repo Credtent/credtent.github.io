@@ -1,0 +1,170 @@
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/for-ai-companies",
+      "destination": "https://credtent.com/ai-companies",
+      "permanent": true
+    },
+    {
+      "source": "/for-ai-companies.html",
+      "destination": "https://credtent.com/ai-companies",
+      "permanent": true
+    },
+    {
+      "source": "/for-content-owners",
+      "destination": "https://credtent.com/content-owners",
+      "permanent": true
+    },
+    {
+      "source": "/for-content-owners.html",
+      "destination": "https://credtent.com/content-owners",
+      "permanent": true
+    },
+    {
+      "source": "/pricing",
+      "destination": "https://credtent.com/pricing",
+      "permanent": true
+    },
+    {
+      "source": "/pricing.html",
+      "destination": "https://credtent.com/pricing",
+      "permanent": true
+    },
+    {
+      "source": "/about",
+      "destination": "https://credtent.com/about",
+      "permanent": true
+    },
+    {
+      "source": "/about.html",
+      "destination": "https://credtent.com/about",
+      "permanent": true
+    },
+    {
+      "source": "/faq",
+      "destination": "https://credtent.com/faq",
+      "permanent": true
+    },
+    {
+      "source": "/faq.html",
+      "destination": "https://credtent.com/faq",
+      "permanent": true
+    },
+    {
+      "source": "/certified-publisher",
+      "destination": "https://credtent.com/certified-publisher",
+      "permanent": true
+    },
+    {
+      "source": "/certified-publisher.html",
+      "destination": "https://credtent.com/certified-publisher",
+      "permanent": true
+    },
+    {
+      "source": "/guides/ai-training-data-licensing-companies",
+      "destination": "https://credtent.com/guides/ai-training-data-licensing-companies/",
+      "permanent": true
+    },
+    {
+      "source": "/guides/ai-training-data-licensing-companies/",
+      "destination": "https://credtent.com/guides/ai-training-data-licensing-companies/",
+      "permanent": true
+    },
+    {
+      "source": "/privacy-policy.html",
+      "destination": "https://credtent.org/privacy-policy",
+      "permanent": true
+    },
+    {
+      "source": "/terms-of-service.html",
+      "destination": "https://credtent.org/terms-of-service",
+      "permanent": true
+    },
+    {
+      "source": "/opt-out.html",
+      "destination": "https://credtent.org/opt-out",
+      "permanent": true
+    },
+    {
+      "source": "/blog.html",
+      "destination": "https://credtent.org/blog",
+      "permanent": true
+    },
+    {
+      "source": "/wga.html",
+      "destination": "https://credtent.org/wga",
+      "permanent": true
+    },
+    {
+      "source": "/badge-builder.html",
+      "destination": "https://credtent.org/badge-builder",
+      "permanent": true
+    },
+    {
+      "source": "/lws.html",
+      "destination": "https://credtent.org/lws",
+      "permanent": true
+    },
+    {
+      "source": "/index.html",
+      "destination": "https://credtent.org/",
+      "permanent": true
+    },
+    {
+      "source": "/guides/index.html",
+      "destination": "https://credtent.org/guides/",
+      "permanent": true
+    },
+    {
+      "source": "/post/unfair-use-denormalizing-ai-theft.html",
+      "destination": "https://credtent.org/post/unfair-use-denormalizing-ai-theft",
+      "permanent": true
+    },
+    {
+      "source": "/parking/badges.html",
+      "destination": "https://credtent.org/parking/badges",
+      "permanent": true
+    },
+    {
+      "source": "/parking/blog.html",
+      "destination": "https://credtent.org/parking/blog",
+      "permanent": true
+    },
+    {
+      "source": "/parking/blog/disneys-ai-gambit-how-a-billion-dollar.html",
+      "destination": "https://credtent.org/parking/blog/disneys-ai-gambit-how-a-billion-dollar",
+      "permanent": true
+    },
+    {
+      "source": "/parking/lws.html",
+      "destination": "https://credtent.org/parking/lws",
+      "permanent": true
+    },
+    {
+      "source": "/parking/services.html",
+      "destination": "https://credtent.org/parking/services",
+      "permanent": true
+    },
+    {
+      "source": "/creative-origin",
+      "destination": "https://registry.credtent.org/creative-origin",
+      "permanent": true
+    },
+    {
+      "source": "/creative-origin/",
+      "destination": "https://registry.credtent.org/creative-origin",
+      "permanent": true
+    }
+  ]
+}

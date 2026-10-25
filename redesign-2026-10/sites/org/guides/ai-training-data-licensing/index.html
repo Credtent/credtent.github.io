@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- TODO(launch): remove this noindex meta, the X-Robots-Tag header, and robots.txt Disallow before publishing. SITE_ENV is not production. credtent.com must answer 200 before any .org 301 goes live. -->
+  <meta name="robots" content="noindex, nofollow">
+  <title>How AI training data licensing works | Credtent</title>
+  <meta name="description" content="What a training license grants, what it does not grant, and how rights holders keep the choice to opt out.">
+  <link rel="canonical" href="https://credtent.org/guides/ai-training-data-licensing/">
+  <meta property="og:title" content="How AI training data licensing works | Credtent">
+  <meta property="og:description" content="What a training license grants, what it does not grant, and how rights holders keep the choice to opt out.">
+  <meta property="og:url" content="https://credtent.org/guides/ai-training-data-licensing/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Credtent">
+  <meta name="twitter:card" content="summary">
+  <link rel="preload" href="/fonts/inter-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/source-serif-4-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+  
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/site.css">
+  <link rel="icon" href="/favicon/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://credtent.com/#organization","name":"Credtent","legalName":"Credtent, Inc.","url":["https://credtent.com/","https://credtent.org/"],"logo":"https://credtent.com/brand/shield.svg","email":"hello@credtent.com","foundingDate":"2023","description":"Credtent, Inc. is a Delaware Public Benefit Corporation and a neutral marketplace connecting content owners and AI companies through consent, licensing, and compensation.","address":{"@type":"PostalAddress","streetAddress":"1822 E. Route 66, Suite A353","addressLocality":"Glendora","addressRegion":"California","postalCode":"91740","addressCountry":"US"},"founder":{"@id":"https://credtent.com/about#eric-r-burgess"},"sameAs":["https://www.linkedin.com/company/credtent","https://www.cbinsights.com/company/credtent"]},{"@type":"WebSite","@id":"https://credtent.org/#website","url":"https://credtent.org/","name":"Credtent","description":"Credtent for creatives: opt-out, Creative Consent, and resources.","publisher":{"@id":"https://credtent.com/#organization"}},{"@type":"WebPage","@id":"https://credtent.org/guides/ai-training-data-licensing/#page","url":"https://credtent.org/guides/ai-training-data-licensing/","name":"How AI training data licensing works | Credtent","description":"What a training license grants, what it does not grant, and how rights holders keep the choice to opt out.","isPartOf":{"@id":"https://credtent.org/#website"},"about":{"@id":"https://credtent.com/#organization"},"publisher":{"@id":"https://credtent.com/#organization"},"inLanguage":"en"},{"@type":"FAQPage","@id":"https://credtent.org/guides/ai-training-data-licensing/#faq","url":"https://credtent.org/guides/ai-training-data-licensing/","isPartOf":{"@id":"https://credtent.org/#website"},"mainEntity":[{"@type":"Question","name":"Does a training license include answers and excerpts?","acceptedAnswer":{"@type":"Answer","text":"Not automatically. Inference, grounding, and display need their own written terms."}},{"@type":"Question","name":"Can a license fix past training for everyone?","acceptedAnswer":{"@type":"Answer","text":"No. A covenant not to sue reaches only the rights holders who sign, and only the named works. It is not a regulator cure."}}]},{"@type":"BreadcrumbList","@id":"https://credtent.org/guides/ai-training-data-licensing/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://credtent.org/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://credtent.org/guides/"},{"@type":"ListItem","position":3,"name":"AI training data licensing","item":"https://credtent.org/guides/ai-training-data-licensing/"}]}]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <p class="preview-bar"><strong>Preview.</strong> TODO(launch): this build is noindex. Remove the robots block only when Eric publishes.</p>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="/" aria-label="Credtent home">
+        <img class="shield" src="/brand/shield.svg" width="32" height="36" alt="">
+        <img class="word" src="/brand/wordmark.svg" width="148" height="27" alt="Credtent">
+      </a>
+      <div class="header-tools">
+        <a class="btn btn-nav" href="https://app.credtent.org/opt-out" target="_blank" rel="noopener">Free opt-out</a>
+        <details class="nav-details">
+          <summary class="nav-summary">Menu</summary>
+          <nav class="site-nav" aria-label="Primary"><a href="/opt-out">Opt-Out</a><a href="/creative-consent">Creative Consent</a><a href="/resources">Resources</a><a href="https://credtent.com/about" rel="noopener">About</a></nav>
+        </details>
+      </div>
+    </div>
+  </header>
+  <main id="content">
+    <div class="wrap section-tight"><p class="crumbs"><a href="https://credtent.org/guides/">Guides</a> / <span>AI training data licensing</span></p><p class="eyebrow">Guide</p><h1>How AI training data licensing works.</h1><p class="capsule">AI training data licensing is a written agreement in which the owner of text, images, audio, video, or data grants permission to use specific works to train a model, on defined terms.</p></div>
+    <section class="section"><div class="wrap prose">
+        <p>Updated October 2026. Published by Credtent, a Delaware Public Benefit Corporation.</p>
+        <h2>What rights does a training license grant?</h2>
+        <p>A training license grants permission to use named works to train or fine-tune a model, within the scope the contract states. It does not automatically cover use in AI answers, and it does not transfer copyright.</p>
+        <p>A license also conveys only the rights its signatories hold. That is why a careful license comes with a manifest.</p>
+        <p>Our corporate page states the boundary in these words: "Licenses include the rights the contracting holders warranted, a named manifest, and a disclosure pack your counsel can use for EU AI Act Art. 53 and CA AB 2013 filings. Those statutes still bind the developer. Indemnity, if any, is only as written in the signed license."</p>
+        <h2>Who can offer a license?</h2>
+        <p>Individual creatives, publishers and other catalog owners, marketplaces, and collective programs. They differ in scale and in how payment is arranged. Credtent does not publish a rate card on this preview.</p>
+        <h2>What records do developers need?</h2>
+        <p>Developers of general-purpose AI models in the EU must publish a sufficiently detailed summary of training content and keep a copyright policy that honors rights reservations, under Article 53 of the EU AI Act. California's AB 2013 requires developers to post training-data documentation. A developer's filings remain the developer's responsibility.</p>
+        <h2>How can a rights holder participate?</h2>
+        <p>Document ownership, list the works, set which uses you will accept, and approve each agreement. You can also choose the <a href="/opt-out">free opt-out</a> instead. Opt-Out Premium is <span class="price">US$49</span> a year for individuals and <span class="price">US$249+</span> a year for organizations. It adds auditing and does not include licensing.</p>
+        <p>The company map is on <a href="https://credtent.com/guides/ai-training-data-licensing-companies/">credtent.com</a>.</p>
+      </div></section>
+    <section class="section section-tight" id="faq">
+    <div class="wrap">
+      <h2>Questions</h2>
+      <div class="faq-list"><details open>
+    <summary>Does a training license include answers and excerpts?</summary>
+    <p>Not automatically. Inference, grounding, and display need their own written terms.</p>
+  </details><details open>
+    <summary>Can a license fix past training for everyone?</summary>
+    <p>No. A covenant not to sue reaches only the rights holders who sign, and only the named works. It is not a regulator cure.</p>
+  </details></div>
+    </div>
+  </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <img class="word" src="/brand/wordmark-white.svg" width="160" height="30" alt="Credtent">
+        <p>Credtent helps creatives and AI companies navigate consent, credit, and compensation.</p>
+        <p>Credtent, Inc. is a Delaware Public Benefit Corporation.</p>
+        <p><a href="mailto:hello@credtent.com">hello@credtent.com</a></p>
+        <p>Credtent also represents publishers and media companies. <a href="https://credtent.com/partners">See who we represent</a>.</p>
+      </div>
+      <div>
+        <h2>For creatives</h2>
+        <ul>
+          <li><a href="https://credtent.org/opt-out">Free opt-out</a></li>
+          <li><a href="https://credtent.org/resources/auditing">Auditing</a></li>
+          <li><a href="https://credtent.org/creative-consent">Creative Consent</a></li>
+          <li><a href="https://credtent.org/resources">Resources</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>For companies</h2>
+        <ul>
+          <li><a href="https://credtent.com/valuation">Valuation</a></li>
+          <li><a href="https://credtent.com/ai-training">AI training</a></li>
+          <li><a href="https://credtent.com/citation-licensing">Citations</a></li>
+          <li><a href="https://credtent.com/partners">Partners</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Company</h2>
+        <ul>
+          <li><a href="https://credtent.com/about">About</a></li>
+          <li><a href="https://credtent.org/contact">Contact</a></li>
+          <li><a href="https://credtent.org/sitemap">Sitemap</a></li>
+          <li><a href="https://credtent.org/privacy-policy">Privacy</a></li>
+          <li><a href="https://credtent.org/terms-of-service">Terms</a></li>
+          <li><a href="https://credtent.org/credits">Photo credits</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="wrap footer-base">
+      <span>1822 E. Route 66, Suite A353, Glendora, California 91740</span>
+      <span>© 2026 Credtent, Inc.</span>
+    </div>
+  </footer>
+</body>
+</html>
