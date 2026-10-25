@@ -1,0 +1,3123 @@
+Credtent / DESIGN REVIEW 07
+
+
+
+
+Your feedback, applied.
+Sixteen desktop and mobile previews. Eight page types. September 21, 2026.
+
+
+01     Credtent.org                                                                              Desktop + mobile
+
+
+02     Credtent.com                                                                              Desktop + mobile
+
+
+03     Collaborithmic.com                                                                        Desktop + mobile
+
+
+04     Creative Consent                                                                          Desktop + mobile
+
+
+05     Citation licensing                                                                        Desktop + mobile
+
+
+06     Content valuation                                                                         Desktop + mobile
+
+
+07     AI training licensing                                                                     Desktop + mobile
+
+
+08     About Credtent                                                                            Desktop + mobile
+
+
+
+
+Static design proposals for review before implementation. The local gallery provides full-size images, a device switch, source
+links, and revision notes. Revisions 03 through 06 are preserved. This revision replaces the commercial hero with a landscape
+photograph and 16:9 frames. All subsequent content and the other fourteen page previews are unchanged.
+                                                   Opt-Out       Creative Consent   Resources   About                                             Free opt-out
+
+
+
+
+FOR CREATORS IN THE AGE OF AI
+
+
+
+
+Your work.
+Your choices.
+Your terms.
+Tell AI companies not to train on your work. Understand
+how platforms use your content and make informed choices
+about your work.
+
+
+       Get free opt-out
+
+
+See how it works →
+                                                                                                                  Keep creating.
+                                                                                                            We’ll help you navigate AI.
+
+
+
+
+FOR THE WORK YOU MAKE
+
+
+
+
+Whatever you create, your choices matter.
+Practical tools and resources to help you protect your creative work and understand your choices in the
+age of AI.
+
+
+
+
+For the words you write.                                                              For the stories you bring to life.
+
+
+
+FREE                                                   QUARTERLY                                              OPTIONAL
+
+
+Opt-out registration                                   Opt-out list distribution                              Monthly Premium auditing
+
+
+
+
+A DOCUMENTED HISTORY
+
+
+
+
+How your opt-out works
+Credtent records your opt-out preferences and the notices we send to AI companies, building a
+documented history over time. We cannot guarantee that every company will act on your request.
+
+01                                                       02                                                       03
+
+
+
+Register your preferences                                We send your request                                     Choose additional support
+Identify the work you want included in your              Credtent distributes the opt-out list to AI              Optional Opt-Out Premium adds monthly
+opt-out request.                                         companies each quarter. Sent notices are                 auditing of observable model responses.
+                                                         distinct from confirmed receipt or action.
+
+
+
+Registration does not automatically remove work from datasets.
+
+
+
+
+OPT-OUT PREMIUM
+
+
+
+
+Monthly audits.
+A clearer record.                                                                                                    US$49 annually
+Credtent audits observable model responses monthly and records the                                                   For individuals
+results. These observations are not proof of dataset inclusion or
+                                                                                                                     Early member pricing
+infringement.
+
+
+
+       Understand auditing
+
+
+
+
+CREATIVE CONSENT
+
+
+
+
+Know the terms. Keep the choice.
+Understand how the platforms where you publish handle AI training, and what controls you have.
+
+
+
+
+Full Protection                                          Optional Protection                                         No Protection
+Protected by default. AI training requires               Protection depends on using an available,                   The assessed policy offers no effective choice
+explicit opt-in. Creators can still choose to            effective opt-out.                                          to prevent that use.
+participate.
+
+
+
+     Explore Creative Consent
+
+
+
+
+CREATOR RESOURCES
+
+
+
+
+Understand more. Decide for yourself.
+
+
+
+
+What an opt-out request can                             How to read a platform’s AI                              Use AI without giving up your
+do.                                                     terms.                                                   judgment.
+Read the resource →                                     Read the resource →                                      Read the resource →
+
+
+
+
+THE COLLABORITHMIC AGE
+
+
+
+
+Expand your creativity. Keep your judgment.
+                         By E.R. Burgess, Credtent CEO and creative technologist
+
+                         Drawing on years of content valuation and two and a half years developing full-cycle AI licensing, Burgess
+                         explores how to use AI, understand the value of your work, and keep your creative skills and judgment strong.
+
+
+
+                         Explore The Collaborithmic Age →
+
+
+
+
+                                                                                           Free opt-out / Auditing
+
+                                                                                           Creative Consent / Resources
+Credtent helps creators and AI companies navigate consent,
+                                                                                           Valuation / AI training / Citations
+credit, and compensation.
+                                                                                           About / Contact / Sitemap
+
+
+hello@credtent.org
+FOR CREATORS IN THE AGE OF AI
+
+
+
+
+Your work.
+Your choices.
+Your terms.
+Tell AI companies not to train on your
+work. Understand how platforms use
+your content and make informed
+choices about your work.
+
+
+
+               Get free opt-out
+
+
+See how it works →
+
+
+
+
+                Keep creating.
+           We’ll help you navigate AI.
+
+
+
+
+FOR THE WORK YOU MAKE
+
+
+
+
+Whatever you create,
+your choices matter.
+Practical tools and resources to help you
+protect your creative work and understand
+your choices in the age of AI.
+
+
+
+
+For the words you write.
+
+
+
+
+For the stories you bring to
+life.
+
+
+
+
+FREE
+                Opt-out registration
+
+
+QUARTERLY
+                Opt-out list distribution
+
+
+OPTIONAL
+                Monthly Premium
+                auditing
+
+
+
+
+A DOCUMENTED HISTORY
+
+
+
+
+How your opt-out
+works
+Credtent records your opt-out preferences
+and the notices we send to AI companies,
+building a documented history over time.
+We cannot guarantee that every company
+will act on your request.
+
+
+01
+
+
+
+Register your preferences
+Identify the work you want included in your
+opt-out request.
+
+
+02
+
+
+
+We send your request
+Credtent distributes the opt-out list to AI
+companies each quarter. Sent notices are
+distinct from confirmed receipt or action.
+
+
+03
+
+
+
+Choose additional support
+Optional Opt-Out Premium adds monthly
+auditing of observable model responses.
+
+
+
+Registration does not automatically remove
+work from datasets.
+
+
+
+
+OPT-OUT PREMIUM
+
+
+
+
+Monthly audits.
+A clearer record.
+Credtent audits observable model
+responses monthly and records the
+results. These observations are not proof
+of dataset inclusion or infringement.
+
+
+
+
+     US$49 annually
+     For individuals
+     Early member pricing
+
+
+
+
+             Understand auditing
+
+
+
+
+CREATIVE CONSENT
+
+
+
+
+Know the terms.
+Keep the choice.
+Understand how the platforms where you
+publish handle AI training, and what
+controls you have.
+
+
+
+                Full Protection
+                Protected by default. AI training
+                requires explicit opt-in. Creators
+                can still choose to participate.
+
+
+
+                Optional Protection
+                Protection depends on using an
+                available, effective opt-out.
+
+
+
+                No Protection
+                The assessed policy offers no
+                effective choice to prevent that
+                use.
+
+
+
+
+        Explore Creative Consent
+
+
+
+
+CREATOR RESOURCES
+
+
+
+
+Understand more.
+Decide for yourself.
+
+
+
+
+What an opt-out request
+can do.
+Read the resource →
+
+
+
+
+How to read a platform’s
+AI terms.
+Read the resource →
+
+
+
+
+Use AI without giving up
+your judgment.
+Read the resource →
+
+
+
+
+THE COLLABORITHMIC AGE
+
+
+
+
+Expand your
+creativity. Keep your
+judgment.
+
+
+
+
+By E.R. Burgess, Credtent CEO and
+creative technologist
+
+Drawing on years of content valuation and
+two and a half years developing full-cycle
+AI licensing, Burgess explores how to use
+AI, understand the value of your work, and
+keep your creative skills and judgment
+strong.
+
+Explore The Collaborithmic Age →
+
+
+
+
+Credtent helps creators and AI companies
+navigate consent, credit, and
+compensation.
+
+Free opt-out / Auditing
+
+Creative Consent / Resources
+
+Valuation / AI training / Citations
+
+About / Contact / Sitemap
+
+hello@credtent.org
+                                                           Content owners       AI companies      Services     About                                                Sign up
+
+
+
+
+CONNECTING CREATIVITY AND AI
+
+
+
+
+Creative work.
+Clear AI permissions.
+Value for both.
+Credtent bridges content owners and AI companies
+through consent, licensing, and compensation.
+
+
+          Sign up                         Contact us
+
+
+
+
+TWO SIDES. SHARED OPPORTUNITY.
+
+
+
+
+A neutral marketplace connecting content owners and
+AI companies.
+We help content owners and AI companies define permitted uses, assess value, and agree terms that reflect both sides’ needs.
+
+
+
+
+   Content owners                                                                                 AI companies
+   For authors, publishers, studios, archives, and data providers. Choose                         Find content for training and AI answers. Agree the rights,
+   what to license, agree on terms, get paid.                                                     documentation, and compensation for its use.
+
+   Explore content-owner options →                                                                Explore AI training licensing →
+
+
+
+
+CONTENT VALUATION
+
+
+
+
+Understand your content’s value. Explore your
+licensing options.
+Before a first agreement, after an initial deal, or when considering new opportunities: start with an informed assessment.
+
+A baseline valuation comes when you add content. Optional paid custom valuation provides a deeper assessment. You can obtain a
+valuation independently, then choose whether to seek help finding licensing partners.
+
+THE CONTEXT BEHIND A VALUATION
+
+
+
+
+  Intended AI use                       Evidence of                           Cultural                              Quality and                         Rights and scope
+  Training, answers, or both            success                               significance                          expertise                           Permissions, limits, and
+                                        Audience reception and                Context and distinctive               The work and its specialist         exclusivity
+                                        awards                                contribution                          value
+
+
+
+
+                                              A neutral assessment
+                                              An informed starting point for what to charge.
+
+
+Illustrative inputs, not a formula. Evidence, assumptions, and intended use inform the assessment; the parties agree the final price.
+
+
+
+   Request a valuation
+
+
+
+
+HOW LICENSING WORKS
+
+
+
+
+Your work. New ways to earn.
+   01                                              02                                             03                                              04
+
+
+
+   Choose the rights.                              Understand your                                Agree on terms.                                 Get paid.
+   Define which content, uses,                     value.                                         Set permitted use, attribution,                 Receive licensing payments
+   and exclusions you want to                      Credtent helps assess your                     compensation, reporting, and                    and agreed reporting under
+   offer.                                          content’s value alongside the                  renewal terms together.                         the contract.
+                                                   intended AI use.
+
+
+
+
+FULL-CYCLE LICENSING
+
+
+
+
+Agree how AI can use your content.
+We help content owners and AI companies agree what can be used, how it can be used, and how it is paid for.
+
+                                                                                           AI training rights
+                                                                                           License a defined corpus with documented origins and quality criteria.
+                                                                                           Set training scope and compensation, with agreed access to new work
+                                                                                           from creators and subject-matter experts.
+
+                                                                                           Explore training licensing →
+
+
+
+
+                                                                                           Use in AI answers
+                                                                                           Generative Results Referencing (GRR) sets excerpt limits, attribution,
+                                                                                           source links, and compensation for licensed appearances, including
+                                                                                           those without a click.
+
+                                                                                           Explore citation licensing →
+
+
+Training and display permissions are agreed separately. Source visits are a goal, not a guarantee.
+
+
+
+
+THE COLLABORITHMIC AGE
+
+
+
+
+Understand how creativity and AI can work together.
+                            By E.R. Burgess, Credtent CEO and creative technologist
+
+                            Drawing on years of content valuation and two and a half years developing full-cycle AI licensing, Burgess
+                            explores how to use AI, understand the value of your work, and keep your creative skills and judgment strong.
+
+
+
+                            Explore the book →
+
+
+
+
+                                                                                                        Free opt-out / Auditing
+
+                                                                                                        Creative Consent / Resources
+Credtent helps creators and AI companies navigate consent,
+                                                                                                        Valuation / AI training / Citations
+credit, and compensation.
+                                                                                                        About / Contact / Sitemap
+
+
+hello@credtent.org
+CONNECTING CREATIVITY AND AI
+
+
+
+
+Creative work.
+Clear AI
+permissions.
+Value for both.
+Credtent bridges content owners and
+AI companies through consent,
+licensing, and compensation.
+
+
+                       Sign up
+
+
+                  Contact us
+
+
+
+
+TWO SIDES. SHARED OPPORTUNITY.
+
+
+
+
+A neutral
+marketplace
+connecting content
+owners and AI
+companies.
+We help content owners and AI
+companies define permitted uses, assess
+value, and agree terms that reflect both
+sides’ needs.
+
+
+
+
+   Content owners
+   For authors, publishers, studios,
+   archives, and data providers. Choose
+   what to license, agree on terms, get
+   paid.
+
+   Explore content-owner options →
+
+
+
+
+   AI companies
+   Find content for training and AI
+   answers. Agree the rights,
+   documentation, and compensation for
+   its use.
+
+   Explore AI training licensing →
+
+
+
+
+CONTENT VALUATION
+
+
+
+
+Understand your
+content’s value.
+Explore your
+licensing options.
+Before a first agreement, after an initial
+deal, or when considering new
+opportunities: start with an informed
+assessment.
+
+A baseline valuation comes when you add
+content. Optional paid custom valuation
+provides a deeper assessment. You can
+obtain a valuation independently, then
+choose whether to seek help finding
+licensing partners.
+
+
+THE CONTEXT BEHIND A VALUATION
+
+
+
+
+  Intended AI use
+  Training, answers, or both
+
+
+
+  Evidence of success
+  Audience reception and awards
+
+
+
+  Cultural significance
+  Context and distinctive contribution
+
+
+
+  Quality and expertise
+  The work and its specialist value
+
+
+
+  Rights and scope
+  Permissions, limits, and exclusivity
+
+
+
+
+   A neutral assessment
+   An informed starting point for what
+   to charge.
+
+
+
+Illustrative inputs, not a formula. Evidence,
+assumptions, and intended use inform the
+assessment; the parties agree the final price.
+
+
+
+           Request a valuation
+
+
+
+
+HOW LICENSING WORKS
+
+
+
+
+Your work. New
+ways to earn.
+   01
+
+
+
+   Choose the rights.
+   Define which content, uses, and
+   exclusions you want to offer.
+
+
+
+
+   02
+
+
+
+   Understand your
+   value.
+   Credtent helps assess your content’s
+   value alongside the intended AI use.
+
+
+
+
+   03
+
+
+
+   Agree on terms.
+   Set permitted use, attribution,
+   compensation, reporting, and renewal
+   terms together.
+
+
+
+
+   04
+
+
+
+   Get paid.
+   Receive licensing payments and
+   agreed reporting under the contract.
+
+
+
+
+FULL-CYCLE LICENSING
+
+
+
+
+Agree how AI can
+use your content.
+We help content owners and AI
+companies agree what can be used, how
+it can be used, and how it is paid for.
+
+
+
+
+AI training rights
+License a defined corpus with
+documented origins and quality criteria.
+Set training scope and compensation, with
+agreed access to new work from creators
+and subject-matter experts.
+
+Explore training licensing →
+
+
+
+
+Use in AI answers
+Generative Results Referencing (GRR)
+sets excerpt limits, attribution, source
+links, and compensation for licensed
+appearances, including those without a
+click.
+
+Explore citation licensing →
+
+
+Training and display permissions are agreed
+separately. Source visits are a goal, not a
+guarantee.
+
+
+
+
+THE COLLABORITHMIC AGE
+
+
+
+
+Understand how
+creativity and AI
+can work together.
+
+
+
+
+By E.R. Burgess, Credtent CEO and
+creative technologist
+
+Drawing on years of content valuation
+and two and a half years developing
+full-cycle AI licensing, Burgess explores
+how to use AI, understand the value of
+your work, and keep your creative skills
+and judgment strong.
+
+Explore the book →
+
+
+
+
+Credtent helps creators and AI companies
+navigate consent, credit, and
+compensation.
+
+Free opt-out / Auditing
+
+Creative Consent / Resources
+
+Valuation / AI training / Citations
+
+About / Contact / Sitemap
+
+hello@credtent.org
+The Collaborithmic Age                                        The book   Read a sample     Editions   About Eric                         Explore editions
+
+
+
+
+AN AI REALIST’S GUIDE
+
+
+
+
+The
+Collaborithmic
+Age
+E.R. Burgess
+
+Creativity, Rights, and the Future of Human Expression in a Time of
+Intelligent Machines.
+
+
+   Read the introduction
+
+
+
+Expected mid-October 2026
+
+
+
+MEET E.R. BURGESS
+
+
+
+
+A creator’s perspective. A technologist’s curiosity.
+                                        A lifetime making things.
+                                        A question about what comes next.
+                                        Credtent CEO and creative technologist E.R. Burgess is a writer, novelist, and technology observer. His
+                                        creative and technological work includes a long collaboration with Dr. Galen Buckwalter, a psychologist
+                                        and data analytics expert.
+
+
+
+
+   Seven years                                         Thirty years                                           Writer, novelist,
+   as a Disney producer.                               building enterprise software.                          and technology observer.
+
+
+
+
+CREATE WITH AI. KEEP YOUR JUDGMENT.
+
+
+
+
+More capability. Still your creative voice.
+How do we collaborate with algorithms without giving up our authorship, skills, or responsibility?
+
+
+
+
+Explore a practical way to use these tools while continuing to exercise the imagination that makes the work yours.
+
+
+
+What you’ll put into practice.
+
+   Use the tools deliberately                          Understand rights and                                  Keep practicing your craft
+   Keep human intent and judgment at the               value                                                  Recognize the difference between useful
+   center of your process.                             Think clearly about consent, licensing,                assistance and creative atrophy.
+                                                       attribution, and compensation.
+
+
+
+
+EDITIONS
+
+
+
+
+Read it your way.
+A complete standalone edition, or the living e-book with quarterly updates.
+
+
+   STANDARD E-BOOK                                     PAPERBACK                                              LIVING E-BOOK
+
+
+
+   $14.99                                              $24.99                                                 $49
+   A standalone digital edition. Quarterly             A standalone printed edition. Quarterly                The digital book with quarterly updates
+   updates are not included.                           updates are not included.                              included.
+
+   Explore e-book →                                    Explore paperback →                                    Explore living edition →
+
+
+
+
+PAID PERSONAL SUBSTACK SUBSCRIBERS
+
+
+
+
+Your living-edition access.
+Paid subscribers to Eric’s personal Substack also receive living-edition access. Free subscribers are not included.
+
+
+   Subscriber access
+
+
+A FEW USEFUL ANSWERS
+
+
+
+
+Before you choose.
+   Want print and living access?                                                  Which editions get updates?
+   Purchase the paperback and the living e-book separately. No                    The $49 living e-book includes quarterly updates. Standalone e-book
+   discounted bundle is offered in this preview.                                  and print purchases do not. Paid personal Substack subscribers also
+                                                                                  receive living-edition access.
+
+
+
+
+Invite Eric to speak at your event
+For speaking inquiries, contact hello@credtent.org.
+
+
+
+
+The Collaborithmic Age                                                                 The book / Editions / Author / FAQ
+Published by Credtent Press                                                            Contact / Sitemap
+
+                                                                                       LinkedIn / Personal Substack
+
+                                                                                       Medium / Credtent Substack
+
+
+hello@credtent.org
+The Collaborithmic Age
+
+
+AN AI REALIST’S GUIDE
+
+
+
+
+The
+Collaborithmic
+Age
+E.R. Burgess
+
+Creativity, Rights, and the Future of
+Human Expression in a Time of
+Intelligent Machines.
+
+
+           Read the introduction
+
+
+
+
+Expected mid-October 2026
+
+
+
+MEET E.R. BURGESS
+
+
+
+
+A creator’s
+perspective. A
+technologist’s
+curiosity.
+
+
+
+
+A lifetime making things.
+A question about what
+comes next.
+Credtent CEO and creative technologist
+E.R. Burgess is a writer, novelist, and
+technology observer. His creative and
+technological work includes a long
+collaboration with Dr. Galen Buckwalter, a
+psychologist and data analytics expert.
+
+
+
+   Seven years
+   as a Disney producer.
+
+
+
+
+   Thirty years
+   building enterprise software.
+
+
+
+
+   Writer, novelist,
+   and technology observer.
+
+
+
+
+CREATE WITH AI. KEEP YOUR JUDGMENT.
+
+
+
+
+More capability. Still
+your creative voice.
+How do we collaborate with algorithms
+without giving up our authorship, skills, or
+responsibility?
+
+
+
+
+Explore a practical way to use these tools
+while continuing to exercise the
+imagination that makes the work yours.
+
+
+
+What you’ll put into
+practice.
+
+   Use the tools
+   deliberately
+   Keep human intent and judgment at
+   the center of your process.
+
+
+
+
+   Understand rights and
+   value
+   Think clearly about consent, licensing,
+   attribution, and compensation.
+
+
+
+
+   Keep practicing your
+   craft
+   Recognize the difference between
+   useful assistance and creative atrophy.
+
+
+
+
+EDITIONS
+
+
+
+
+Read it your way.
+A complete standalone edition, or the
+living e-book with quarterly updates.
+
+
+   STANDARD E-BOOK
+
+
+
+   $14.99
+   A standalone digital edition. Quarterly
+   updates are not included.
+
+   Explore e-book →
+
+
+
+
+   PAPERBACK
+
+
+
+   $24.99
+   A standalone printed edition. Quarterly
+   updates are not included.
+
+   Explore paperback →
+
+
+
+
+   LIVING E-BOOK
+
+
+
+   $49
+   The digital book with quarterly updates
+   included.
+
+   Explore living edition →
+
+
+
+
+PAID PERSONAL SUBSTACK SUBSCRIBERS
+
+
+
+
+Your living-edition
+access.
+Paid subscribers to Eric’s personal
+Substack also receive living-edition
+access. Free subscribers are not included.
+
+
+            Subscriber access
+
+
+A FEW USEFUL ANSWERS
+
+
+
+
+Before you choose.
+
+   Want print and living
+   access?
+   Purchase the paperback and the living
+   e-book separately. No discounted
+   bundle is offered in this preview.
+
+
+
+
+   Which editions get
+   updates?
+   The $49 living e-book includes
+   quarterly updates. Standalone e-book
+   and print purchases do not. Paid
+   personal Substack subscribers also
+   receive living-edition access.
+
+
+
+
+Invite Eric to speak
+at your event
+For speaking inquiries, contact
+hello@credtent.org.
+
+
+
+
+The Collaborithmic Age
+Published by Credtent Press
+
+The book / Editions / Author / FAQ
+
+Contact / Sitemap
+
+LinkedIn / Personal Substack
+
+Medium / Credtent Substack
+
+hello@credtent.org
+                                                           Opt-Out      Creative Consent      Resources   About                                              Free opt-out
+
+
+
+
+RESOURCES / CREATIVE CONSENT
+
+
+
+
+Full Protection means consent comes first.
+Protected by default. AI training is allowed only when the creator explicitly chooses to permit it.
+
+
+                  Full Protection
+                  Protected by default. AI training requires explicit opt-in. Creators can still choose to participate.
+
+
+
+                  Optional Protection
+                  Protection depends on using an available, effective opt-out.
+
+
+
+                  No Protection
+                  The assessed policy offers no effective choice to prevent that use.
+
+
+
+
+AN ASSESSMENT YOU CAN INSPECT
+
+
+
+
+See the reason. See the source.
+Each assessment makes the relevant terms, available choices, and scope easy to understand.
+
+
+   01                                                             02                                                           03
+
+
+
+   Policy and version                                             Available choices                                            Clarifications
+   Original terms, policy links, review date,                     Training defaults, opt-in, opt-out, and                      Company responses and published policy
+   affected region, and account scope.                            differences between account types.                           changes are reviewed before an
+                                                                                                                               assessment is updated.
+
+
+
+
+OPEN INFORMATION
+
+
+
+
+View the platform list. Download the current guide.
+Publicly available without an email address or account.
+
+
+   View the platform list                 Download the guide
+
+
+Guide preview v03 • Layout reviewed September 21, 2026. Named assessments and their policy sources are pending editorial review; no platform ratings are shown here.
+
+
+
+REPRESENT A PLATFORM?
+
+
+
+
+Help keep the record accurate.
+Submit a clarification, correction, or updated policy for review. Include the policy URL, relevant passage, affected products, account types,
+regions, and effective date.
+
+Platform / organization
+
+
+
+
+Supporting policy URL
+
+
+
+
+Scope and requested correction
+
+
+
+
+   Submit for review
+
+
+Submissions are reviewed. They do not automatically change an assessment.
+
+
+
+OPTIONAL EMAIL SUBSCRIPTION
+
+
+
+
+Get Creative Consent updates.
+Choose to receive relevant policy and assessment updates. You can unsubscribe at any time.
+
+Email address
+
+
+
+
+    Yes, send me Creative Consent updates.
+
+
+
+   Subscribe to updates
+
+
+The guide and platform list remain open whether or not you subscribe.
+
+
+
+
+Creative Consent describes platform policies. Creative Origin describes a work’s disclosed origin.
+
+
+
+
+                                                                                                     Free opt-out / Auditing
+
+                                                                                                     Creative Consent / Resources
+Credtent helps creators and AI companies navigate consent,
+                                                                                                     Valuation / AI training / Citations
+credit, and compensation.
+                                                                                                     About / Contact / Sitemap
+
+
+hello@credtent.org
+RESOURCES / CREATIVE CONSENT
+
+
+
+
+Full Protection
+means consent
+comes first.
+Protected by default. AI training is allowed
+only when the creator explicitly chooses to
+permit it.
+
+
+               Full Protection
+               Protected by default. AI training
+               requires explicit opt-in. Creators
+               can still choose to participate.
+
+
+               Optional Protection
+               Protection depends on using an
+               available, effective opt-out.
+
+
+               No Protection
+               The assessed policy offers no
+               effective choice to prevent that
+               use.
+
+
+
+AN ASSESSMENT YOU CAN INSPECT
+
+
+
+
+See the reason. See
+the source.
+Each assessment makes the relevant
+terms, available choices, and scope easy
+to understand.
+
+
+   01
+
+
+
+   Policy and version
+   Original terms, policy links, review
+   date, affected region, and account
+   scope.
+
+
+
+
+   02
+
+
+
+   Available choices
+   Training defaults, opt-in, opt-out, and
+   differences between account types.
+
+
+
+
+   03
+
+
+
+   Clarifications
+   Company responses and published
+   policy changes are reviewed before an
+   assessment is updated.
+
+
+
+
+OPEN INFORMATION
+
+
+
+
+View the platform
+list. Download the
+current guide.
+Publicly available without an email
+address or account.
+
+
+          View the platform list
+
+
+           Download the guide
+
+
+Guide preview v03 • Layout reviewed
+September 21, 2026. Named assessments and
+their policy sources are pending editorial review;
+no platform ratings are shown here.
+
+
+
+REPRESENT A PLATFORM?
+
+
+
+
+Help keep the record
+accurate.
+Submit a clarification, correction, or
+updated policy for review. Include the
+policy URL, relevant passage, affected
+products, account types, regions, and
+effective date.
+
+Platform / organization
+
+
+
+
+Supporting policy URL
+
+
+
+
+Scope and requested correction
+
+
+
+
+             Submit for review
+
+
+Submissions are reviewed. They do not
+automatically change an assessment.
+
+
+
+OPTIONAL EMAIL SUBSCRIPTION
+
+
+
+
+Get Creative Consent
+updates.
+Choose to receive relevant policy and
+assessment updates. You can
+unsubscribe at any time.
+
+Email address
+
+
+
+
+    Yes, send me Creative Consent updates.
+
+
+
+          Subscribe to updates
+
+
+The guide and platform list remain open
+whether or not you subscribe.
+
+
+
+
+Creative Consent describes platform policies.
+Creative Origin describes a work’s disclosed
+origin.
+
+
+
+
+Credtent helps creators and AI companies
+navigate consent, credit, and
+compensation.
+
+Free opt-out / Auditing
+
+Creative Consent / Resources
+
+Valuation / AI training / Citations
+
+About / Contact / Sitemap
+
+hello@credtent.org
+                                                        Content owners          AI companies   Services      About                                                       Sign up
+
+
+
+
+YOUR CONTENT IN AI ANSWERS
+
+
+
+
+More control over your
+content in AI answers.
+Set excerpt limits. Support visits to the source. Get paid for
+licensed use.
+
+Your content creates value when it appears in AI answers. Credtent’s
+Generative Results Referencing licenses help you agree how much is
+shown, how people reach the source, and how you’re compensated
+for its use.
+
+
+   Explore citation licensing                       Contact us
+
+
+
+
+   Support source visits.                                       Get paid for use.                                               Set the limits.
+   Prominent attribution and source links                       Agree compensation for licensed                                 Define acceptable excerpts so an AI answer
+   invite people to explore the original article,               appearances, including appearances that                         introduces the work without giving
+   image, audio, or video.                                      do not lead to a click.                                         everything away.
+
+
+
+
+Traffic is a goal, not a promised outcome. Compensation and display limits depend on the agreement.
+
+
+
+TWO AUDIENCES. CLEAR EXPECTATIONS.
+
+
+
+
+Make the relationship explicit.
+   For creators                                                                                For AI companies
+   Explore citation licensing and communicate your preferences about AI                        Secure clear permissions, provide accurate attribution, agree
+   use. Agree attribution, excerpts, and compensation.                                         compensation, and respond to creator notices.
+
+   Explore your options →                                                                      Talk about citation licensing →
+
+
+
+
+THREE ILLUSTRATIVE JOURNEYS
+
+
+
+
+A useful answer. A visible source.
+These examples do not depict a real provider, publisher, contract, or measured performance outcome.
+
+
+   01 / THE CLASSIC SEARCH JOURNEY                              02 / THE OVERSHARING CONCERN                                    03 / THE BALANCE Credtent HELPS DEFINE
+
+
+
+
+   Search and visit                                             An answer that may replace                                      A licensed path to the source
+                                                                the visit
+
+                                                                  ILLUSTRATIVE AI ANSWER                                          LICENSED SOURCE EXCERPT
+     A relevant article
+     A brief description helps you decide what to
+                                                                                                                                  A short passage, within the agreed display
+     open.                                                                                                                        limit.
+
+     Visit the publisher →                                                                                                        Read the original →
+                                                                  Source link
+
+
+
+   The reader opens the source to explore the full              When an answer gives too much away, the                         An agreed excerpt, clear credit, and a prominent
+   work.                                                        reason to visit can shrink.                                     invitation to keep reading.
+
+
+
+
+FICTIONAL EXAMPLE
+
+
+
+
+A short excerpt. An unmistakable source.
+The agreement sets the display limit and unit. A 150-character cap is illustrative only, not a universal rule.
+
+FICTIONAL SOURCE / ILLUSTRATIVE 150-CHARACTER CAP
+
+
+
+
+The full report examines how independent studios develop new audiences
+and sustain their creative work.
+103 characters shown • Licensed source excerpt
+
+
+Example Publisher / The Studio Report
+
+   Read the original source
+
+
+
+
+AI-GENERATED CONTEXT
+
+
+Additional generated explanation appears separately from the publisher’s licensed words.
+
+
+
+
+   Display and attribution                                      Payments and reporting                                          Training is a separate
+   Specify excerpt limits, source naming,                       Agree compensation, usage records,                              right
+   visible source links, and permitted media.                   responsibilities, and follow-up.                                Agree training scope explicitly. A source
+                                                                                                                                link alone does not establish permission.
+
+
+
+
+                                                                                                      Free opt-out / Auditing
+
+                                                                                                      Creative Consent / Resources
+Credtent helps creators and AI companies navigate consent,
+                                                                                                      Valuation / AI training / Citations
+credit, and compensation.
+                                                                                                      About / Contact / Sitemap
+
+
+hello@credtent.org
+YOUR CONTENT IN AI ANSWERS
+
+
+
+
+More control
+over your
+content in AI
+answers.
+Set excerpt limits. Support visits to
+the source. Get paid for licensed use.
+
+Your content creates value when it
+appears in AI answers. Credtent’s
+Generative Results Referencing licenses
+help you agree how much is shown, how
+people reach the source, and how you’re
+compensated for its use.
+
+
+
+         Explore citation licensing
+
+
+                      Contact us
+
+
+
+
+    Support source visits.
+    Prominent attribution and source links
+    invite people to explore the original
+    article, image, audio, or video.
+
+
+
+
+    Get paid for use.
+    Agree compensation for licensed
+    appearances, including appearances
+    that do not lead to a click.
+
+
+
+
+    Set the limits.
+    Define acceptable excerpts so an AI
+    answer introduces the work without
+    giving everything away.
+
+
+
+
+Traffic is a goal, not a promised outcome.
+Compensation and display limits depend on the
+agreement.
+
+
+
+TWO AUDIENCES. CLEAR EXPECTATIONS.
+
+
+
+
+Make the
+relationship
+explicit.
+
+    For creators
+    Explore citation licensing and
+    communicate your preferences about
+    AI use. Agree attribution, excerpts,
+    and compensation.
+
+    Explore your options →
+
+
+
+
+    For AI companies
+    Secure clear permissions, provide
+    accurate attribution, agree
+    compensation, and respond to creator
+    notices.
+
+    Talk about citation licensing →
+
+
+
+
+THREE ILLUSTRATIVE JOURNEYS
+
+
+
+
+A useful answer. A
+visible source.
+These examples do not depict a real
+provider, publisher, contract, or measured
+performance outcome.
+
+
+    01 / THE CLASSIC SEARCH JOURNEY
+
+
+
+
+    Search and visit
+
+
+
+       A relevant article
+       A brief description helps you decide
+       what to open.
+
+       Visit the publisher →
+
+
+
+    The reader opens the source to
+    explore the full work.
+
+
+
+
+    02 / THE OVERSHARING CONCERN
+
+
+
+
+    An answer that may
+    replace the visit
+
+       ILLUSTRATIVE AI ANSWER
+
+
+
+
+       Source link
+
+
+
+    When an answer gives too much
+    away, the reason to visit can shrink.
+
+
+
+
+    03 / THE BALANCE Credtent HELPS DEFINE
+
+
+
+
+    A licensed path to the
+    source
+
+       LICENSED SOURCE EXCERPT
+
+
+       A short passage, within the agreed
+       display limit.
+
+       Read the original →
+
+
+
+    An agreed excerpt, clear credit, and a
+    prominent invitation to keep reading.
+
+
+
+
+FICTIONAL EXAMPLE
+
+
+
+
+A short excerpt. An
+unmistakable
+source.
+The agreement sets the display limit and
+unit. A 150-character cap is illustrative
+only, not a universal rule.
+
+FICTIONAL SOURCE / ILLUSTRATIVE 150-CHARACTER CAP
+
+
+
+
+The full report examines
+how independent studios
+develop new audiences
+and sustain their creative
+work.
+103 characters shown • Licensed source excerpt
+
+Example Publisher / The Studio Report
+
+
+
+          Read the original source
+
+
+
+
+AI-GENERATED CONTEXT
+
+
+Additional generated explanation appears
+separately from the publisher’s licensed
+words.
+
+
+
+
+    Display and
+    attribution
+    Specify excerpt limits, source naming,
+    visible source links, and permitted
+    media.
+
+
+
+
+    Payments and
+    reporting
+    Agree compensation, usage records,
+    responsibilities, and follow-up.
+
+
+
+
+    Training is a separate
+    right
+    Agree training scope explicitly. A
+    source link alone does not establish
+    permission.
+
+
+
+
+Credtent helps creators and AI companies
+navigate consent, credit, and
+compensation.
+
+Free opt-out / Auditing
+
+Creative Consent / Resources
+
+Valuation / AI training / Citations
+
+About / Contact / Sitemap
+
+hello@credtent.org
+                                                           Content owners        AI companies     Services      About                                                  Sign up
+
+
+
+
+SERVICES / CONTENT VALUATION
+
+
+
+
+What is your content worth for AI licensing?
+Understand your content’s value. Explore your licensing options.
+
+
+   Request a valuation
+
+
+
+
+   BEFORE A FIRST AGREEMENT                                        AFTER AN INITIAL DEAL                                           FOR NEW OPPORTUNITIES
+
+
+
+   Start informed.                                                 Reassess the value.                                             Explore more options.
+   Assess your work and intended use before                        Consider what has changed in your catalog,                      Evaluate additional licensing possibilities
+   discussing pricing and permissions.                             audience, evidence, or the proposed AI use.                     and how they fit your existing agreements.
+
+
+
+
+CHOOSE THE DEPTH YOU NEED
+
+
+
+
+A baseline. A deeper assessment.
+   Baseline valuation                                                                             Paid custom valuation
+   Credtent provides a baseline valuation when content is added. It                               Optional deeper assessment considers your catalog, supported
+   gives the licensing conversation an informed starting point.                                   evidence, intended AI use, and the questions you need answered.
+
+                                                                                                  Discuss a custom assessment →
+
+
+
+
+MORE THAN VOLUME OR TOKENS
+
+
+
+
+The work, its context, and its use.
+Assessment considers intended AI use alongside creator-side evidence. Different uses and rights can change the value discussion.
+
+
+
+   Creative significance                                           Audience and recognition                                        Scope and intended use
+   Cultural significance, subject-matter                           Audience reception, awards, and relevant                        The proposed AI use, rights requested,
+   expertise, distinctive perspective, and other                   third-party evidence, with appropriate                          limitations, and the content available for
+   supported indicators.                                           sources and context.                                            that agreement.
+
+
+
+
+THE CONTEXT BEHIND A VALUATION
+
+
+
+
+  Intended AI use                       Evidence of                            Cultural                             Quality and                            Rights and scope
+  Training, answers, or both            success                                significance                         expertise                              Permissions, limits, and
+                                        Audience reception and                 Context and distinctive              The work and its specialist            exclusivity
+                                        awards                                 contribution                         value
+
+
+
+
+                                              A neutral assessment
+                                              An informed starting point for what to charge.
+
+
+Illustrative inputs, not a formula. Evidence, assumptions, and intended use inform the assessment; the parties agree the final price.
+
+
+METHODOLOGY AND LIMITS
+
+
+
+
+An estimate supports a conversation.
+The assessment should identify evidence, assumptions, scope, and uncertainty. An estimate is not a guaranteed transaction price or an
+established industry standard. Final terms depend on the parties and their agreement.
+
+Credtent’s proposed approach brings context and supported indicators into constructive pricing discussions. Third-party ratings and
+evidence must be appropriately sourced; unsupported ratings are not part of this preview.
+
+
+YOUR NEXT STEP IS YOUR CHOICE
+
+
+
+
+Valuation can stand on its own.
+You may already have a buyer or a licensing agreement. Obtain a valuation independently, then decide whether you want help finding
+licensing partners or negotiating another opportunity.
+
+
+   Request a valuation                  Discuss licensing options
+
+
+
+
+                                                                                                         Free opt-out / Auditing
+
+                                                                                                         Creative Consent / Resources
+Credtent helps creators and AI companies navigate consent,
+                                                                                                         Valuation / AI training / Citations
+credit, and compensation.
+                                                                                                         About / Contact / Sitemap
+
+
+hello@credtent.org
+SERVICES / CONTENT VALUATION
+
+
+
+
+What is your
+content worth for
+AI licensing?
+Understand your content’s value. Explore
+your licensing options.
+
+
+           Request a valuation
+
+
+
+
+   BEFORE A FIRST AGREEMENT
+
+
+
+   Start informed.
+   Assess your work and intended use
+   before discussing pricing and
+   permissions.
+
+
+
+
+   AFTER AN INITIAL DEAL
+
+
+
+   Reassess the value.
+   Consider what has changed in your
+   catalog, audience, evidence, or the
+   proposed AI use.
+
+
+
+
+   FOR NEW OPPORTUNITIES
+
+
+
+   Explore more options.
+   Evaluate additional licensing
+   possibilities and how they fit your
+   existing agreements.
+
+
+
+
+CHOOSE THE DEPTH YOU NEED
+
+
+
+
+A baseline. A
+deeper assessment.
+
+   Baseline valuation
+   Credtent provides a baseline valuation
+   when content is added. It gives the
+   licensing conversation an informed
+   starting point.
+
+
+
+
+   Paid custom valuation
+   Optional deeper assessment
+   considers your catalog, supported
+   evidence, intended AI use, and the
+   questions you need answered.
+
+   Discuss a custom assessment →
+
+
+
+
+MORE THAN VOLUME OR TOKENS
+
+
+
+
+The work, its
+context, and its use.
+Assessment considers intended AI use
+alongside creator-side evidence. Different
+uses and rights can change the value
+discussion.
+
+
+
+   Creative significance
+   Cultural significance, subject-matter
+   expertise, distinctive perspective, and
+   other supported indicators.
+
+
+
+
+   Audience and
+   recognition
+   Audience reception, awards, and
+   relevant third-party evidence, with
+   appropriate sources and context.
+
+
+
+
+   Scope and intended
+   use
+   The proposed AI use, rights
+   requested, limitations, and the content
+   available for that agreement.
+
+
+
+
+THE CONTEXT BEHIND A VALUATION
+
+
+
+
+  Intended AI use
+  Training, answers, or both
+
+
+
+  Evidence of success
+  Audience reception and awards
+
+
+
+  Cultural significance
+  Context and distinctive contribution
+
+
+
+  Quality and expertise
+  The work and its specialist value
+
+
+
+  Rights and scope
+  Permissions, limits, and exclusivity
+
+
+
+
+   A neutral assessment
+   An informed starting point for what
+   to charge.
+
+
+
+Illustrative inputs, not a formula. Evidence,
+assumptions, and intended use inform the
+assessment; the parties agree the final price.
+
+
+METHODOLOGY AND LIMITS
+
+
+
+
+An estimate
+supports a
+conversation.
+The assessment should identify evidence,
+assumptions, scope, and uncertainty. An
+estimate is not a guaranteed transaction
+price or an established industry standard.
+Final terms depend on the parties and
+their agreement.
+
+Credtent’s proposed approach brings
+context and supported indicators into
+constructive pricing discussions.
+Third-party ratings and evidence must be
+appropriately sourced; unsupported
+ratings are not part of this preview.
+
+
+YOUR NEXT STEP IS YOUR CHOICE
+
+
+
+
+Valuation can stand
+on its own.
+You may already have a buyer or a
+licensing agreement. Obtain a valuation
+independently, then decide whether you
+want help finding licensing partners or
+negotiating another opportunity.
+
+
+           Request a valuation
+
+
+       Discuss licensing options
+
+
+
+
+Credtent helps creators and AI companies
+navigate consent, credit, and
+compensation.
+
+Free opt-out / Auditing
+
+Creative Consent / Resources
+
+Valuation / AI training / Citations
+
+About / Contact / Sitemap
+
+hello@credtent.org
+                                                 Content owners     AI companies   Services      About                                         Sign up
+
+
+
+
+SERVICES / FOR AI COMPANIES
+
+
+
+
+Build on expertise. Keep it fresh.
+License content from creators and subject-matter experts, understand its origins, and build relationships that provide access to new work
+over time.
+
+
+   Discuss training licensing
+
+
+
+
+FOR YOUR TRAINING AND ANSWER PRODUCTS
+
+
+
+
+Know which works and rights your license covers.
+   A defined content corpus                             Training and display                                      Rights you can review
+   Tell us whether you need text, images,               rights                                                    Review a named list of works, the rights
+   audio, video, or structured data. We help            We help scope training and Generative                     offered, and supporting provenance
+   scope the works and formats for your use             Results Referencing separately. Agree                     documentation. Agree how new work and
+   case.                                                excerpts, attribution, permitted uses, and                updates enter the license.
+                                                        compensation.
+
+
+
+
+FROM DISCOVERY TO ONGOING RELATIONSHIPS
+
+
+
+
+Full-cycle support for content licensing.
+   01                                     02                                       03                                         04
+
+
+
+   Find relevant                          Assess the value                         Agree the license                          Keep the
+   expertise                              Consider intended use                    Define scope, permitted uses,              relationship
+   Discuss your use case, content         alongside the work, its                  compensation, exclusions, and              current
+   needs, origin information, and         context, and supported                   responsibilities.                          Plan content updates, access
+   selection criteria.                    creator-side evidence.                                                              to new work, reporting, and
+                                                                                                                              agreed renewals.
+
+
+
+
+FRESH WORK. LASTING RELATIONSHIPS.
+
+
+
+
+Build with people who keep creating.
+Ongoing relationships can provide access to new human-created and expert work. The agreement defines which updates, renewals, and
+payments apply.
+
+A training license does not automatically require recurring payments for every continued model use. Specific contracts define the scope,
+duration, compensation, and renewal arrangements.
+
+
+
+RESEARCH FOUNDATION
+
+
+
+
+Origins and selection deserve care.
+Research on recursive training highlights why the composition and handling of training data matter. Findings depend on the experimental
+conditions.
+
+
+   NATURE / 2024                                                                   RESEARCH / 2024
+
+
+
+   Recursive replacement                                                           Retaining original data
+   Shumailov and colleagues observed degradation when models were                  Gerstgrasser and colleagues found that retaining original real data
+   recursively trained on generated data under the conditions they                 while accumulating synthetic data avoided collapse in their
+   studied.                                                                        experiments.
+
+   Read Shumailov et al. →                                                         Read Gerstgrasser et al. →
+
+
+
+
+These studies support attention to data origins, diversity, and careful selection. They do not show that all synthetic data is harmful, that
+human authorship alone guarantees quality, or that buying a license prevents model collapse.
+
+
+Credtent’S PROPOSED VALUE
+
+
+
+
+Permission, context, and partnership.
+Our service focuses on connecting AI teams with content owners, assessing value, and agreeing clear terms. Research findings are distinct
+from this proposed service value.
+
+
+
+   Need a valuation?                                                               Showing content in AI answers?
+   Start with an assessment before discussing a new agreement.                     Agree excerpts, attribution, source links, and compensation.
+
+   Explore content valuation →                                                     Explore citation licensing →
+
+
+
+
+   Contact our team
+
+
+
+
+                                                                                        Free opt-out / Auditing
+
+                                                                                        Creative Consent / Resources
+Credtent helps creators and AI companies navigate consent,
+                                                                                        Valuation / AI training / Citations
+credit, and compensation.
+                                                                                        About / Contact / Sitemap
+
+
+hello@credtent.org
+SERVICES / FOR AI COMPANIES
+
+
+
+
+Build on expertise.
+Keep it fresh.
+License content from creators and
+subject-matter experts, understand its
+origins, and build relationships that
+provide access to new work over time.
+
+
+        Discuss training licensing
+
+
+
+
+FOR YOUR TRAINING AND ANSWER PRODUCTS
+
+
+
+
+Know which works
+and rights your
+license covers.
+
+   A defined content
+   corpus
+   Tell us whether you need text,
+   images, audio, video, or structured
+   data. We help scope the works and
+   formats for your use case.
+
+
+
+
+   Training and display
+   rights
+   We help scope training and
+   Generative Results Referencing
+   separately. Agree excerpts,
+   attribution, permitted uses, and
+   compensation.
+
+
+
+
+   Rights you can review
+   Review a named list of works, the
+   rights offered, and supporting
+   provenance documentation. Agree
+   how new work and updates enter the
+   license.
+
+
+
+
+FROM DISCOVERY TO ONGOING RELATIONSHIPS
+
+
+
+
+Full-cycle support
+for content
+licensing.
+   01
+
+
+
+   Find relevant
+   expertise
+   Discuss your use case, content needs,
+   origin information, and selection
+   criteria.
+
+
+
+
+   02
+
+
+
+   Assess the value
+   Consider intended use alongside the
+   work, its context, and supported
+   creator-side evidence.
+
+
+
+
+   03
+
+
+
+   Agree the license
+   Define scope, permitted uses,
+   compensation, exclusions, and
+   responsibilities.
+
+
+
+
+   04
+
+
+
+   Keep the relationship
+   current
+   Plan content updates, access to new
+   work, reporting, and agreed renewals.
+
+
+
+
+FRESH WORK. LASTING RELATIONSHIPS.
+
+
+
+
+Build with people
+who keep creating.
+Ongoing relationships can provide access
+to new human-created and expert work.
+The agreement defines which updates,
+renewals, and payments apply.
+
+A training license does not automatically
+require recurring payments for every
+continued model use. Specific contracts
+define the scope, duration, compensation,
+and renewal arrangements.
+
+
+
+
+RESEARCH FOUNDATION
+
+
+
+
+Origins and
+selection deserve
+care.
+Research on recursive training highlights
+why the composition and handling of
+training data matter. Findings depend on
+the experimental conditions.
+
+
+   NATURE / 2024
+
+
+
+   Recursive replacement
+   Shumailov and colleagues observed
+   degradation when models were
+   recursively trained on generated data
+   under the conditions they studied.
+
+   Read Shumailov et al. →
+
+
+
+
+   RESEARCH / 2024
+
+
+
+   Retaining original data
+   Gerstgrasser and colleagues found
+   that retaining original real data while
+   accumulating synthetic data avoided
+   collapse in their experiments.
+
+   Read Gerstgrasser et al. →
+
+
+
+
+These studies support attention to data
+origins, diversity, and careful selection.
+They do not show that all synthetic data
+is harmful, that human authorship alone
+guarantees quality, or that buying a
+license prevents model collapse.
+
+
+Credtent’S PROPOSED VALUE
+
+
+
+
+Permission,
+context, and
+partnership.
+Our service focuses on connecting AI
+teams with content owners, assessing
+value, and agreeing clear terms. Research
+findings are distinct from this proposed
+service value.
+
+
+
+   Need a valuation?
+   Start with an assessment before
+   discussing a new agreement.
+
+   Explore content valuation →
+
+
+
+
+   Showing content in AI
+   answers?
+   Agree excerpts, attribution, source
+   links, and compensation.
+
+   Explore citation licensing →
+
+
+
+
+             Contact our team
+
+
+
+
+Credtent helps creators and AI companies
+navigate consent, credit, and
+compensation.
+
+Free opt-out / Auditing
+
+Creative Consent / Resources
+
+Valuation / AI training / Citations
+
+About / Contact / Sitemap
+
+hello@credtent.org
+                                                  Opt-Out    Creative Consent   Resources     About                                             Free opt-out
+
+
+
+
+ABOUT Credtent
+
+
+
+
+More choice. Wider participation.
+We help creators and AI companies find constructive ways to work together through choice, consent, credit, and compensation.
+
+
+
+   Human judgment                                       Neutral partnership                                         Shared opportunity
+   Use AI with curiosity while keeping creative         Help content owners and AI companies                        Make room for more people to participate in
+   skills, agency, and responsibility strong.           understand each other’s needs and agree                     the AI economy and the value their work
+                                                        clear terms.                                                creates.
+
+
+
+
+THE PEOPLE BEHIND THE WORK
+
+
+
+
+Meet the founders.
+
+
+
+
+   Eric R. Burgess                                                                 Dr. Galen Buckwalter
+   Founder and CEO. Creative technologist, writer, novelist, and                   Co-founder and Chief Credibility Officer. Psychologist and data
+   technology observer.                                                            analytics expert.
+
+   Eric on LinkedIn →                                                              Galen on LinkedIn →
+
+
+
+
+WRITING AND IDEAS
+
+
+
+
+Keep the conversation going.
+Explore writing on human creativity, judgment, and the choices that shape AI. Visit the publications for the latest entries.
+
+
+   FROM THE CURRENT WRITING INDEX                                                  FROM THE CURRENT WRITING INDEX
+
+
+
+   The Creative Fatalism Trap in the Age of AI                                     Human-Composed: Why AI Creation and
+   Read on Medium →                                                                Human Creativity Remain Fundamentally
+                                                                                   Different
+                                                                                   Read on Credtent’s Substack →
+
+
+
+
+   Credtent’s publication                                                          Eric’s personal Substack
+   Company perspectives on consent, creativity, and the AI economy.                Burgessing on Content, Board Games and Other Things.
+
+   Visit Credtent’s Substack →                                                     Visit Eric’s personal Substack →
+
+
+
+
+START A CONVERSATION
+
+
+
+
+How can we help?
+For questions about opt-out, auditing, valuation, or licensing, contact hello@credtent.org.
+
+
+   Contact Credtent
+
+
+
+
+                                                                                        Free opt-out / Auditing
+
+                                                                                        Creative Consent / Resources
+Credtent helps creators and AI companies navigate consent,
+                                                                                        Valuation / AI training / Citations
+credit, and compensation.
+                                                                                        About / Contact / Sitemap
+
+
+hello@credtent.org
+ABOUT Credtent
+
+
+
+
+More choice. Wider
+participation.
+We help creators and AI companies find
+constructive ways to work together
+through choice, consent, credit, and
+compensation.
+
+
+
+   Human judgment
+   Use AI with curiosity while keeping
+   creative skills, agency, and
+   responsibility strong.
+
+
+
+
+   Neutral partnership
+   Help content owners and AI
+   companies understand each other’s
+   needs and agree clear terms.
+
+
+
+
+   Shared opportunity
+   Make room for more people to
+   participate in the AI economy and the
+   value their work creates.
+
+
+
+
+THE PEOPLE BEHIND THE WORK
+
+
+
+
+Meet the founders.
+
+
+
+
+   Eric R. Burgess
+   Founder and CEO. Creative
+   technologist, writer, novelist, and
+   technology observer.
+
+   Eric on LinkedIn →
+
+
+
+
+   Dr. Galen Buckwalter
+   Co-founder and Chief Credibility
+   Officer. Psychologist and data
+   analytics expert.
+
+   Galen on LinkedIn →
+
+
+
+
+WRITING AND IDEAS
+
+
+
+
+Keep the
+conversation going.
+Explore writing on human creativity,
+judgment, and the choices that shape AI.
+Visit the publications for the latest entries.
+
+
+   FROM THE CURRENT WRITING INDEX
+
+
+
+   The Creative Fatalism
+   Trap in the Age of AI
+   Read on Medium →
+
+
+
+
+   FROM THE CURRENT WRITING INDEX
+
+
+
+   Human-Composed:
+   Why AI Creation and
+   Human Creativity
+   Remain Fundamentally
+   Different
+   Read on Credtent’s Substack →
+
+
+
+
+   Credtent’s publication
+   Company perspectives on consent,
+   creativity, and the AI economy.
+
+   Visit Credtent’s Substack →
+
+
+
+
+   Eric’s personal Substack
+   Burgessing on Content, Board Games
+   and Other Things.
+
+   Visit Eric’s personal Substack →
+
+
+
+
+START A CONVERSATION
+
+
+
+
+How can we help?
+For questions about opt-out, auditing,
+valuation, or licensing, contact
+hello@credtent.org.
+
+
+                 Contact Credtent
+
+
+
+
+Credtent helps creators and AI companies
+navigate consent, credit, and
+compensation.
+
+Free opt-out / Auditing
+
+Creative Consent / Resources
+
+Valuation / AI training / Citations
+
+About / Contact / Sitemap
+
+hello@credtent.org
+REVISION 07 / REVIEW NOTES
+
+
+
+
+Applied direction and launch boundaries
+What changed                 The rejected portrait hero is replaced by Redd Francisco’s landscape photograph of a
+                             photographer greeting someone on a bridge. Desktop and mobile use 16:9 frames that keep
+                             the handshake and camera visible. The shorter hero brings the next section forward.
+
+
+Preserved choices            All copy, actions, and sections below the hero remain unchanged from revision06, including
+                             valuation, audience cards, four steps, combined licensing section, and book feature. The
+                             other fourteen page images are unchanged. Revisions 03 through 06 are retained.
+
+
+Source and voice             The replacement is a real licensed Unsplash photograph, unique to this page slot. Subjects
+                             are not customers or staff. The landscape hero is a proposal for review. Company copy
+                             follows Credtent’s institutional register and concise, concrete sales guidance; approved
+                             wording and Eric’s authored material remain intact.
+
+
+Agreement boundaries         Training and display permissions remain distinct. Licenses define the corpus, use,
+                             compensation, excerpt limits, attribution, and ongoing content access. Source visits are a
+                             goal, not a guarantee. No certification, performance, customer, legal, or transaction claims
+                             were added.
+
+
+Remaining launch work        The existing checklist carries team/profile confirmation, source-backed platform assessments
+                             and resource articles, checkout/subscriber access, valuation and audit scope, and semantic
+                             discovery implementation. This package remains a static design proposal.
+SOURCES / PROVENANCE
+
+
+
+Approved full revision03 brief
+approved-revision-brief.md
+
+
+Focused Credtent.org revision04 feedback
+revision04-brief.md
+
+
+Commercial and cross-page revision05 feedback
+revision05-brief.md
+
+
+Focused commercial revision06 feedback
+revision06-brief.md
+
+
+Landscape hero revision07 feedback
+revision07-brief.md
+
+
+Existing Credtent institutional messaging
+https://credtent.org/
+
+
+Existing AI-company offering
+https://credtent.org/for-ai-companies.html
+
+
+Current .org About and roster source
+https://github.com/Credtent/credtent.github.io/blob/main/about.html
+
+
+Current .org writing index
+https://github.com/Credtent/credtent.github.io/blob/main/blog.html
+
+
+Current book source and edition prices
+https://github.com/erburgess/collaborithmic-landing
+
+
+Eric on LinkedIn (destination from current About source)
+https://www.linkedin.com/in/erburgess
+
+
+Galen on LinkedIn (professional profile)
+https://www.linkedin.com/in/j-galen-buckwalter-04139510
+
+
+Eric’s personal Substack
+https://burgessing.substack.com
+SOURCES / CONTINUED
+
+
+
+Eric on Medium (verified author profile)
+https://medium.com/@erburgess_AI
+
+
+Credtent’s Substack
+https://credtent.substack.com/
+
+
+Creative Fatalism article / current writing index
+https://medium.com/credtent-on-content/the-creative-fatalism-trap-in-the-age-of-ai-e486ba739818
+
+
+Human-Composed article / current writing index
+https://credtent.substack.com/p/human-composed-why-ai-creation-and
+
+
+Original photographer: Yuanzhe Ma / Unsplash
+https://unsplash.com/photos/a-man-kneeling-down-holding-a-camera-05RXMOeiOVA
+
+
+Preserved .org writer: Vitaly Gariev / Unsplash
+https://unsplash.com/photos/woman-with-glasses-writing-in-notebook-at-desk-egzaAVwBYrY
+
+
+New filmmaker: Valdans Media / Pexels
+https://www.pexels.com/photo/woman-using-a-sony-video-camera-13377853/
+
+
+New book writer: RF._.studio _ / Pexels
+https://www.pexels.com/photo/photo-of-woman-writing-on-notebook-3059749/
+
+
+Computer reader: George Milton / Pexels
+https://www.pexels.com/photo/thoughtful-woman-working-on-laptop-7015104/
+
+
+Resource / opt-out: KATRIN BOLOVTSOVA / Pexels
+https://www.pexels.com/photo/artist-using-laptop-in-her-art-studio-5393497/
+
+
+Resource / platform terms: SHVETS production / Pexels
+https://www.pexels.com/photo/elderly-man-with-eyeglasses-working-on-his-laptop-7545264/
+
+
+Resource / creative judgment: Felicity Tai / Pexels
+https://www.pexels.com/photo/focused-ethnic-woman-drawing-in-sketchbook-7951214/
+
+
+ThisIsEngineering / com-ai-team.jpg
+https://www.pexels.com/photo/engineers-working-in-office-3912378/
+SOURCES / CONTINUED
+
+
+
+ThisIsEngineering / training-team.jpg
+https://www.pexels.com/photo/engineers-in-meeting-3913021/
+
+
+Redd Francisco / com-bridge-landscape-v7.jpg
+https://unsplash.com/photos/person-holding-canon-dslr-camera-nTXOmJL97MY
+
+
+Unsplash license
+https://unsplash.com/license
+
+
+Ron Lach / com-editor-v6.jpg
+https://www.pexels.com/photo/a-woman-reading-and-marking-a-composition-7967597/
+
+
+cottonbro studio / com-podcast-v6.jpg
+https://www.pexels.com/photo/women-having-conversation-inside-the-studio-while-looking-at-each-other-7600887/
+
+
+Pexels license
+https://www.pexels.com/license/
+
+
+Galen portrait: official Credtent repository
+https://github.com/Credtent/credtent.github.io/blob/main/team/galen-buckwalter.jpg
+
+
+Shumailov et al. / Nature (2024)
+https://www.nature.com/articles/s41586-024-07566-y
+
+
+Gerstgrasser et al. / retaining original data (2024)
+https://arxiv.org/abs/2404.01413
+
+
+Google: AI features and your website
+https://developers.google.com/search/docs/appearance/ai-features
+
+
+Google: sitemap guidance
+https://developers.google.com/search/docs/crawling-indexing/sitemaps/overview
+
+
+Google: structured data policies
+https://developers.google.com/search/docs/appearance/structured-data/sd-policies
+
+
+Eric’s previously reviewed speaker bio
+https://docs.google.com/document/d/1kyQ6AMZFCmUNMSmJtZVrprli_l-xY-Dyp51JEYAXYd0/edit
+
