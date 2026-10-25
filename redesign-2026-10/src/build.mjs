@@ -507,7 +507,7 @@ async function main() {
       ...pages,
       sitemapPage(site, pages),
       creditsPage(site, imagesFor[site.id], site.id === "com"
-        ? ["bridge", "editor", "aiTeam", "podcast", "citation", "training", "galen", "eric", "carmen", "freddy", "michael", "jason", "raymond", "colin"]
+        ? ["bridge", "editor", "aiTeam", "podcast", "citation", "training", "galen", "eric", "carmen", "freddy", "michael", "raymond", "jim", "colin"]
         : ["creative", "writer", "filmmaker", "resourceOptout", "resourceTerms", "resourceJudgment", "eric", "galen"])
     ];
     for (const page of withMeta) writePage(site.dir, site, page);
@@ -521,7 +521,7 @@ async function main() {
       generatedFrom: "build manifest",
       note: "Filmmaker credit uses an ID-only photo URL.",
       photos: (site.id === "com"
-        ? ["bridge", "editor", "aiTeam", "podcast", "citation", "training", "galen", "eric", "carmen", "freddy", "michael", "jason", "raymond", "colin"]
+        ? ["bridge", "editor", "aiTeam", "podcast", "citation", "training", "galen", "eric", "carmen", "freddy", "michael", "raymond", "jim", "colin"]
         : ["creative", "writer", "filmmaker", "resourceOptout", "resourceTerms", "resourceJudgment", "eric", "galen"]
       ).map((key) => {
         const img = imagesFor[site.id][key];

@@ -285,7 +285,7 @@ Develop a compact About page with mission, current team, and recent writing/blog
 
 **Remove Deborah Drake from the current team presentation.** Eric stated that she has left the company. This does not authorize deleting unrelated historical records or making unrelated account changes.
 
-Review the existing roster before presenting other people as current team members. Do not invent missing team members, roles, profiles, or article entries.
+Review the existing roster before presenting other people as current team members. Do not invent missing team members, roles, profiles, or article entries. Eric confirmed the redesign roster on 2026-10-25. See BUILD-SPEC 4.4. Jim Li is on the team. Jason Pitcock is not. Deborah Drake stays off. The advisor council is still unconfirmed and is not rendered.
 
 ## Delivery and implementation boundary
 

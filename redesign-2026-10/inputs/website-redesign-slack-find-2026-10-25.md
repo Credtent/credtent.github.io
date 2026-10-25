@@ -32,10 +32,10 @@ Source: "Credtent design review 07" (21 pages: 8 page types, desktop + mobile, s
 
 **Revisions.** r04 adjusted spacing and hierarchy. r05 swapped in real photos, set the neutral-marketplace headline, added the valuation graphic, and reworked the citation and AI-company copy. r06 brought a professional bridge-handshake hero, a manuscript photo for the content owner, and merged the citation and AI sections into one "Full-cycle licensing" section. r07 changed only the .com hero (a photographer-handshake photo, 16:9).
 
-**Reusable now.** The .com/.org audience split already matches Eric's plan (corporate .com, B2C/resources .org). Reusable as-is: the comparison table, the .com valuation, training and citation pages, the .org opt-out, Premium, Creative Consent and resources layout, the claims discipline, and the SEO handoff. Still open before launch: the team roster (lists Deborah, now stale), a $14.99/$24.99/$49 price check, the valuation method, and the platform guide.
+**Reusable now.** The .com/.org audience split already matches Eric's plan (corporate .com, B2C/resources .org). Reusable as-is: the comparison table, the .com valuation, training and citation pages, the .org opt-out, Premium, Creative Consent and resources layout, the claims discipline, and the SEO handoff. Still open before launch: a $14.99/$24.99/$49 price check, the valuation method, and the platform guide. Eric confirmed the About roster on 2026-10-25 (BUILD-SPEC 4.4): Deborah Drake stays off, Jason Pitcock is off, and Jim Li is on.
 
 **Rule conflicts.**
 - "creators" appears throughout: the .org header line "FOR CREATORS IN THE AGE OF AI", "CREATOR RESOURCES", the footer "Credtent helps creators and AI companies…", "For creators", "creator-side evidence", and Collaborithmic's "A creator's perspective". All need to become "creatives".
 - Sony appears only in a Pexels source URL in the appendix (woman-using-a-sony-video-camera); remove or re-credit it. ISO does not appear.
 - Sizes: no low-confidence sizes found; copy avoids counts.
-- The founders/About section and the roster still need confirming.
+- Eric confirmed the About roster on 2026-10-25. See BUILD-SPEC 4.4. The advisor council is still unconfirmed and is not rendered.

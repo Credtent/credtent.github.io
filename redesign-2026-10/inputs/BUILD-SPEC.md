@@ -74,15 +74,21 @@ Never name **ISO** or **Sony** anywhere (copy, alt text, credits, URLs, file nam
 - Rename the About value tile "Neutral partnership" → "Neutral role".
 - **No valuation figures anywhere** (rights holders never see valuation numbers). The valuation diagram shows five qualitative inputs (intended AI use, evidence of success, cultural significance, quality/expertise, rights/scope) → neutral assessment; no weights, scores, prices, guarantees.
 ### 4.4 Roster (About page)
-Team section, in this order:
+Eric confirmed this roster on 2026-10-25. Render the team in this order. The roster summary paragraph names these people and nobody else.
+
 1. **Eric R. Burgess** — Founder and CEO (photo: `team/eric-burgess.jpg` from credtent.github.io main; LinkedIn https://www.linkedin.com/in/erburgess). Person schema `@id https://credtent.com/about#eric-r-burgess`.
-2. **Dr. Galen Buckwalter** — Co-founder (role text per mockup p16) (photo: `assets/photos/galen.jpg`; LinkedIn https://www.linkedin.com/in/j-galen-buckwalter-04139510). Add Person schema `@id https://credtent.com/about#galen-buckwalter`.
-3. **Carmen Sinata** — PR & Social (role from current-about.html; TODO confirm) — photo `assets/team/carmen-sinata.jpg` (downloaded from https://credtent.org/team/carmen-sinata.jpg).
-4. **Freddy Mota** (F-R-E-D-D-Y) — Operations (from current-about.html; TODO confirm) — photo `assets/team/freddy-mota.jpg` (downloaded from https://credtent.org/team/freddy-mota.jpg).
-5. **Edmond Almond** (E-D-M-O-N-D A-L-M-O-N-D) — **Chief Partnerships Officer** — placeholder headshot (neutral silhouette SVG with initials "EA", `data-placeholder="headshot"`). Remove him from the advisor council list (he moves to the team).
-6. **Abby [SURNAME TODO]** — **[ROLE TODO]** — placeholder headshot (initials "A"). Render visibly on preview as `Abby <span class="todo">[surname pending]</span>` / `<span class="todo">[role pending]</span>`, plus `<!-- TODO(Eric): Abby surname + role -->`.
-- **Remove Deborah Drake** everywhere (cards, the roster paragraph, alt text, image file; do not copy `deborah-drake.jpg`).
-- Other names in the old roster (Michael Thompson, Jason Pitcock, Raymond Jia, Jim Li, Colin Devenish) and the advisor council: **pending Eric's confirmation**. Do NOT render them; leave one `<!-- TODO(Eric): confirm remaining team + advisors -->` block. Rewrite the roster summary paragraph to name only rendered people.
+2. **Dr. Galen Buckwalter** — Co-founder and Chief Credibility Officer (photo: `assets/photos/galen.jpg`; LinkedIn https://www.linkedin.com/in/j-galen-buckwalter-04139510). Person schema `@id https://credtent.com/about#galen-buckwalter`.
+3. **Edmond Almond** (E-D-M-O-N-D A-L-M-O-N-D) — Chief Partnerships Officer — placeholder headshot (neutral silhouette SVG with initials "EA", `data-placeholder="headshot"`). He is on the team, not on the advisor council.
+4. **Abigail Cameron** — Engineering — placeholder headshot (initials "AC", `data-placeholder="headshot"`). Surname and role are set.
+5. **Carmen Sinata** — Onboarding — photo `assets/team/carmen-sinata.jpg`.
+6. **Freddy Mota** (F-R-E-D-D-Y) — Operations — photo `assets/team/freddy-mota.jpg`.
+7. **Michael Thompson** — Revenue — confirmed and rendered. Photo `team/michael-thompson.jpg`.
+8. **Raymond Jia** — Technology — confirmed and rendered. Photo `team/raymond-jia.jpg`.
+9. **Jim Li** — Technology — confirmed and rendered. Photo `team/jim-li.jpg` from the current site.
+10. **Colin Devenish** — Sales — confirmed and rendered. Photo `team/colin-devenish.jpg`.
+- **Deborah Drake** stays removed (card, roster paragraph, alt text, credits, and image). Do not copy `deborah-drake.jpg`.
+- **Jason Pitcock** is not on the team. Do not render a card, do not name him in the roster paragraph or alt text, do not list him in `credits.json` or on the credits page, and do not ship his portrait in the redesign sites.
+- The advisor council is still unconfirmed. Do not render it. Leave `<!-- TODO(Eric): confirm advisors -->`.
 ### 4.5 Fonts (proposal for Eric)
 Proposed pair (both SIL OFL 1.1, self-hosted woff2 from Google Fonts / fontsource): **Source Serif 4** (display headlines, weights 600/700) + **Inter** (UI and body, 400/600/700, variable). Rationale: mockup headlines are a high-contrast editorial display face over a clean grotesque; buttons in the mockup are 20px bold sans (Arial Bold) which Inter replaces cleanly.
 - `@font-face { font-display: swap; }`, subset Latin, preload only Inter 400 + Source Serif 4 700.
@@ -139,7 +145,7 @@ Not used: `bridge-illustration.png` (generated; banned), `com-bridge-real.jpg`, 
 ### 7.2 Re-credit (locked brand)
 `filmmaker-new.jpg`: the provenance source URL slug names a locked brand. Public credit must read **"Photo: Valdans Media / Pexels"** linking to **`https://www.pexels.com/photo/13377853/`** (ID-only URL, no slug) — or no link. Alt text: "Filmmaker recording with a video camera" (no brand). Do not copy the original slug into any file in the built site. Agent: when creating a public `credits` page/JSON, generate it from provenance with this override.
 ### 7.3 Team headshots (`assets/team/`)
-carmen-sinata.jpg, freddy-mota.jpg (from live credtent.org/team/, existing company portraits). Eric: pull `team/eric-burgess.jpg` from credtent.github.io main. Edmond Almond, Abby: generated-free placeholder SVG (initials on neutral tint), clearly marked TODO. Never include deborah-drake.jpg.
+carmen-sinata.jpg, freddy-mota.jpg (from live credtent.org/team/, existing company portraits). Eric: pull `team/eric-burgess.jpg` from credtent.github.io main. Also use the current-site portraits `team/michael-thompson.jpg`, `team/raymond-jia.jpg`, `team/jim-li.jpg`, and `team/colin-devenish.jpg`. Edmond Almond and Abigail Cameron: placeholder SVGs with initials EA and AC. Never include deborah-drake.jpg. Do not ship `team/jason-pitcock.jpg` in the redesign sites.
 ### 7.4 SVG (`assets/svg/`)
 wordmark.svg, wordmark-white.svg, shield.svg, consent-full.svg, consent-optional.svg, consent-none.svg (Creative Consent badges: Full / Optional / No Protection).
 ### 7.5 Credits page
@@ -157,7 +163,7 @@ wordmark.svg, wordmark-white.svg, shield.svg, consent-full.svg, consent-optional
 ### Niven should-fix
 - [ ] Descriptive anchors (no "Read the resource →").
 - [ ] "About Credtent" casing.
-- [ ] Roster updated per 4.4.
+- [x] Roster updated per 4.4. Eric confirmed it on 2026-10-25.
 - [ ] Host-appropriate contact emails.
 - [ ] Locked-brand photo slug removed / re-credited (7.2).
 - [ ] Person schema for Galen.
@@ -167,7 +173,7 @@ wordmark.svg, wordmark-white.svg, shield.svg, consent-full.svg, consent-optional
 - [ ] (Search Console + AI-answer baselines: Eric/human, out of scope for agent.)
 ### Eric's required changes
 - [ ] No "ISO" or "Sony" anywhere: `grep -rniE "\bsony\b|\biso\b" dist/ src/` returns nothing.
-- [ ] Deborah Drake absent; Eric, Galen, Carmen Sinata, Freddy Mota, Edmond Almond (CPO) present; Abby with visible TODO surname/role.
+- [x] Deborah Drake absent. Jason Pitcock absent from the redesign sites. Eric confirmed the rendered roster on 2026-10-25: Eric R. Burgess, Dr. Galen Buckwalter, Edmond Almond, Abigail Cameron (Engineering), Carmen Sinata, Freddy Mota, Michael Thompson (Revenue), Raymond Jia (Technology), Jim Li (Technology), Colin Devenish (Sales).
 - [ ] Prices carry `data-unverified="true"` + TODO + visible "Pricing to be confirmed."
 - [ ] Partners page uses Partner A–E placeholders; none of the candidate real names appear in the repo diff.
 - [ ] No valuation numbers in copy.
@@ -177,7 +183,7 @@ wordmark.svg, wordmark-white.svg, shield.svg, consent-full.svg, consent-optional
 - [ ] Desktop and mobile layouts match the PNGs at 1440 and 390 widths (attach screenshots to PR).
 
 ## 9. Open items flagged for Eric (do not guess)
-Abby surname/role; price confirmation ($14.99/$24.99/$49 book, US$49 Premium); partner names; font pick; remaining team/advisors; .com contact address; whether `/certified-publisher` and `/standards` move to .com; About canonical host (.com assumed); whether book feature (and thus book prices) appears on both homes; Edmond's email spelling in Slack invite ("allmond") vs "Almond" on site; which repo is the long-term home for each site.
+Advisor council still unconfirmed (do not render); price confirmation ($14.99/$24.99/$49 book, US$49 Premium); partner names; font pick; .com contact address; whether `/certified-publisher` and `/standards` move to .com; About canonical host (.com assumed); whether book feature (and thus book prices) appears on both homes; Edmond's email spelling in Slack invite ("allmond") vs "Almond" on site; which repo is the long-term home for each site. The team roster is closed: Eric confirmed it on 2026-10-25 (section 4.4).
 
 ## 10. Reference files in this folder
 `design-review-text.txt` (full PDF text), `pages/` (page PNG/JPG renders; tall mobile/desktop pages split into `-partN` 5000px slices), `astra-redesign/*.md`, `source/*`, `niven-seo-aeo-geo-2026-10-25.md`, `partners-page-draft-2026-10-25.md`, `domain-switch-survey-2026-10-25.md`, `website-redesign-slack-find-2026-10-25.md`.

@@ -449,8 +449,9 @@ export function comPages(images) {
       <section class="section"><div class="wrap">
         <p class="eyebrow">The people behind the work</p>
         <h2>The Credtent team</h2>
-        <p class="lede">Eric R. Burgess, Dr. Galen Buckwalter, Edmond Almond, Abigail Cameron, Carmen Sinata, Freddy Mota, Michael Thompson, Jason Pitcock, Raymond Jia, and Colin Devenish.</p>
+        <p class="lede">Eric R. Burgess, Dr. Galen Buckwalter, Edmond Almond, Abigail Cameron, Carmen Sinata, Freddy Mota, Michael Thompson, Raymond Jia, Jim Li, and Colin Devenish.</p>
         <!-- TODO(Eric): headshots for Edmond Almond and Abigail Cameron -->
+        <!-- TODO(Eric): confirm advisors. The council is not rendered. -->
         <div class="team" style="margin-top:24px">
           <article class="person">${picture(images.eric, { sizes: "240px" })}<h3>Eric R. Burgess</h3><p class="role">Founder and CEO</p><p><a href="https://www.linkedin.com/in/erburgess">Eric on LinkedIn</a></p></article>
           <article class="person">${picture(images.galen, { sizes: "240px" })}<h3>Dr. Galen Buckwalter</h3><p class="role">Co-founder and Chief Credibility Officer</p><p><a href="https://www.linkedin.com/in/j-galen-buckwalter-04139510">Galen on LinkedIn</a></p></article>
@@ -459,8 +460,8 @@ export function comPages(images) {
           <article class="person">${picture(images.carmen, { sizes: "240px" })}<h3>Carmen Sinata</h3><p class="role">Onboarding</p></article>
           <article class="person">${picture(images.freddy, { sizes: "240px" })}<h3>Freddy Mota</h3><p class="role">Operations</p></article>
           <article class="person">${picture(images.michael, { sizes: "240px" })}<h3>Michael Thompson</h3><p class="role">Revenue</p></article>
-          <article class="person">${picture(images.jason, { sizes: "240px" })}<h3>Jason Pitcock</h3><p class="role">Strategy</p></article>
           <article class="person">${picture(images.raymond, { sizes: "240px" })}<h3>Raymond Jia</h3><p class="role">Technology</p></article>
+          <article class="person">${picture(images.jim, { sizes: "240px" })}<h3>Jim Li</h3><p class="role">Technology</p></article>
           <article class="person">${picture(images.colin, { sizes: "240px" })}<h3>Colin Devenish</h3><p class="role">Sales</p></article>
         </div>
       </div></section>

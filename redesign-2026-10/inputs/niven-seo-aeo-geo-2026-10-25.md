@@ -105,7 +105,7 @@ Suggested capsules:
   
   These are good, quotable trust signals. The design also adds no customer, certification or legal claims, and the founders are named with LinkedIn links.
 - **Gaps:**
-  - The team roster is stale, per the checklist.
+  - The team roster is stale, per the checklist. Eric confirmed the built roster on 2026-10-25 (BUILD-SPEC 4.4): Jim Li is included, Jason Pitcock is not, and Deborah Drake stays off.
   - There is no Person schema for Galen.
   - There is no dated, attributed review on policy content.
   - The approved licensing sentence is absent from the AI-company and training pages. Add it verbatim: "Licenses include the rights the contracting holders warranted, a named manifest, and a disclosure pack your counsel can use for EU AI Act Art. 53 and CA AB 2013 filings. Those statutes still bind the developer. Indemnity, if any, is only as written in the signed license."
@@ -146,7 +146,7 @@ It is a static design proposal with no HTML or schema yet. Its own notes say sem
 ### Should-fix
 - Use descriptive anchors instead of "Read the resource →".
 - Fix "ABOUT Credtent" casing.
-- Update the stale team roster (checklist item 1).
+- Update the stale team roster (checklist item 1). Done for this preview: Eric confirmed it on 2026-10-25. See BUILD-SPEC 4.4.
 - Use contact emails that match each host's role on .com pages.
 - Swap the photo whose credit slug names a brand on the lock list.
 - Add Person schema for Dr. Galen Buckwalter.

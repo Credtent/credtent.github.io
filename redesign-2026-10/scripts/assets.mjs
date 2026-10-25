@@ -16,7 +16,7 @@ export const PHOTOS = [
   { key: "carmen", absTeam: "carmen-sinata.jpg", alt: "Carmen Sinata", credit: "Credtent", license: "Company portrait", widths: [320, 640] },
   { key: "freddy", absTeam: "freddy-mota.jpg", alt: "Freddy Mota", credit: "Credtent", license: "Company portrait", widths: [320, 640] },
   { key: "michael", abs: "team/michael-thompson.jpg", alt: "Michael Thompson", credit: "Credtent", license: "Company portrait", widths: [320, 640] },
-  { key: "jason", abs: "team/jason-pitcock.jpg", alt: "Jason Pitcock", credit: "Credtent", license: "Company portrait", widths: [320, 640] },
   { key: "raymond", abs: "team/raymond-jia.jpg", alt: "Raymond Jia", credit: "Credtent", license: "Company portrait", widths: [320, 640] },
+  { key: "jim", abs: "team/jim-li.jpg", alt: "Jim Li", credit: "Credtent", license: "Company portrait", widths: [320, 640] },
   { key: "colin", abs: "team/colin-devenish.jpg", alt: "Colin Devenish", credit: "Credtent", license: "Company portrait", widths: [320, 640] }
 ];

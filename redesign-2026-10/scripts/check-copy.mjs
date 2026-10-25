@@ -16,7 +16,8 @@ const patterns = [
   { name: "locked-spec", re: new RegExp("\\b" + specName + "\\b", "i") },
   { name: "retired-illustration", re: /bridge-illustration/i },
   { name: "removed-person", re: /Debor\s*ah Drake|Deborah Drake/i },
-  { name: "removed-jim", re: /Jim Li|Jim Lee/i },
+  { name: "removed-jason", re: /Jason Pitcock|jason-pitcock/i },
+  { name: "misspelled-jim", re: /Jim Lee/i },
   { name: "address-placeholder", re: /Street address TBC/i },
   { name: "dropped-face", re: /IBM Plex|Playfair Display|Nunito Sans|--font-mono/i },
   { name: "advisory-council", re: /Advisory Council/i }
