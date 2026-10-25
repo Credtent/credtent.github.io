@@ -22,7 +22,7 @@ Separate repos are possible later. They cost a second copy of the shared tokens 
 - credtent.com serves the corporate pages: content owners, AI companies, services, partners, about, pricing, FAQ, and Creative Origin for publishers.
 - credtent.org serves opt-out, Creative Consent, resources, badges, the standards catalog, and the creative licensing guide.
 - `sites/org/vercel.json` has one-for-one permanent redirects onto credtent.com for the corporate URLs that used to live on .org, including `/about`, `/pricing`, `/faq`, `/certified-publisher`, and the company licensing guide. There is no blanket redirect and no catch-all to the .com home page.
-- `/standards` stays on credtent.org. It is not in the redirect list.
+- `/standards` stays on credtent.org for creatives. `/standards.html` 301s to `https://credtent.org/standards`, the same same-host `.html` normalization as `/opt-out.html` and `/blog.html`. The clean `/standards` path is not a cross-host redirect. BUILD-SPEC still has an open note about moving it to credtent.com; that move is not in this file.
 - Nothing in either project should proxy or redirect `app.credtent.org` or `registry.credtent.org`. Signup, sign-in, and the free opt-out are links only.
 - The creative-origin redirect on .org points at `https://registry.credtent.org/creative-origin`.
 

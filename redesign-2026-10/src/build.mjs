@@ -375,6 +375,7 @@ function vercel(site) {
     ["/wga.html", "https://credtent.org/wga"],
     ["/badge-builder.html", "https://credtent.org/badge-builder"],
     ["/lws.html", "https://credtent.org/lws"],
+    ["/standards.html", "https://credtent.org/standards"],
     ["/index.html", "https://credtent.org/"],
     ["/guides/index.html", "https://credtent.org/guides/"],
     ["/post/unfair-use-denormalizing-ai-theft.html", "https://credtent.org/post/unfair-use-denormalizing-ai-theft"],
