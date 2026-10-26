@@ -104,7 +104,7 @@
     var basisPhrase =
       basis === 'expert_certified'
         ? 'expert certified by Credtent'
-        : 'self declared by the creator';
+        : 'self declared by the creative';
     // The legacy sentence adds the pre-November-2022 clause; the three core
     // tier sentences stay byte-identical to the 4.0 engine.
     var legacyClause =
