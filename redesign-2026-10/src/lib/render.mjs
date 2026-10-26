@@ -147,7 +147,7 @@ function nav(site, path) {
   </header>`;
 }
 
-function footer(site) {
+function footer(site, cookieSettings) {
   const contact = site.id === "com" ? "https://credtent.com/contact" : "https://credtent.org/contact";
   const sitemap = site.id === "com" ? "https://credtent.com/sitemap" : "https://credtent.org/sitemap";
   const privacy = site.id === "com" ? "https://credtent.com/privacy-policy" : "https://credtent.org/privacy-policy";
@@ -188,6 +188,7 @@ function footer(site) {
           <li><a href="${contact}">Contact</a></li>
           <li><a href="${sitemap}">Sitemap</a></li>
           <li><a href="${privacy}">Privacy</a></li>
+          ${cookieSettings}
           <li><a href="${terms}">Terms</a></li>
           <li><a href="${credits}">Photo credits</a></li>
         </ul>
@@ -214,21 +215,102 @@ function faqHtml(faq) {
   </section>`;
 }
 
-function analyticsSnippet(site) {
+function consentUi(site) {
   const id = site.measurementId || "";
-  if (process.env.SITE_ENV !== "production" || !/^G-[A-Z0-9]+$/.test(id)) return "";
+  const enabled = process.env.SITE_ENV === "production" && /^G-[A-Z0-9]+$/.test(id);
+  if (!enabled) return { head: "", banner: "", footerItem: "" };
+  const privacy = site.id === "com" ? "https://credtent.com/privacy-policy" : "https://credtent.org/privacy-policy";
   const options = {
     anonymize_ip: true,
     allow_google_signals: false,
     allow_ad_personalization_signals: false
   };
-  return `<script async src="https://www.googletagmanager.com/gtag/js?id=${id}"></script>
-  <script>
+  const head = `<script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', ${JSON.stringify(id)}, ${JSON.stringify(options)});
+    gtag('consent', 'default', {
+      analytics_storage: 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      wait_for_update: 500
+    });
+    (function () {
+      var gaId = ${JSON.stringify(id)};
+      var storageKey = 'credtent_cookie_consent';
+      var gaOptions = ${JSON.stringify(options)};
+      var denied = {
+        analytics_storage: 'denied',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied'
+      };
+      function loadGtag() {
+        gtag('consent', 'update', {
+          analytics_storage: 'granted',
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied'
+        });
+        if (document.querySelector('script[data-ga="1"]')) return;
+        gtag('js', new Date());
+        gtag('config', gaId, gaOptions);
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(gaId);
+        script.setAttribute('data-ga', '1');
+        document.head.appendChild(script);
+      }
+      function setChoice(value) {
+        try { localStorage.setItem(storageKey, value); } catch (error) {}
+        if (value === 'accepted') loadGtag();
+        else gtag('consent', 'update', denied);
+        var banner = document.getElementById('cookie-banner');
+        if (banner) banner.hidden = true;
+        var settings = document.getElementById('cookie-settings');
+        if (settings) settings.focus();
+      }
+      function showBanner() {
+        var banner = document.getElementById('cookie-banner');
+        if (!banner) return;
+        banner.hidden = false;
+        var accept = document.getElementById('cookie-accept');
+        if (accept) accept.focus();
+      }
+      document.addEventListener('DOMContentLoaded', function () {
+        var stored = '';
+        try { stored = localStorage.getItem(storageKey) || ''; } catch (error) {}
+        var accept = document.getElementById('cookie-accept');
+        var decline = document.getElementById('cookie-decline');
+        var settings = document.getElementById('cookie-settings');
+        if (accept) accept.addEventListener('click', function () { setChoice('accepted'); });
+        if (decline) decline.addEventListener('click', function () { setChoice('declined'); });
+        if (settings) settings.addEventListener('click', function (event) {
+          event.preventDefault();
+          showBanner();
+        });
+        if (stored === 'accepted') loadGtag();
+        else if (stored !== 'declined') showBanner();
+      });
+    })();
   </script>`;
+  const banner = `<div id="cookie-banner" class="cookie-banner" role="dialog" aria-modal="false" aria-labelledby="cookie-banner-title" aria-describedby="cookie-banner-text" hidden>
+    <div class="cookie-banner-inner">
+      <div>
+        <p id="cookie-banner-title"><strong>Cookies</strong></p>
+        <p id="cookie-banner-text">We use Google Analytics to understand how this site is used. Analytics stays off unless you accept. <a href="${privacy}">Privacy Policy</a></p>
+      </div>
+      <div class="cookie-banner-actions">
+        <button type="button" class="btn" id="cookie-accept">Accept</button>
+        <button type="button" class="btn btn-ghost" id="cookie-decline">Decline</button>
+      </div>
+    </div>
+  </div>`;
+  return {
+    head,
+    banner,
+    footerItem: `<li><a href="#cookie-banner" id="cookie-settings">Cookie settings</a></li>`
+  };
 }
 
 export function renderPage(site, page) {
@@ -283,6 +365,7 @@ export function renderPage(site, page) {
   const previewBar = production
     ? ""
     : `<p class="preview-bar"><strong>Preview.</strong> This build is noindex until Eric publishes.</p>`;
+  const consent = consentUi(site);
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -308,7 +391,7 @@ export function renderPage(site, page) {
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
   <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png">
   <script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": graph })}</script>
-  ${analyticsSnippet(site)}
+  ${consent.head}
 </head>
 <body>
   <a class="skip-link" href="#content">Skip to content</a>
@@ -319,7 +402,8 @@ export function renderPage(site, page) {
     ${page.main || ""}
     ${faqHtml(page.faq)}
   </main>
-  ${footer(site)}
+  ${footer(site, consent.footerItem)}
+  ${consent.banner}
 </body>
 </html>
 `;

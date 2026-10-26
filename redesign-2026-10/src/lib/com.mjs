@@ -388,11 +388,11 @@ export function comPages(images) {
       <section class="section"><div class="wrap">
         <p class="eyebrow">The people behind the work</p>
         <h2>The Credtent team</h2>
-        <p class="lede">Eric R. Burgess, Dr. Galen Buckwalter, Edmond Almond, Abigail Cameron, Carmen Sinata, Freddy Mota, Michael Thompson, Raymond Jia, Jim Li, and Colin Devenish.</p>
+        <p class="lede">Eric R. Burgess, Dr. Galen Buckwalter, Edmond Allmond, Abigail Cameron, Carmen Sinata, Freddy Mota, Michael Thompson, Raymond Jia, Jim Li, and Colin Devenish.</p>
         <div class="team" style="margin-top:24px">
           <article class="person">${picture(images.eric, { sizes: "240px" })}<h3>Eric R. Burgess</h3><p class="role">Founder and CEO</p><p><a href="https://www.linkedin.com/in/erburgess">Eric on LinkedIn</a></p></article>
           <article class="person">${picture(images.galen, { sizes: "240px" })}<h3>Dr. Galen Buckwalter</h3><p class="role">Co-Founder and Chief Science Officer</p><p><a href="https://www.linkedin.com/in/j-galen-buckwalter-04139510">Galen on LinkedIn</a></p></article>
-          <article class="person"><img src="/media/placeholder-ea.svg" width="480" height="480" alt="Placeholder headshot for Edmond Almond" data-placeholder="headshot"><h3>Edmond Almond</h3><p class="role">Chief Partnerships Officer</p></article>
+          <article class="person"><img src="/media/placeholder-ea.svg" width="480" height="480" alt="Placeholder headshot for Edmond Allmond" data-placeholder="headshot"><h3>Edmond Allmond</h3><p class="role">Chief Partnerships Officer</p></article>
           <article class="person"><img src="/media/placeholder-ac.svg" width="480" height="480" alt="Placeholder headshot for Abigail Cameron" data-placeholder="headshot"><h3>Abigail Cameron</h3><p class="role">Engineering</p></article>
           <article class="person">${picture(images.carmen, { sizes: "240px" })}<h3>Carmen Sinata</h3><p class="role">Onboarding</p></article>
           <article class="person">${picture(images.freddy, { sizes: "240px" })}<h3>Freddy Mota</h3><p class="role">Operations</p></article>

@@ -255,6 +255,12 @@ function legacyPage(site, file, pagePath, opts = {}) {
   if (site.id === "com" && (pagePath === "/privacy-policy" || pagePath === "/terms-of-service")) {
     body = body.replace(/\b([A-Za-z0-9._%+-]+)@credtent\.org\b/g, "$1@credtent.com");
   }
+  if (pagePath === "/privacy-policy") {
+    body = body.replace(
+      "We use cookies and similar technologies to improve your experience, analyze usage, and support our Services. You can control cookie preferences through your browser settings, though disabling some cookies may affect functionality.",
+      "We use cookies and similar technologies to improve your experience, analyze usage, and support our Services. On pages that use Google Analytics, it stays off until you choose Accept. Decline keeps it off. Cookie settings in the footer lets you change that choice later. You can also control cookies in your browser."
+    );
+  }
   body = body.replace(/<h1\b[\s\S]*?<\/h1>/i, "");
   const title = scrub(extracted.title).replace(/\(PBC\)/g, "").replace(/\s+/g, " ").trim();
   const description = scrub(extracted.description).replace(/\(PBC\)/g, "").slice(0, 220);

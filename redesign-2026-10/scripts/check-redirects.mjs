@@ -263,14 +263,31 @@ for (const [origin, dir] of Object.entries(sites)) {
     const investor = 'href="https://tally.so/r/2ExeBp" target="_blank" rel="noopener"';
     if (!html.includes(investor)) fail(`${path.relative(root, file)} is missing the investor link`);
     if (html.includes("nroELN")) fail(`${path.relative(root, file)} still references the dead Tally id`);
+    if (/\bAlmond\b/.test(html)) fail(`${path.relative(root, file)} spells Allmond as Almond`);
+    const loadsGtagNow = /src="https:\/\/www\.googletagmanager\.com\/gtag\/js/.test(html);
     if (previewBuild) {
       if (!/name="robots" content="noindex, nofollow"/.test(html)) fail(`${path.relative(root, file)} missing preview noindex`);
-      if (/googletagmanager\.com|google-analytics\.com/.test(html)) fail(`${path.relative(root, file)} loads analytics in preview`);
+      if (/googletagmanager\.com|google-analytics\.com|id="cookie-banner"|id="cookie-settings"/.test(html)) {
+        fail(`${path.relative(root, file)} loads analytics or a cookie banner in preview`);
+      }
     } else {
       if (html.includes("preview-bar")) fail(`${path.relative(root, file)} still shows the preview bar`);
-      const analytics = /googletagmanager\.com|google-analytics\.com/.test(html);
-      if (origin.endsWith(".org") && !analytics) fail(`${path.relative(root, file)} is missing production analytics`);
-      if (origin.endsWith(".com") && analytics) fail(`${path.relative(root, file)} loads analytics without a .com measurement id`);
+      if (loadsGtagNow) fail(`${path.relative(root, file)} loads gtag.js before consent`);
+      if (origin.endsWith(".org")) {
+        if (!html.includes("https://www.googletagmanager.com/gtag/js?id=")) fail(`${path.relative(root, file)} is missing the consent-gated GA loader`);
+        if (!html.includes('"anonymize_ip":true') || !html.includes('"allow_ad_personalization_signals":false')) {
+          fail(`${path.relative(root, file)} is missing anonymized GA defaults`);
+        }
+        if (!html.includes("analytics_storage: 'denied'") || !html.includes("ad_personalization: 'denied'")) {
+          fail(`${path.relative(root, file)} is missing Consent Mode defaults`);
+        }
+        if (!html.includes('id="cookie-banner"') || !html.includes('id="cookie-accept"') || !html.includes('id="cookie-decline"')) {
+          fail(`${path.relative(root, file)} is missing the cookie banner`);
+        }
+        if (!html.includes('id="cookie-settings"')) fail(`${path.relative(root, file)} is missing Cookie settings`);
+      } else if (/googletagmanager\.com|google-analytics\.com|id="cookie-banner"|id="cookie-settings"/.test(html)) {
+        fail(`${path.relative(root, file)} loads analytics without a .com measurement id`);
+      }
       if (staysNoindex(rel)) {
         if (!/name="robots" content="noindex, nofollow"/.test(html)) fail(`${path.relative(root, file)} is missing its noindex meta`);
       } else if (/name="robots" content="noindex/.test(html)) {
@@ -361,6 +378,9 @@ for (const [origin, dir] of Object.entries(sites)) {
     fail(`${origin} privacy policy still has the preview FAQ`);
   }
   if (!/analytics/i.test(privacy)) fail(`${origin} privacy policy does not mention analytics`);
+  if (!privacy.includes("stays off until you choose Accept")) {
+    fail(`${origin} privacy policy does not mention the analytics consent choice`);
+  }
 }
 const standards = fs.readFileSync(path.join(sites["https://credtent.org"], "standards/index.html"), "utf8");
 const standardsDescription = (standards.match(/name="description" content="([^"]*)"/) || [,""])[1];
@@ -402,12 +422,16 @@ function assertProduction(outDir) {
     const indexable = fs.readFileSync(path.join(dir, "index.html"), "utf8");
     if (/name="robots" content="noindex/.test(indexable)) fail(`${origin} production home still has a noindex meta tag`);
     if (indexable.includes("preview-bar")) fail(`${origin} production home still shows the preview bar`);
-    const analytics = /googletagmanager\.com/.test(indexable);
+    const loadsGtagNow = /src="https:\/\/www\.googletagmanager\.com\/gtag\/js/.test(indexable);
+    if (loadsGtagNow) fail(`${origin} production home loads gtag.js before consent`);
     if (origin.endsWith(".org")) {
-      if (!analytics || !indexable.includes('"anonymize_ip":true') || !indexable.includes('"allow_ad_personalization_signals":false')) {
+      if (!indexable.includes("https://www.googletagmanager.com/gtag/js?id=") || !indexable.includes('"anonymize_ip":true') || !indexable.includes('"allow_ad_personalization_signals":false')) {
         fail(`${origin} production home is missing anonymized GA4`);
       }
-    } else if (analytics) {
+      if (!indexable.includes("analytics_storage: 'denied'") || !indexable.includes('id="cookie-banner"') || !indexable.includes('id="cookie-settings"')) {
+        fail(`${origin} production home is missing the consent banner`);
+      }
+    } else if (/googletagmanager\.com|id="cookie-banner"/.test(indexable)) {
       fail(`${origin} production home loads analytics without a measurement id`);
     }
     const missing = fs.readFileSync(path.join(dir, "404.html"), "utf8");
