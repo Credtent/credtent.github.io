@@ -102,6 +102,12 @@ These figures already appear on .com (the book block and `/pricing`) and on the 
 ### 4.7 Brand
 Orange `#EC5A00` stays the primary button color, with white bold labels at 20px or larger. Inline text links use purple `#290099` on both sites. Official shield left of wordmark, SVGs from `assets/svg/` (do not redraw, do not use 8× PNGs). White wordmark in footer.
 The hero stays the current pale paper band with ink text. A full-width purple hero is still Eric's decision. Do not restyle it in this pass.
+### 4.8 Certified B Corp
+Keep the existing "Delaware Public Benefit Corporation" sentence. Add the words "certified B Corp" beside it. Do not replace the public-benefit sentence.
+- **credtent.org:** say it in the home "Who Credtent is" section and again in the footer, with the text badge.
+- **credtent.com:** footer only. Do not add it to About, the FAQ, or other body copy.
+- **Badge:** no official B Lab file is in this repo. B Lab's brand page describes a Certified B Corporation logo for certified companies, and it does not publish a file this build can download. Use a text badge whose accessible name is "Credtent is a Certified B Corporation". Do not draw the Circle B mark. TODO(Eric): swap in the official B Lab lockup.
+- **Directory URL:** a lookup on 2026-10-26 did not return a Credtent page in the B Lab directory. Do not add `sameAs` or `hasCredential` until that listing is verified. TODO(Eric): confirm the real directory URL. Do not guess one.
 
 ## 5. Partners page — `https://credtent.com/partners`
 Follow `partners-page-draft-2026-10-25.md` layout and Niven §4, with these overrides:
@@ -165,7 +171,7 @@ wordmark.svg, wordmark-white.svg, shield.svg, consent-full.svg, consent-optional
 - [ ] Descriptive anchors (no "Read the resource →").
 - [ ] "About Credtent" casing.
 - [x] Roster updated per 4.4. Eric confirmed it on 2026-10-25.
-- [ ] Host-appropriate contact emails.
+- [x] Host-appropriate contact emails. .org footer, contact page, and Organization email use hello@credtent.org. .com uses hello@credtent.com, the .com address named in section 2. Department addresses that the spec does not name stay on the mailboxes already published on the current site (@credtent.org). No new mailbox was created.
 - [ ] Locked-brand photo slug removed / re-credited (7.2).
 - [ ] Person schema for Galen.
 - [ ] Visible address on About/Contact.
@@ -184,7 +190,7 @@ wordmark.svg, wordmark-white.svg, shield.svg, consent-full.svg, consent-optional
 - [ ] Desktop and mobile layouts match the PNGs at 1440 and 390 widths (attach screenshots to PR).
 
 ## 9. Open items flagged for Eric (do not guess)
-Advisor council still unconfirmed (do not render); partner names; font pick; .com contact address; whether `/certified-publisher` and `/standards` move to .com; About canonical host (.com assumed); whether the book feature appears on both homes; Edmond's email spelling in Slack invite ("allmond") vs "Almond" on site; which repo is the long-term home for each site; the hero treatment (the build keeps the pale paper hero until Eric decides). The team roster is closed: Eric confirmed it on 2026-10-25 (section 4.4). The published prices $14.99, $24.99, $49, and $249 are confirmed (section 4.6). Orange stays the primary button color (section 4.7).
+Advisor council still unconfirmed (do not render); partner names; font pick; whether the .com contact address stays hello@credtent.com (section 2 still marks that example as Eric's to confirm); whether `/certified-publisher` and `/standards` move to .com; About canonical host (.com assumed); whether the book feature appears on both homes; Edmond's email spelling in Slack invite ("allmond") vs "Almond" on site; which repo is the long-term home for each site; the hero treatment (the build keeps the pale paper hero until Eric decides); the official B Lab badge file; Credtent's B Lab directory URL (do not guess it). The team roster is closed: Eric confirmed it on 2026-10-25 (section 4.4). The published prices $14.99, $24.99, $49, and $249 are confirmed (section 4.6). Orange stays the primary button color (section 4.7). The "certified B Corp" wording is in place beside the public-benefit sentence (section 4.8).
 
 ## 10. Reference files in this folder
 `design-review-text.txt` (full PDF text), `pages/` (page PNG/JPG renders; tall mobile/desktop pages split into `-partN` 5000px slices), `astra-redesign/*.md`, `source/*`, `niven-seo-aeo-geo-2026-10-25.md`, `partners-page-draft-2026-10-25.md`, `domain-switch-survey-2026-10-25.md`, `website-redesign-slack-find-2026-10-25.md`.

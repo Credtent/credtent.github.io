@@ -33,7 +33,7 @@ const SITES = {
   org: {
     id: "org",
     origin: "https://credtent.org",
-    email: "hello@credtent.com",
+    email: "hello@credtent.org",
     dir: path.join(OUT_ROOT, "org"),
     cta: { href: "https://app.credtent.org/opt-out", label: "Free opt-out", shortLabel: "Opt out" },
     nav: [
@@ -243,6 +243,7 @@ function rewriteLinks(html, origin) {
 function legacyPage(site, file, pagePath, opts = {}) {
   const extracted = extractLegacy(path.join(REPO, file));
   let body = scrub(rewriteLinks(extracted.body, site.origin));
+  if (site.id === "com") body = body.replaceAll("hello@credtent.org", "hello@credtent.com");
   body = body.replace(/<h1\b[\s\S]*?<\/h1>/i, "");
   const title = scrub(extracted.title).replace(/\(PBC\)/g, "").replace(/\s+/g, " ").trim();
   const description = scrub(extracted.description).replace(/\(PBC\)/g, "").slice(0, 220);
@@ -439,6 +440,7 @@ async function main() {
     ...comPages(imagesFor.com),
     legacyPage(SITES.com, "privacy-policy.html", "/privacy-policy", {
       title: "Privacy Policy | Credtent",
+      description: "How Credtent collects, uses, and shares personal information when you use credtent.com, and how to contact the company about a privacy request.",
       h1: "Privacy Policy",
       eyebrow: "Legal",
       capsule: "How Credtent collects, uses, and protects information.",
@@ -447,6 +449,7 @@ async function main() {
     }),
     legacyPage(SITES.com, "terms-of-service.html", "/terms-of-service", {
       title: "Terms of Service | Credtent",
+      description: "These terms govern use of credtent.com, Credtent's site for content owners and AI companies, including the services described on these pages.",
       h1: "Terms of Service",
       eyebrow: "Legal",
       capsule: "The agreement governing use of Credtent's website, platform, and services.",
@@ -473,6 +476,7 @@ async function main() {
     }),
     legacyPage(SITES.org, "privacy-policy.html", "/privacy-policy", {
       title: "Privacy Policy | Credtent",
+      description: "How Credtent collects, uses, and shares personal information on credtent.org for creatives, and how to contact the company about a privacy request.",
       h1: "Privacy Policy",
       eyebrow: "Legal",
       capsule: "How Credtent collects, uses, and protects information.",
@@ -481,6 +485,7 @@ async function main() {
     }),
     legacyPage(SITES.org, "terms-of-service.html", "/terms-of-service", {
       title: "Terms of Service | Credtent",
+      description: "These terms govern use of credtent.org, including the free opt-out, Creative Consent, and the other resources Credtent publishes for creatives.",
       h1: "Terms of Service",
       eyebrow: "Legal",
       capsule: "The agreement governing use of Credtent's website, platform, and services.",
@@ -488,6 +493,7 @@ async function main() {
     }),
     legacyPage(SITES.org, "post/unfair-use-denormalizing-ai-theft.html", "/post/unfair-use-denormalizing-ai-theft", {
       title: "Unfair Use | Credtent",
+      description: "An archived Credtent essay titled Unfair Use, kept at its previous address. The canonical copy is the version published on Credtent's Substack.",
       h1: "Unfair Use",
       eyebrow: "Archive",
       capsule: "An archived Credtent essay. The canonical copy is also on Substack.",

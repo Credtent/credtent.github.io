@@ -10,7 +10,11 @@ export function esc(value) {
 
 const ORG_ID = "https://credtent.com/#organization";
 
-export function organizationNode() {
+export function bcorpBadge() {
+  return `<p class="bcorp-badge" role="img" aria-label="Credtent is a Certified B Corporation"><span>Certified</span><strong>B Corp</strong></p>`;
+}
+
+export function organizationNode(site) {
   return {
     "@type": "Organization",
     "@id": ORG_ID,
@@ -18,7 +22,7 @@ export function organizationNode() {
     legalName: "Credtent, Inc.",
     url: ["https://credtent.com/", "https://credtent.org/"],
     logo: "https://credtent.com/brand/shield.svg",
-    email: "hello@credtent.com",
+    email: site.email,
     foundingDate: "2023",
     description: "Credtent, Inc. is a Delaware Public Benefit Corporation and a neutral marketplace connecting content owners and AI companies through consent, licensing, and compensation.",
     address: {
@@ -150,7 +154,8 @@ function footer(site) {
       <div>
         <img class="word" src="/brand/wordmark-white.svg" width="160" height="30" alt="Credtent">
         <p>Credtent helps creatives and AI companies navigate consent, credit, and compensation.</p>
-        <p>Credtent, Inc. is a Delaware Public Benefit Corporation.</p>
+        <p>Credtent, Inc. is a Delaware Public Benefit Corporation and a certified B Corp.</p>
+        ${bcorpBadge()}
         <p><a href="mailto:${esc(site.email)}">${esc(site.email)}</a></p>
       </div>
       <div>
@@ -226,7 +231,7 @@ export function renderPage(site, page) {
     : `<div class="wrap section-tight">${intro}</div>`;
 
   const graph = [];
-  graph.push(organizationNode());
+  graph.push(organizationNode(site));
   graph.push(websiteNode(site));
   const pageNode = {
     "@type": page.pageType || "WebPage",

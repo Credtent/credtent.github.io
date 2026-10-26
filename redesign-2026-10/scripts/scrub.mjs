@@ -25,7 +25,6 @@ export function scrub(input, { code = false } = {}) {
   out = out.replace(/https?:\/\/c2pa\.org\/?/gi, "https://contentauthenticity.org/");
   out = out.replace(new RegExp(specName, "gi"), "CAI technical specification");
   out = out.replace(/,?\s*and, as of October 2026, routes 85% of gross licensing revenue to rights holders/gi, "");
-  out = out.replace(/@credtent\.org\b/g, "@credtent.com");
   out = out.replace(/1822 E\. (?:Rt\.|Route) 66,?\s*(?:Suite A353|Ste #A353)?/g, "1822 E. Route 66, Suite A353");
   out = out.replace(/Glendora, CA(?:\s+91740)?/g, "Glendora, California 91740");
   out = out.replace(/\bJim Lee\b/g, "");

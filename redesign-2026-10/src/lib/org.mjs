@@ -1,5 +1,5 @@
 import { ADDRESS_HTML, BOOK, CAPSULE, OPT_OUT_FLOW, SIGN_IN, price } from "./copy.mjs";
-import { ORG_ID, figure, picture } from "./render.mjs";
+import { ORG_ID, bcorpBadge, figure, picture } from "./render.mjs";
 
 function editions() {
   return `<ul class="editions">
@@ -113,7 +113,8 @@ export function orgPages(images) {
         <div class="wrap">
           <p class="eyebrow">Who Credtent is</p>
           <h2>Eric Burgess and Dr. Galen Buckwalter.</h2>
-          <p class="lede">Eric R. Burgess is Founder and CEO. Dr. Galen Buckwalter is Co-Founder and Chief Science Officer. Credtent, Inc. is a Delaware Public Benefit Corporation.</p>
+          <p class="lede">Eric R. Burgess is Founder and CEO. Dr. Galen Buckwalter is Co-Founder and Chief Science Officer. Credtent, Inc. is a Delaware Public Benefit Corporation and a certified B Corp.</p>
+          ${bcorpBadge()}
           <div class="team" style="margin-top:24px">
             <article class="person">${picture(images.eric, { sizes: "240px" })}<h3>Eric R. Burgess</h3><p class="role">Founder and CEO</p></article>
             <article class="person">${picture(images.galen, { sizes: "240px" })}<h3>Dr. Galen Buckwalter</h3><p class="role">Co-Founder and Chief Science Officer</p></article>
@@ -542,10 +543,10 @@ export function orgPages(images) {
       description: "Contact Credtent about opt-out, Creative Consent, and resources.",
       eyebrow: "Contact",
       h1: "Contact Credtent.",
-      capsule: "Creatives can write to hello@credtent.com. This preview form does not send a message.",
+      capsule: "Creatives can write to hello@credtent.org. This preview form does not send a message.",
       crumbs: [{ name: "Contact", href: "https://credtent.org/contact" }],
       faq: [
-        { q: "Which email should I use?", a: "Write to hello@credtent.com. The office is 1822 E. Route 66, Suite A353, Glendora, California 91740." }
+        { q: "Which email should I use?", a: "Write to hello@credtent.org. The office is 1822 E. Route 66, Suite A353, Glendora, California 91740." }
       ],
       main: `<section class="section"><div class="wrap grid-2">
         <form class="form" action="#" method="post">
@@ -556,7 +557,7 @@ export function orgPages(images) {
           <button class="btn" type="submit">Send</button>
         </form>
         <div>
-          <p><a href="mailto:hello@credtent.com">hello@credtent.com</a></p>
+          <p><a href="mailto:hello@credtent.org">hello@credtent.org</a></p>
           ${ADDRESS_HTML}
         </div>
       </div></section>`
