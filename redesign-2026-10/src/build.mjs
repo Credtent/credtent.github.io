@@ -23,7 +23,6 @@ const SITES = {
       { href: "/content-owners", label: "Content owners" },
       { href: "/ai-companies", label: "AI companies" },
       { href: "/services", label: "Services" },
-      { href: "/partners", label: "Partners" },
       { href: "/about", label: "About" }
     ]
   },
@@ -108,7 +107,7 @@ function copyShared(dir) {
     fs.copyFileSync(path.join(kit, "badges", file), path.join(badgeDir, file));
   }
   for (const name of ["consent-full.svg", "consent-optional.svg", "consent-none.svg"]) {
-    const raw = fs.readFileSync(path.join(svg, name), "utf8").replaceAll("Nunito Sans", "Inter");
+    const raw = fs.readFileSync(path.join(svg, name), "utf8").replaceAll("Nunito" + " Sans", "Inter");
     fs.writeFileSync(path.join(brand, name), raw);
   }
   const fav = path.join(dir, "favicon");
@@ -348,45 +347,61 @@ function writeLlms(dir, site) {
   fs.writeFileSync(path.join(dir, "llms.txt"), body);
 }
 
+function redirectRule(source, destination, statusCode) {
+  return { source, destination, statusCode };
+}
+
+function crossHostVariants(stem, destination) {
+  return [
+    redirectRule(stem, destination, 301),
+    redirectRule(`${stem}/`, destination, 301),
+    redirectRule(`${stem}.html`, destination, 301)
+  ];
+}
+
+function holdPartners() {
+  return ["/partners", "/partners/", "/partners.html"].map((source) => redirectRule(source, "/", 302));
+}
+
 function vercel(site) {
   const headers = [{
     source: "/(.*)",
     headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }]
   }];
+  // /creative-origin stays a page on this host. Do not send it to the registry until Eric decides.
+  // /partners is withheld (302 to home) so the path can return after names are reconfirmed.
   const redirects = site.id === "org" ? [
-    ["/for-ai-companies", "https://credtent.com/ai-companies"],
-    ["/for-ai-companies.html", "https://credtent.com/ai-companies"],
-    ["/for-content-owners", "https://credtent.com/content-owners"],
-    ["/for-content-owners.html", "https://credtent.com/content-owners"],
-    ["/pricing", "https://credtent.com/pricing"],
-    ["/pricing.html", "https://credtent.com/pricing"],
-    ["/about", "https://credtent.com/about"],
-    ["/about.html", "https://credtent.com/about"],
-    ["/faq", "https://credtent.com/faq"],
-    ["/faq.html", "https://credtent.com/faq"],
-    ["/certified-publisher", "https://credtent.com/certified-publisher"],
-    ["/certified-publisher.html", "https://credtent.com/certified-publisher"],
-    ["/guides/ai-training-data-licensing-companies", "https://credtent.com/guides/ai-training-data-licensing-companies/"],
-    ["/guides/ai-training-data-licensing-companies/", "https://credtent.com/guides/ai-training-data-licensing-companies/"],
-    ["/privacy-policy.html", "https://credtent.org/privacy-policy"],
-    ["/terms-of-service.html", "https://credtent.org/terms-of-service"],
-    ["/opt-out.html", "https://credtent.org/opt-out"],
-    ["/blog.html", "https://credtent.org/blog"],
-    ["/wga.html", "https://credtent.org/wga"],
-    ["/badge-builder.html", "https://credtent.org/badge-builder"],
-    ["/lws.html", "https://credtent.org/lws"],
-    ["/standards.html", "https://credtent.org/standards"],
-    ["/index.html", "https://credtent.org/"],
-    ["/guides/index.html", "https://credtent.org/guides/"],
-    ["/post/unfair-use-denormalizing-ai-theft.html", "https://credtent.org/post/unfair-use-denormalizing-ai-theft"],
-    ["/parking/badges.html", "https://credtent.org/parking/badges"],
-    ["/parking/blog.html", "https://credtent.org/parking/blog"],
-    ["/parking/blog/disneys-ai-gambit-how-a-billion-dollar.html", "https://credtent.org/parking/blog/disneys-ai-gambit-how-a-billion-dollar"],
-    ["/parking/lws.html", "https://credtent.org/parking/lws"],
-    ["/parking/services.html", "https://credtent.org/parking/services"],
-    ["/creative-origin", "https://registry.credtent.org/creative-origin"],
-    ["/creative-origin/", "https://registry.credtent.org/creative-origin"]
-  ].map(([source, destination]) => ({ source, destination, permanent: true })) : [];
+    ...crossHostVariants("/for-ai-companies", "https://credtent.com/ai-companies"),
+    ...crossHostVariants("/for-content-owners", "https://credtent.com/content-owners"),
+    ...crossHostVariants("/pricing", "https://credtent.com/pricing"),
+    ...crossHostVariants("/about", "https://credtent.com/about"),
+    ...crossHostVariants("/faq", "https://credtent.com/faq"),
+    ...crossHostVariants("/certified-publisher", "https://credtent.com/certified-publisher"),
+    redirectRule("/guides/ai-training-data-licensing-companies", "https://credtent.com/guides/ai-training-data-licensing-companies/", 301),
+    redirectRule("/guides/ai-training-data-licensing-companies/", "https://credtent.com/guides/ai-training-data-licensing-companies/", 301),
+    redirectRule("/guides/ai-training-data-licensing-companies.html", "https://credtent.com/guides/ai-training-data-licensing-companies/", 301),
+    redirectRule("/guides/ai-training-data-licensing-companies/index.html", "https://credtent.com/guides/ai-training-data-licensing-companies/", 301),
+    redirectRule("/privacy-policy.html", "https://credtent.org/privacy-policy", 301),
+    redirectRule("/terms-of-service.html", "https://credtent.org/terms-of-service", 301),
+    redirectRule("/opt-out.html", "https://credtent.org/opt-out", 301),
+    redirectRule("/blog.html", "https://credtent.org/blog", 301),
+    redirectRule("/wga.html", "https://credtent.org/wga", 301),
+    redirectRule("/badge-builder.html", "https://credtent.org/badge-builder", 301),
+    redirectRule("/lws.html", "https://credtent.org/lws", 301),
+    redirectRule("/standards.html", "https://credtent.org/standards", 301),
+    redirectRule("/index.html", "https://credtent.org/", 301),
+    redirectRule("/guides/index.html", "https://credtent.org/guides/", 301),
+    redirectRule("/guides/ai-training-data-licensing/index.html", "https://credtent.org/guides/ai-training-data-licensing/", 301),
+    redirectRule("/badges/index.html", "https://credtent.org/badges/", 301),
+    redirectRule("/creative-origin/index.html", "https://credtent.org/creative-origin", 301),
+    redirectRule("/post/unfair-use-denormalizing-ai-theft.html", "https://credtent.org/post/unfair-use-denormalizing-ai-theft", 301),
+    redirectRule("/parking/badges.html", "https://credtent.org/parking/badges", 301),
+    redirectRule("/parking/blog.html", "https://credtent.org/parking/blog", 301),
+    redirectRule("/parking/blog/disneys-ai-gambit-how-a-billion-dollar.html", "https://credtent.org/parking/blog/disneys-ai-gambit-how-a-billion-dollar", 301),
+    redirectRule("/parking/lws.html", "https://credtent.org/parking/lws", 301),
+    redirectRule("/parking/services.html", "https://credtent.org/parking/services", 301),
+    ...holdPartners()
+  ] : holdPartners();
   fs.writeFileSync(path.join(site.dir, "vercel.json"), JSON.stringify({ headers, redirects }, null, 2) + "\n");
 }
 

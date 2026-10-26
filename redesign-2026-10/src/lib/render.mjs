@@ -138,9 +138,6 @@ function footer(site) {
   const privacy = site.id === "com" ? "https://credtent.com/privacy-policy" : "https://credtent.org/privacy-policy";
   const terms = site.id === "com" ? "https://credtent.com/terms-of-service" : "https://credtent.org/terms-of-service";
   const credits = site.id === "com" ? "https://credtent.com/credits" : "https://credtent.org/credits";
-  const partnerLine = site.id === "org"
-    ? `<p>Credtent also represents publishers and media companies. <a href="https://credtent.com/partners">See who we represent</a>.</p>`
-    : "";
   return `<footer class="site-footer">
     <div class="wrap footer-grid">
       <div>
@@ -148,7 +145,6 @@ function footer(site) {
         <p>Credtent helps creatives and AI companies navigate consent, credit, and compensation.</p>
         <p>Credtent, Inc. is a Delaware Public Benefit Corporation.</p>
         <p><a href="mailto:${esc(site.email)}">${esc(site.email)}</a></p>
-        ${partnerLine}
       </div>
       <div>
         <h2>For creatives</h2>
@@ -165,7 +161,7 @@ function footer(site) {
           <li><a href="https://credtent.com/valuation">Valuation</a></li>
           <li><a href="https://credtent.com/ai-training">AI training</a></li>
           <li><a href="https://credtent.com/citation-licensing">Citations</a></li>
-          <li><a href="https://credtent.com/partners">Partners</a></li>
+          <li><a href="https://credtent.com/services">Services</a></li>
         </ul>
       </div>
       <div>

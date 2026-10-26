@@ -10,5 +10,21 @@
       ]
     }
   ],
-  "redirects": []
+  "redirects": [
+    {
+      "source": "/partners",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/partners/",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/partners.html",
+      "destination": "/",
+      "statusCode": 302
+    }
+  ]
 }

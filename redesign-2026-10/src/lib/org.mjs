@@ -278,7 +278,6 @@ export function orgPages(images) {
         <article class="card"><h3>Opt-out limitations</h3><p><a href="/resources/opt-out-limitations">Read: opt-out limitations</a></p></article>
         <article class="card"><h3>Guides</h3><p><a href="/guides/">Read: AI training data licensing for creatives</a></p></article>
       </div>
-      <p class="wrap fine">Credtent also represents publishers and media companies. <a href="https://credtent.com/partners">See the corporate partners page</a>.</p>
       </section>`
     },
     stub("/resources/what-an-opt-out-can-do", "What an opt-out request can do", "An opt-out records your preference and a notice. It does not, by itself, delete work from a dataset or force every company to comply."),

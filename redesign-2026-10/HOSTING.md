@@ -19,12 +19,14 @@ Separate repos are possible later. They cost a second copy of the shared tokens 
 
 ## How the domains fit together
 
-- credtent.com serves the corporate pages: content owners, AI companies, services, partners, about, pricing, FAQ, and Creative Origin for publishers.
-- credtent.org serves opt-out, Creative Consent, resources, badges, the standards catalog, and the creative licensing guide.
-- `sites/org/vercel.json` has one-for-one permanent redirects onto credtent.com for the corporate URLs that used to live on .org, including `/about`, `/pricing`, `/faq`, `/certified-publisher`, and the company licensing guide. There is no blanket redirect and no catch-all to the .com home page.
-- `/standards` stays on credtent.org for creatives. `/standards.html` 301s to `https://credtent.org/standards`, the same same-host `.html` normalization as `/opt-out.html` and `/blog.html`. The clean `/standards` path is not a cross-host redirect. BUILD-SPEC still has an open note about moving it to credtent.com; that move is not in this file.
+- credtent.com serves the corporate pages: content owners, AI companies, services, about, pricing, FAQ, and Creative Origin for publishers. `/partners` is not one of those pages in this preview.
+- credtent.org serves opt-out, Creative Consent, resources, badges, the standards catalog, the creative licensing guide, and `/creative-origin`.
+- `sites/org/vercel.json` has one-for-one 301s (`statusCode: 301`, not a blanket rule) onto credtent.com for the corporate URLs that used to live on .org. Each moved path has its clean form, a trailing-slash form, and an `.html` form: `/for-ai-companies`, `/for-content-owners`, `/pricing`, `/about`, `/faq`, `/certified-publisher`, and `/guides/ai-training-data-licensing-companies` (including `index.html`). Nothing redirects to the .com home as a catch-all.
+- `/partners`, `/partners/`, and `/partners.html` are temporary 302s to `/` on both hosts. The page, nav, footer, sitemap, and `llms.txt` do not mention it. Partner names are waiting on Eric's reconfirmation, and a 302 keeps the path free to come back.
+- `/standards` stays on credtent.org for creatives. `/standards.html` 301s to `https://credtent.org/standards`. The clean `/standards` path is not a cross-host redirect. BUILD-SPEC still has an open note about moving it to credtent.com; that move is not in this file.
+- `/creative-origin` stays a page on credtent.org. It is not redirected to `registry.credtent.org`. The page may link there. Whether to redirect later is Eric's call. `/creative-origin/index.html` 301s to `https://credtent.org/creative-origin` on the same host.
+- Privacy and terms stay on both hosts. Old `.html` URLs 301 to the .org copies. Whether one host should own the legal pages is Eric's call.
 - Nothing in either project should proxy or redirect `app.credtent.org` or `registry.credtent.org`. Signup, sign-in, and the free opt-out are links only.
-- The creative-origin redirect on .org points at `https://registry.credtent.org/creative-origin`.
 
 Do not attach the .org production domain, and do not enable those 301s on a public host, until credtent.com answers 200 for every redirect target. Preview URLs can carry the redirect file. Production DNS cannot, yet.
 

@@ -26,18 +26,6 @@ function bookBand() {
   </section>`;
 }
 
-function partnerStrip() {
-  return `<section class="section-tight section-white">
-    <div class="wrap">
-      <p class="eyebrow">Representation</p>
-      <h2>Who we represent</h2>
-      <p class="lede">Credtent represents over a dozen enterprise content partners and hundreds of individual creatives.</p>
-      <div class="btn-row"><a class="btn" href="/partners">See who we represent</a></div>
-      <p class="small">A representation or licensing agreement with Credtent does not imply endorsement of Credtent or any specific AI company deal.</p>
-    </div>
-  </section>`;
-}
-
 function serviceNode(id, name, description) {
   return {
     "@type": "Service",
@@ -94,7 +82,6 @@ export function comPages(images) {
           </div>
         </div>
       </section>
-      ${partnerStrip()}
       <section class="section">
         <div class="wrap">
           <p class="eyebrow">Content valuation</p>
@@ -358,54 +345,6 @@ export function comPages(images) {
       </div></section>`
     },
     {
-      path: "/partners",
-      title: "Companies and creatives Credtent represents | Credtent",
-      description: "Credtent represents over a dozen enterprise content partners and hundreds of individual creatives. Names are not published here.",
-      eyebrow: "Partners",
-      h1: "The companies and creatives we represent",
-      capsule: "Credtent represents over a dozen enterprise content partners and hundreds of individual creatives.",
-      lede: "Publishers, media companies, and individual creatives can ask Credtent to represent their work to AI companies, on terms they set.",
-      actions: `<div class="btn-row"><a class="btn" href="${SIGN_UP}">Sign up</a><a class="btn btn-ghost" href="/contact">Contact us</a></div>`,
-      crumbs: [{ name: "Partners", href: "https://credtent.com/partners" }],
-      pageType: "CollectionPage",
-      mainEntity: {
-        "@type": "ItemList",
-        name: "Who Credtent represents",
-        itemListOrder: "https://schema.org/ItemListUnordered",
-        numberOfItems: 2,
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            item: {
-              "@type": "Thing",
-              name: "Enterprise content partners",
-              description: "Over a dozen enterprise content partners. Individual organizations are not named on this page."
-            }
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            item: {
-              "@type": "Thing",
-              name: "Individual creatives",
-              description: "Hundreds of individual creatives. Names are not published on this page."
-            }
-          }
-        ]
-      },
-      faq: [
-        { q: "Does representation mean a company endorses Credtent?", a: "No. A representation or licensing agreement with Credtent does not imply endorsement of Credtent or any specific AI company deal." },
-        { q: "Why are no partners named?", a: "This page states the count only. Names are not published here." }
-      ],
-      main: `<section class="section section-white"><div class="wrap prose">
-        <p>Credtent represents over a dozen enterprise content partners and hundreds of individual creatives.</p>
-        <p>Enterprise partners and individual creatives are not named on this page.</p>
-        <div class="btn-row"><a class="btn" href="${SIGN_UP}">Sign up</a><a class="btn btn-ghost" href="/contact">Contact us</a></div>
-        <p class="fine">A representation or licensing agreement with Credtent does not imply endorsement of Credtent or any specific AI company deal.</p>
-      </div></section>`
-    },
-    {
       path: "/about",
       title: "About Credtent",
       description: "Credtent, Inc. is a Delaware Public Benefit Corporation founded by Eric R. Burgess and Dr. Galen Buckwalter.",
@@ -457,7 +396,7 @@ export function comPages(images) {
           <article class="person">${picture(images.galen, { sizes: "240px" })}<h3>Dr. Galen Buckwalter</h3><p class="role">Co-founder and Chief Credibility Officer</p><p><a href="https://www.linkedin.com/in/j-galen-buckwalter-04139510">Galen on LinkedIn</a></p></article>
           <article class="person"><img src="/media/placeholder-ea.svg" width="480" height="480" alt="Placeholder headshot for Edmond Almond" data-placeholder="headshot"><h3>Edmond Almond</h3><p class="role">Chief Partnerships Officer</p></article>
           <article class="person"><img src="/media/placeholder-ac.svg" width="480" height="480" alt="Placeholder headshot for Abigail Cameron" data-placeholder="headshot"><h3>Abigail Cameron</h3><p class="role">Engineering</p></article>
-          <article class="person">${picture(images.carmen, { sizes: "240px" })}<h3>Carmen Sinata</h3><p class="role">Onboarding</p></article>
+          <article class="person">${picture(images.carmen, { sizes: "240px" })}<h3>Carmen Sinata</h3><p class="role">PR &amp; Social</p></article>
           <article class="person">${picture(images.freddy, { sizes: "240px" })}<h3>Freddy Mota</h3><p class="role">Operations</p></article>
           <article class="person">${picture(images.michael, { sizes: "240px" })}<h3>Michael Thompson</h3><p class="role">Revenue</p></article>
           <article class="person">${picture(images.raymond, { sizes: "240px" })}<h3>Raymond Jia</h3><p class="role">Technology</p></article>
