@@ -20,11 +20,11 @@ export function organizationNode(site) {
     "@id": ORG_ID,
     name: "Credtent",
     legalName: "Credtent, Inc.",
-    url: ["https://credtent.com/", "https://credtent.org/"],
+    url: "https://credtent.com/",
     logo: "https://credtent.com/brand/shield.svg",
     email: site.email,
     foundingDate: "2023",
-    description: "Credtent, Inc. is a Delaware Public Benefit Corporation and a neutral marketplace connecting content owners and AI companies through consent, licensing, and compensation.",
+    description: "Credtent, Inc. is a Delaware Public Benefit Corporation and a certified B Corp, a neutral marketplace connecting content owners and AI companies through consent, licensing, and compensation.",
     address: {
       "@type": "PostalAddress",
       streetAddress: "1822 E. Route 66, Suite A353",
@@ -33,8 +33,12 @@ export function organizationNode(site) {
       postalCode: "91740",
       addressCountry: "US"
     },
-    founder: { "@id": "https://credtent.com/about#eric-r-burgess" },
+    founder: [
+      { "@id": "https://credtent.com/about#eric-r-burgess" },
+      { "@id": "https://credtent.com/about#galen-buckwalter" }
+    ],
     sameAs: [
+      "https://credtent.org/",
       "https://www.linkedin.com/company/credtent",
       "https://www.cbinsights.com/company/credtent"
     ]
@@ -180,6 +184,7 @@ function footer(site) {
         <h2>Company</h2>
         <ul>
           <li><a href="https://credtent.com/about">About</a></li>
+          <li><a href="https://tally.so/r/2ExeBp" target="_blank" rel="noopener">Investors</a></li>
           <li><a href="${contact}">Contact</a></li>
           <li><a href="${sitemap}">Sitemap</a></li>
           <li><a href="${privacy}">Privacy</a></li>
@@ -207,6 +212,23 @@ function faqHtml(faq) {
       <div class="faq-list">${items}</div>
     </div>
   </section>`;
+}
+
+function analyticsSnippet(site) {
+  const id = site.measurementId || "";
+  if (process.env.SITE_ENV !== "production" || !/^G-[A-Z0-9]+$/.test(id)) return "";
+  const options = {
+    anonymize_ip: true,
+    allow_google_signals: false,
+    allow_ad_personalization_signals: false
+  };
+  return `<script async src="https://www.googletagmanager.com/gtag/js?id=${id}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', ${JSON.stringify(id)}, ${JSON.stringify(options)});
+  </script>`;
 }
 
 export function renderPage(site, page) {
@@ -251,7 +273,6 @@ export function renderPage(site, page) {
   if (page.extraLd) graph.push(...page.extraLd);
 
   if (!page.capsule) throw new Error(`Missing answer-first summary: ${site.id} ${page.path}`);
-  if (!page.faq?.length) throw new Error(`Missing FAQ: ${site.id} ${page.path}`);
   const preload = page.preload || "";
   const production = process.env.SITE_ENV === "production";
   const noindex = page.noindex || !production;
@@ -287,6 +308,7 @@ export function renderPage(site, page) {
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
   <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png">
   <script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": graph })}</script>
+  ${analyticsSnippet(site)}
 </head>
 <body>
   <a class="skip-link" href="#content">Skip to content</a>
@@ -329,24 +351,58 @@ export function diagramHtml() {
 
 const SALES_EMAIL = "sales@credtent.com";
 
-// IDs this generator may embed. Each one appears in repo history.
+// Eric: put a real Tally id in one of these strings to replace that page's mailto form.
+// Leave "" and the mailto:sales@credtent.com form stays. An empty value never renders an embed.
+// orgContact: Credtent.org Contact, on sites/org/contact.
+// consentClarification: Creative Consent platform clarification, on sites/org/creative-consent.
+// consentUpdates: Creative Consent updates, on sites/org/creative-consent.
+export const TALLY_FORM_IDS = {
+  orgContact: "",
+  consentClarification: "",
+  consentUpdates: ""
+};
+
+// Ids this generator may embed. 2ExeBp is the investor form link, not an embed.
 // VL10Ga is a real Content Partner Inquiry, and content-partner CTAs go to the app instead.
-const KNOWN_TALLY_IDS = new Set(["BzbXK7", "2ExeBp", "nroELN"]);
+const KNOWN_TALLY_IDS = new Set(
+  ["BzbXK7", "2ExeBp", ...Object.values(TALLY_FORM_IDS)].filter((id) => /^[A-Za-z0-9]+$/.test(id))
+);
+
+// Embed document height at a 640px column, measured 2026-10-26 with hideTitle=1.
+// BzbXK7 body scrollHeight was 747. A new id uses that reservation until its own height is added here.
+const TALLY_MIN_HEIGHT = {
+  BzbXK7: 747
+};
+const TALLY_DEFAULT_MIN_HEIGHT = 747;
+
+function reservedTallyHeight(id, minHeight) {
+  const height = minHeight || TALLY_MIN_HEIGHT[id] || TALLY_DEFAULT_MIN_HEIGHT;
+  if (!Number.isInteger(height) || height < 320) {
+    throw new Error(`Tally id ${id} needs an integer reserved height.`);
+  }
+  return height;
+}
 
 const TALLY_LOADER = `<script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>`;
 
-export function tallyEmbed({ id, title }) {
+export function tallyEmbed({ id, title, minHeight }) {
   if (!KNOWN_TALLY_IDS.has(id)) {
-    throw new Error(`Refusing Tally id ${id}. It is not in this repo's history.`);
+    throw new Error(`Refusing Tally id ${id}. Add a real id to TALLY_FORM_IDS or leave that slot empty.`);
   }
+  const height = reservedTallyHeight(id, minHeight);
   const embed = `https://tally.so/embed/${id}?hideTitle=1&transparentBackground=1&dynamicHeight=1`;
   const fallback = `https://tally.so/r/${id}`;
   return `<div class="tally-embed">
-          <iframe data-tally-src="${embed}" loading="lazy" width="640" height="320" title="${esc(title)}"></iframe>
+          <iframe data-tally-src="${embed}" loading="lazy" width="640" height="${height}" style="min-height:${height}px" title="${esc(title)}"></iframe>
           ${TALLY_LOADER}
           <noscript><p class="small"><a href="${fallback}">${fallback}</a></p></noscript>
           <p class="small">Prefer email? <a href="mailto:${SALES_EMAIL}">${SALES_EMAIL}</a></p>
         </div>`;
+}
+
+export function formSlot({ id, title, minHeight, ...inquiry }) {
+  if (!id) return inquiryForm(inquiry);
+  return tallyEmbed({ id, title, minHeight });
 }
 
 export function inquiryForm({ subject, fields, submitLabel, note, style, todo }) {

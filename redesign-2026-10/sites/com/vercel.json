@@ -2,6 +2,21 @@
   "headers": [
     {
       "source": "/(.*)",
+      "missing": [
+        {
+          "type": "host",
+          "value": "(www\\.)?credtent\\.com"
+        }
+      ],
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
       "headers": [
         {
           "key": "X-Robots-Tag",
@@ -11,6 +26,86 @@
     }
   ],
   "redirects": [
+    {
+      "source": "/content-owners/",
+      "destination": "https://credtent.com/content-owners",
+      "statusCode": 301
+    },
+    {
+      "source": "/ai-companies/",
+      "destination": "https://credtent.com/ai-companies",
+      "statusCode": 301
+    },
+    {
+      "source": "/services/",
+      "destination": "https://credtent.com/services",
+      "statusCode": 301
+    },
+    {
+      "source": "/citation-licensing/",
+      "destination": "https://credtent.com/citation-licensing",
+      "statusCode": 301
+    },
+    {
+      "source": "/valuation/",
+      "destination": "https://credtent.com/valuation",
+      "statusCode": 301
+    },
+    {
+      "source": "/ai-training/",
+      "destination": "https://credtent.com/ai-training",
+      "statusCode": 301
+    },
+    {
+      "source": "/about/",
+      "destination": "https://credtent.com/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/contact/",
+      "destination": "https://credtent.com/contact",
+      "statusCode": 301
+    },
+    {
+      "source": "/pricing/",
+      "destination": "https://credtent.com/pricing",
+      "statusCode": 301
+    },
+    {
+      "source": "/faq/",
+      "destination": "https://credtent.com/faq",
+      "statusCode": 301
+    },
+    {
+      "source": "/certified-publisher/",
+      "destination": "https://credtent.com/certified-publisher",
+      "statusCode": 301
+    },
+    {
+      "source": "/privacy-policy/",
+      "destination": "https://credtent.com/privacy-policy",
+      "statusCode": 301
+    },
+    {
+      "source": "/terms-of-service/",
+      "destination": "https://credtent.com/terms-of-service",
+      "statusCode": 301
+    },
+    {
+      "source": "/guides/ai-training-data-licensing-companies",
+      "destination": "https://credtent.com/guides/ai-training-data-licensing-companies/",
+      "statusCode": 301
+    },
+    {
+      "source": "/sitemap/",
+      "destination": "https://credtent.com/sitemap",
+      "statusCode": 301
+    },
+    {
+      "source": "/credits/",
+      "destination": "https://credtent.com/credits",
+      "statusCode": 301
+    },
     {
       "source": "/partners",
       "destination": "/",

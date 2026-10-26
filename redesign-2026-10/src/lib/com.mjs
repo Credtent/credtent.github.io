@@ -285,7 +285,7 @@ export function comPages(images) {
       <section class="section"><div class="wrap prose">
         <h2>An estimate supports a conversation.</h2>
         <p>The assessment should identify evidence, assumptions, scope, and uncertainty. An estimate is not a guaranteed transaction price or an established industry standard. Final terms depend on the parties and their agreement.</p>
-        <p>Credtent's proposed approach brings context and supported indicators into constructive pricing discussions. Third-party ratings and evidence must be appropriately sourced; unsupported ratings are not part of this preview.</p>
+        <p>Credtent's proposed approach brings context and supported indicators into constructive pricing discussions. Third-party ratings and evidence must be appropriately sourced; unsupported ratings are not part of a Credtent valuation.</p>
         <h2>Valuation can stand on its own.</h2>
         <p>You may already have a buyer or a licensing agreement. Obtain a valuation independently, then decide whether you want help finding licensing partners or negotiating another opportunity.</p>
         <div class="btn-row"><a class="btn" href="/contact#other">Request a valuation</a><a class="btn btn-ghost" href="/ai-training">Discuss licensing options</a></div>
@@ -488,7 +488,7 @@ export function comPages(images) {
           <article class="card"><h3>Opt-Out Premium</h3><p>${price("US$49")} annually for individuals.</p><p>${price("US$249+")} annually for organizations.</p><p><a href="https://credtent.org/premium">Read about Opt-Out Premium</a></p></article>
           <article class="card"><h3>The Collaborithmic Age</h3>${editions()}<p><a href="${BOOK}">Explore the book</a></p></article>
         </div>
-        <p class="fine">Enterprise licensing and other catalog fees are discussed directly. They are intentionally absent from this preview.</p>
+        <p class="fine">Enterprise licensing and other catalog fees are discussed directly. They are quoted directly.</p>
       </div></section>`
     },
     {

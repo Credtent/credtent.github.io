@@ -620,7 +620,7 @@ figcaption, .credit {
 .wrap.legacy:has(.research-stats-grid) { max-width: 1240px; }
 .form { display: grid; gap: 14px; max-width: 640px; }
 .tally-embed { display: grid; gap: 12px; max-width: 640px; }
-.tally-embed iframe { width: 100%; min-height: 320px; border: 0; background: transparent; }
+.tally-embed iframe { width: 100%; border: 0; background: transparent; }
 label { font-weight: 600; color: var(--ink); display: grid; gap: 6px; }
 input, textarea, select {
   font: inherit;
