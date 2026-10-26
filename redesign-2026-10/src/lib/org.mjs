@@ -1,5 +1,5 @@
 import { ADDRESS_HTML, BOOK, CAPSULE, OPT_OUT_FLOW, SIGN_IN, price } from "./copy.mjs";
-import { ORG_ID, bcorpBadge, figure, inquiryForm, picture } from "./render.mjs";
+import { ORG_ID, TALLY_FORM_IDS, bcorpBadge, figure, formSlot, picture } from "./render.mjs";
 
 function editions() {
   return `<ul class="editions">
@@ -125,6 +125,7 @@ export function orgPages(images) {
     },
     {
       path: "/creative-consent",
+      noindex: true,
       title: "Creative Consent | Credtent",
       description: "Full Protection means consent comes first. See how Credtent describes Full, Optional, and No Protection.",
       eyebrow: "Resources / Creative Consent",
@@ -162,7 +163,9 @@ export function orgPages(images) {
       <section class="section section-white"><div class="wrap">
         <h2>Represent a platform?</h2>
         <p class="lede">Help keep the record accurate. Submit a clarification, correction, or updated policy for review.</p>
-        ${inquiryForm({
+        ${formSlot({
+          id: TALLY_FORM_IDS.consentClarification,
+          title: "Creative Consent platform clarification",
           subject: "Creative Consent platform clarification",
           submitLabel: "Submit for review",
           style: "margin-top:18px",
@@ -175,7 +178,9 @@ export function orgPages(images) {
       <section class="section"><div class="wrap">
         <h2>Get Creative Consent updates.</h2>
         <p class="lede">Choose to receive relevant policy and assessment updates. You can unsubscribe at any time.</p>
-        ${inquiryForm({
+        ${formSlot({
+          id: TALLY_FORM_IDS.consentUpdates,
+          title: "Creative Consent updates",
           subject: "Creative Consent updates",
           submitLabel: "Subscribe to updates",
           style: "margin-top:18px",
@@ -187,6 +192,7 @@ export function orgPages(images) {
     },
     {
       path: "/creative-consent/platforms",
+      noindex: true,
       title: "Creative Consent platform list | Credtent",
       description: "Named platform assessments are pending editorial review. No ratings are shown on this preview.",
       eyebrow: "Creative Consent",
@@ -200,6 +206,7 @@ export function orgPages(images) {
     },
     {
       path: "/creative-consent/guide",
+      noindex: true,
       title: "Creative Consent guide preview | Credtent",
       description: "Guide preview v03. The downloadable file is not published yet.",
       eyebrow: "Creative Consent",
@@ -415,7 +422,7 @@ export function orgPages(images) {
         <div class="gate-overlay" id="email-gate" role="dialog" aria-modal="true" aria-labelledby="email-gate-title">
           <div class="gate-card">
             <h2 id="email-gate-title">Before you download</h2>
-            <p>Optional. Or skip straight to your download. No form is wired on this preview.</p>
+            <p>Optional. Or skip straight to your download.</p>
             <iframe id="email-gate-frame" title="Badge builder email capture" hidden></iframe>
             <button type="button" id="email-gate-skip">Skip and download</button>
           </div>
@@ -438,7 +445,7 @@ export function orgPages(images) {
       main: `<section class="section"><div class="wrap blog-list">
         <article class="blog-card"><p class="kicker">Medium · Mar 24, 2026</p><h2>The Creative Fatalism Trap in the Age of AI</h2><p>Why treating scraping as inevitable is a weak position, and what a more deliberate move looks like.</p><p><a href="https://medium.com/credtent-on-content/the-creative-fatalism-trap-in-the-age-of-ai-e486ba739818">Read on Medium</a></p></article>
         <article class="blog-card"><p class="kicker">Medium · Mar 24, 2026</p><h2>The UK's AI Copyright Update Is Newtonian. Style Protection Requires Einstein.</h2><p><a href="https://medium.com/credtent-on-content/the-uks-ai-copyright-update-is-newtonian-style-protection-requires-einstein-512bf1cf9ab5">Read on Medium</a></p></article>
-        <article class="blog-card"><p class="kicker">Medium · Dec 23, 2025</p><h2>A large copyright settlement, and the law firms recruiting writers</h2><p>The original headline names a settlement figure and a company. This preview uses a descriptive link instead.</p><p><a href="https://medium.com/credtent-on-content/anthropics-1-5b-payout-are-opt-out-law-firms-taking-writers-for-a-ride-4558db806176">Read on Medium</a></p></article>
+        <article class="blog-card"><p class="kicker">Medium · Dec 23, 2025</p><h2>A large copyright settlement, and the law firms recruiting writers</h2><p>The original headline names a settlement figure and a company.</p><p><a href="https://medium.com/credtent-on-content/anthropics-1-5b-payout-are-opt-out-law-firms-taking-writers-for-a-ride-4558db806176">Read on Medium</a></p></article>
         <article class="blog-card"><p class="kicker">Substack · Jun 24, 2025</p><h2>Human-Composed: Why AI Creation and Human Creativity Remain Fundamentally Different</h2><p><a href="https://credtent.substack.com/p/human-composed-why-ai-creation-and">Read on Credtent's Substack</a></p></article>
         <article class="blog-card"><p class="kicker">Substack · Apr 1, 2025</p><h2>Unfair Use: Denormalizing AI Theft</h2><p><a href="https://credtent.substack.com/p/unfair-use-denormalizing-ai-theft">Read on Credtent's Substack</a></p></article>
         <article class="blog-card"><p class="kicker">Substack · Mar 29, 2025</p><h2>HollywoodGPT: AI Controversy and the Oscars</h2><p><a href="https://credtent.substack.com/p/hollywoodgpt-ai-controversy-and-the-85e">Read on Credtent's Substack</a></p></article>
@@ -447,14 +454,14 @@ export function orgPages(images) {
     {
       path: "/wga",
       title: "Writers Guild of America and Credtent",
-      description: "Screenplay certification reviewed and accepted by the Writers Guild of America. Member pricing on this preview is unconfirmed.",
+      description: "Screenplay certification reviewed and accepted by the Writers Guild of America. Member pricing on request.",
       eyebrow: "Writers Guild of America",
       h1: "Certified Human Composed for screenwriters.",
       capsule: "The Writers Guild of America reviewed Credtent's screenplay certification process and accepted it. The badge is a record of review, not a promise about copyright registration.",
       crumbs: [{ name: "WGA", href: "https://credtent.org/wga" }],
       faq: [
         { q: "Is this called a partnership?", a: "No. The accurate public line is that the Guild reviewed the process and accepted it." },
-        { q: "What does it cost?", a: "The previous public page showed a member price and a regular price. Both are unconfirmed on this preview, so the numbers are omitted until Eric confirms them." }
+        { q: "What does it cost?", a: "Member and regular prices are pricing on request." }
       ],
       main: `<section class="section section-white"><div class="wrap prose">
         <img src="/badges/human-composed-creation-badge.svg" width="160" height="160" alt="Certified Human Composed badge">
@@ -502,7 +509,7 @@ export function orgPages(images) {
         <p>A license also conveys only the rights its signatories hold. That is why a careful license comes with a manifest.</p>
         <p>Our corporate page states the boundary in these words: "Licenses include the rights the contracting holders warranted, a named manifest, and a disclosure pack your counsel can use for EU AI Act Art. 53 and CA AB 2013 filings. Those statutes still bind the developer. Indemnity, if any, is only as written in the signed license."</p>
         <h2>Who can offer a license?</h2>
-        <p>Individual creatives, publishers and other catalog owners, marketplaces, and collective programs. They differ in scale and in how payment is arranged. Credtent does not publish a rate card on this preview.</p>
+        <p>Individual creatives, publishers and other catalog owners, marketplaces, and collective programs. They differ in scale and in how payment is arranged. Credtent does not publish a rate card.</p>
         <h2>What records do developers need?</h2>
         <p>Developers of general-purpose AI models in the EU must publish a sufficiently detailed summary of training content and keep a copyright policy that honors rights reservations, under Article 53 of the EU AI Act. California's AB 2013 requires developers to post training-data documentation. A developer's filings remain the developer's responsibility.</p>
         <h2>How can a rights holder participate?</h2>
@@ -513,10 +520,10 @@ export function orgPages(images) {
     {
       path: "/lws",
       title: "London Writers' Salon | Credtent",
-      description: "London Writers' Salon members can use Credtent's free opt-out. Member commercial terms are not confirmed on this preview.",
+      description: "London Writers' Salon members can use Credtent's free opt-out. Member commercial terms are pricing on request.",
       eyebrow: "London Writers' Salon",
       h1: "A path for London Writers' Salon members.",
-      capsule: "Members can register a free opt-out. Any member-only commercial terms are unconfirmed and are not priced on this preview.",
+      capsule: "Members can register a free opt-out. Any member-only commercial terms are pricing on request.",
       crumbs: [{ name: "London Writers' Salon", href: "https://credtent.org/lws" }],
       faq: [
         { q: "Is opt-out free for members?", a: "Yes. The free opt-out is available with no charge to decline AI use." }
@@ -551,7 +558,9 @@ export function orgPages(images) {
         { q: "Which email should I use?", a: "Write to hello@credtent.org. The office is 1822 E. Route 66, Suite A353, Glendora, California 91740." }
       ],
       main: `<section class="section"><div class="wrap grid-2">
-        ${inquiryForm({
+        ${formSlot({
+          id: TALLY_FORM_IDS.orgContact,
+          title: "Credtent.org Contact",
           subject: "Credtent inquiry",
           submitLabel: "Send",
           note: "Sending opens an email to sales@credtent.com.",

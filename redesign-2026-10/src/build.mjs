@@ -22,6 +22,9 @@ const SITES = {
     origin: "https://credtent.com",
     email: "hello@credtent.com",
     dir: path.join(OUT_ROOT, "com"),
+    // G-3BJJV0MSLW is the current public site's only GA4 id. Leave .com empty until Eric
+    // confirms that property should also collect credtent.com, or supplies a separate id.
+    measurementId: "",
     cta: { href: "https://app.credtent.org/", label: "Sign up" },
     nav: [
       { href: "/content-owners", label: "Content owners" },
@@ -35,6 +38,7 @@ const SITES = {
     origin: "https://credtent.org",
     email: "hello@credtent.org",
     dir: path.join(OUT_ROOT, "org"),
+    measurementId: "G-3BJJV0MSLW",
     cta: { href: "https://app.credtent.org/opt-out", label: "Free opt-out", shortLabel: "Opt out" },
     nav: [
       { href: "/opt-out", label: "Opt-Out" },
@@ -137,6 +141,10 @@ function writePage(dir, site, page) {
   fs.writeFileSync(dest, html);
 }
 
+function hostLabel(site) {
+  return site.id === "com" ? "Credtent for companies" : "Credtent for creatives";
+}
+
 function sitemapPage(site, pages) {
   const links = pages
     .filter((page) => !page.file && !page.noindex)
@@ -147,13 +155,13 @@ function sitemapPage(site, pages) {
     .join("");
   return {
     path: "/sitemap",
-    title: "Sitemap | Credtent",
+    title: `Sitemap | ${hostLabel(site)}`,
     description: `HTML sitemap for ${site.origin.replace("https://", "")}.`,
     eyebrow: "Sitemap",
     h1: "Sitemap",
-    capsule: `Every public page on ${site.origin.replace("https://", "")} in this preview.`,
+    capsule: `Every public page on ${site.origin.replace("https://", "")}.`,
     crumbs: [{ name: "Sitemap", href: site.origin + "/sitemap" }],
-    faq: [{ q: "Is this the XML sitemap?", a: "The XML sitemap is at /sitemap.xml. This page is the HTML list." }],
+    faq: [],
     main: `<section class="section"><div class="wrap"><ul class="sitemap-cols">${links}<li><a href="${site.origin}/sitemap">Sitemap</a></li></ul></div></section>`
   };
 }
@@ -165,13 +173,13 @@ function creditsPage(site, images, keys) {
   }).join("");
   return {
     path: "/credits",
-    title: "Photo credits | Credtent",
+    title: `Photo credits | ${hostLabel(site)}`,
     description: "Photo credits and licenses for images on this Credtent site.",
     eyebrow: "Credits",
     h1: "Photo credits",
     capsule: "Stock photographs are not pictures of Credtent customers, staff, or partners.",
     crumbs: [{ name: "Photo credits", href: site.origin + "/credits" }],
-    faq: [{ q: "Which licenses apply?", a: "Pexels photographs use the Pexels License. Unsplash photographs use the Unsplash License. Team portraits are company images." }],
+    faq: [],
     main: `<section class="section"><div class="wrap prose"><ul>${items}</ul><p>Pexels license: <a href="https://www.pexels.com/license/">pexels.com/license</a>. Unsplash license: <a href="https://unsplash.com/license">unsplash.com/license</a>.</p></div></section>`
   };
 }
@@ -186,7 +194,7 @@ function notFound(site) {
     eyebrow: "404",
     h1: "Page not found.",
     capsule: "The link may have moved. Use the sitemap to continue.",
-    faq: [{ q: "Where should I go?", a: "Start at the home page or open the sitemap." }],
+    faq: [],
     main: `<section class="section"><div class="wrap"><a class="btn" href="/">Back home</a></div></section>`
   };
 }
@@ -260,7 +268,7 @@ function legacyPage(site, file, pagePath, opts = {}) {
     capsule: opts.capsule || description || "Ported page.",
     noindex: Boolean(opts.noindex) || pagePath.startsWith("/parking"),
     crumbs: [{ name: opts.crumb || "Page", href: site.origin + pagePath }],
-    faq: opts.faq || [{ q: "Is this the current public page?", a: "It is a preview port with the redesign copy rules applied." }],
+    faq: opts.faq || [],
     main: `<section class="section"><div class="wrap legacy">${opts.intro || ""}${body}</div></section>`
   };
 }
@@ -350,10 +358,48 @@ function writeSitemapXml(dir, site, pages) {
 }
 
 function writeLlms(dir, site) {
-  const com = site.id === "com";
-  const body = com
-    ? `# Credtent\n> Delaware Public Benefit Corporation. Corporate site for content owners and AI companies.\n\n${LICENSE_SENTENCE}\n\n## Licensing\n- [Home](https://credtent.com/): ${CAPSULE.comHome}\n- [AI companies](https://credtent.com/ai-companies)\n- [Content owners](https://credtent.com/content-owners)\n- [AI training](https://credtent.com/ai-training)\n- [Citation licensing](https://credtent.com/citation-licensing)\n- [Valuation](https://credtent.com/valuation)\n- [Company map](https://credtent.com/guides/ai-training-data-licensing-companies/)\n\nOpt-out and Creative Consent: see https://credtent.org/llms.txt\n`
-    : `# Credtent\n> Delaware Public Benefit Corporation. Resources for creatives.\n\n${CAPSULE.orgHome}\n\n## For creatives\n- [Home](https://credtent.org/)\n- [Free opt-out](https://credtent.org/opt-out)\n- [Creative Consent](https://credtent.org/creative-consent)\n- [Auditing](https://credtent.org/resources/auditing)\n- [Opt-out limitations](https://credtent.org/resources/opt-out-limitations)\n- [Licensing guide](https://credtent.org/guides/ai-training-data-licensing/)\n\nCorporate licensing, valuation, and the company map: see https://credtent.com/llms.txt\n`;
+  const body = site.id === "com"
+    ? `# Credtent
+> Delaware Public Benefit Corporation and a certified B Corp. Corporate site for content owners and AI companies.
+
+${LICENSE_SENTENCE}
+
+## Licensing
+- [Home](https://credtent.com/): ${CAPSULE.comHome}
+- [AI companies](https://credtent.com/ai-companies): License a defined corpus with a named manifest and a disclosure pack. The statutes still bind the developer.
+- [Content owners](https://credtent.com/content-owners): Choose what to license, agree terms, and get paid. Valuation can stand on its own.
+- [AI training](https://credtent.com/ai-training): License content from creatives and subject-matter experts, with a named list of works and separate training and display rights.
+- [Citation licensing](https://credtent.com/citation-licensing): Set excerpt limits, support visits to the source, and agree compensation for licensed appearances in AI answers.
+- [Valuation](https://credtent.com/valuation): Understand your content's value for AI licensing. An estimate supports a conversation. It is not a guaranteed price.
+- [Company map](https://credtent.com/guides/ai-training-data-licensing-companies/): A neutral map of public licensing programs, marketplaces, and registries. It is not a list of Credtent customers.
+
+## Company
+- [About](https://credtent.com/about): Credtent, Inc. is a Delaware Public Benefit Corporation and a certified B Corp, founded by Eric R. Burgess and Dr. Galen Buckwalter.
+- [FAQ](https://credtent.com/faq): Answers for AI companies and content owners on licensing scope, documentation, and valuation limits.
+- [Pricing](https://credtent.com/pricing): Opt-Out Premium is US$49 for individuals and US$249+ for organizations. The Collaborithmic Age lists its published book prices.
+- [Contact](https://credtent.com/contact): AI companies can use the licensing form. Content owners start an inquiry in the app. Other questions open an email.
+
+Opt-out and Creative Consent: see https://credtent.org/llms.txt
+`
+    : `# Credtent
+> Delaware Public Benefit Corporation and a certified B Corp. Resources for creatives.
+
+${CAPSULE.orgHome}
+
+## For creatives
+- [Home](https://credtent.org/): ${CAPSULE.orgHome}
+- [Free opt-out](https://credtent.org/opt-out): Register preferences once. Credtent records the reservation and sends notices to AI companies. Free, and not a guarantee.
+- [Creative Consent](https://credtent.org/creative-consent): Full Protection means consent comes first. See how Credtent describes Full, Optional, and No Protection.
+- [Auditing](https://credtent.org/resources/auditing): Monthly audits record observable model responses. They are not proof of dataset inclusion.
+- [Opt-out limitations](https://credtent.org/resources/opt-out-limitations): What Credtent's free opt-out does not do: it cannot force every company to act, and it does not erase datasets.
+- [Licensing guide](https://credtent.org/guides/ai-training-data-licensing/): What a training license grants, what it does not grant, and how rights holders keep the choice to opt out.
+- [Premium](https://credtent.org/premium): Monthly audits of observable model responses. US$49 annually for individuals and US$249+ for organizations.
+- [Standards](https://credtent.org/standards): A working catalog of AI disclosure standards: badges, registries, watermarks, and protocols maintained by Credtent.
+- [Blog](https://credtent.org/blog): Writing on AI, creative rights, and copyright, published on Substack and Medium.
+- [Contact](https://credtent.org/contact): Contact Credtent about opt-out, Creative Consent, and resources.
+
+Corporate licensing, valuation, and the company map: see https://credtent.com/llms.txt
+`;
   fs.writeFileSync(path.join(dir, "llms.txt"), body);
 }
 
@@ -377,22 +423,57 @@ function noindexHeader(source) {
   return { source, headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] };
 }
 
-function vercel(site) {
-  const headers = PRODUCTION ? [] : [noindexHeader("/(.*)")];
+function hostNoindex(site) {
+  const host = site.id === "com" ? "credtent\\.com" : "credtent\\.org";
+  return {
+    source: "/(.*)",
+    missing: [{ type: "host", value: `(www\\.)?${host}` }],
+    headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }]
+  };
+}
+
+function slashRedirects(site, pages, reserved) {
+  const rules = [];
+  for (const page of pages) {
+    if (page.file || !page.path || page.path === "/") continue;
+    const keepSlash = Boolean(page.trailingSlash) || page.path.endsWith("/");
+    const bare = page.path.replace(/\/$/, "");
+    const source = keepSlash ? bare : `${bare}/`;
+    if (reserved.has(source)) continue;
+    const destination = site.origin + (keepSlash ? `${bare}/` : bare);
+    rules.push(redirectRule(source, destination, 301));
+  }
+  return rules;
+}
+
+function vercel(site, pages) {
+  // The host gate is first in both modes: every host except the real one stays noindex.
+  // Preview builds also send an unconditional sitewide noindex. Production does not.
+  // trailingSlash is left unset. Vercel's trailingSlash:false 308s every slash URL,
+  // including /guides/*/, and a redirect back to the slash form loops. Slash duplicates
+  // are 301s instead, and guide canonicals keep their slash.
+  const headers = [hostNoindex(site)];
+  if (!PRODUCTION) headers.push(noindexHeader("/(.*)"));
   if (site.id === "org") {
-    headers.push(
-      noindexHeader("/parking/(.*)"),
-      noindexHeader("/resources/what-an-opt-out-can-do"),
-      noindexHeader("/resources/what-an-opt-out-can-do/"),
-      noindexHeader("/resources/how-to-read-platform-terms"),
-      noindexHeader("/resources/how-to-read-platform-terms/"),
-      noindexHeader("/resources/use-ai-without-giving-up-judgment"),
-      noindexHeader("/resources/use-ai-without-giving-up-judgment/")
-    );
+    for (const source of [
+      "/parking/(.*)",
+      "/resources/what-an-opt-out-can-do",
+      "/resources/what-an-opt-out-can-do/",
+      "/resources/how-to-read-platform-terms",
+      "/resources/how-to-read-platform-terms/",
+      "/resources/use-ai-without-giving-up-judgment",
+      "/resources/use-ai-without-giving-up-judgment/",
+      "/creative-consent",
+      "/creative-consent/",
+      "/creative-consent/platforms",
+      "/creative-consent/platforms/",
+      "/creative-consent/guide",
+      "/creative-consent/guide/"
+    ]) headers.push(noindexHeader(source));
   }
   // /creative-origin stays a page on this host. Do not send it to the registry until Eric decides.
   // /partners is withheld (302 to home) so the path can return after names are reconfirmed.
-  const redirects = site.id === "org" ? [
+  const specific = site.id === "org" ? [
     ...crossHostVariants("/for-ai-companies", "https://credtent.com/ai-companies"),
     ...crossHostVariants("/for-content-owners", "https://credtent.com/content-owners"),
     ...crossHostVariants("/pricing", "https://credtent.com/pricing"),
@@ -421,9 +502,11 @@ function vercel(site) {
     redirectRule("/parking/blog.html", "https://credtent.org/parking/blog", 301),
     redirectRule("/parking/blog/disneys-ai-gambit-how-a-billion-dollar.html", "https://credtent.org/parking/blog/disneys-ai-gambit-how-a-billion-dollar", 301),
     redirectRule("/parking/lws.html", "https://credtent.org/parking/lws", 301),
-    redirectRule("/parking/services.html", "https://credtent.org/parking/services", 301),
-    ...holdPartners()
-  ] : holdPartners();
+    redirectRule("/parking/services.html", "https://credtent.org/parking/services", 301)
+  ] : [];
+  const partners = holdPartners();
+  const reserved = new Set([...specific, ...partners].map((rule) => rule.source));
+  const redirects = [...specific, ...slashRedirects(site, pages, reserved), ...partners];
   fs.writeFileSync(path.join(site.dir, "vercel.json"), JSON.stringify({ headers, redirects }, null, 2) + "\n");
 }
 
@@ -445,16 +528,16 @@ async function main() {
   const com = [
     ...comPages(imagesFor.com),
     legacyPage(SITES.com, "privacy-policy.html", "/privacy-policy", {
-      title: "Privacy Policy | Credtent",
+      title: `Privacy Policy | ${hostLabel(SITES.com)}`,
       description: "How Credtent collects, uses, and shares personal information when you use credtent.com, and how to contact the company about a privacy request.",
       h1: "Privacy Policy",
       eyebrow: "Legal",
       capsule: "How Credtent collects, uses, and protects information.",
       crumb: "Privacy Policy",
-      intro: `<p>Ported from the April 9, 2025 policy. On this host, also write to <a href="mailto:hello@credtent.com">hello@credtent.com</a>.</p>${ADDRESS_HTML}`
+      intro: `<p>Last updated April 9, 2025. On this host, also write to <a href="mailto:hello@credtent.com">hello@credtent.com</a>.</p>${ADDRESS_HTML}`
     }),
     legacyPage(SITES.com, "terms-of-service.html", "/terms-of-service", {
-      title: "Terms of Service | Credtent",
+      title: `Terms of Service | ${hostLabel(SITES.com)}`,
       description: "These terms govern use of credtent.com, Credtent's site for content owners and AI companies, including the services described on these pages.",
       h1: "Terms of Service",
       eyebrow: "Legal",
@@ -474,6 +557,7 @@ async function main() {
     ...orgPages(imagesFor.org),
     legacyPage(SITES.org, "standards.html", "/standards", {
       title: "AI disclosure standards | Credtent",
+      description: "A working catalog of AI disclosure standards: badges, registries, watermarks, and protocols maintained by Credtent.",
       h1: "A working catalog of AI disclosure standards",
       eyebrow: "Standards",
       capsule: "A catalog of disclosure badges, registries, watermarks, and protocols maintained by Credtent.",
@@ -481,7 +565,7 @@ async function main() {
       faq: [{ q: "Does this catalog certify the listed projects?", a: "No. It describes public standards. It is not an endorsement, and it is not a Credtent certification." }]
     }),
     legacyPage(SITES.org, "privacy-policy.html", "/privacy-policy", {
-      title: "Privacy Policy | Credtent",
+      title: `Privacy Policy | ${hostLabel(SITES.org)}`,
       description: "How Credtent collects, uses, and shares personal information on credtent.org for creatives, and how to contact the company about a privacy request.",
       h1: "Privacy Policy",
       eyebrow: "Legal",
@@ -490,7 +574,7 @@ async function main() {
       intro: ADDRESS_HTML
     }),
     legacyPage(SITES.org, "terms-of-service.html", "/terms-of-service", {
-      title: "Terms of Service | Credtent",
+      title: `Terms of Service | ${hostLabel(SITES.org)}`,
       description: "These terms govern use of credtent.org, including the free opt-out, Creative Consent, and the other resources Credtent publishes for creatives.",
       h1: "Terms of Service",
       eyebrow: "Legal",
@@ -559,7 +643,7 @@ async function main() {
     fs.writeFileSync(path.join(site.dir, "robots.txt"), PRODUCTION ? productionRobots : robotsPreview(site.origin));
     writeSitemapXml(site.dir, site, withMeta);
     writeLlms(site.dir, site);
-    vercel(site);
+    vercel(site, withMeta);
     fs.writeFileSync(path.join(site.dir, "credits.json"), JSON.stringify({
       generatedFrom: "build manifest",
       note: "Filmmaker credit uses an ID-only photo URL.",
