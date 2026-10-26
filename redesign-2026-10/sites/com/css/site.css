@@ -594,8 +594,18 @@ figcaption, .credit {
 /* Parked eyebrows and other small orange text. Darker orange on light backgrounds only. */
 .legacy .eyebrow { color: var(--data); }
 .legacy [style*="var(--c-navy)"] .eyebrow { color: var(--paper); }
-.legacy [style*="color:var(--c-orange)"] { color: var(--data) !important; }
-.legacy [style*="var(--c-navy)"] [style*="color:var(--c-orange)"] { color: var(--c-orange) !important; }
+.legacy [style*="color:var(--c-orange)"],
+.legacy [style*="color:#eb8d1e"],
+.legacy [style*="color:#EB8D1E"] { color: var(--data) !important; }
+.legacy [style*="var(--c-navy)"] [style*="color:var(--c-orange)"],
+.legacy [style*="var(--c-navy)"] [style*="color:#eb8d1e"],
+.legacy [style*="var(--c-navy)"] [style*="color:#EB8D1E"] { color: var(--c-orange) !important; }
+.guide-table-wrap { overflow-x: auto; max-width: 100%; }
+.guide-table { width: 100%; }
+.guide-table td a {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
 .legacy .step-num {
   color: var(--ink);
   font-size: 20px;
