@@ -363,7 +363,7 @@ export function orgPages(images) {
         <h2 style="margin-top:36px">Creative Consent</h2>
         <p>How a platform treats training: Full Protection, Optional Protection, or No Protection. <a href="/creative-consent">Read Creative Consent</a>.</p>
         <h2 style="margin-top:36px">Commercial Safety</h2>
-        <p>A badge for AI companies, with Full, Guardrail, and Provisional levels. Inquiry: <a href="https://credtent.com/contact">contact Credtent</a>.</p>
+        <p>A badge for AI companies, with Full, Guardrail, and Provisional levels. Inquiry: <a href="https://credtent.com/contact#other">contact Credtent</a>.</p>
         <p class="fine">Disclosure badges are free to use. Expert-led certification is paid because review is labor. <a href="/standards">Browse the standards catalog</a>.</p>
       </div></section>`
     },

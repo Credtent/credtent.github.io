@@ -1,5 +1,5 @@
-import { ADDRESS_HTML, BOOK, CAPSULE, LICENSE_SENTENCE, OPT_OUT_FLOW, SIGN_UP, price } from "./copy.mjs";
-import { ORG_ID, diagramHtml, figure, inquiryForm, picture } from "./render.mjs";
+import { ADDRESS_HTML, BOOK, CAPSULE, CONTENT_PARTNER_INQUIRY, LICENSE_SENTENCE, OPT_OUT_FLOW, SIGN_UP, price } from "./copy.mjs";
+import { ORG_ID, diagramHtml, figure, inquiryForm, picture, tallyEmbed } from "./render.mjs";
 
 function editions() {
   return `<ul class="editions">
@@ -132,7 +132,7 @@ export function comPages(images) {
       capsule: "Credtent helps authors, publishers, studios, archives, and data providers decide which uses to permit, understand value, and license on terms they set.",
       crumbs: [{ name: "Content owners", href: "https://credtent.com/content-owners" }],
       crumbName: "Content owners",
-      actions: `<div class="btn-row"><a class="btn" href="/contact">Talk with us</a><a class="btn btn-ghost" href="${SIGN_UP}">Sign up</a></div>`,
+      actions: `<div class="btn-row"><a class="btn" href="${CONTENT_PARTNER_INQUIRY}">Talk with us</a><a class="btn btn-ghost" href="${SIGN_UP}">Sign up</a></div>`,
       media: hero("editor", { priority: true }),
       preload: preload("editor"),
       faq: [
@@ -155,7 +155,7 @@ export function comPages(images) {
       capsule: CAPSULE.training,
       lede: LICENSE_SENTENCE,
       crumbs: [{ name: "AI companies", href: "https://credtent.com/ai-companies" }],
-      actions: `<div class="btn-row"><a class="btn" href="/ai-training">Discuss training licensing</a><a class="btn btn-ghost" href="/contact">Contact us</a></div>`,
+      actions: `<div class="btn-row"><a class="btn" href="/ai-training">Discuss training licensing</a><a class="btn btn-ghost" href="/contact#ai-licensing">Contact us</a></div>`,
       media: hero("aiTeam", { priority: true }),
       preload: preload("aiTeam"),
       extraLd: [serviceNode("https://credtent.com/ai-companies#service", "Licensing for AI companies", CAPSULE.training)],
@@ -196,7 +196,7 @@ export function comPages(images) {
       h1: "More control over your content in AI answers.",
       capsule: CAPSULE.citation,
       lede: "Set excerpt limits. Support visits to the source. Get paid for licensed use. Your content creates value when it appears in AI answers. Credtent's Generative Results Referencing licenses help you agree how much is shown, how people reach the source, and how you're compensated for its use.",
-      actions: `<div class="btn-row"><a class="btn" href="/contact">Explore citation licensing</a><a class="btn btn-ghost" href="/contact">Contact us</a></div>`,
+      actions: `<div class="btn-row"><a class="btn" href="/contact#other">Explore citation licensing</a><a class="btn btn-ghost" href="/contact#other">Contact us</a></div>`,
       media: hero("citation", { priority: true, sizes: "(min-width: 1000px) 560px, 100vw" }),
       preload: preload("citation"),
       crumbs: [{ name: "Citation licensing", href: "https://credtent.com/citation-licensing" }],
@@ -216,7 +216,7 @@ export function comPages(images) {
         <h2>Make the relationship explicit.</h2>
         <div class="grid-2" style="margin-top:24px">
           <article class="card"><h3>For creatives</h3><p>Explore citation licensing and communicate your preferences about AI use. Agree attribution, excerpts, and compensation.</p><p><a href="/content-owners">Explore your options</a></p></article>
-          <article class="card"><h3>For AI companies</h3><p>Secure clear permissions, provide accurate attribution, agree compensation, and respond to creative notices.</p><p><a href="/contact">Talk about citation licensing</a></p></article>
+          <article class="card"><h3>For AI companies</h3><p>Secure clear permissions, provide accurate attribution, agree compensation, and respond to creative notices.</p><p><a href="/contact#other">Talk about citation licensing</a></p></article>
         </div>
       </div></section>
       <section class="section section-white"><div class="wrap">
@@ -254,7 +254,7 @@ export function comPages(images) {
       h1: "What is your content worth for AI licensing?",
       capsule: CAPSULE.valuation,
       lede: "Understand your content's value. Explore your licensing options.",
-      actions: `<div class="btn-row"><a class="btn" href="/contact">Request a valuation</a></div>`,
+      actions: `<div class="btn-row"><a class="btn" href="/contact#other">Request a valuation</a></div>`,
       crumbs: [{ name: "Services", href: "https://credtent.com/services" }, { name: "Content valuation", href: "https://credtent.com/valuation" }],
       extraLd: [serviceNode("https://credtent.com/valuation#service", "Content valuation", CAPSULE.valuation)],
       faq: [
@@ -269,7 +269,7 @@ export function comPages(images) {
       </div></section>
       <section class="section"><div class="wrap grid-2">
         <article class="card"><h3>Baseline valuation</h3><p>Credtent provides a baseline valuation when content is added. It gives the licensing conversation an informed starting point.</p></article>
-        <article class="card"><h3>Paid custom valuation</h3><p>Optional deeper assessment considers your catalog, supported evidence, intended AI use, and the questions you need answered.</p><p><a href="/contact">Discuss a custom assessment</a></p></article>
+        <article class="card"><h3>Paid custom valuation</h3><p>Optional deeper assessment considers your catalog, supported evidence, intended AI use, and the questions you need answered.</p><p><a href="/contact#other">Discuss a custom assessment</a></p></article>
       </div></section>
       <section class="section section-white"><div class="wrap">
         <h2>More than volume or tokens.</h2>
@@ -288,7 +288,7 @@ export function comPages(images) {
         <p>Credtent's proposed approach brings context and supported indicators into constructive pricing discussions. Third-party ratings and evidence must be appropriately sourced; unsupported ratings are not part of this preview.</p>
         <h2>Valuation can stand on its own.</h2>
         <p>You may already have a buyer or a licensing agreement. Obtain a valuation independently, then decide whether you want help finding licensing partners or negotiating another opportunity.</p>
-        <div class="btn-row"><a class="btn" href="/contact">Request a valuation</a><a class="btn btn-ghost" href="/ai-training">Discuss licensing options</a></div>
+        <div class="btn-row"><a class="btn" href="/contact#other">Request a valuation</a><a class="btn btn-ghost" href="/ai-training">Discuss licensing options</a></div>
       </div></section>`
     },
     {
@@ -299,7 +299,7 @@ export function comPages(images) {
       h1: "Build on expertise. Keep it fresh.",
       capsule: CAPSULE.training,
       lede: "License content from creatives and subject-matter experts, understand its origins, and build relationships that provide access to new work over time. " + LICENSE_SENTENCE,
-      actions: `<div class="btn-row"><a class="btn" href="/contact">Discuss training licensing</a></div>`,
+      actions: `<div class="btn-row"><a class="btn" href="/contact#ai-licensing">Discuss training licensing</a></div>`,
       media: hero("training", { priority: true }),
       preload: preload("training"),
       crumbs: [{ name: "Services", href: "https://credtent.com/services" }, { name: "AI training licensing", href: "https://credtent.com/ai-training" }],
@@ -341,7 +341,7 @@ export function comPages(images) {
         <h2>Permission, context, and partnership.</h2>
         <p>Our service focuses on connecting AI teams with content owners, assessing value, and agreeing clear terms. Research findings are distinct from this proposed service value.</p>
         <p><a href="/valuation">Explore content valuation</a> · <a href="/citation-licensing">Explore citation licensing</a></p>
-        <div class="btn-row"><a class="btn" href="/contact">Contact our team</a></div>
+        <div class="btn-row"><a class="btn" href="/contact#ai-licensing">Contact our team</a></div>
       </div></section>`
     },
     {
@@ -423,35 +423,51 @@ export function comPages(images) {
     {
       path: "/contact",
       title: "Contact Credtent",
-      description: "Contact Credtent about opt-out, auditing, valuation, or licensing.",
+      description: "AI companies can use the licensing form. Content owners start an inquiry in the app. Other questions open an email.",
       eyebrow: "Contact",
       h1: "Start a conversation.",
-      capsule: "Write to Credtent about opt-out, auditing, valuation, or licensing. Sending opens an email to sales@credtent.com.",
+      capsule: "AI companies can use the licensing form on this page. Content owners start an inquiry in the app. Valuation, citation licensing, and other notes still open an email to sales@credtent.com.",
       crumbs: [{ name: "Contact", href: "https://credtent.com/contact" }],
       faq: [
         { q: "Which email should companies use?", a: "Write to hello@credtent.com." },
         { q: "Where is Credtent?", a: "Credtent, Inc. is at 1822 E. Route 66, Suite A353, Glendora, California 91740." }
       ],
-      main: `<section class="section section-white"><div class="wrap grid-2">
-        ${inquiryForm({
-          subject: "Credtent inquiry",
-          submitLabel: "Send",
-          note: "Sending opens an email to sales@credtent.com.",
-          fields: `<label>Name <input name="name" type="text" autocomplete="name" required></label>
+      main: `<section class="section section-white"><div class="wrap">
+        <div class="grid-2">
+          <div id="ai-licensing">
+            <h2>AI companies</h2>
+            <p>Licensing inquiry for teams training models or using licensed work in AI answers.</p>
+            ${tallyEmbed({ id: "BzbXK7", title: "AI Company Licensing Inquiry" })}
+          </div>
+          <div id="content-partners">
+            <h2>Content owners</h2>
+            <p>Tell us about your catalog, the rights you hold, and the uses you want to offer.</p>
+            <div class="btn-row"><a class="btn" href="${CONTENT_PARTNER_INQUIRY}">Talk with us</a></div>
+          </div>
+        </div>
+        <div class="grid-2" id="other" style="margin-top:36px">
+          <div>
+            <h2>Valuation, citation licensing, or another question</h2>
+            ${inquiryForm({
+              subject: "Credtent inquiry",
+              submitLabel: "Send",
+              note: "Sending opens an email to sales@credtent.com.",
+              fields: `<label>Name <input name="name" type="text" autocomplete="name" required></label>
           <label>Email <input name="email" type="email" autocomplete="email" required></label>
           <label>Topic
             <select name="topic">
               <option>Valuation</option>
-              <option>AI training licensing</option>
               <option>Citation licensing</option>
               <option>Something else</option>
             </select>
           </label>
           <label>Message <textarea name="message" required></textarea></label>`
-        })}
-        <div>
-          <p><a href="mailto:hello@credtent.com">hello@credtent.com</a></p>
-          ${ADDRESS_HTML}
+            })}
+          </div>
+          <div>
+            <p><a href="mailto:hello@credtent.com">hello@credtent.com</a></p>
+            ${ADDRESS_HTML}
+          </div>
         </div>
       </div></section>`
     },
@@ -506,7 +522,7 @@ export function comPages(images) {
       main: `<section class="section section-white"><div class="wrap prose">
         <p>Publishers, studios, and other organizations that publish human-authored work can ask Credtent to review the editorial process behind that work. The review is about process and disclosure, not a promise that every future work is human-made.</p>
         <p>Creative Origin sits alongside <a href="https://credtent.org/creative-consent">Creative Consent</a> for platforms and the badge overview on <a href="https://credtent.org/badges/">credtent.org/badges</a>.</p>
-        <div class="btn-row"><a class="btn" href="/contact">Tell us about your editorial process</a></div>
+        <div class="btn-row"><a class="btn" href="/contact#other">Tell us about your editorial process</a></div>
         <p class="small">Creative Origin for publishers lives on credtent.com. credtent.org/certified-publisher redirects here.</p>
       </div></section>`
     }
