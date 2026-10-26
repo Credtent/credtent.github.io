@@ -70,24 +70,72 @@
       <section class="section section-white"><div class="wrap">
         <h2>Represent a platform?</h2>
         <p class="lede">Help keep the record accurate. Submit a clarification, correction, or updated policy for review.</p>
-        <form class="form" action="#" method="post" style="margin-top:18px">
-          <!-- TODO(Eric): this form does not post anywhere live. -->
+        <form class="form" action="mailto:sales@credtent.com" method="post" enctype="text/plain" data-subject="Creative Consent platform clarification" style="margin-top:18px">
           <label>Platform / organization <input name="platform" type="text" required></label>
           <label>Supporting policy URL <input name="policy" type="url" required></label>
           <label>Scope and requested correction <textarea name="scope" required></textarea></label>
           <button class="btn" type="submit">Submit for review</button>
-          <p class="small">Submissions are reviewed. They do not automatically change an assessment.</p>
+          <p class="small">Submissions are reviewed. They do not automatically change an assessment. Sending opens an email to sales@credtent.com.</p>
+          <noscript><p class="small"><a href="mailto:sales@credtent.com">Email sales@credtent.com</a></p></noscript>
+          <script>
+          (function () {
+            var form = document.currentScript.parentElement;
+            form.addEventListener("submit", function (event) {
+              event.preventDefault();
+              var lines = [];
+              var labels = form.querySelectorAll("label");
+              for (var i = 0; i < labels.length; i++) {
+                var field = labels[i].querySelector("input, textarea, select");
+                if (!field || !field.name) continue;
+                var copy = labels[i].cloneNode(true);
+                var controls = copy.querySelectorAll("input, textarea, select");
+                for (var j = 0; j < controls.length; j++) controls[j].remove();
+                var name = copy.textContent.replace(/\s+/g, " ").trim().replace(/[.]\s*$/, "");
+                var value = field.type === "checkbox" ? (field.checked ? "Yes" : "No") : field.value;
+                lines.push(name + ": " + value);
+              }
+              var mailSubject = form.getAttribute("data-subject") || "Credtent inquiry";
+              var topic = form.querySelector("[name=topic]");
+              if (topic && topic.value) mailSubject += ": " + topic.value;
+              window.location.href = "mailto:sales@credtent.com?subject=" + encodeURIComponent(mailSubject) + "&body=" + encodeURIComponent(lines.join("\n"));
+            });
+          })();
+          </script>
         </form>
       </div></section>
       <section class="section"><div class="wrap">
         <h2>Get Creative Consent updates.</h2>
         <p class="lede">Choose to receive relevant policy and assessment updates. You can unsubscribe at any time.</p>
-        <form class="form" action="#" method="post" style="margin-top:18px">
-          <!-- TODO(Eric): this form does not post anywhere live. -->
+        <form class="form" action="mailto:sales@credtent.com" method="post" enctype="text/plain" data-subject="Creative Consent updates" style="margin-top:18px">
           <label>Email address <input name="email" type="email" autocomplete="email" required></label>
           <label><span><input name="consent" type="checkbox"> Yes, send me Creative Consent updates.</span></label>
           <button class="btn" type="submit">Subscribe to updates</button>
-          <p class="small">The guide and platform list remain open whether or not you subscribe.</p>
+          <p class="small">The guide and platform list remain open whether or not you subscribe. Sending opens an email to sales@credtent.com.</p>
+          <noscript><p class="small"><a href="mailto:sales@credtent.com">Email sales@credtent.com</a></p></noscript>
+          <script>
+          (function () {
+            var form = document.currentScript.parentElement;
+            form.addEventListener("submit", function (event) {
+              event.preventDefault();
+              var lines = [];
+              var labels = form.querySelectorAll("label");
+              for (var i = 0; i < labels.length; i++) {
+                var field = labels[i].querySelector("input, textarea, select");
+                if (!field || !field.name) continue;
+                var copy = labels[i].cloneNode(true);
+                var controls = copy.querySelectorAll("input, textarea, select");
+                for (var j = 0; j < controls.length; j++) controls[j].remove();
+                var name = copy.textContent.replace(/\s+/g, " ").trim().replace(/[.]\s*$/, "");
+                var value = field.type === "checkbox" ? (field.checked ? "Yes" : "No") : field.value;
+                lines.push(name + ": " + value);
+              }
+              var mailSubject = form.getAttribute("data-subject") || "Credtent inquiry";
+              var topic = form.querySelector("[name=topic]");
+              if (topic && topic.value) mailSubject += ": " + topic.value;
+              window.location.href = "mailto:sales@credtent.com?subject=" + encodeURIComponent(mailSubject) + "&body=" + encodeURIComponent(lines.join("\n"));
+            });
+          })();
+          </script>
         </form>
       </div></section>
     <section class="section section-tight" id="faq">

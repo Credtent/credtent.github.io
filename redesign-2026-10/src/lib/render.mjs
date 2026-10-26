@@ -327,4 +327,41 @@ export function diagramHtml() {
   </div>`;
 }
 
+const SALES_EMAIL = "sales@credtent.com";
+
+export function inquiryForm({ subject, fields, submitLabel, note, style }) {
+  const mailto = `mailto:${SALES_EMAIL}`;
+  const styleAttr = style ? ` style="${style}"` : "";
+  const noteHtml = note ? `\n          <p class="small">${note}</p>` : "";
+  return `<form class="form" action="${mailto}" method="post" enctype="text/plain" data-subject="${esc(subject)}"${styleAttr}>
+          ${fields}
+          <button class="btn" type="submit">${submitLabel}</button>${noteHtml}
+          <noscript><p class="small"><a href="${mailto}">Email ${SALES_EMAIL}</a></p></noscript>
+          <script>
+          (function () {
+            var form = document.currentScript.parentElement;
+            form.addEventListener("submit", function (event) {
+              event.preventDefault();
+              var lines = [];
+              var labels = form.querySelectorAll("label");
+              for (var i = 0; i < labels.length; i++) {
+                var field = labels[i].querySelector("input, textarea, select");
+                if (!field || !field.name) continue;
+                var copy = labels[i].cloneNode(true);
+                var controls = copy.querySelectorAll("input, textarea, select");
+                for (var j = 0; j < controls.length; j++) controls[j].remove();
+                var name = copy.textContent.replace(/\\s+/g, " ").trim().replace(/[.]\\s*$/, "");
+                var value = field.type === "checkbox" ? (field.checked ? "Yes" : "No") : field.value;
+                lines.push(name + ": " + value);
+              }
+              var mailSubject = form.getAttribute("data-subject") || "Credtent inquiry";
+              var topic = form.querySelector("[name=topic]");
+              if (topic && topic.value) mailSubject += ": " + topic.value;
+              window.location.href = "${mailto}?subject=" + encodeURIComponent(mailSubject) + "&body=" + encodeURIComponent(lines.join("\\n"));
+            });
+          })();
+          </script>
+        </form>`;
+}
+
 export { ADDRESS_HTML, ORG_ID };

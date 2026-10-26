@@ -44,14 +44,39 @@
     </div>
   </header>
   <main id="content">
-    <div class="wrap section-tight"><p class="crumbs"><span>Contact</span></p><p class="eyebrow">Contact</p><h1>Contact Credtent.</h1><p class="capsule">Creatives can write to hello@credtent.org. This preview form does not send a message.</p></div>
+    <div class="wrap section-tight"><p class="crumbs"><span>Contact</span></p><p class="eyebrow">Contact</p><h1>Contact Credtent.</h1><p class="capsule">Creatives can write to hello@credtent.org. Sending opens an email to sales@credtent.com.</p></div>
     <section class="section"><div class="wrap grid-2">
-        <form class="form" action="#" method="post">
-          <!-- TODO(Eric): this form does not post anywhere live. -->
-          <label>Name <input name="name" type="text" required></label>
-          <label>Email <input name="email" type="email" required></label>
+        <form class="form" action="mailto:sales@credtent.com" method="post" enctype="text/plain" data-subject="Credtent inquiry">
+          <label>Name <input name="name" type="text" autocomplete="name" required></label>
+          <label>Email <input name="email" type="email" autocomplete="email" required></label>
           <label>Message <textarea name="message" required></textarea></label>
           <button class="btn" type="submit">Send</button>
+          <p class="small">Sending opens an email to sales@credtent.com.</p>
+          <noscript><p class="small"><a href="mailto:sales@credtent.com">Email sales@credtent.com</a></p></noscript>
+          <script>
+          (function () {
+            var form = document.currentScript.parentElement;
+            form.addEventListener("submit", function (event) {
+              event.preventDefault();
+              var lines = [];
+              var labels = form.querySelectorAll("label");
+              for (var i = 0; i < labels.length; i++) {
+                var field = labels[i].querySelector("input, textarea, select");
+                if (!field || !field.name) continue;
+                var copy = labels[i].cloneNode(true);
+                var controls = copy.querySelectorAll("input, textarea, select");
+                for (var j = 0; j < controls.length; j++) controls[j].remove();
+                var name = copy.textContent.replace(/\s+/g, " ").trim().replace(/[.]\s*$/, "");
+                var value = field.type === "checkbox" ? (field.checked ? "Yes" : "No") : field.value;
+                lines.push(name + ": " + value);
+              }
+              var mailSubject = form.getAttribute("data-subject") || "Credtent inquiry";
+              var topic = form.querySelector("[name=topic]");
+              if (topic && topic.value) mailSubject += ": " + topic.value;
+              window.location.href = "mailto:sales@credtent.com?subject=" + encodeURIComponent(mailSubject) + "&body=" + encodeURIComponent(lines.join("\n"));
+            });
+          })();
+          </script>
         </form>
         <div>
           <p><a href="mailto:hello@credtent.org">hello@credtent.org</a></p>

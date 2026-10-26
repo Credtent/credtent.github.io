@@ -244,6 +244,9 @@ function legacyPage(site, file, pagePath, opts = {}) {
   const extracted = extractLegacy(path.join(REPO, file));
   let body = scrub(rewriteLinks(extracted.body, site.origin));
   if (site.id === "com") body = body.replaceAll("hello@credtent.org", "hello@credtent.com");
+  if (site.id === "com" && (pagePath === "/privacy-policy" || pagePath === "/terms-of-service")) {
+    body = body.replace(/\b([A-Za-z0-9._%+-]+)@credtent\.org\b/g, "$1@credtent.com");
+  }
   body = body.replace(/<h1\b[\s\S]*?<\/h1>/i, "");
   const title = scrub(extracted.title).replace(/\(PBC\)/g, "").replace(/\s+/g, " ").trim();
   const description = scrub(extracted.description).replace(/\(PBC\)/g, "").slice(0, 220);

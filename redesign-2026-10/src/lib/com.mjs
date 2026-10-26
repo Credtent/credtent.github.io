@@ -1,5 +1,5 @@
 import { ADDRESS_HTML, BOOK, CAPSULE, LICENSE_SENTENCE, OPT_OUT_FLOW, SIGN_UP, price } from "./copy.mjs";
-import { ORG_ID, diagramHtml, figure, picture } from "./render.mjs";
+import { ORG_ID, diagramHtml, figure, inquiryForm, picture } from "./render.mjs";
 
 function editions() {
   return `<ul class="editions">
@@ -426,15 +426,18 @@ export function comPages(images) {
       description: "Contact Credtent about opt-out, auditing, valuation, or licensing.",
       eyebrow: "Contact",
       h1: "Start a conversation.",
-      capsule: "Write to Credtent about opt-out, auditing, valuation, or licensing. This preview form does not send a message.",
+      capsule: "Write to Credtent about opt-out, auditing, valuation, or licensing. Sending opens an email to sales@credtent.com.",
       crumbs: [{ name: "Contact", href: "https://credtent.com/contact" }],
       faq: [
         { q: "Which email should companies use?", a: "Write to hello@credtent.com." },
         { q: "Where is Credtent?", a: "Credtent, Inc. is at 1822 E. Route 66, Suite A353, Glendora, California 91740." }
       ],
       main: `<section class="section section-white"><div class="wrap grid-2">
-        <form class="form" action="#" method="post">
-          <label>Name <input name="name" type="text" autocomplete="name" required></label>
+        ${inquiryForm({
+          subject: "Credtent inquiry",
+          submitLabel: "Send",
+          note: "Sending opens an email to sales@credtent.com.",
+          fields: `<label>Name <input name="name" type="text" autocomplete="name" required></label>
           <label>Email <input name="email" type="email" autocomplete="email" required></label>
           <label>Topic
             <select name="topic">
@@ -444,10 +447,8 @@ export function comPages(images) {
               <option>Something else</option>
             </select>
           </label>
-          <label>Message <textarea name="message" required></textarea></label>
-          <button class="btn" type="submit">Send</button>
-          <p class="small">This preview does not deliver the form.</p>
-        </form>
+          <label>Message <textarea name="message" required></textarea></label>`
+        })}
         <div>
           <p><a href="mailto:hello@credtent.com">hello@credtent.com</a></p>
           ${ADDRESS_HTML}

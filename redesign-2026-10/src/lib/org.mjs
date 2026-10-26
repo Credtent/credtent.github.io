@@ -1,5 +1,5 @@
 import { ADDRESS_HTML, BOOK, CAPSULE, OPT_OUT_FLOW, SIGN_IN, price } from "./copy.mjs";
-import { ORG_ID, bcorpBadge, figure, picture } from "./render.mjs";
+import { ORG_ID, bcorpBadge, figure, inquiryForm, picture } from "./render.mjs";
 
 function editions() {
   return `<ul class="editions">
@@ -162,25 +162,27 @@ export function orgPages(images) {
       <section class="section section-white"><div class="wrap">
         <h2>Represent a platform?</h2>
         <p class="lede">Help keep the record accurate. Submit a clarification, correction, or updated policy for review.</p>
-        <form class="form" action="#" method="post" style="margin-top:18px">
-          <!-- TODO(Eric): this form does not post anywhere live. -->
-          <label>Platform / organization <input name="platform" type="text" required></label>
+        ${inquiryForm({
+          subject: "Creative Consent platform clarification",
+          submitLabel: "Submit for review",
+          style: "margin-top:18px",
+          note: "Submissions are reviewed. They do not automatically change an assessment. Sending opens an email to sales@credtent.com.",
+          fields: `<label>Platform / organization <input name="platform" type="text" required></label>
           <label>Supporting policy URL <input name="policy" type="url" required></label>
-          <label>Scope and requested correction <textarea name="scope" required></textarea></label>
-          <button class="btn" type="submit">Submit for review</button>
-          <p class="small">Submissions are reviewed. They do not automatically change an assessment.</p>
-        </form>
+          <label>Scope and requested correction <textarea name="scope" required></textarea></label>`
+        })}
       </div></section>
       <section class="section"><div class="wrap">
         <h2>Get Creative Consent updates.</h2>
         <p class="lede">Choose to receive relevant policy and assessment updates. You can unsubscribe at any time.</p>
-        <form class="form" action="#" method="post" style="margin-top:18px">
-          <!-- TODO(Eric): this form does not post anywhere live. -->
-          <label>Email address <input name="email" type="email" autocomplete="email" required></label>
-          <label><span><input name="consent" type="checkbox"> Yes, send me Creative Consent updates.</span></label>
-          <button class="btn" type="submit">Subscribe to updates</button>
-          <p class="small">The guide and platform list remain open whether or not you subscribe.</p>
-        </form>
+        ${inquiryForm({
+          subject: "Creative Consent updates",
+          submitLabel: "Subscribe to updates",
+          style: "margin-top:18px",
+          note: "The guide and platform list remain open whether or not you subscribe. Sending opens an email to sales@credtent.com.",
+          fields: `<label>Email address <input name="email" type="email" autocomplete="email" required></label>
+          <label><span><input name="consent" type="checkbox"> Yes, send me Creative Consent updates.</span></label>`
+        })}
       </div></section>`
     },
     {
@@ -543,19 +545,20 @@ export function orgPages(images) {
       description: "Contact Credtent about opt-out, Creative Consent, and resources.",
       eyebrow: "Contact",
       h1: "Contact Credtent.",
-      capsule: "Creatives can write to hello@credtent.org. This preview form does not send a message.",
+      capsule: "Creatives can write to hello@credtent.org. Sending opens an email to sales@credtent.com.",
       crumbs: [{ name: "Contact", href: "https://credtent.org/contact" }],
       faq: [
         { q: "Which email should I use?", a: "Write to hello@credtent.org. The office is 1822 E. Route 66, Suite A353, Glendora, California 91740." }
       ],
       main: `<section class="section"><div class="wrap grid-2">
-        <form class="form" action="#" method="post">
-          <!-- TODO(Eric): this form does not post anywhere live. -->
-          <label>Name <input name="name" type="text" required></label>
-          <label>Email <input name="email" type="email" required></label>
-          <label>Message <textarea name="message" required></textarea></label>
-          <button class="btn" type="submit">Send</button>
-        </form>
+        ${inquiryForm({
+          subject: "Credtent inquiry",
+          submitLabel: "Send",
+          note: "Sending opens an email to sales@credtent.com.",
+          fields: `<label>Name <input name="name" type="text" autocomplete="name" required></label>
+          <label>Email <input name="email" type="email" autocomplete="email" required></label>
+          <label>Message <textarea name="message" required></textarea></label>`
+        })}
         <div>
           <p><a href="mailto:hello@credtent.org">hello@credtent.org</a></p>
           ${ADDRESS_HTML}
