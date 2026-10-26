@@ -217,7 +217,23 @@ if (!premium.includes('"@type":"Offer"') || !premium.includes('"price":"49"') ||
   fail("org premium is missing Offer markup for 49 and 249+");
 }
 const contact = fs.readFileSync(path.join(sites["https://credtent.com"], "contact/index.html"), "utf8");
-if (/TODO\(Eric\)/.test(contact)) fail("com contact still has a TODO on the page");
+const contactVisible = contact.replace(/<!--[\s\S]*?-->/g, "");
+if (/TODO\(Eric\)/.test(contactVisible)) fail("com contact still has a visible TODO on the page");
+if (!contact.includes("https://tally.so/embed/BzbXK7?hideTitle=1&transparentBackground=1&dynamicHeight=1")) {
+  fail("com contact is missing the AI Company Licensing Inquiry embed");
+}
+if (!contact.includes("https://tally.so/embed/VL10Ga?hideTitle=1&transparentBackground=1&dynamicHeight=1")) {
+  fail("com contact is missing the Content Partner Inquiry embed");
+}
+if (!contact.includes("https://tally.so/r/BzbXK7") || !contact.includes("https://tally.so/r/VL10Ga")) {
+  fail("com contact is missing a Tally fallback link");
+}
+if (!contact.includes("Prefer email? <a href=\"mailto:sales@credtent.com\">sales@credtent.com</a>")) {
+  fail("com contact is missing the sales@ email line");
+}
+if (!/<!-- TODO\(Eric\): No Tally form in this repo matches valuation/.test(contact)) {
+  fail("com contact is missing the TODO for topics without a Tally form");
+}
 const about = fs.readFileSync(path.join(sites["https://credtent.com"], "about/index.html"), "utf8");
 if (/TODO\(Eric\)/.test(about)) fail("com about still has a hidden TODO");
 

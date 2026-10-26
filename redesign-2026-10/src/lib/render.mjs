@@ -329,11 +329,31 @@ export function diagramHtml() {
 
 const SALES_EMAIL = "sales@credtent.com";
 
-export function inquiryForm({ subject, fields, submitLabel, note, style }) {
+// IDs that appear in this repo's history. Do not add an ID that was never committed.
+const KNOWN_TALLY_IDS = new Set(["BzbXK7", "VL10Ga", "2ExeBp", "nroELN"]);
+
+const TALLY_LOADER = `<script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>`;
+
+export function tallyEmbed({ id, title }) {
+  if (!KNOWN_TALLY_IDS.has(id)) {
+    throw new Error(`Refusing Tally id ${id}. It is not in this repo's history.`);
+  }
+  const embed = `https://tally.so/embed/${id}?hideTitle=1&transparentBackground=1&dynamicHeight=1`;
+  const fallback = `https://tally.so/r/${id}`;
+  return `<div class="tally-embed">
+          <iframe data-tally-src="${embed}" loading="lazy" width="640" height="320" title="${esc(title)}"></iframe>
+          ${TALLY_LOADER}
+          <noscript><p class="small"><a href="${fallback}">${fallback}</a></p></noscript>
+          <p class="small">Prefer email? <a href="mailto:${SALES_EMAIL}">${SALES_EMAIL}</a></p>
+        </div>`;
+}
+
+export function inquiryForm({ subject, fields, submitLabel, note, style, todo }) {
   const mailto = `mailto:${SALES_EMAIL}`;
   const styleAttr = style ? ` style="${style}"` : "";
   const noteHtml = note ? `\n          <p class="small">${note}</p>` : "";
-  return `<form class="form" action="${mailto}" method="post" enctype="text/plain" data-subject="${esc(subject)}"${styleAttr}>
+  const todoHtml = todo ? `<!-- TODO(Eric): ${todo} -->\n        ` : "";
+  return `${todoHtml}<form class="form" action="${mailto}" method="post" enctype="text/plain" data-subject="${esc(subject)}"${styleAttr}>
           ${fields}
           <button class="btn" type="submit">${submitLabel}</button>${noteHtml}
           <noscript><p class="small"><a href="${mailto}">Email ${SALES_EMAIL}</a></p></noscript>

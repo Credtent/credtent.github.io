@@ -166,6 +166,7 @@ export function orgPages(images) {
           subject: "Creative Consent platform clarification",
           submitLabel: "Submit for review",
           style: "margin-top:18px",
+          todo: "No Tally form in this repo matches a Creative Consent platform clarification. nroELN was a certification inquiry on certified-publisher.html (optional role=platform), not a policy-correction form, and https://tally.so/r/nroELN now returns 404. Choose or create a form.",
           note: "Submissions are reviewed. They do not automatically change an assessment. Sending opens an email to sales@credtent.com.",
           fields: `<label>Platform / organization <input name="platform" type="text" required></label>
           <label>Supporting policy URL <input name="policy" type="url" required></label>
@@ -179,6 +180,7 @@ export function orgPages(images) {
           subject: "Creative Consent updates",
           submitLabel: "Subscribe to updates",
           style: "margin-top:18px",
+          todo: "No Tally form in this repo matches Creative Consent update subscriptions. The badge-builder email gate left EMAIL_GATE_TALLY_FORM_ID empty (placeholder tally.so/r/XXXXXX only). Choose or create a form.",
           note: "The guide and platform list remain open whether or not you subscribe. Sending opens an email to sales@credtent.com.",
           fields: `<label>Email address <input name="email" type="email" autocomplete="email" required></label>
           <label><span><input name="consent" type="checkbox"> Yes, send me Creative Consent updates.</span></label>`
@@ -363,7 +365,7 @@ export function orgPages(images) {
         <h2 style="margin-top:36px">Creative Consent</h2>
         <p>How a platform treats training: Full Protection, Optional Protection, or No Protection. <a href="/creative-consent">Read Creative Consent</a>.</p>
         <h2 style="margin-top:36px">Commercial Safety</h2>
-        <p>A badge for AI companies, with Full, Guardrail, and Provisional levels. Inquiry: <a href="https://credtent.com/contact">contact Credtent</a>.</p>
+        <p>A badge for AI companies, with Full, Guardrail, and Provisional levels. Inquiry: <a href="https://credtent.com/contact#other">contact Credtent</a>.</p>
         <p class="fine">Disclosure badges are free to use. Expert-led certification is paid because review is labor. <a href="/standards">Browse the standards catalog</a>.</p>
       </div></section>`
     },
@@ -554,6 +556,7 @@ export function orgPages(images) {
         ${inquiryForm({
           subject: "Credtent inquiry",
           submitLabel: "Send",
+          todo: "No Tally form in this repo matches a general .org contact about opt-out, Creative Consent, or resources. BzbXK7 is the AI Company Licensing Inquiry, VL10Ga is the Content Partner Inquiry, and 2ExeBp is the Investor Form. None of those is this page. Choose or create a form.",
           note: "Sending opens an email to sales@credtent.com.",
           fields: `<label>Name <input name="name" type="text" autocomplete="name" required></label>
           <label>Email <input name="email" type="email" autocomplete="email" required></label>
