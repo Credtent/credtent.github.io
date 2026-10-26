@@ -113,10 +113,10 @@ export function orgPages(images) {
         <div class="wrap">
           <p class="eyebrow">Who Credtent is</p>
           <h2>Eric Burgess and Dr. Galen Buckwalter.</h2>
-          <p class="lede">Eric R. Burgess is Founder and CEO. Dr. Galen Buckwalter is Co-founder and Chief Credibility Officer. Credtent, Inc. is a Delaware Public Benefit Corporation.</p>
+          <p class="lede">Eric R. Burgess is Founder and CEO. Dr. Galen Buckwalter is Co-Founder and Chief Science Officer. Credtent, Inc. is a Delaware Public Benefit Corporation.</p>
           <div class="team" style="margin-top:24px">
             <article class="person">${picture(images.eric, { sizes: "240px" })}<h3>Eric R. Burgess</h3><p class="role">Founder and CEO</p></article>
-            <article class="person">${picture(images.galen, { sizes: "240px" })}<h3>Dr. Galen Buckwalter</h3><p class="role">Co-founder and Chief Credibility Officer</p></article>
+            <article class="person">${picture(images.galen, { sizes: "240px" })}<h3>Dr. Galen Buckwalter</h3><p class="role">Co-Founder and Chief Science Officer</p></article>
           </div>
           <div class="btn-row"><a class="btn" href="https://credtent.com/about">Read About Credtent</a></div>
         </div>
