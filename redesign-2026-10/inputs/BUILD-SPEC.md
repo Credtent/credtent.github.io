@@ -94,13 +94,14 @@ Proposed pair (both SIL OFL 1.1, self-hosted woff2 from Google Fonts / fontsourc
 - `@font-face { font-display: swap; }`, subset Latin, preload only Inter 400 + Source Serif 4 700.
 - Metric-matched fallbacks (`size-adjust`/`ascent-override`) against Georgia and Arial to keep CLS ~0.
 - Swappable: everything references `--font-display` and `--font-body` CSS variables in one `tokens.css`; changing the pair is a one-file edit. Include OFL license text in `/fonts/LICENSE-OFL.txt`.
-### 4.6 Prices (unverified)
-Render these where the mockups show them but mark unverified:
-- Opt-Out Premium **US$49 annually** (.org home Premium band; "For individuals / Early member pricing").
-- Book feature on homes (if prices appear): **$14.99 e-book, $24.99 paperback, $49 living e-book**.
-Markup: `<span class="price" data-unverified="true">US$49</span>` with `<!-- TODO(Eric): confirm price -->`, and on preview a visible note near each price block: "Pricing to be confirmed." No price in JSON-LD Offer until Eric confirms (Service schema without `offers`).
+### 4.6 Prices (confirmed)
+Eric confirmed these published amounts on 2026-10-26. Keep the rendered strings exactly. Do not add `data-unverified`, a price TODO, or a "Pricing to be confirmed" note.
+- Book: **$14.99** standard e-book, **$24.99** paperback, **$49** living e-book.
+- Opt-Out Premium: **US$49** annually for individuals and **US$249+** annually for organizations.
+These figures already appear on .com (the book block and `/pricing`) and on the .org pages that quote the same amounts. Leave them as built.
 ### 4.7 Brand
-Orange `#EC5A00` actions with white bold labels (≥20px for contrast). Official shield left of wordmark, SVGs from `assets/svg/` (do not redraw, do not use 8× PNGs). White wordmark in footer.
+Orange `#EC5A00` stays the primary button color, with white bold labels at 20px or larger. Inline text links use purple `#290099` on both sites. Official shield left of wordmark, SVGs from `assets/svg/` (do not redraw, do not use 8× PNGs). White wordmark in footer.
+The hero stays the current pale paper band with ink text. A full-width purple hero is still Eric's decision. Do not restyle it in this pass.
 
 ## 5. Partners page — `https://credtent.com/partners`
 Follow `partners-page-draft-2026-10-25.md` layout and Niven §4, with these overrides:
@@ -115,7 +116,7 @@ Follow `partners-page-draft-2026-10-25.md` layout and Niven §4, with these over
 - Headline triplets ("Creative work. / Clear AI permissions. / Value for both.") are ONE `<h1>` with `<br>`/spans. Eyebrows are styled `<p>`, not headings.
 - Answer-first capsule (2–3 sentences) at the top of every page + a visible FAQ on every page (FAQPage JSON-LD allowed). Use Niven's capsules verbatim as the starting text (see `niven-seo-aeo-geo-2026-10-25.md` §2 Structure).
 - Approved licensing sentence **verbatim** on `/ai-companies`, `/ai-training`, and the AI-company block on .com home: "Licenses include the rights the contracting holders warranted, a named manifest, and a disclosure pack your counsel can use for EU AI Act Art. 53 and CA AB 2013 filings. Those statutes still bind the developer. Indemnity, if any, is only as written in the signed license."
-- Schema: ONE Organization `@id https://credtent.com/#organization` (legalName "Credtent, Inc.", address, founder → Eric Person, sameAs LinkedIn + CB Insights, `url` both domains). .org pages reference it (no second Organization). WebSite per host. Person for Eric and Galen on .com/about. Service for training licensing, GRR citation licensing, valuation, Opt-Out Premium (no offers/prices until confirmed). BreadcrumbList on inner pages. Validate with schema.org validator in CI (e.g. `structured-data-testing` / `schema-dts` types).
+- Schema: ONE Organization `@id https://credtent.com/#organization` (legalName "Credtent, Inc.", address, founder → Eric Person, sameAs LinkedIn + CB Insights, `url` both domains). .org pages reference it (no second Organization). WebSite per host. Person for Eric and Galen on .com/about. Service for training licensing, GRR citation licensing, valuation, and Opt-Out Premium. Offer markup may include the confirmed US$49 and US$249+ prices. BreadcrumbList on inner pages. Validate with schema.org validator in CI (e.g. `structured-data-testing` / `schema-dts` types).
 - Per host (production-gated files): `robots.txt` with its own `Sitemap:` line; `sitemap.xml`; `llms.txt` (.com: licensing, valuation, GRR, AI companies; points to .org llms.txt for opt-out + Creative Consent). Keep the live .org AI-crawler allow rules and `/parking/` exclusion in the production .org robots.
 - Descriptive anchors: replace "Read the resource →" with titles ("Read: how opt-out works").
 - CWV: hero AVIF/WebP srcset, `<link rel=preload>` + `fetchpriority="high"` on hero, explicit width/height, lazy-load below fold. Valuation diagram in HTML/SVG. Targets: LCP < 2.5s, CLS < 0.1 on Lighthouse mobile.
@@ -174,7 +175,7 @@ wordmark.svg, wordmark-white.svg, shield.svg, consent-full.svg, consent-optional
 ### Eric's required changes
 - [ ] No "ISO" or "Sony" anywhere: `grep -rniE "\bsony\b|\biso\b" dist/ src/` returns nothing.
 - [x] Deborah Drake absent. Jason Pitcock absent from the redesign sites. Eric confirmed the rendered roster on 2026-10-25: Eric R. Burgess, Dr. Galen Buckwalter, Edmond Almond, Abigail Cameron (Engineering), Carmen Sinata, Freddy Mota, Michael Thompson (Revenue), Raymond Jia (Technology), Jim Li (Technology), Colin Devenish (Sales).
-- [ ] Prices carry `data-unverified="true"` + TODO + visible "Pricing to be confirmed."
+- [x] Published prices stay as built. Eric confirmed $14.99, $24.99, $49, and $249 (rendered US$249+) on 2026-10-26. No unverified flag.
 - [ ] Partners page uses Partner A–E placeholders; none of the candidate real names appear in the repo diff.
 - [ ] No valuation numbers in copy.
 - [ ] Preview: meta noindex on every page + robots.txt `Disallow: /`.
@@ -183,7 +184,7 @@ wordmark.svg, wordmark-white.svg, shield.svg, consent-full.svg, consent-optional
 - [ ] Desktop and mobile layouts match the PNGs at 1440 and 390 widths (attach screenshots to PR).
 
 ## 9. Open items flagged for Eric (do not guess)
-Advisor council still unconfirmed (do not render); price confirmation ($14.99/$24.99/$49 book, US$49 Premium); partner names; font pick; .com contact address; whether `/certified-publisher` and `/standards` move to .com; About canonical host (.com assumed); whether book feature (and thus book prices) appears on both homes; Edmond's email spelling in Slack invite ("allmond") vs "Almond" on site; which repo is the long-term home for each site. The team roster is closed: Eric confirmed it on 2026-10-25 (section 4.4).
+Advisor council still unconfirmed (do not render); partner names; font pick; .com contact address; whether `/certified-publisher` and `/standards` move to .com; About canonical host (.com assumed); whether the book feature appears on both homes; Edmond's email spelling in Slack invite ("allmond") vs "Almond" on site; which repo is the long-term home for each site; the hero treatment (the build keeps the pale paper hero until Eric decides). The team roster is closed: Eric confirmed it on 2026-10-25 (section 4.4). The published prices $14.99, $24.99, $49, and $249 are confirmed (section 4.6). Orange stays the primary button color (section 4.7).
 
 ## 10. Reference files in this folder
 `design-review-text.txt` (full PDF text), `pages/` (page PNG/JPG renders; tall mobile/desktop pages split into `-partN` 5000px slices), `astra-redesign/*.md`, `source/*`, `niven-seo-aeo-geo-2026-10-25.md`, `partners-page-draft-2026-10-25.md`, `domain-switch-survey-2026-10-25.md`, `website-redesign-slack-find-2026-10-25.md`.
