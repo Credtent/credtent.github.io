@@ -106,7 +106,7 @@ The hero stays the current pale paper band with ink text. A full-width purple he
 Keep the existing "Delaware Public Benefit Corporation" sentence. Add the words "certified B Corp" beside it. Do not replace the public-benefit sentence.
 - **credtent.org:** say it in the home "Who Credtent is" section and again in the footer, with the text badge.
 - **credtent.com:** footer only. Do not add it to About, the FAQ, or other body copy.
-- **Badge:** no official B Lab file is in this repo. B Lab's brand page describes a Certified B Corporation logo for certified companies, and it does not publish a file this build can download. Use a text badge whose accessible name is "Credtent is a Certified B Corporation". Do not draw the Circle B mark. TODO(Eric): swap in the official B Lab lockup.
+- **Badge:** no official B Lab file is in this repo. B Lab's brand page describes a Certified B Corporation logo for certified companies, and it does not publish a file this build can download. Use a text badge whose accessible name is "Credtent is a Certified B Corporation." Do not draw the Circle B mark. TODO(Eric): swap in the official B Lab lockup.
 - **Directory URL:** a lookup on 2026-10-26 did not return a Credtent page in the B Lab directory. Do not add `sameAs` or `hasCredential` until that listing is verified. TODO(Eric): confirm the real directory URL. Do not guess one.
 
 ## 5. Partners page — `https://credtent.com/partners`

@@ -464,7 +464,7 @@ figcaption, .credit {
   border-radius: 4px;
   color: var(--ink);
   font-family: var(--font-body);
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.06em;
   line-height: 1.2;
@@ -585,6 +585,29 @@ figcaption, .credit {
 .legacy .research-stat-label { display: flex; align-items: center; gap: 8px; }
 .legacy .research-stat-label span { color: #fff; font-weight: 700; }
 .legacy .research-stat-desc { color: rgba(255, 255, 255, 0.85); }
+.legacy .research-stat-val {
+  color: #F6C27A;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.1;
+}
+/* Parked eyebrows and other small orange text. Darker orange on light backgrounds only. */
+.legacy .eyebrow { color: var(--data); }
+.legacy [style*="var(--c-navy)"] .eyebrow { color: var(--paper); }
+.legacy [style*="color:var(--c-orange)"] { color: var(--data) !important; }
+.legacy [style*="var(--c-navy)"] [style*="color:var(--c-orange)"] { color: var(--c-orange) !important; }
+.legacy .step-num {
+  color: var(--ink);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+}
+.guide-breadcrumb a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.wrap.legacy:has(.research-stats-grid) { max-width: 1240px; }
 .form { display: grid; gap: 14px; max-width: 640px; }
 label { font-weight: 600; color: var(--ink); display: grid; gap: 6px; }
 input, textarea, select {

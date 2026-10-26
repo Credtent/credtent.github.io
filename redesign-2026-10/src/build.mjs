@@ -380,8 +380,11 @@ function vercel(site) {
     headers.push(
       noindexHeader("/parking/(.*)"),
       noindexHeader("/resources/what-an-opt-out-can-do"),
+      noindexHeader("/resources/what-an-opt-out-can-do/"),
       noindexHeader("/resources/how-to-read-platform-terms"),
-      noindexHeader("/resources/use-ai-without-giving-up-judgment")
+      noindexHeader("/resources/how-to-read-platform-terms/"),
+      noindexHeader("/resources/use-ai-without-giving-up-judgment"),
+      noindexHeader("/resources/use-ai-without-giving-up-judgment/")
     );
   }
   // /creative-origin stays a page on this host. Do not send it to the registry until Eric decides.

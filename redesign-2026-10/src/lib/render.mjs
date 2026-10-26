@@ -11,7 +11,7 @@ export function esc(value) {
 const ORG_ID = "https://credtent.com/#organization";
 
 export function bcorpBadge() {
-  return `<p class="bcorp-badge" role="img" aria-label="Credtent is a Certified B Corporation"><span>Certified</span><strong>B Corp</strong></p>`;
+  return `<p class="bcorp-badge" role="img" aria-label="Credtent is a Certified B Corporation."><span>Certified</span><strong>B Corp</strong></p>`;
 }
 
 export function organizationNode(site) {
