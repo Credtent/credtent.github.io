@@ -1,0 +1,104 @@
+{
+  "generatedFrom": "build manifest",
+  "note": "Filmmaker credit uses an ID-only photo URL.",
+  "photos": [
+    {
+      "alt": "Two people meeting outdoors, one holding a camera",
+      "credit": "Redd Francisco",
+      "creditHref": "https://unsplash.com/photos/person-holding-canon-dslr-camera-nTXOmJL97MY",
+      "license": "Unsplash License",
+      "licenseHref": "https://unsplash.com/license"
+    },
+    {
+      "alt": "A person marking a manuscript beside books",
+      "credit": "Ron Lach",
+      "creditHref": "https://www.pexels.com/photo/a-woman-reading-and-marking-a-composition-7967597/",
+      "license": "Pexels License",
+      "licenseHref": "https://www.pexels.com/license/"
+    },
+    {
+      "alt": "Engineers working together in an office",
+      "credit": "ThisIsEngineering",
+      "creditHref": "https://www.pexels.com/photo/engineers-working-in-office-3912378/",
+      "license": "Pexels License",
+      "licenseHref": "https://www.pexels.com/license/"
+    },
+    {
+      "alt": "Two people recording a conversation in a studio",
+      "credit": "cottonbro studio",
+      "creditHref": "https://www.pexels.com/photo/women-having-conversation-inside-the-studio-while-looking-at-each-other-7600887/",
+      "license": "Pexels License",
+      "licenseHref": "https://www.pexels.com/license/"
+    },
+    {
+      "alt": "A person reading on a laptop",
+      "credit": "George Milton",
+      "creditHref": "https://www.pexels.com/photo/thoughtful-woman-working-on-laptop-7015104/",
+      "license": "Pexels License",
+      "licenseHref": "https://www.pexels.com/license/"
+    },
+    {
+      "alt": "A team meeting around a table",
+      "credit": "ThisIsEngineering",
+      "creditHref": "https://www.pexels.com/photo/engineers-in-meeting-3913021/",
+      "license": "Pexels License",
+      "licenseHref": "https://www.pexels.com/license/"
+    },
+    {
+      "alt": "Dr. Galen Buckwalter",
+      "credit": "Credtent",
+      "creditHref": null,
+      "license": "Company portrait",
+      "licenseHref": null
+    },
+    {
+      "alt": "Eric R. Burgess",
+      "credit": "Credtent",
+      "creditHref": null,
+      "license": "Company portrait",
+      "licenseHref": null
+    },
+    {
+      "alt": "Carmen Sinata",
+      "credit": "Credtent",
+      "creditHref": null,
+      "license": "Company portrait",
+      "licenseHref": null
+    },
+    {
+      "alt": "Freddy Mota",
+      "credit": "Credtent",
+      "creditHref": null,
+      "license": "Company portrait",
+      "licenseHref": null
+    },
+    {
+      "alt": "Michael Thompson",
+      "credit": "Credtent",
+      "creditHref": null,
+      "license": "Company portrait",
+      "licenseHref": null
+    },
+    {
+      "alt": "Raymond Jia",
+      "credit": "Credtent",
+      "creditHref": null,
+      "license": "Company portrait",
+      "licenseHref": null
+    },
+    {
+      "alt": "Jim Li",
+      "credit": "Credtent",
+      "creditHref": null,
+      "license": "Company portrait",
+      "licenseHref": null
+    },
+    {
+      "alt": "Colin Devenish",
+      "credit": "Credtent",
+      "creditHref": null,
+      "license": "Company portrait",
+      "licenseHref": null
+    }
+  ]
+}

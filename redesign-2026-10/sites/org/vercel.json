@@ -1,0 +1,298 @@
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/parking/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/resources/what-an-opt-out-can-do",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/resources/what-an-opt-out-can-do/",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/resources/how-to-read-platform-terms",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/resources/how-to-read-platform-terms/",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/resources/use-ai-without-giving-up-judgment",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/resources/use-ai-without-giving-up-judgment/",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/for-ai-companies",
+      "destination": "https://credtent.com/ai-companies",
+      "statusCode": 301
+    },
+    {
+      "source": "/for-ai-companies/",
+      "destination": "https://credtent.com/ai-companies",
+      "statusCode": 301
+    },
+    {
+      "source": "/for-ai-companies.html",
+      "destination": "https://credtent.com/ai-companies",
+      "statusCode": 301
+    },
+    {
+      "source": "/for-content-owners",
+      "destination": "https://credtent.com/content-owners",
+      "statusCode": 301
+    },
+    {
+      "source": "/for-content-owners/",
+      "destination": "https://credtent.com/content-owners",
+      "statusCode": 301
+    },
+    {
+      "source": "/for-content-owners.html",
+      "destination": "https://credtent.com/content-owners",
+      "statusCode": 301
+    },
+    {
+      "source": "/pricing",
+      "destination": "https://credtent.com/pricing",
+      "statusCode": 301
+    },
+    {
+      "source": "/pricing/",
+      "destination": "https://credtent.com/pricing",
+      "statusCode": 301
+    },
+    {
+      "source": "/pricing.html",
+      "destination": "https://credtent.com/pricing",
+      "statusCode": 301
+    },
+    {
+      "source": "/about",
+      "destination": "https://credtent.com/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/about/",
+      "destination": "https://credtent.com/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/about.html",
+      "destination": "https://credtent.com/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/faq",
+      "destination": "https://credtent.com/faq",
+      "statusCode": 301
+    },
+    {
+      "source": "/faq/",
+      "destination": "https://credtent.com/faq",
+      "statusCode": 301
+    },
+    {
+      "source": "/faq.html",
+      "destination": "https://credtent.com/faq",
+      "statusCode": 301
+    },
+    {
+      "source": "/certified-publisher",
+      "destination": "https://credtent.com/certified-publisher",
+      "statusCode": 301
+    },
+    {
+      "source": "/certified-publisher/",
+      "destination": "https://credtent.com/certified-publisher",
+      "statusCode": 301
+    },
+    {
+      "source": "/certified-publisher.html",
+      "destination": "https://credtent.com/certified-publisher",
+      "statusCode": 301
+    },
+    {
+      "source": "/guides/ai-training-data-licensing-companies",
+      "destination": "https://credtent.com/guides/ai-training-data-licensing-companies/",
+      "statusCode": 301
+    },
+    {
+      "source": "/guides/ai-training-data-licensing-companies/",
+      "destination": "https://credtent.com/guides/ai-training-data-licensing-companies/",
+      "statusCode": 301
+    },
+    {
+      "source": "/guides/ai-training-data-licensing-companies.html",
+      "destination": "https://credtent.com/guides/ai-training-data-licensing-companies/",
+      "statusCode": 301
+    },
+    {
+      "source": "/guides/ai-training-data-licensing-companies/index.html",
+      "destination": "https://credtent.com/guides/ai-training-data-licensing-companies/",
+      "statusCode": 301
+    },
+    {
+      "source": "/privacy-policy.html",
+      "destination": "https://credtent.org/privacy-policy",
+      "statusCode": 301
+    },
+    {
+      "source": "/terms-of-service.html",
+      "destination": "https://credtent.org/terms-of-service",
+      "statusCode": 301
+    },
+    {
+      "source": "/opt-out.html",
+      "destination": "https://credtent.org/opt-out",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog.html",
+      "destination": "https://credtent.org/blog",
+      "statusCode": 301
+    },
+    {
+      "source": "/wga.html",
+      "destination": "https://credtent.org/wga",
+      "statusCode": 301
+    },
+    {
+      "source": "/badge-builder.html",
+      "destination": "https://credtent.org/badge-builder",
+      "statusCode": 301
+    },
+    {
+      "source": "/lws.html",
+      "destination": "https://credtent.org/lws",
+      "statusCode": 301
+    },
+    {
+      "source": "/standards.html",
+      "destination": "https://credtent.org/standards",
+      "statusCode": 301
+    },
+    {
+      "source": "/index.html",
+      "destination": "https://credtent.org/",
+      "statusCode": 301
+    },
+    {
+      "source": "/guides/index.html",
+      "destination": "https://credtent.org/guides/",
+      "statusCode": 301
+    },
+    {
+      "source": "/guides/ai-training-data-licensing/index.html",
+      "destination": "https://credtent.org/guides/ai-training-data-licensing/",
+      "statusCode": 301
+    },
+    {
+      "source": "/badges/index.html",
+      "destination": "https://credtent.org/badges/",
+      "statusCode": 301
+    },
+    {
+      "source": "/creative-origin/index.html",
+      "destination": "https://credtent.org/creative-origin",
+      "statusCode": 301
+    },
+    {
+      "source": "/post/unfair-use-denormalizing-ai-theft.html",
+      "destination": "https://credtent.org/post/unfair-use-denormalizing-ai-theft",
+      "statusCode": 301
+    },
+    {
+      "source": "/parking/badges.html",
+      "destination": "https://credtent.org/parking/badges",
+      "statusCode": 301
+    },
+    {
+      "source": "/parking/blog.html",
+      "destination": "https://credtent.org/parking/blog",
+      "statusCode": 301
+    },
+    {
+      "source": "/parking/blog/disneys-ai-gambit-how-a-billion-dollar.html",
+      "destination": "https://credtent.org/parking/blog/disneys-ai-gambit-how-a-billion-dollar",
+      "statusCode": 301
+    },
+    {
+      "source": "/parking/lws.html",
+      "destination": "https://credtent.org/parking/lws",
+      "statusCode": 301
+    },
+    {
+      "source": "/parking/services.html",
+      "destination": "https://credtent.org/parking/services",
+      "statusCode": 301
+    },
+    {
+      "source": "/partners",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/partners/",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/partners.html",
+      "destination": "/",
+      "statusCode": 302
+    }
+  ]
+}

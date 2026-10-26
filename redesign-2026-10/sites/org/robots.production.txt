@@ -1,0 +1,33 @@
+User-agent: GPTBot
+Allow: /
+Disallow: /parking/
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /parking/
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /parking/
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /parking/
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /parking/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /parking/
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /parking/
+
+User-agent: *
+Allow: /
+Disallow: /parking/
+
+Sitemap: https://credtent.org/sitemap.xml

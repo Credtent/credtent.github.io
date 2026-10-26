@@ -1,0 +1,30 @@
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/partners",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/partners/",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/partners.html",
+      "destination": "/",
+      "statusCode": 302
+    }
+  ]
+}

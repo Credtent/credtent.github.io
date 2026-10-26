@@ -1,0 +1,14 @@
+# Credtent
+> Delaware Public Benefit Corporation. Resources for creatives.
+
+Credtent's free opt-out records your AI-training preferences and sends them to AI companies each quarter; it cannot guarantee every company acts on them.
+
+## For creatives
+- [Home](https://credtent.org/)
+- [Free opt-out](https://credtent.org/opt-out)
+- [Creative Consent](https://credtent.org/creative-consent)
+- [Auditing](https://credtent.org/resources/auditing)
+- [Opt-out limitations](https://credtent.org/resources/opt-out-limitations)
+- [Licensing guide](https://credtent.org/guides/ai-training-data-licensing/)
+
+Corporate licensing, valuation, and the company map: see https://credtent.com/llms.txt

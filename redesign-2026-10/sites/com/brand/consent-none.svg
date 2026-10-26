@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <rect x="0" y="0" width="200" height="200" fill="#dc2626"/>
+  <g fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M162 14 L140 22 V42 C140 55 148 66 162 71 C176 66 184 55 184 42 V22 Z"/>
+      <line x1="146" y1="64" x2="180" y2="20" stroke-width="3.4"/>
+    </g>
+  <text x="20" y="128" fill="#fff" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="58" font-weight="800" letter-spacing="-1">CCN</text>
+  <text x="20" y="156" fill="#fff" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="500">Creative Consent</text>
+  <text x="20" y="178" fill="#fff" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="500">None</text>
+</svg>

@@ -1,0 +1,7 @@
+# TODO(launch): replace this file with robots.production.txt when SITE_ENV=production.
+# Do not remove Disallow until Eric publishes AND credtent.com returns production 200s.
+# Preview builds stay noindex via this file, the meta robots tag, and X-Robots-Tag.
+User-agent: *
+Disallow: /
+
+Sitemap: https://credtent.org/sitemap.xml
