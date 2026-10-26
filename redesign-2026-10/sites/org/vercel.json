@@ -2,6 +2,21 @@
   "headers": [
     {
       "source": "/(.*)",
+      "missing": [
+        {
+          "type": "host",
+          "value": "(www\\.)?credtent\\.org"
+        }
+      ],
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
       "headers": [
         {
           "key": "X-Robots-Tag",
@@ -65,6 +80,60 @@
     },
     {
       "source": "/resources/use-ai-without-giving-up-judgment/",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/creative-consent",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/creative-consent/",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/creative-consent/platforms",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/creative-consent/platforms/",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/creative-consent/guide",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/creative-consent/guide/",
       "headers": [
         {
           "key": "X-Robots-Tag",
@@ -277,6 +346,161 @@
     {
       "source": "/parking/services.html",
       "destination": "https://credtent.org/parking/services",
+      "statusCode": 301
+    },
+    {
+      "source": "/creative-consent/",
+      "destination": "https://credtent.org/creative-consent",
+      "statusCode": 301
+    },
+    {
+      "source": "/creative-consent/platforms/",
+      "destination": "https://credtent.org/creative-consent/platforms",
+      "statusCode": 301
+    },
+    {
+      "source": "/creative-consent/guide/",
+      "destination": "https://credtent.org/creative-consent/guide",
+      "statusCode": 301
+    },
+    {
+      "source": "/opt-out/",
+      "destination": "https://credtent.org/opt-out",
+      "statusCode": 301
+    },
+    {
+      "source": "/premium/",
+      "destination": "https://credtent.org/premium",
+      "statusCode": 301
+    },
+    {
+      "source": "/resources/",
+      "destination": "https://credtent.org/resources",
+      "statusCode": 301
+    },
+    {
+      "source": "/resources/what-an-opt-out-can-do/",
+      "destination": "https://credtent.org/resources/what-an-opt-out-can-do",
+      "statusCode": 301
+    },
+    {
+      "source": "/resources/how-to-read-platform-terms/",
+      "destination": "https://credtent.org/resources/how-to-read-platform-terms",
+      "statusCode": 301
+    },
+    {
+      "source": "/resources/use-ai-without-giving-up-judgment/",
+      "destination": "https://credtent.org/resources/use-ai-without-giving-up-judgment",
+      "statusCode": 301
+    },
+    {
+      "source": "/resources/auditing/",
+      "destination": "https://credtent.org/resources/auditing",
+      "statusCode": 301
+    },
+    {
+      "source": "/resources/opt-out-limitations/",
+      "destination": "https://credtent.org/resources/opt-out-limitations",
+      "statusCode": 301
+    },
+    {
+      "source": "/badges",
+      "destination": "https://credtent.org/badges/",
+      "statusCode": 301
+    },
+    {
+      "source": "/badge-builder/",
+      "destination": "https://credtent.org/badge-builder",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog/",
+      "destination": "https://credtent.org/blog",
+      "statusCode": 301
+    },
+    {
+      "source": "/wga/",
+      "destination": "https://credtent.org/wga",
+      "statusCode": 301
+    },
+    {
+      "source": "/guides",
+      "destination": "https://credtent.org/guides/",
+      "statusCode": 301
+    },
+    {
+      "source": "/guides/ai-training-data-licensing",
+      "destination": "https://credtent.org/guides/ai-training-data-licensing/",
+      "statusCode": 301
+    },
+    {
+      "source": "/lws/",
+      "destination": "https://credtent.org/lws",
+      "statusCode": 301
+    },
+    {
+      "source": "/creative-origin/",
+      "destination": "https://credtent.org/creative-origin",
+      "statusCode": 301
+    },
+    {
+      "source": "/contact/",
+      "destination": "https://credtent.org/contact",
+      "statusCode": 301
+    },
+    {
+      "source": "/standards/",
+      "destination": "https://credtent.org/standards",
+      "statusCode": 301
+    },
+    {
+      "source": "/privacy-policy/",
+      "destination": "https://credtent.org/privacy-policy",
+      "statusCode": 301
+    },
+    {
+      "source": "/terms-of-service/",
+      "destination": "https://credtent.org/terms-of-service",
+      "statusCode": 301
+    },
+    {
+      "source": "/post/unfair-use-denormalizing-ai-theft/",
+      "destination": "https://credtent.org/post/unfair-use-denormalizing-ai-theft",
+      "statusCode": 301
+    },
+    {
+      "source": "/parking/badges/",
+      "destination": "https://credtent.org/parking/badges",
+      "statusCode": 301
+    },
+    {
+      "source": "/parking/blog/",
+      "destination": "https://credtent.org/parking/blog",
+      "statusCode": 301
+    },
+    {
+      "source": "/parking/blog/disneys-ai-gambit-how-a-billion-dollar/",
+      "destination": "https://credtent.org/parking/blog/disneys-ai-gambit-how-a-billion-dollar",
+      "statusCode": 301
+    },
+    {
+      "source": "/parking/lws/",
+      "destination": "https://credtent.org/parking/lws",
+      "statusCode": 301
+    },
+    {
+      "source": "/parking/services/",
+      "destination": "https://credtent.org/parking/services",
+      "statusCode": 301
+    },
+    {
+      "source": "/sitemap/",
+      "destination": "https://credtent.org/sitemap",
+      "statusCode": 301
+    },
+    {
+      "source": "/credits/",
+      "destination": "https://credtent.org/credits",
       "statusCode": 301
     },
     {

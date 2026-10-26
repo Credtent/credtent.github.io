@@ -1,6 +1,7 @@
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
+import { TALLY_FORM_IDS } from "../src/lib/render.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const sites = {
@@ -11,6 +12,69 @@ const sites = {
 const failures = [];
 function fail(message) {
   failures.push(message);
+}
+
+const previewBuild = process.env.SITE_ENV !== "production";
+const HIDDEN_RESOURCES = [
+  "/resources/what-an-opt-out-can-do",
+  "/resources/how-to-read-platform-terms",
+  "/resources/use-ai-without-giving-up-judgment"
+];
+const ORG_WITHHELD = [
+  "/creative-consent",
+  "/creative-consent/platforms",
+  "/creative-consent/guide"
+];
+
+function staysNoindex(rel) {
+  if (rel === "404.html" || rel.startsWith("parking/")) return true;
+  if (HIDDEN_RESOURCES.some((item) => rel === `${item.slice(1)}/index.html`)) return true;
+  if (ORG_WITHHELD.some((item) => rel === `${item.slice(1)}/index.html`)) return true;
+  return false;
+}
+
+function hostGateValue(origin) {
+  return origin.endsWith(".com") ? "(www\\.)?credtent\\.com" : "(www\\.)?credtent\\.org";
+}
+
+function unconditionalSitewide(config) {
+  return (config.headers || []).some((item) => item.source === "/(.*)" && !item.missing);
+}
+
+function assertHostGate(origin, config) {
+  const first = (config.headers || [])[0];
+  const expected = hostGateValue(origin);
+  if (!first || first.source !== "/(.*)" || !Array.isArray(first.missing) || !first.missing.length) {
+    fail(`${origin} first header is not the non-production host noindex rule`);
+    return;
+  }
+  const missing = first.missing[0];
+  if (missing.type !== "host" || missing.value !== expected) {
+    fail(`${origin} host noindex value is ${missing.value}, expected ${expected}`);
+  }
+  const tag = (first.headers || []).find((item) => item.key === "X-Robots-Tag");
+  if (!tag || tag.value !== "noindex, nofollow") fail(`${origin} host gate is missing X-Robots-Tag noindex, nofollow`);
+  for (const rule of config.headers || []) {
+    for (const header of rule.headers || []) {
+      if (/content-security-policy/i.test(header.key)) {
+        const value = header.value || "";
+        if (!value.includes("googletagmanager.com") || !value.includes("google-analytics.com")) {
+          fail(`${origin} CSP does not allow googletagmanager.com and google-analytics.com`);
+        }
+      }
+    }
+  }
+}
+
+function expectSlot(html, label, id) {
+  if (!id) return 1;
+  const embed = `https://tally.so/embed/${id}?hideTitle=1&transparentBackground=1&dynamicHeight=1`;
+  if (!html.includes(`data-tally-src="${embed}"`)) fail(`${label} is missing the Tally embed for ${id}`);
+  if (!html.includes(`https://tally.so/r/${id}`)) fail(`${label} is missing the noscript link for ${id}`);
+  if (!html.includes('loading="lazy"') || !/style="min-height:\d+px"/.test(html)) {
+    fail(`${label} embed for ${id} is missing lazy loading or a reserved min-height`);
+  }
+  return 0;
 }
 
 function fileFor(originDir, urlPath) {
@@ -84,8 +148,12 @@ for (const source of [
   }
 }
 
-for (const source of ["/creative-origin", "/creative-origin/"]) {
-  if (orgRules.has(source) || comRules.has(source)) fail(`${source} must stay a page, not a redirect`);
+for (const rules of [orgRules, comRules]) {
+  if (rules.has("/creative-origin")) fail("/creative-origin must stay a page, not a redirect");
+}
+const originSlash = orgRules.get("/creative-origin/");
+if (!originSlash || originSlash.destination !== "https://credtent.org/creative-origin" || originSlash.statusCode !== 301) {
+  fail("/creative-origin/ must 301 to the .org page");
 }
 const originIndex = orgRules.get("/creative-origin/index.html");
 if (!originIndex || originIndex.destination !== "https://credtent.org/creative-origin" || originIndex.statusCode !== 301) {
@@ -115,14 +183,23 @@ for (const [origin, dir] of Object.entries(sites)) {
     }
     if (!fileFor(local, url.pathname)) fail(`redirect target missing: ${rule.source} -> ${destination}`);
   }
-  const header = (config.headers || []).flatMap((item) => item.headers || []).find((item) => item.key === "X-Robots-Tag");
-  if (!header || !/noindex/i.test(header.value)) fail(`${origin} missing preview X-Robots-Tag noindex`);
+  assertHostGate(origin, config);
+  if (previewBuild) {
+    if (!unconditionalSitewide(config)) fail(`${origin} preview vercel.json is missing the sitewide X-Robots-Tag`);
+  } else if (unconditionalSitewide(config)) {
+    fail(`${origin} production vercel.json still sends a sitewide X-Robots-Tag`);
+  }
 
   const robots = fs.readFileSync(path.join(dir, "robots.txt"), "utf8");
-  if (!/Disallow:\s*\//.test(robots)) fail(`${origin} preview robots.txt does not disallow /`);
-  const production = fs.readFileSync(path.join(dir, "robots.production.txt"), "utf8");
-  if (!/Allow:\s*\//.test(production)) fail(`${origin} robots.production.txt is not ready to allow crawling`);
-  if (!production.includes(`Sitemap: ${origin}/sitemap.xml`)) fail(`${origin} production robots missing sitemap`);
+  const productionRobots = fs.readFileSync(path.join(dir, "robots.production.txt"), "utf8");
+  if (previewBuild) {
+    if (!/Disallow:\s*\//.test(robots)) fail(`${origin} preview robots.txt does not disallow /`);
+  } else {
+    if (robots !== productionRobots) fail(`${origin} production build does not serve robots.production.txt`);
+    if (/^Disallow:\s*\/\s*$/m.test(robots)) fail(`${origin} production robots.txt still disallows the whole site`);
+  }
+  if (!/Allow:\s*\//.test(productionRobots)) fail(`${origin} robots.production.txt is not ready to allow crawling`);
+  if (!productionRobots.includes(`Sitemap: ${origin}/sitemap.xml`)) fail(`${origin} production robots missing sitemap`);
 
   const xml = fs.readFileSync(path.join(dir, "sitemap.xml"), "utf8");
   const parsed = spawnSync("python3", ["-c", "import sys,xml.etree.ElementTree as ET; ET.parse(sys.argv[1])", path.join(dir, "sitemap.xml")], { encoding: "utf8" });
@@ -131,15 +208,21 @@ for (const [origin, dir] of Object.entries(sites)) {
   if (!locs.length) fail(`${origin} sitemap has no URLs`);
   if (locs.some((loc) => loc.includes("/partners"))) fail(`${origin} sitemap still lists /partners`);
   if (locs.some((loc) => loc.includes("/parking"))) fail(`${origin} sitemap lists a parked URL`);
-  for (const hidden of [
-    "/resources/what-an-opt-out-can-do",
-    "/resources/how-to-read-platform-terms",
-    "/resources/use-ai-without-giving-up-judgment"
-  ]) {
+  if (locs.some((loc) => loc.includes("2ExeBp") || loc.includes("/investors"))) {
+    fail(`${origin} sitemap lists the investor form`);
+  }
+  for (const hidden of HIDDEN_RESOURCES) {
     if (locs.some((loc) => loc.endsWith(hidden))) fail(`${origin} sitemap lists coming-soon URL ${hidden}`);
   }
-  if (origin.endsWith(".org") && locs.length !== 24) {
-    fail(`${origin} sitemap has ${locs.length} URLs, expected 24 after dropping parked and coming-soon pages`);
+  if (origin.endsWith(".org")) {
+    for (const hidden of ORG_WITHHELD) {
+      if (locs.some((loc) => loc === `${origin}${hidden}` || loc === `${origin}${hidden}/`)) {
+        fail(`${origin} sitemap lists withheld URL ${hidden}`);
+      }
+    }
+    if (locs.length !== 21) {
+      fail(`${origin} sitemap has ${locs.length} URLs, expected 21 after dropping parked, coming-soon, and Creative Consent draft pages`);
+    }
   }
   for (const loc of locs) {
     const url = new URL(loc);
@@ -177,7 +260,40 @@ for (const [origin, dir] of Object.entries(sites)) {
       if (canonical) fail(`${path.relative(root, file)} should not have a canonical`);
     } else if (!canonical) fail(`${path.relative(root, file)} missing canonical`);
     else if (!canonical[1].startsWith(origin)) fail(`${path.relative(root, file)} canonical ${canonical[1]}`);
-    if (!/name="robots" content="noindex, nofollow"/.test(html)) fail(`${path.relative(root, file)} missing preview noindex`);
+    const investor = 'href="https://tally.so/r/2ExeBp" target="_blank" rel="noopener"';
+    if (!html.includes(investor)) fail(`${path.relative(root, file)} is missing the investor link`);
+    if (html.includes("nroELN")) fail(`${path.relative(root, file)} still references the dead Tally id`);
+    if (/\bAlmond\b/.test(html)) fail(`${path.relative(root, file)} spells Allmond as Almond`);
+    const loadsGtagNow = /src="https:\/\/www\.googletagmanager\.com\/gtag\/js/.test(html);
+    if (previewBuild) {
+      if (!/name="robots" content="noindex, nofollow"/.test(html)) fail(`${path.relative(root, file)} missing preview noindex`);
+      if (/googletagmanager\.com|google-analytics\.com|id="cookie-banner"|id="cookie-settings"/.test(html)) {
+        fail(`${path.relative(root, file)} loads analytics or a cookie banner in preview`);
+      }
+    } else {
+      if (html.includes("preview-bar")) fail(`${path.relative(root, file)} still shows the preview bar`);
+      if (loadsGtagNow) fail(`${path.relative(root, file)} loads gtag.js before consent`);
+      if (origin.endsWith(".org")) {
+        if (!html.includes("https://www.googletagmanager.com/gtag/js?id=")) fail(`${path.relative(root, file)} is missing the consent-gated GA loader`);
+        if (!html.includes('"anonymize_ip":true') || !html.includes('"allow_ad_personalization_signals":false')) {
+          fail(`${path.relative(root, file)} is missing anonymized GA defaults`);
+        }
+        if (!html.includes("analytics_storage: 'denied'") || !html.includes("ad_personalization: 'denied'")) {
+          fail(`${path.relative(root, file)} is missing Consent Mode defaults`);
+        }
+        if (!html.includes('id="cookie-banner"') || !html.includes('id="cookie-accept"') || !html.includes('id="cookie-decline"')) {
+          fail(`${path.relative(root, file)} is missing the cookie banner`);
+        }
+        if (!html.includes('id="cookie-settings"')) fail(`${path.relative(root, file)} is missing Cookie settings`);
+      } else if (/googletagmanager\.com|google-analytics\.com|id="cookie-banner"|id="cookie-settings"/.test(html)) {
+        fail(`${path.relative(root, file)} loads analytics without a .com measurement id`);
+      }
+      if (staysNoindex(rel)) {
+        if (!/name="robots" content="noindex, nofollow"/.test(html)) fail(`${path.relative(root, file)} is missing its noindex meta`);
+      } else if (/name="robots" content="noindex/.test(html)) {
+        fail(`${path.relative(root, file)} still has a preview noindex meta`);
+      }
+    }
     if (/href="[^"]*\/partners\/?"/.test(html) || /https:\/\/credtent\.com\/partners/.test(html)) {
       fail(`${path.relative(root, file)} still links to /partners`);
     }
@@ -238,9 +354,52 @@ const consent = fs.readFileSync(path.join(sites["https://credtent.org"], "creati
 if (/TODO\(Eric\): No Tally/.test(orgContact) || /TODO\(Eric\): No Tally/.test(consent)) {
   fail("mailto pages still have a Tally TODO");
 }
-if (!orgContact.includes('action="mailto:sales@credtent.com"')) fail("org contact is missing its mailto form");
-if ((consent.match(/action="mailto:sales@credtent.com"/g) || []).length !== 2) {
-  fail("creative consent is missing a mailto form");
+const orgMailto = expectSlot(orgContact, "org contact", TALLY_FORM_IDS.orgContact);
+if ((orgContact.match(/action="mailto:sales@credtent.com"/g) || []).length !== orgMailto) {
+  fail("org contact form does not match its Tally slot");
+}
+const consentMailto = expectSlot(consent, "creative consent clarification", TALLY_FORM_IDS.consentClarification)
+  + expectSlot(consent, "creative consent updates", TALLY_FORM_IDS.consentUpdates);
+if ((consent.match(/action="mailto:sales@credtent.com"/g) || []).length !== consentMailto) {
+  fail("creative consent forms do not match their Tally slots");
+}
+if (!/name="robots" content="noindex, nofollow"/.test(consent)) fail("creative consent is missing noindex");
+const renderSrc = fs.readFileSync(path.join(root, "src/lib/render.mjs"), "utf8");
+if (renderSrc.includes("nroELN")) fail("dead Tally id is still allowlisted");
+for (const [origin, dir] of Object.entries(sites)) {
+  for (const rel of ["sitemap/index.html", "credits/index.html", "404.html"]) {
+    const html = fs.readFileSync(path.join(dir, rel), "utf8");
+    if (html.includes('\"@type\":\"FAQPage\"') || html.includes("Is this the XML sitemap?") || html.includes("Which licenses apply?")) {
+      fail(`${origin} ${rel} still has a thin FAQ`);
+    }
+  }
+  const privacy = fs.readFileSync(path.join(dir, "privacy-policy/index.html"), "utf8");
+  if (privacy.includes("preview port") || privacy.includes("Is this the current public page?")) {
+    fail(`${origin} privacy policy still has the preview FAQ`);
+  }
+  if (!/analytics/i.test(privacy)) fail(`${origin} privacy policy does not mention analytics`);
+  if (!privacy.includes("stays off until you choose Accept")) {
+    fail(`${origin} privacy policy does not mention the analytics consent choice`);
+  }
+}
+const standards = fs.readFileSync(path.join(sites["https://credtent.org"], "standards/index.html"), "utf8");
+const standardsDescription = (standards.match(/name="description" content="([^"]*)"/) || [,""])[1];
+if (standardsDescription.length > 155) fail(`standards description is ${standardsDescription.length} characters`);
+const comAboutSlash = comRules.get("/about/");
+if (!comAboutSlash || comAboutSlash.destination !== "https://credtent.com/about" || comAboutSlash.statusCode !== 301) {
+  fail("/about/ must 301 to https://credtent.com/about");
+}
+const comGuide = "https://credtent.com/guides/ai-training-data-licensing-companies/";
+const comGuideBare = comRules.get("/guides/ai-training-data-licensing-companies");
+if (!comGuideBare || comGuideBare.destination !== comGuide || comGuideBare.statusCode !== 301) {
+  fail("the company-map guide must keep its slash canonical");
+}
+if (comRules.has("/guides/ai-training-data-licensing-companies/")) {
+  fail("the slashed company-map canonical must not redirect");
+}
+const orgGuideBare = orgRules.get("/guides/ai-training-data-licensing");
+if (!orgGuideBare || orgGuideBare.destination !== "https://credtent.org/guides/ai-training-data-licensing/" || orgGuideBare.statusCode !== 301) {
+  fail("the creative licensing guide must keep its slash canonical");
 }
 const about = fs.readFileSync(path.join(sites["https://credtent.com"], "about/index.html"), "utf8");
 if (/TODO\(Eric\)/.test(about)) fail("com about still has a hidden TODO");
@@ -256,12 +415,25 @@ function assertProduction(outDir) {
     if (robots !== ready) fail(`${origin} production build does not serve robots.production.txt`);
     if (/^Disallow:\s*\/\s*$/m.test(robots)) fail(`${origin} production robots.txt still disallows the whole site`);
     const config = JSON.parse(fs.readFileSync(path.join(dir, "vercel.json"), "utf8"));
-    if ((config.headers || []).some((item) => item.source === "/(.*)")) {
+    assertHostGate(origin, config);
+    if (unconditionalSitewide(config)) {
       fail(`${origin} production vercel.json still sends a sitewide X-Robots-Tag`);
     }
     const indexable = fs.readFileSync(path.join(dir, "index.html"), "utf8");
     if (/name="robots" content="noindex/.test(indexable)) fail(`${origin} production home still has a noindex meta tag`);
     if (indexable.includes("preview-bar")) fail(`${origin} production home still shows the preview bar`);
+    const loadsGtagNow = /src="https:\/\/www\.googletagmanager\.com\/gtag\/js/.test(indexable);
+    if (loadsGtagNow) fail(`${origin} production home loads gtag.js before consent`);
+    if (origin.endsWith(".org")) {
+      if (!indexable.includes("https://www.googletagmanager.com/gtag/js?id=") || !indexable.includes('"anonymize_ip":true') || !indexable.includes('"allow_ad_personalization_signals":false')) {
+        fail(`${origin} production home is missing anonymized GA4`);
+      }
+      if (!indexable.includes("analytics_storage: 'denied'") || !indexable.includes('id="cookie-banner"') || !indexable.includes('id="cookie-settings"')) {
+        fail(`${origin} production home is missing the consent banner`);
+      }
+    } else if (/googletagmanager\.com|id="cookie-banner"/.test(indexable)) {
+      fail(`${origin} production home loads analytics without a measurement id`);
+    }
     const missing = fs.readFileSync(path.join(dir, "404.html"), "utf8");
     if (/rel="canonical"/.test(missing)) fail(`${origin} production 404 still has a canonical`);
     if (!/name="robots" content="noindex, nofollow"/.test(missing)) fail(`${origin} production 404 is missing noindex`);
@@ -272,8 +444,13 @@ function assertProduction(outDir) {
   if (!/name="robots" content="noindex, nofollow"/.test(stub)) fail("production coming-soon page is missing noindex");
   if (!stub.includes("Coming soon.")) fail("coming-soon page is missing the Coming soon line");
   if (/TODO\(Eric\)/.test(stub)) fail("coming-soon page still shows a TODO");
+  for (const rel of ["creative-consent/index.html", "creative-consent/platforms/index.html", "creative-consent/guide/index.html"]) {
+    const withheld = fs.readFileSync(path.join(outDir, "org", rel), "utf8");
+    if (!/name="robots" content="noindex, nofollow"/.test(withheld)) fail(`production ${rel} is missing noindex`);
+    if (withheld.includes("preview-bar")) fail(`production ${rel} still shows the preview bar`);
+  }
   const orgConfig = JSON.parse(fs.readFileSync(path.join(outDir, "org/vercel.json"), "utf8"));
-  for (const source of ["/parking/(.*)", "/resources/how-to-read-platform-terms"]) {
+  for (const source of ["/parking/(.*)", "/resources/how-to-read-platform-terms", "/creative-consent", "/creative-consent/platforms", "/creative-consent/guide"]) {
     const rule = (orgConfig.headers || []).find((item) => item.source === source);
     if (!rule || !/noindex/.test(JSON.stringify(rule))) fail(`production org vercel.json missing noindex for ${source}`);
   }

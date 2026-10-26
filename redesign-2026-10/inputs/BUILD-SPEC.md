@@ -78,7 +78,7 @@ Eric confirmed this roster on 2026-10-25. Render the team in this order. The ros
 
 1. **Eric R. Burgess** — Founder and CEO (photo: `team/eric-burgess.jpg` from credtent.github.io main; LinkedIn https://www.linkedin.com/in/erburgess). Person schema `@id https://credtent.com/about#eric-r-burgess`.
 2. **Dr. Galen Buckwalter** — Co-founder and Chief Credibility Officer (photo: `assets/photos/galen.jpg`; LinkedIn https://www.linkedin.com/in/j-galen-buckwalter-04139510). Person schema `@id https://credtent.com/about#galen-buckwalter`.
-3. **Edmond Almond** (E-D-M-O-N-D A-L-M-O-N-D) — Chief Partnerships Officer — placeholder headshot (neutral silhouette SVG with initials "EA", `data-placeholder="headshot"`). He is on the team, not on the advisor council.
+3. **Edmond Allmond** (E-D-M-O-N-D A-L-L-M-O-N-D) — Chief Partnerships Officer — placeholder headshot (neutral silhouette SVG with initials "EA", `data-placeholder="headshot"`). He is on the team, not on the advisor council. Email, when shown, is edmond.allmond@credtent.com.
 4. **Abigail Cameron** — Engineering — placeholder headshot (initials "AC", `data-placeholder="headshot"`). Surname and role are set.
 5. **Carmen Sinata** — Onboarding — photo `assets/team/carmen-sinata.jpg`.
 6. **Freddy Mota** (F-R-E-D-D-Y) — Operations — photo `assets/team/freddy-mota.jpg`.
@@ -152,7 +152,7 @@ Not used: `bridge-illustration.png` (generated; banned), `com-bridge-real.jpg`, 
 ### 7.2 Re-credit (locked brand)
 `filmmaker-new.jpg`: the provenance source URL slug names a locked brand. Public credit must read **"Photo: Valdans Media / Pexels"** linking to **`https://www.pexels.com/photo/13377853/`** (ID-only URL, no slug) — or no link. Alt text: "Filmmaker recording with a video camera" (no brand). Do not copy the original slug into any file in the built site. Agent: when creating a public `credits` page/JSON, generate it from provenance with this override.
 ### 7.3 Team headshots (`assets/team/`)
-carmen-sinata.jpg, freddy-mota.jpg (from live credtent.org/team/, existing company portraits). Eric: pull `team/eric-burgess.jpg` from credtent.github.io main. Also use the current-site portraits `team/michael-thompson.jpg`, `team/raymond-jia.jpg`, `team/jim-li.jpg`, and `team/colin-devenish.jpg`. Edmond Almond and Abigail Cameron: placeholder SVGs with initials EA and AC. Never include deborah-drake.jpg. Do not ship `team/jason-pitcock.jpg` in the redesign sites.
+carmen-sinata.jpg, freddy-mota.jpg (from live credtent.org/team/, existing company portraits). Eric: pull `team/eric-burgess.jpg` from credtent.github.io main. Also use the current-site portraits `team/michael-thompson.jpg`, `team/raymond-jia.jpg`, `team/jim-li.jpg`, and `team/colin-devenish.jpg`. Edmond Allmond and Abigail Cameron: placeholder SVGs with initials EA and AC. Never include deborah-drake.jpg. Do not ship `team/jason-pitcock.jpg` in the redesign sites.
 ### 7.4 SVG (`assets/svg/`)
 wordmark.svg, wordmark-white.svg, shield.svg, consent-full.svg, consent-optional.svg, consent-none.svg (Creative Consent badges: Full / Optional / No Protection).
 ### 7.5 Credits page
@@ -180,7 +180,7 @@ wordmark.svg, wordmark-white.svg, shield.svg, consent-full.svg, consent-optional
 - [ ] (Search Console + AI-answer baselines: Eric/human, out of scope for agent.)
 ### Eric's required changes
 - [ ] No "ISO" or "Sony" anywhere: `grep -rniE "\bsony\b|\biso\b" dist/ src/` returns nothing.
-- [x] Deborah Drake absent. Jason Pitcock absent from the redesign sites. Eric confirmed the rendered roster on 2026-10-25: Eric R. Burgess, Dr. Galen Buckwalter, Edmond Almond, Abigail Cameron (Engineering), Carmen Sinata, Freddy Mota, Michael Thompson (Revenue), Raymond Jia (Technology), Jim Li (Technology), Colin Devenish (Sales).
+- [x] Deborah Drake absent. Jason Pitcock absent from the redesign sites. Eric confirmed the rendered roster on 2026-10-25: Eric R. Burgess, Dr. Galen Buckwalter, Edmond Allmond, Abigail Cameron (Engineering), Carmen Sinata, Freddy Mota, Michael Thompson (Revenue), Raymond Jia (Technology), Jim Li (Technology), Colin Devenish (Sales).
 - [x] Published prices stay as built. Eric confirmed $14.99, $24.99, $49, and $249 (rendered US$249+) on 2026-10-26. No unverified flag.
 - [ ] Partners page uses Partner A–E placeholders; none of the candidate real names appear in the repo diff.
 - [ ] No valuation numbers in copy.
@@ -190,7 +190,7 @@ wordmark.svg, wordmark-white.svg, shield.svg, consent-full.svg, consent-optional
 - [ ] Desktop and mobile layouts match the PNGs at 1440 and 390 widths (attach screenshots to PR).
 
 ## 9. Open items flagged for Eric (do not guess)
-Advisor council still unconfirmed (do not render); partner names; font pick; whether the .com contact address stays hello@credtent.com (section 2 still marks that example as Eric's to confirm); whether `/certified-publisher` and `/standards` move to .com; About canonical host (.com assumed); whether the book feature appears on both homes; Edmond's email spelling in Slack invite ("allmond") vs "Almond" on site; which repo is the long-term home for each site; the hero treatment (the build keeps the pale paper hero until Eric decides); the official B Lab badge file; Credtent's B Lab directory URL (do not guess it). The team roster is closed: Eric confirmed it on 2026-10-25 (section 4.4). The published prices $14.99, $24.99, $49, and $249 are confirmed (section 4.6). Orange stays the primary button color (section 4.7). The "certified B Corp" wording is in place beside the public-benefit sentence (section 4.8).
+Advisor council still unconfirmed (do not render); partner names; font pick; whether the .com contact address stays hello@credtent.com (section 2 still marks that example as Eric's to confirm); whether `/certified-publisher` and `/standards` move to .com; About canonical host (.com assumed); whether the book feature appears on both homes; Edmond's surname is Allmond (two L's). Use edmond.allmond@credtent.com. The earlier one-L spelling was wrong; which repo is the long-term home for each site; the hero treatment (the build keeps the pale paper hero until Eric decides); the official B Lab badge file; Credtent's B Lab directory URL (do not guess it). The team roster is closed: Eric confirmed it on 2026-10-25 (section 4.4). The published prices $14.99, $24.99, $49, and $249 are confirmed (section 4.6). Orange stays the primary button color (section 4.7). The "certified B Corp" wording is in place beside the public-benefit sentence (section 4.8).
 
 ## 10. Reference files in this folder
 `design-review-text.txt` (full PDF text), `pages/` (page PNG/JPG renders; tall mobile/desktop pages split into `-partN` 5000px slices), `astra-redesign/*.md`, `source/*`, `niven-seo-aeo-geo-2026-10-25.md`, `partners-page-draft-2026-10-25.md`, `domain-switch-survey-2026-10-25.md`, `website-redesign-slack-find-2026-10-25.md`.

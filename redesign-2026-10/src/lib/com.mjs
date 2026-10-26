@@ -285,7 +285,7 @@ export function comPages(images) {
       <section class="section"><div class="wrap prose">
         <h2>An estimate supports a conversation.</h2>
         <p>The assessment should identify evidence, assumptions, scope, and uncertainty. An estimate is not a guaranteed transaction price or an established industry standard. Final terms depend on the parties and their agreement.</p>
-        <p>Credtent's proposed approach brings context and supported indicators into constructive pricing discussions. Third-party ratings and evidence must be appropriately sourced; unsupported ratings are not part of this preview.</p>
+        <p>Credtent's proposed approach brings context and supported indicators into constructive pricing discussions. Third-party ratings and evidence must be appropriately sourced; unsupported ratings are not part of a Credtent valuation.</p>
         <h2>Valuation can stand on its own.</h2>
         <p>You may already have a buyer or a licensing agreement. Obtain a valuation independently, then decide whether you want help finding licensing partners or negotiating another opportunity.</p>
         <div class="btn-row"><a class="btn" href="/contact#other">Request a valuation</a><a class="btn btn-ghost" href="/ai-training">Discuss licensing options</a></div>
@@ -388,11 +388,11 @@ export function comPages(images) {
       <section class="section"><div class="wrap">
         <p class="eyebrow">The people behind the work</p>
         <h2>The Credtent team</h2>
-        <p class="lede">Eric R. Burgess, Dr. Galen Buckwalter, Edmond Almond, Abigail Cameron, Carmen Sinata, Freddy Mota, Michael Thompson, Raymond Jia, Jim Li, and Colin Devenish.</p>
+        <p class="lede">Eric R. Burgess, Dr. Galen Buckwalter, Edmond Allmond, Abigail Cameron, Carmen Sinata, Freddy Mota, Michael Thompson, Raymond Jia, Jim Li, and Colin Devenish.</p>
         <div class="team" style="margin-top:24px">
           <article class="person">${picture(images.eric, { sizes: "240px" })}<h3>Eric R. Burgess</h3><p class="role">Founder and CEO</p><p><a href="https://www.linkedin.com/in/erburgess">Eric on LinkedIn</a></p></article>
           <article class="person">${picture(images.galen, { sizes: "240px" })}<h3>Dr. Galen Buckwalter</h3><p class="role">Co-Founder and Chief Science Officer</p><p><a href="https://www.linkedin.com/in/j-galen-buckwalter-04139510">Galen on LinkedIn</a></p></article>
-          <article class="person"><img src="/media/placeholder-ea.svg" width="480" height="480" alt="Placeholder headshot for Edmond Almond" data-placeholder="headshot"><h3>Edmond Almond</h3><p class="role">Chief Partnerships Officer</p></article>
+          <article class="person"><img src="/media/placeholder-ea.svg" width="480" height="480" alt="Placeholder headshot for Edmond Allmond" data-placeholder="headshot"><h3>Edmond Allmond</h3><p class="role">Chief Partnerships Officer</p></article>
           <article class="person"><img src="/media/placeholder-ac.svg" width="480" height="480" alt="Placeholder headshot for Abigail Cameron" data-placeholder="headshot"><h3>Abigail Cameron</h3><p class="role">Engineering</p></article>
           <article class="person">${picture(images.carmen, { sizes: "240px" })}<h3>Carmen Sinata</h3><p class="role">Onboarding</p></article>
           <article class="person">${picture(images.freddy, { sizes: "240px" })}<h3>Freddy Mota</h3><p class="role">Operations</p></article>
@@ -488,7 +488,7 @@ export function comPages(images) {
           <article class="card"><h3>Opt-Out Premium</h3><p>${price("US$49")} annually for individuals.</p><p>${price("US$249+")} annually for organizations.</p><p><a href="https://credtent.org/premium">Read about Opt-Out Premium</a></p></article>
           <article class="card"><h3>The Collaborithmic Age</h3>${editions()}<p><a href="${BOOK}">Explore the book</a></p></article>
         </div>
-        <p class="fine">Enterprise licensing and other catalog fees are discussed directly. They are intentionally absent from this preview.</p>
+        <p class="fine">Enterprise licensing and other catalog fees are discussed directly. They are quoted directly.</p>
       </div></section>`
     },
     {
