@@ -117,17 +117,22 @@ function nav(site, path) {
     return `<a href="${esc(item.href)}"${current}${external}>${esc(item.label)}</a>`;
   }).join("");
   const ctaExternal = site.cta.href.startsWith("http") ? ' target="_blank" rel="noopener"' : "";
+  const short = site.cta.shortLabel
+    ? `<span class="btn-nav-short">${esc(site.cta.shortLabel)}</span>`
+    : "";
+  const shortClass = site.cta.shortLabel ? " has-short" : "";
   return `<header class="site-header">
     <div class="header-inner">
       <a class="brand" href="/" aria-label="Credtent home">
         <img class="shield" src="/brand/shield.svg" width="32" height="36" alt="">
         <img class="word" src="/brand/wordmark.svg" width="148" height="27" alt="Credtent">
       </a>
+      <nav class="site-nav site-nav-desktop" aria-label="Primary">${links}</nav>
       <div class="header-tools">
-        <a class="btn btn-nav" href="${esc(site.cta.href)}"${ctaExternal}>${esc(site.cta.label)}</a>
+        <a class="btn btn-nav${shortClass}" href="${esc(site.cta.href)}"${ctaExternal}><span class="btn-nav-full">${esc(site.cta.label)}</span>${short}</a>
         <details class="nav-details">
           <summary class="nav-summary">Menu</summary>
-          <nav class="site-nav" aria-label="Primary">${links}</nav>
+          <nav class="site-nav site-nav-mobile" aria-label="Primary">${links}</nav>
         </details>
       </div>
     </div>

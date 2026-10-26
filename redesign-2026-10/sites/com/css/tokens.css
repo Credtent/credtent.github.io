@@ -73,7 +73,8 @@
   --ink: #1C2340;
   --text: #3B4261;
   --muted: #696D87;
-  --data: #EB8D1E;
+  /* Small labels (12px kickers). Darkened from #EB8D1E so they clear 4.5:1 on white, paper, and tint. */
+  --data: #A85400;
   --paper: #F7F8FC;
   --white: #ffffff;
   --line: #EAEBF4;

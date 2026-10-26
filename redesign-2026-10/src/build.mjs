@@ -35,7 +35,7 @@ const SITES = {
     origin: "https://credtent.org",
     email: "hello@credtent.com",
     dir: path.join(OUT_ROOT, "org"),
-    cta: { href: "https://app.credtent.org/opt-out", label: "Free opt-out" },
+    cta: { href: "https://app.credtent.org/opt-out", label: "Free opt-out", shortLabel: "Opt out" },
     nav: [
       { href: "/opt-out", label: "Opt-Out" },
       { href: "/creative-consent", label: "Creative Consent" },
