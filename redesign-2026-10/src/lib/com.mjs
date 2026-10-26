@@ -1,4 +1,4 @@
-import { ADDRESS_HTML, BOOK, CAPSULE, LICENSE_SENTENCE, OPT_OUT_FLOW, SIGN_UP, price } from "./copy.mjs";
+import { ADDRESS_HTML, BOOK, CAPSULE, CONTENT_PARTNER_INQUIRY, LICENSE_SENTENCE, OPT_OUT_FLOW, SIGN_UP, price } from "./copy.mjs";
 import { ORG_ID, diagramHtml, figure, inquiryForm, picture, tallyEmbed } from "./render.mjs";
 
 function editions() {
@@ -132,7 +132,7 @@ export function comPages(images) {
       capsule: "Credtent helps authors, publishers, studios, archives, and data providers decide which uses to permit, understand value, and license on terms they set.",
       crumbs: [{ name: "Content owners", href: "https://credtent.com/content-owners" }],
       crumbName: "Content owners",
-      actions: `<div class="btn-row"><a class="btn" href="/contact#content-partners">Talk with us</a><a class="btn btn-ghost" href="${SIGN_UP}">Sign up</a></div>`,
+      actions: `<div class="btn-row"><a class="btn" href="${CONTENT_PARTNER_INQUIRY}">Talk with us</a><a class="btn btn-ghost" href="${SIGN_UP}">Sign up</a></div>`,
       media: hero("editor", { priority: true }),
       preload: preload("editor"),
       faq: [
@@ -423,10 +423,10 @@ export function comPages(images) {
     {
       path: "/contact",
       title: "Contact Credtent",
-      description: "AI companies and content owners can use Credtent's existing inquiry forms. Valuation and citation questions still open an email.",
+      description: "AI companies can use the licensing form. Content owners start an inquiry in the app. Other questions open an email.",
       eyebrow: "Contact",
       h1: "Start a conversation.",
-      capsule: "AI companies and content owners can use the forms on this page. Valuation, citation licensing, and other notes still open an email to sales@credtent.com.",
+      capsule: "AI companies can use the licensing form on this page. Content owners start an inquiry in the app. Valuation, citation licensing, and other notes still open an email to sales@credtent.com.",
       crumbs: [{ name: "Contact", href: "https://credtent.com/contact" }],
       faq: [
         { q: "Which email should companies use?", a: "Write to hello@credtent.com." },
@@ -441,19 +441,17 @@ export function comPages(images) {
           </div>
           <div id="content-partners">
             <h2>Content owners</h2>
-            <p>Content partner inquiry for catalogs, rights, and the uses you want to offer.</p>
-            ${tallyEmbed({ id: "VL10Ga", title: "Content Partner Inquiry" })}
+            <p>Tell us about your catalog, the rights you hold, and the uses you want to offer.</p>
+            <div class="btn-row"><a class="btn" href="${CONTENT_PARTNER_INQUIRY}">Talk with us</a></div>
           </div>
         </div>
         <div class="grid-2" id="other" style="margin-top:36px">
           <div>
             <h2>Valuation, citation licensing, or another question</h2>
-            <p>These topics do not have their own Tally form.</p>
             ${inquiryForm({
               subject: "Credtent inquiry",
               submitLabel: "Send",
               note: "Sending opens an email to sales@credtent.com.",
-              todo: "No Tally form in this repo matches valuation, citation licensing, or a general inquiry. BzbXK7 is only the AI Company Licensing Inquiry. VL10Ga is only the Content Partner Inquiry. 2ExeBp is only the Investor Form. nroELN was the certified-publisher inquiry and https://tally.so/r/nroELN now returns 404, so it is not embedded. Choose or create a form for the remaining topics.",
               fields: `<label>Name <input name="name" type="text" autocomplete="name" required></label>
           <label>Email <input name="email" type="email" autocomplete="email" required></label>
           <label>Topic

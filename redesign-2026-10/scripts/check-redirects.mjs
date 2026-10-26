@@ -217,22 +217,30 @@ if (!premium.includes('"@type":"Offer"') || !premium.includes('"price":"49"') ||
   fail("org premium is missing Offer markup for 49 and 249+");
 }
 const contact = fs.readFileSync(path.join(sites["https://credtent.com"], "contact/index.html"), "utf8");
-const contactVisible = contact.replace(/<!--[\s\S]*?-->/g, "");
-if (/TODO\(Eric\)/.test(contactVisible)) fail("com contact still has a visible TODO on the page");
+if (/TODO\(Eric\)/.test(contact)) fail("com contact still has a TODO");
+if (/VL10Ga/.test(contact)) fail("com contact still references the content partner Tally form");
 if (!contact.includes("https://tally.so/embed/BzbXK7?hideTitle=1&transparentBackground=1&dynamicHeight=1")) {
   fail("com contact is missing the AI Company Licensing Inquiry embed");
 }
-if (!contact.includes("https://tally.so/embed/VL10Ga?hideTitle=1&transparentBackground=1&dynamicHeight=1")) {
-  fail("com contact is missing the Content Partner Inquiry embed");
-}
-if (!contact.includes("https://tally.so/r/BzbXK7") || !contact.includes("https://tally.so/r/VL10Ga")) {
-  fail("com contact is missing a Tally fallback link");
+if (!contact.includes("https://tally.so/r/BzbXK7")) fail("com contact is missing the AI licensing Tally fallback link");
+if (!contact.includes('href="https://app.credtent.org/inquiries/content-partner"')) {
+  fail("com contact is missing the content partner inquiry link");
 }
 if (!contact.includes("Prefer email? <a href=\"mailto:sales@credtent.com\">sales@credtent.com</a>")) {
   fail("com contact is missing the sales@ email line");
 }
-if (!/<!-- TODO\(Eric\): No Tally form in this repo matches valuation/.test(contact)) {
-  fail("com contact is missing the TODO for topics without a Tally form");
+if (!contact.includes('action="mailto:sales@credtent.com"')) fail("com contact is missing the remaining mailto form");
+const owners = fs.readFileSync(path.join(sites["https://credtent.com"], "content-owners/index.html"), "utf8");
+if (!owners.includes('href="https://app.credtent.org/inquiries/content-partner"')) fail("content owners CTA does not open the app inquiry page");
+if (owners.includes("#content-partners") || owners.includes("VL10Ga")) fail("content owners CTA still points at the Tally section");
+const orgContact = fs.readFileSync(path.join(sites["https://credtent.org"], "contact/index.html"), "utf8");
+const consent = fs.readFileSync(path.join(sites["https://credtent.org"], "creative-consent/index.html"), "utf8");
+if (/TODO\(Eric\): No Tally/.test(orgContact) || /TODO\(Eric\): No Tally/.test(consent)) {
+  fail("mailto pages still have a Tally TODO");
+}
+if (!orgContact.includes('action="mailto:sales@credtent.com"')) fail("org contact is missing its mailto form");
+if ((consent.match(/action="mailto:sales@credtent.com"/g) || []).length !== 2) {
+  fail("creative consent is missing a mailto form");
 }
 const about = fs.readFileSync(path.join(sites["https://credtent.com"], "about/index.html"), "utf8");
 if (/TODO\(Eric\)/.test(about)) fail("com about still has a hidden TODO");

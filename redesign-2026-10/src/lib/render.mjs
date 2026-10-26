@@ -329,8 +329,9 @@ export function diagramHtml() {
 
 const SALES_EMAIL = "sales@credtent.com";
 
-// IDs that appear in this repo's history. Do not add an ID that was never committed.
-const KNOWN_TALLY_IDS = new Set(["BzbXK7", "VL10Ga", "2ExeBp", "nroELN"]);
+// IDs this generator may embed. Each one appears in repo history.
+// VL10Ga is a real Content Partner Inquiry, and content-partner CTAs go to the app instead.
+const KNOWN_TALLY_IDS = new Set(["BzbXK7", "2ExeBp", "nroELN"]);
 
 const TALLY_LOADER = `<script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>`;
 

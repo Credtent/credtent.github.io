@@ -14,6 +14,7 @@ export const AEGIS = "https://app.credtent.org";
 export const OPT_OUT_FLOW = AEGIS + "/opt-out";
 export const SIGN_IN = AEGIS + "/login";
 export const SIGN_UP = AEGIS + "/";
+export const CONTENT_PARTNER_INQUIRY = AEGIS + "/inquiries/content-partner";
 export const BOOK = "https://collaborithmic.com/";
 
 export function price(amount) {
