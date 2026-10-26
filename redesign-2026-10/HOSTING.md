@@ -38,7 +38,7 @@ Do not attach the .org production domain, and do not enable those 301s on a publ
 4. When the corporate pages are ready to take traffic, attach credtent.com in Vercel and point DNS at that project. Eric does this step.
 5. Only after those .com URLs return 200, attach credtent.org and point its DNS at the second project. The 301s then move the old corporate paths.
 6. Leave `app.credtent.org` and `registry.credtent.org` on their current hosts.
-7. At publish time, set `SITE_ENV=production`, replace `robots.txt` with `robots.production.txt`, and remove the noindex meta tag and the `X-Robots-Tag` header. That switch is not part of this branch.
+7. At publish time, rebuild with `SITE_ENV=production`. That build writes `robots.production.txt` to `robots.txt` and omits the sitewide noindex meta tag and `X-Robots-Tag`. Parked URLs and the three coming-soon resource pages stay noindex. The files committed on this branch are the preview build. Eric runs the production build. This branch does not deploy it.
 8. Retire GitHub Pages only after DNS has moved and the previews have been accepted. Do not change `gh-pages` from this work.
 
 ## What this branch does not do

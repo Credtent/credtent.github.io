@@ -81,14 +81,16 @@ function crumbNode(site, crumbs, pageUrl) {
 export function picture(img, { sizes = "100vw", priority = false, className = "" } = {}) {
   const avif = img.widths.map((w) => `${img.base}-${w}.avif ${w}w`).join(", ");
   const webp = img.widths.map((w) => `${img.base}-${w}.webp ${w}w`).join(", ");
-  const src = `${img.base}-${img.widths[img.widths.length - 1]}.webp`;
+  const displayWidth = img.widths[img.widths.length - 1];
+  const displayHeight = Math.round(img.height * (displayWidth / img.width));
+  const src = `${img.base}-${displayWidth}.webp`;
   const fp = priority ? ' fetchpriority="high"' : "";
   const loading = priority ? "eager" : "lazy";
   const cls = className ? ` class="${className}"` : "";
   return `<picture>
     <source type="image/avif" srcset="${avif}" sizes="${sizes}">
     <source type="image/webp" srcset="${webp}" sizes="${sizes}">
-    <img src="${src}" width="${img.width}" height="${img.height}" alt="${esc(img.alt)}"${fp} loading="${loading}" decoding="async"${cls}>
+    <img src="${src}" width="${displayWidth}" height="${displayHeight}" alt="${esc(img.alt)}"${fp} loading="${loading}" decoding="async"${cls}>
   </picture>`;
 }
 
@@ -241,7 +243,15 @@ export function renderPage(site, page) {
   if (!page.capsule) throw new Error(`Missing answer-first summary: ${site.id} ${page.path}`);
   if (!page.faq?.length) throw new Error(`Missing FAQ: ${site.id} ${page.path}`);
   const preload = page.preload || "";
-  const robots = `<!-- TODO(launch): remove this noindex meta, the X-Robots-Tag header, and robots.txt Disallow before publishing. SITE_ENV is not production. credtent.com must answer 200 before any .org 301 goes live. -->`;
+  const production = process.env.SITE_ENV === "production";
+  const noindex = page.noindex || !production;
+  const robots = noindex
+    ? `${production ? "" : "<!-- TODO(launch): this noindex meta is for preview builds. SITE_ENV=production omits it on pages that are allowed to be indexed. -->\n  "}<meta name="robots" content="noindex, nofollow">`
+    : "";
+  const canonical = page.file === "404.html" ? "" : `<link rel="canonical" href="${esc(pageUrl)}">`;
+  const previewBar = production
+    ? ""
+    : `<p class="preview-bar"><strong>Preview.</strong> This build is noindex until Eric publishes.</p>`;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -249,10 +259,9 @@ export function renderPage(site, page) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   ${robots}
-  <meta name="robots" content="noindex, nofollow">
   <title>${esc(page.title)}</title>
   <meta name="description" content="${esc(page.description)}">
-  <link rel="canonical" href="${esc(pageUrl)}">
+  ${canonical}
   <meta property="og:title" content="${esc(page.title)}">
   <meta property="og:description" content="${esc(page.description)}">
   <meta property="og:url" content="${esc(pageUrl)}">
@@ -271,7 +280,7 @@ export function renderPage(site, page) {
 </head>
 <body>
   <a class="skip-link" href="#content">Skip to content</a>
-  <p class="preview-bar"><strong>Preview.</strong> TODO(launch): this build is noindex. Remove the robots block only when Eric publishes.</p>
+  ${previewBar}
   ${nav(site, path)}
   <main id="content">
     ${top}

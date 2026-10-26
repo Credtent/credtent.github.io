@@ -94,9 +94,9 @@ export function orgPages(images) {
           <p class="eyebrow">Creative resources</p>
           <h2>Understand more. Decide for yourself.</h2>
           <div class="grid-3" style="margin-top:24px">
-            <article class="card resource-card">${shot("resourceOptout", { sizes: "(min-width: 1000px) 340px, 100vw" })}<div><h3>What an opt-out request can do.</h3><p><a href="/resources/what-an-opt-out-can-do">Read: what an opt-out request can do</a></p></div></article>
-            <article class="card resource-card">${shot("resourceTerms", { sizes: "(min-width: 1000px) 340px, 100vw" })}<div><h3>How to read a platform's AI terms.</h3><p><a href="/resources/how-to-read-platform-terms">Read: how to read a platform's AI terms</a></p></div></article>
-            <article class="card resource-card">${shot("resourceJudgment", { sizes: "(min-width: 1000px) 340px, 100vw" })}<div><h3>Use AI without giving up your judgment.</h3><p><a href="/resources/use-ai-without-giving-up-judgment">Read: use AI without giving up your judgment</a></p></div></article>
+            <article class="card resource-card">${shot("resourceOptout", { sizes: "(min-width: 1000px) 340px, 100vw" })}<div><h3>What an opt-out request can do.</h3><p>Coming soon.</p></div></article>
+            <article class="card resource-card">${shot("resourceTerms", { sizes: "(min-width: 1000px) 340px, 100vw" })}<div><h3>How to read a platform's AI terms.</h3><p>Coming soon.</p></div></article>
+            <article class="card resource-card">${shot("resourceJudgment", { sizes: "(min-width: 1000px) 340px, 100vw" })}<div><h3>Use AI without giving up your judgment.</h3><p>Coming soon.</p></div></article>
           </div>
         </div>
       </section>
@@ -248,7 +248,32 @@ export function orgPages(images) {
         "@id": "https://credtent.org/premium#service",
         name: "Opt-Out Premium",
         provider: { "@id": ORG_ID },
-        description: "Monthly auditing of observable model responses for individuals. Observations are not proof of dataset inclusion or infringement."
+        description: "Monthly auditing of observable model responses for individuals. Observations are not proof of dataset inclusion or infringement.",
+        offers: [
+          {
+            "@type": "Offer",
+            "@id": "https://credtent.org/premium#individuals",
+            name: "Opt-Out Premium for individuals",
+            price: "49",
+            priceCurrency: "USD",
+            description: "US$49 annually for individuals.",
+            url: "https://credtent.org/premium"
+          },
+          {
+            "@type": "Offer",
+            "@id": "https://credtent.org/premium#organizations",
+            name: "Opt-Out Premium for organizations",
+            priceCurrency: "USD",
+            description: "US$249+ annually for organizations.",
+            url: "https://credtent.org/premium",
+            priceSpecification: {
+              "@type": "PriceSpecification",
+              minPrice: "249",
+              priceCurrency: "USD",
+              description: "US$249 or more annually for organizations."
+            }
+          }
+        ]
       }],
       faq: [
         { q: "What does the audit prove?", a: "Nothing about dataset inclusion or infringement. It records observable model responses." },
@@ -268,12 +293,9 @@ export function orgPages(images) {
       capsule: "These resources explain what an opt-out can do, how to read a platform's AI terms, and how to use AI without handing over judgment.",
       crumbs: [{ name: "Resources", href: "https://credtent.org/resources" }],
       faq: [
-        { q: "Are the three articles finished?", a: "They are labeled as drafts on this preview. The limits of opt-out are answered in the FAQ linked below." }
+        { q: "Are the longer articles published?", a: "Three of them are coming soon. Auditing, opt-out limitations, and the licensing guide are available now." }
       ],
       main: `<section class="section section-white"><div class="wrap grid-3">
-        <article class="card"><h3>What an opt-out request can do</h3><p><a href="/resources/what-an-opt-out-can-do">Read: what an opt-out request can do</a></p></article>
-        <article class="card"><h3>How to read a platform's AI terms</h3><p><a href="/resources/how-to-read-platform-terms">Read: how to read a platform's AI terms</a></p></article>
-        <article class="card"><h3>Use AI without giving up your judgment</h3><p><a href="/resources/use-ai-without-giving-up-judgment">Read: use AI without giving up your judgment</a></p></article>
         <article class="card"><h3>Auditing</h3><p><a href="/resources/auditing">Read: how auditing works</a></p></article>
         <article class="card"><h3>Opt-out limitations</h3><p><a href="/resources/opt-out-limitations">Read: opt-out limitations</a></p></article>
         <article class="card"><h3>Guides</h3><p><a href="/guides/">Read: AI training data licensing for creatives</a></p></article>
@@ -543,18 +565,18 @@ export function orgPages(images) {
 }
 
 function stub(path, title, capsule) {
-  const slug = path.split("/").pop();
   return {
     path,
+    noindex: true,
     title: `${title} | Credtent`,
     description: capsule,
-    eyebrow: "Resource draft",
+    eyebrow: "Resource",
     h1: title,
     capsule,
     crumbs: [{ name: "Resources", href: "https://credtent.org/resources" }, { name: title, href: "https://credtent.org" + path }],
     faq: [
-      { q: "Is this the full article?", a: "No. TODO(Eric): this resource article is a stub pending editorial review." }
+      { q: "Is this the full article?", a: "No. The full article is not published yet." }
     ],
-    main: `<section class="section"><div class="wrap prose"><p class="todo">TODO(Eric): write the full article.</p><p><a href="/resources">Back to resources</a></p></div></section>`
+    main: `<section class="section"><div class="wrap prose"><p>Coming soon.</p><p><a href="/resources">Back to resources</a></p></div></section>`
   };
 }

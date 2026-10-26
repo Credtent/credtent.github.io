@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- TODO(launch): remove this noindex meta, the X-Robots-Tag header, and robots.txt Disallow before publishing. SITE_ENV is not production. credtent.com must answer 200 before any .org 301 goes live. -->
+  <!-- TODO(launch): this noindex meta is for preview builds. SITE_ENV=production omits it on pages that are allowed to be indexed. -->
   <meta name="robots" content="noindex, nofollow">
   <title>Contact Credtent</title>
   <meta name="description" content="Contact Credtent about opt-out, auditing, valuation, or licensing.">
@@ -26,7 +26,7 @@
 </head>
 <body>
   <a class="skip-link" href="#content">Skip to content</a>
-  <p class="preview-bar"><strong>Preview.</strong> TODO(launch): this build is noindex. Remove the robots block only when Eric publishes.</p>
+  <p class="preview-bar"><strong>Preview.</strong> This build is noindex until Eric publishes.</p>
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="/" aria-label="Credtent home">
@@ -46,7 +46,6 @@
     <div class="wrap section-tight"><p class="crumbs"><span>Contact</span></p><p class="eyebrow">Contact</p><h1>Start a conversation.</h1><p class="capsule">Write to Credtent about opt-out, auditing, valuation, or licensing. This preview form does not send a message.</p></div>
     <section class="section section-white"><div class="wrap grid-2">
         <form class="form" action="#" method="post">
-          <!-- TODO(Eric): point this form at a real inbox. It must not post anywhere live. -->
           <label>Name <input name="name" type="text" autocomplete="name" required></label>
           <label>Email <input name="email" type="email" autocomplete="email" required></label>
           <label>Topic

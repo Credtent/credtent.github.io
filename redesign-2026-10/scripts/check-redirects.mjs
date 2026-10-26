@@ -130,6 +130,17 @@ for (const [origin, dir] of Object.entries(sites)) {
   const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
   if (!locs.length) fail(`${origin} sitemap has no URLs`);
   if (locs.some((loc) => loc.includes("/partners"))) fail(`${origin} sitemap still lists /partners`);
+  if (locs.some((loc) => loc.includes("/parking"))) fail(`${origin} sitemap lists a parked URL`);
+  for (const hidden of [
+    "/resources/what-an-opt-out-can-do",
+    "/resources/how-to-read-platform-terms",
+    "/resources/use-ai-without-giving-up-judgment"
+  ]) {
+    if (locs.some((loc) => loc.endsWith(hidden))) fail(`${origin} sitemap lists coming-soon URL ${hidden}`);
+  }
+  if (origin.endsWith(".org") && locs.length !== 24) {
+    fail(`${origin} sitemap has ${locs.length} URLs, expected 24 after dropping parked and coming-soon pages`);
+  }
   for (const loc of locs) {
     const url = new URL(loc);
     if (url.origin !== origin) fail(`sitemap loc on the wrong host: ${loc}`);
@@ -138,16 +149,43 @@ for (const [origin, dir] of Object.entries(sites)) {
 
   const llms = fs.readFileSync(path.join(dir, "llms.txt"), "utf8");
   if (/\/partners\b/i.test(llms)) fail(`${origin} llms.txt mentions /partners`);
+  for (const match of llms.matchAll(/\]\((https:\/\/credtent\.(?:com|org)[^)\s]+)\)/g)) {
+    const link = match[1];
+    const url = new URL(link);
+    if (url.origin !== origin) continue;
+    const target = fileFor(dir, url.pathname);
+    if (!target) {
+      fail(`${origin} llms.txt points at a missing page ${link}`);
+      continue;
+    }
+    const canonical = fs.readFileSync(target, "utf8").match(/<link rel="canonical" href="([^"]+)"/);
+    if (!canonical || canonical[1] !== link) fail(`${origin} llms.txt ${link} does not match canonical ${canonical && canonical[1]}`);
+  }
 
+  const hiddenPaths = [
+    "/resources/what-an-opt-out-can-do",
+    "/resources/how-to-read-platform-terms",
+    "/resources/use-ai-without-giving-up-judgment"
+  ];
   const pages = walk(dir).filter((file) => file.endsWith(".html"));
   for (const file of pages) {
     const html = fs.readFileSync(file, "utf8");
+    const rel = path.relative(dir, file).split(path.sep).join("/");
     const canonical = html.match(/<link rel="canonical" href="([^"]+)"/);
-    if (!canonical) fail(`${path.relative(root, file)} missing canonical`);
+    const is404 = rel === "404.html";
+    if (is404) {
+      if (canonical) fail(`${path.relative(root, file)} should not have a canonical`);
+    } else if (!canonical) fail(`${path.relative(root, file)} missing canonical`);
     else if (!canonical[1].startsWith(origin)) fail(`${path.relative(root, file)} canonical ${canonical[1]}`);
     if (!/name="robots" content="noindex, nofollow"/.test(html)) fail(`${path.relative(root, file)} missing preview noindex`);
     if (/href="[^"]*\/partners\/?"/.test(html) || /https:\/\/credtent\.com\/partners/.test(html)) {
       fail(`${path.relative(root, file)} still links to /partners`);
+    }
+    const ownStub = hiddenPaths.find((item) => rel === `${item.slice(1)}/index.html`);
+    if (!ownStub) {
+      for (const item of hiddenPaths) {
+        if (html.includes(item)) fail(`${path.relative(root, file)} still links to ${item}`);
+      }
     }
   }
 
@@ -171,6 +209,64 @@ for (const file of Object.values(sites).flatMap((dir) => walk(dir)).filter((file
   }
 }
 console.log(kept.length ? `kept product names:\n${kept.join("\n")}` : "kept product names: none");
+
+const home = fs.readFileSync(path.join(sites["https://credtent.com"], "index.html"), "utf8");
+if (!/src="\/media\/bridge-1600\.webp" width="1600"/.test(home)) fail("com home hero width is not 1600");
+const premium = fs.readFileSync(path.join(sites["https://credtent.org"], "premium/index.html"), "utf8");
+if (!premium.includes('"@type":"Offer"') || !premium.includes('"price":"49"') || !premium.includes('"minPrice":"249"')) {
+  fail("org premium is missing Offer markup for 49 and 249+");
+}
+const contact = fs.readFileSync(path.join(sites["https://credtent.com"], "contact/index.html"), "utf8");
+if (/TODO\(Eric\)/.test(contact)) fail("com contact still has a TODO on the page");
+const about = fs.readFileSync(path.join(sites["https://credtent.com"], "about/index.html"), "utf8");
+if (/TODO\(Eric\)/.test(about)) fail("com about still has a hidden TODO");
+
+function assertProduction(outDir) {
+  const hosts = {
+    "https://credtent.com": path.join(outDir, "com"),
+    "https://credtent.org": path.join(outDir, "org")
+  };
+  for (const [origin, dir] of Object.entries(hosts)) {
+    const robots = fs.readFileSync(path.join(dir, "robots.txt"), "utf8");
+    const ready = fs.readFileSync(path.join(dir, "robots.production.txt"), "utf8");
+    if (robots !== ready) fail(`${origin} production build does not serve robots.production.txt`);
+    if (/^Disallow:\s*\/\s*$/m.test(robots)) fail(`${origin} production robots.txt still disallows the whole site`);
+    const config = JSON.parse(fs.readFileSync(path.join(dir, "vercel.json"), "utf8"));
+    if ((config.headers || []).some((item) => item.source === "/(.*)")) {
+      fail(`${origin} production vercel.json still sends a sitewide X-Robots-Tag`);
+    }
+    const indexable = fs.readFileSync(path.join(dir, "index.html"), "utf8");
+    if (/name="robots" content="noindex/.test(indexable)) fail(`${origin} production home still has a noindex meta tag`);
+    if (indexable.includes("preview-bar")) fail(`${origin} production home still shows the preview bar`);
+    const missing = fs.readFileSync(path.join(dir, "404.html"), "utf8");
+    if (/rel="canonical"/.test(missing)) fail(`${origin} production 404 still has a canonical`);
+    if (!/name="robots" content="noindex, nofollow"/.test(missing)) fail(`${origin} production 404 is missing noindex`);
+  }
+  const parked = fs.readFileSync(path.join(outDir, "org/parking/badges/index.html"), "utf8");
+  if (!/name="robots" content="noindex, nofollow"/.test(parked)) fail("production parking page is missing noindex");
+  const stub = fs.readFileSync(path.join(outDir, "org/resources/how-to-read-platform-terms/index.html"), "utf8");
+  if (!/name="robots" content="noindex, nofollow"/.test(stub)) fail("production coming-soon page is missing noindex");
+  if (!stub.includes("Coming soon.")) fail("coming-soon page is missing the Coming soon line");
+  if (/TODO\(Eric\)/.test(stub)) fail("coming-soon page still shows a TODO");
+  const orgConfig = JSON.parse(fs.readFileSync(path.join(outDir, "org/vercel.json"), "utf8"));
+  for (const source of ["/parking/(.*)", "/resources/how-to-read-platform-terms"]) {
+    const rule = (orgConfig.headers || []).find((item) => item.source === source);
+    if (!rule || !/noindex/.test(JSON.stringify(rule))) fail(`production org vercel.json missing noindex for ${source}`);
+  }
+}
+
+const prodOut = "/tmp/credtent-prod-robots";
+const produced = spawnSync("node", ["src/build.mjs"], {
+  cwd: root,
+  env: { ...process.env, SITE_ENV: "production", SITE_OUT: prodOut },
+  encoding: "utf8"
+});
+if (produced.status !== 0) {
+  fail(`production build failed\n${produced.stdout || ""}\n${produced.stderr || ""}`);
+} else {
+  assertProduction(prodOut);
+  console.log("production mode: robots.production.txt is served, indexable pages have no noindex meta or sitewide X-Robots-Tag");
+}
 
 if (failures.length) {
   console.error(failures.join("\n"));

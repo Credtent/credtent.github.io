@@ -5,11 +5,11 @@ Licenses include the rights the contracting holders warranted, a named manifest,
 
 ## Licensing
 - [Home](https://credtent.com/): Credtent is a neutral marketplace that helps content owners and AI companies agree permitted AI uses, value content, and license it for training and for use in AI answers.
-- [AI companies](https://credtent.com/ai-companies/)
-- [Content owners](https://credtent.com/content-owners/)
-- [AI training](https://credtent.com/ai-training/)
-- [Citation licensing](https://credtent.com/citation-licensing/)
-- [Valuation](https://credtent.com/valuation/)
+- [AI companies](https://credtent.com/ai-companies)
+- [Content owners](https://credtent.com/content-owners)
+- [AI training](https://credtent.com/ai-training)
+- [Citation licensing](https://credtent.com/citation-licensing)
+- [Valuation](https://credtent.com/valuation)
 - [Company map](https://credtent.com/guides/ai-training-data-licensing-companies/)
 
 Opt-out and Creative Consent: see https://credtent.org/llms.txt

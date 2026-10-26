@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- TODO(launch): remove this noindex meta, the X-Robots-Tag header, and robots.txt Disallow before publishing. SITE_ENV is not production. credtent.com must answer 200 before any .org 301 goes live. -->
+  <!-- TODO(launch): this noindex meta is for preview builds. SITE_ENV=production omits it on pages that are allowed to be indexed. -->
   <meta name="robots" content="noindex, nofollow">
   <title>About Credtent</title>
   <meta name="description" content="Credtent, Inc. is a Delaware Public Benefit Corporation founded by Eric R. Burgess and Dr. Galen Buckwalter.">
@@ -26,7 +26,7 @@
 </head>
 <body>
   <a class="skip-link" href="#content">Skip to content</a>
-  <p class="preview-bar"><strong>Preview.</strong> TODO(launch): this build is noindex. Remove the robots block only when Eric publishes.</p>
+  <p class="preview-bar"><strong>Preview.</strong> This build is noindex until Eric publishes.</p>
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="/" aria-label="Credtent home">
@@ -53,8 +53,6 @@
         <p class="eyebrow">The people behind the work</p>
         <h2>The Credtent team</h2>
         <p class="lede">Eric R. Burgess, Dr. Galen Buckwalter, Edmond Almond, Abigail Cameron, Carmen Sinata, Freddy Mota, Michael Thompson, Raymond Jia, Jim Li, and Colin Devenish.</p>
-        <!-- TODO(Eric): headshots for Edmond Almond and Abigail Cameron -->
-        <!-- TODO(Eric): confirm advisors. The council is not rendered. -->
         <div class="team" style="margin-top:24px">
           <article class="person"><picture>
     <source type="image/avif" srcset="/media/eric-256.avif 256w" sizes="240px">
@@ -96,7 +94,7 @@
           <article class="person"><picture>
     <source type="image/avif" srcset="/media/colin-320.avif 320w" sizes="240px">
     <source type="image/webp" srcset="/media/colin-320.webp 320w" sizes="240px">
-    <img src="/media/colin-320.webp" width="450" height="450" alt="Colin Devenish" loading="lazy" decoding="async">
+    <img src="/media/colin-320.webp" width="320" height="320" alt="Colin Devenish" loading="lazy" decoding="async">
   </picture><h3>Colin Devenish</h3><p class="role">Sales</p></article>
         </div>
       </div></section>

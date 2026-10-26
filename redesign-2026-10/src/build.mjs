@@ -12,12 +12,16 @@ const ROOT = path.resolve(import.meta.dirname, "..");
 const REPO = path.resolve(ROOT, "..");
 const PRODUCTION = process.env.SITE_ENV === "production";
 
+const OUT_ROOT = process.env.SITE_OUT
+  ? path.resolve(process.env.SITE_OUT)
+  : path.join(ROOT, "sites");
+
 const SITES = {
   com: {
     id: "com",
     origin: "https://credtent.com",
     email: "hello@credtent.com",
-    dir: path.join(ROOT, "sites/com"),
+    dir: path.join(OUT_ROOT, "com"),
     cta: { href: "https://app.credtent.org/", label: "Sign up" },
     nav: [
       { href: "/content-owners", label: "Content owners" },
@@ -30,7 +34,7 @@ const SITES = {
     id: "org",
     origin: "https://credtent.org",
     email: "hello@credtent.com",
-    dir: path.join(ROOT, "sites/org"),
+    dir: path.join(OUT_ROOT, "org"),
     cta: { href: "https://app.credtent.org/opt-out", label: "Free opt-out" },
     nav: [
       { href: "/opt-out", label: "Opt-Out" },
@@ -135,7 +139,7 @@ function writePage(dir, site, page) {
 
 function sitemapPage(site, pages) {
   const links = pages
-    .filter((page) => !page.file)
+    .filter((page) => !page.file && !page.noindex)
     .map((page) => {
       const href = site.origin + (page.path === "/" ? "/" : page.path);
       return `<li><a href="${href}">${page.title}</a></li>`;
@@ -175,6 +179,7 @@ function creditsPage(site, images, keys) {
 function notFound(site) {
   return {
     file: "404.html",
+    noindex: true,
     path: "/404.html",
     title: "Page not found | Credtent",
     description: "That page is not on this preview.",
@@ -249,6 +254,7 @@ function legacyPage(site, file, pagePath, opts = {}) {
     eyebrow: opts.eyebrow || "From the current site",
     h1: opts.h1 || opts.title || "Credtent",
     capsule: opts.capsule || description || "Ported page.",
+    noindex: Boolean(opts.noindex) || pagePath.startsWith("/parking"),
     crumbs: [{ name: opts.crumb || "Page", href: site.origin + pagePath }],
     faq: opts.faq || [{ q: "Is this the current public page?", a: "It is a preview port with the redesign copy rules applied." }],
     main: `<section class="section"><div class="wrap legacy">${opts.intro || ""}${body}</div></section>`
@@ -332,7 +338,7 @@ Sitemap: https://credtent.org/sitemap.xml
 }
 
 function writeSitemapXml(dir, site, pages) {
-  const urls = pages.filter((page) => !page.file).map((page) => {
+  const urls = pages.filter((page) => !page.file && !page.noindex).map((page) => {
     const loc = site.origin + (page.path === "/" ? "/" : page.path);
     return `  <url><loc>${loc}</loc><lastmod>2026-10-25</lastmod></url>`;
   }).join("\n");
@@ -342,7 +348,7 @@ function writeSitemapXml(dir, site, pages) {
 function writeLlms(dir, site) {
   const com = site.id === "com";
   const body = com
-    ? `# Credtent\n> Delaware Public Benefit Corporation. Corporate site for content owners and AI companies.\n\n${LICENSE_SENTENCE}\n\n## Licensing\n- [Home](https://credtent.com/): ${CAPSULE.comHome}\n- [AI companies](https://credtent.com/ai-companies/)\n- [Content owners](https://credtent.com/content-owners/)\n- [AI training](https://credtent.com/ai-training/)\n- [Citation licensing](https://credtent.com/citation-licensing/)\n- [Valuation](https://credtent.com/valuation/)\n- [Company map](https://credtent.com/guides/ai-training-data-licensing-companies/)\n\nOpt-out and Creative Consent: see https://credtent.org/llms.txt\n`
+    ? `# Credtent\n> Delaware Public Benefit Corporation. Corporate site for content owners and AI companies.\n\n${LICENSE_SENTENCE}\n\n## Licensing\n- [Home](https://credtent.com/): ${CAPSULE.comHome}\n- [AI companies](https://credtent.com/ai-companies)\n- [Content owners](https://credtent.com/content-owners)\n- [AI training](https://credtent.com/ai-training)\n- [Citation licensing](https://credtent.com/citation-licensing)\n- [Valuation](https://credtent.com/valuation)\n- [Company map](https://credtent.com/guides/ai-training-data-licensing-companies/)\n\nOpt-out and Creative Consent: see https://credtent.org/llms.txt\n`
     : `# Credtent\n> Delaware Public Benefit Corporation. Resources for creatives.\n\n${CAPSULE.orgHome}\n\n## For creatives\n- [Home](https://credtent.org/)\n- [Free opt-out](https://credtent.org/opt-out)\n- [Creative Consent](https://credtent.org/creative-consent)\n- [Auditing](https://credtent.org/resources/auditing)\n- [Opt-out limitations](https://credtent.org/resources/opt-out-limitations)\n- [Licensing guide](https://credtent.org/guides/ai-training-data-licensing/)\n\nCorporate licensing, valuation, and the company map: see https://credtent.com/llms.txt\n`;
   fs.writeFileSync(path.join(dir, "llms.txt"), body);
 }
@@ -363,11 +369,20 @@ function holdPartners() {
   return ["/partners", "/partners/", "/partners.html"].map((source) => redirectRule(source, "/", 302));
 }
 
+function noindexHeader(source) {
+  return { source, headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] };
+}
+
 function vercel(site) {
-  const headers = [{
-    source: "/(.*)",
-    headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }]
-  }];
+  const headers = PRODUCTION ? [] : [noindexHeader("/(.*)")];
+  if (site.id === "org") {
+    headers.push(
+      noindexHeader("/parking/(.*)"),
+      noindexHeader("/resources/what-an-opt-out-can-do"),
+      noindexHeader("/resources/how-to-read-platform-terms"),
+      noindexHeader("/resources/use-ai-without-giving-up-judgment")
+    );
+  }
   // /creative-origin stays a page on this host. Do not send it to the registry until Eric decides.
   // /partners is withheld (302 to home) so the path can return after names are reconfirmed.
   const redirects = site.id === "org" ? [
@@ -527,8 +542,9 @@ async function main() {
     ];
     for (const page of withMeta) writePage(site.dir, site, page);
     writePage(site.dir, site, notFound(site));
-    fs.writeFileSync(path.join(site.dir, "robots.txt"), PRODUCTION ? robotsProduction(site) : robotsPreview(site.origin));
-    fs.writeFileSync(path.join(site.dir, "robots.production.txt"), robotsProduction(site));
+    const productionRobots = robotsProduction(site);
+    fs.writeFileSync(path.join(site.dir, "robots.production.txt"), productionRobots);
+    fs.writeFileSync(path.join(site.dir, "robots.txt"), PRODUCTION ? productionRobots : robotsPreview(site.origin));
     writeSitemapXml(site.dir, site, withMeta);
     writeLlms(site.dir, site);
     vercel(site);

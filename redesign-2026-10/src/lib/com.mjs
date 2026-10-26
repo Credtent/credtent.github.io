@@ -389,8 +389,6 @@ export function comPages(images) {
         <p class="eyebrow">The people behind the work</p>
         <h2>The Credtent team</h2>
         <p class="lede">Eric R. Burgess, Dr. Galen Buckwalter, Edmond Almond, Abigail Cameron, Carmen Sinata, Freddy Mota, Michael Thompson, Raymond Jia, Jim Li, and Colin Devenish.</p>
-        <!-- TODO(Eric): headshots for Edmond Almond and Abigail Cameron -->
-        <!-- TODO(Eric): confirm advisors. The council is not rendered. -->
         <div class="team" style="margin-top:24px">
           <article class="person">${picture(images.eric, { sizes: "240px" })}<h3>Eric R. Burgess</h3><p class="role">Founder and CEO</p><p><a href="https://www.linkedin.com/in/erburgess">Eric on LinkedIn</a></p></article>
           <article class="person">${picture(images.galen, { sizes: "240px" })}<h3>Dr. Galen Buckwalter</h3><p class="role">Co-Founder and Chief Science Officer</p><p><a href="https://www.linkedin.com/in/j-galen-buckwalter-04139510">Galen on LinkedIn</a></p></article>
@@ -436,7 +434,6 @@ export function comPages(images) {
       ],
       main: `<section class="section section-white"><div class="wrap grid-2">
         <form class="form" action="#" method="post">
-          <!-- TODO(Eric): point this form at a real inbox. It must not post anywhere live. -->
           <label>Name <input name="name" type="text" autocomplete="name" required></label>
           <label>Email <input name="email" type="email" autocomplete="email" required></label>
           <label>Topic
