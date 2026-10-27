@@ -19,7 +19,7 @@ Past use: We can structure a going-forward license plus a covenant not to sue fr
 - [Free AI training opt-out](https://credtent.org/opt-out): register works once for an industry-wide opt-out; free, recorded, and reversible
 
 ## Badges and certification
-- [Badge systems overview](https://credtent.org/badges/): Creative Origin for creators and publishers, Creative Consent for platforms, Commercial Safety for AI companies
+- [Badge systems overview](https://credtent.org/badges/): Creative Origin for creatives and publishers, Creative Consent for platforms, Commercial Safety for AI companies
 - [Creative Origin certification](https://credtent.org/certified-publisher): expert review of the editorial process behind published work, not an automated detector score
 - [Free Creative Origin badge builder](https://credtent.org/badge-builder): make a self-declared disclosure badge in about a minute, no account needed
 - [AI disclosure standards landscape](https://credtent.org/standards): a working catalog of AI disclosure badges, registries, watermarks, and protocols, maintained by Credtent
