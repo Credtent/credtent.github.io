@@ -38,7 +38,7 @@ function hostGateValue(origin) {
 }
 
 function unconditionalSitewide(config) {
-  return (config.headers || []).some((item) => item.source === "/(.*)" && !item.missing);
+  return (config.headers || []).some((item) => item.source === "/(.*)" && !item.missing && (item.headers || []).some((h) => h.key === "X-Robots-Tag"));
 }
 
 function assertHostGate(origin, config) {
@@ -273,7 +273,7 @@ for (const [origin, dir] of Object.entries(sites)) {
     } else {
       if (html.includes("preview-bar")) fail(`${path.relative(root, file)} still shows the preview bar`);
       if (loadsGtagNow) fail(`${path.relative(root, file)} loads gtag.js before consent`);
-      if (origin.endsWith(".org")) {
+      {
         if (!html.includes("https://www.googletagmanager.com/gtag/js?id=")) fail(`${path.relative(root, file)} is missing the consent-gated GA loader`);
         if (!html.includes('"anonymize_ip":true') || !html.includes('"allow_ad_personalization_signals":false')) {
           fail(`${path.relative(root, file)} is missing anonymized GA defaults`);
@@ -285,8 +285,6 @@ for (const [origin, dir] of Object.entries(sites)) {
           fail(`${path.relative(root, file)} is missing the cookie banner`);
         }
         if (!html.includes('id="cookie-settings"')) fail(`${path.relative(root, file)} is missing Cookie settings`);
-      } else if (/googletagmanager\.com|google-analytics\.com|id="cookie-banner"|id="cookie-settings"/.test(html)) {
-        fail(`${path.relative(root, file)} loads analytics without a .com measurement id`);
       }
       if (staysNoindex(rel)) {
         if (!/name="robots" content="noindex, nofollow"/.test(html)) fail(`${path.relative(root, file)} is missing its noindex meta`);
@@ -424,16 +422,16 @@ function assertProduction(outDir) {
     if (indexable.includes("preview-bar")) fail(`${origin} production home still shows the preview bar`);
     const loadsGtagNow = /src="https:\/\/www\.googletagmanager\.com\/gtag\/js/.test(indexable);
     if (loadsGtagNow) fail(`${origin} production home loads gtag.js before consent`);
-    if (origin.endsWith(".org")) {
+    {
       if (!indexable.includes("https://www.googletagmanager.com/gtag/js?id=") || !indexable.includes('"anonymize_ip":true') || !indexable.includes('"allow_ad_personalization_signals":false')) {
         fail(`${origin} production home is missing anonymized GA4`);
       }
       if (!indexable.includes("analytics_storage: 'denied'") || !indexable.includes('id="cookie-banner"') || !indexable.includes('id="cookie-settings"')) {
         fail(`${origin} production home is missing the consent banner`);
       }
-    } else if (/googletagmanager\.com|id="cookie-banner"/.test(indexable)) {
-      fail(`${origin} production home loads analytics without a measurement id`);
     }
+    const hostGate = `var gaHosts = ${JSON.stringify(origin.endsWith(".com") ? ["credtent.com", "www.credtent.com"] : ["credtent.org", "www.credtent.org"])};`;
+    if (!indexable.includes(hostGate)) fail(`${origin} production home is missing the GA hostname allowlist`);
     const missing = fs.readFileSync(path.join(dir, "404.html"), "utf8");
     if (/rel="canonical"/.test(missing)) fail(`${origin} production 404 still has a canonical`);
     if (!/name="robots" content="noindex, nofollow"/.test(missing)) fail(`${origin} production 404 is missing noindex`);
