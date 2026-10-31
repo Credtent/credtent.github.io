@@ -1,0 +1,5 @@
+# GitHub Pages (Jekyll) settings for the live credtent.org site.
+# The redesign source, its working notes, and its preview builds are not part of the live site.
+# They are served from Vercel, not from GitHub Pages.
+exclude:
+  - redesign-2026-10
