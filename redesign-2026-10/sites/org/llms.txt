@@ -7,10 +7,10 @@ Credtent's free opt-out records your AI-training preferences and sends them to A
 - [Home](https://credtent.org/): Credtent's free opt-out records your AI-training preferences and sends them to AI companies each quarter; it cannot guarantee every company acts on them.
 - [Free opt-out](https://credtent.org/opt-out): Register preferences once. Credtent records the reservation and sends notices to AI companies. Free, and not a guarantee.
 - [Creative Consent](https://credtent.org/creative-consent): Full Protection means consent comes first. See how Credtent describes Full, Optional, and No Protection.
-- [Auditing](https://credtent.org/resources/auditing): Monthly audits record observable model responses. They are not proof of dataset inclusion.
+- [Auditing](https://credtent.org/resources/auditing): Opt-Out Premium enrolls your works in periodic AI model audits. Audit results are not proof of dataset inclusion.
 - [Opt-out limitations](https://credtent.org/resources/opt-out-limitations): What Credtent's free opt-out does not do: it cannot force every company to act, and it does not erase datasets.
 - [Licensing guide](https://credtent.org/guides/ai-training-data-licensing/): What a training license grants, what it does not grant, and how rights holders keep the choice to opt out.
-- [Premium](https://credtent.org/premium): Monthly audits of observable model responses. US$49 annually for individuals and US$249+ for organizations.
+- [Premium](https://credtent.org/premium): Opt-Out Premium (opt-out plus enrollment in periodic AI model audits, no licensing). US$49 a year for individuals and from US$299 a year for rights holders.
 - [Standards](https://credtent.org/standards): A working catalog of AI disclosure standards: badges, registries, watermarks, and protocols maintained by Credtent.
 - [Blog](https://credtent.org/blog): Writing on AI, creative rights, and copyright, published on Substack and Medium.
 - [Contact](https://credtent.org/contact): Contact Credtent about opt-out, Creative Consent, and resources.

@@ -370,7 +370,17 @@
     },
     {
       "source": "/parking/services.html",
-      "destination": "https://credtent.org/parking/services",
+      "destination": "https://credtent.com/services",
+      "statusCode": 301
+    },
+    {
+      "source": "/parking/services",
+      "destination": "https://credtent.com/services",
+      "statusCode": 301
+    },
+    {
+      "source": "/parking/services/",
+      "destination": "https://credtent.com/services",
       "statusCode": 301
     },
     {
@@ -511,11 +521,6 @@
     {
       "source": "/parking/lws/",
       "destination": "https://credtent.org/parking/lws",
-      "statusCode": 301
-    },
-    {
-      "source": "/parking/services/",
-      "destination": "https://credtent.org/parking/services",
       "statusCode": 301
     },
     {

@@ -29,7 +29,7 @@ export function orgPages(images) {
       faq: [
         { q: "What does the free opt-out do?", a: CAPSULE.orgHome },
         { q: "Does registration remove work from datasets?", a: "No. Registration does not automatically remove work from datasets. Credtent records preferences and the notices it sends." },
-        { q: "What is Opt-Out Premium?", a: "Optional monthly auditing of observable model responses. It is US$49 a year for individuals and US$249+ a year for organizations. The observations are not proof of dataset inclusion." }
+        { q: "What is Opt-Out Premium?", a: "Opt-Out Premium enrolls your works in Credtent's periodic AI model audits. It is US$49 a year for individuals and from US$299 a year for rights holders. Audit results are not proof of dataset inclusion." }
       ],
       main: `<section class="section">
         <div class="wrap">
@@ -44,7 +44,7 @@ export function orgPages(images) {
           <div class="facts">
             <article class="fact"><p class="kicker">Free</p><h3>Opt-out registration</h3><p>Tell AI companies not to train on the work you identify.</p></article>
             <article class="fact"><p class="kicker">Quarterly</p><h3>Opt-out list distribution</h3><p>Credtent sends the list on a quarterly cadence.</p></article>
-            <article class="fact"><p class="kicker">Optional</p><h3>Monthly Premium auditing</h3><p>Add observation of model responses if you want a clearer record.</p></article>
+            <article class="fact"><p class="kicker">Optional</p><h3>Periodic AI model audits</h3><p>Opt-Out Premium enrolls your works in Credtent's periodic AI model audits.</p></article>
           </div>
         </div>
       </section>
@@ -56,7 +56,7 @@ export function orgPages(images) {
           <div class="steps" style="margin-top:24px">
             <article class="step"><p class="kicker">01</p><h3>Register your preferences</h3><p>Identify the work you want included in your opt-out request.</p></article>
             <article class="step"><p class="kicker">02</p><h3>We send your request</h3><p>Credtent distributes the opt-out list to AI companies each quarter. Sent notices are distinct from confirmed receipt or action.</p></article>
-            <article class="step"><p class="kicker">03</p><h3>Choose additional support</h3><p>Optional Opt-Out Premium adds monthly auditing of observable model responses.</p></article>
+            <article class="step"><p class="kicker">03</p><h3>Choose additional support</h3><p>Opt-Out Premium also enrolls your works in Credtent's periodic AI model audits.</p></article>
           </div>
           <p class="fine">Registration does not automatically remove work from datasets.</p>
         </div>
@@ -65,15 +65,15 @@ export function orgPages(images) {
         <div class="wrap premium">
           <div>
             <p class="eyebrow">Opt-Out Premium</p>
-            <h2>Monthly audits. A clearer record.</h2>
-            <p class="lede">Credtent audits observable model responses monthly and records the results. These observations are not proof of dataset inclusion or infringement.</p>
+            <h2>Periodic AI model audits. A clearer record.</h2>
+            <p class="lede">Opt-Out Premium enrolls your works in Credtent's periodic AI model audits, and Credtent records the results. Audit results are not proof of dataset inclusion or infringement.</p>
             <div class="btn-row"><a class="btn" href="/resources/auditing">Understand auditing</a></div>
           </div>
           <div class="price-stack">
             <p>${price("US$49")}</p>
             <span class="price-meta">annually for individuals</span>
-            <p>${price("US$249+")}</p>
-            <span class="price-meta">annually for organizations</span>
+            <p>${price("US$299+")}</p>
+            <span class="price-meta">annually for rights holders, scaling with catalog size</span>
           </div>
         </div>
       </section>
@@ -241,8 +241,8 @@ export function orgPages(images) {
         <p>Registering a work for the opt-out costs nothing and will stay free. It is a standing commitment tied to Credtent's structure as a Delaware Public Benefit Corporation, which legally obligates the company to protect creative rights. The free path is not a trial.</p>
         <h3>You can change your mind.</h3>
         <p>You can update your preferences at any time to enable licensing, with no retroactive fees and no penalties. A work that is opted out today can be made licensable tomorrow, and a licensable work can go back to opt-out.</p>
-        <h3>It is recorded, not just declared.</h3>
-        <p>Credtent keeps a dated record of when each notice went out. That record is evidence you can point to if your work is used anyway. It is evidence of notice, not proof that a company complied. Opt-Out Premium adds access to auditing and does not include licensing.</p>
+        <h3>It is recorded and dated.</h3>
+        <p>Credtent keeps a dated record of when each notice went out. That record is evidence you can point to if your work is used anyway. It is evidence of notice, not proof that a company complied. Opt-Out Premium also enrolls your works in Credtent's periodic AI model audits and does not include licensing.</p>
         <h3>It can become an income stream.</h3>
         <p>The same registry that records your opt-out can license your work on your terms if you ever choose to opt in. Protect your voice, your image, and your style now, and keep the option to earn from AI licensing later.</p>
         <p>Questions about limits live in the <a href="/resources/opt-out-limitations">opt-out limitations FAQ</a>.</p>
@@ -257,10 +257,10 @@ export function orgPages(images) {
     {
       path: "/premium",
       title: "Opt-Out Premium | Credtent",
-      description: "Monthly audits of observable model responses. US$49 annually for individuals and US$249+ for organizations.",
+      description: "Opt-Out Premium enrolls your works in Credtent's periodic AI model audits. US$49 a year for individuals and from US$299 a year for rights holders.",
       eyebrow: "Opt-Out Premium",
-      h1: "Monthly audits. A clearer record.",
-      capsule: "Opt-Out Premium adds monthly auditing of observable model responses for individuals. Observations are not proof of dataset inclusion or infringement.",
+      h1: "Periodic AI model audits. A clearer record.",
+      capsule: "Opt-Out Premium, at US$49 a year, enrolls your works in Credtent's periodic AI model audits but does not include licensing. Audit results are not proof of dataset inclusion or infringement.",
       actions: `<div class="btn-row"><a class="btn" href="/resources/auditing">Understand auditing</a></div>`,
       crumbs: [{ name: "Opt-Out Premium", href: "https://credtent.org/premium" }],
       extraLd: [{
@@ -268,7 +268,7 @@ export function orgPages(images) {
         "@id": "https://credtent.org/premium#service",
         name: "Opt-Out Premium",
         provider: { "@id": ORG_ID },
-        description: "Monthly auditing of observable model responses for individuals. Observations are not proof of dataset inclusion or infringement.",
+        description: "Enrollment of your works in Credtent's periodic AI model audits. Audit results are not proof of dataset inclusion or infringement.",
         offers: [
           {
             "@type": "Offer",
@@ -281,27 +281,27 @@ export function orgPages(images) {
           },
           {
             "@type": "Offer",
-            "@id": "https://credtent.org/premium#organizations",
-            name: "Opt-Out Premium for organizations",
+            "@id": "https://credtent.org/premium#rights-holders",
+            name: "Opt-Out Premium for rights holders",
             priceCurrency: "USD",
-            description: "US$249+ annually for organizations.",
+            description: "From US$299 a year for rights holders, scaling with catalog size.",
             url: "https://credtent.org/premium",
             priceSpecification: {
               "@type": "PriceSpecification",
-              minPrice: "249",
+              minPrice: "299",
               priceCurrency: "USD",
-              description: "US$249 or more annually for organizations."
+              description: "US$299 or more a year for rights holders, scaling with catalog size."
             }
           }
         ]
       }],
       faq: [
-        { q: "What does the audit prove?", a: "Nothing about dataset inclusion or infringement. It records observable model responses." },
-        { q: "What does Opt-Out Premium cost?", a: "US$49 annually for individuals and US$249+ annually for organizations." }
+        { q: "What does an audit prove?", a: "Nothing about dataset inclusion or infringement. It records how AI models respond." },
+        { q: "What does Opt-Out Premium cost?", a: "US$49 a year for individuals and from US$299 a year for rights holders, scaling with catalog size." }
       ],
       main: `<section class="section"><div class="wrap premium">
         <div><p>For individuals. Early member pricing. The free opt-out remains available without this add-on.</p><p><a href="${OPT_OUT_FLOW}">Get the free opt-out</a></p></div>
-        <div class="price-stack"><p>${price("US$49")}</p><span class="price-meta">annually for individuals</span><p>${price("US$249+")}</p><span class="price-meta">annually for organizations</span></div>
+        <div class="price-stack"><p>${price("US$49")}</p><span class="price-meta">annually for individuals</span><p>${price("US$299+")}</p><span class="price-meta">annually for rights holders, scaling with catalog size</span></div>
       </div></section>`
     },
     {
@@ -326,16 +326,16 @@ export function orgPages(images) {
     {
       path: "/resources/auditing",
       title: "How opt-out auditing works | Credtent",
-      description: "Monthly audits record observable model responses. They are not proof of dataset inclusion.",
+      description: "Opt-Out Premium enrolls your works in Credtent's periodic AI model audits. Audit results are not proof of dataset inclusion.",
       eyebrow: "Auditing",
       h1: "What an audit can show.",
-      capsule: "Credtent audits observable model responses monthly and records the results. These observations are not proof of dataset inclusion or infringement.",
+      capsule: "With Opt-Out Premium, Credtent audits AI models periodically and records the results. Audit results are not proof of dataset inclusion or infringement.",
       crumbs: [{ name: "Resources", href: "https://credtent.org/resources" }, { name: "Auditing", href: "https://credtent.org/resources/auditing" }],
       faq: [
         { q: "Is an audit proof my work was in a training set?", a: "No. It is an observation of a model response, not a dataset inventory." },
-        { q: "Who is it for?", a: "Individuals pay US$49 a year. Organizations pay US$249+ a year." }
+        { q: "Who is it for?", a: "Opt-Out Premium members and every licensing tier above it. Opt-Out Premium is US$49 a year for individuals and from US$299 a year for rights holders." }
       ],
-      main: `<section class="section"><div class="wrap prose"><p>Auditing is optional. The free opt-out still records preferences and notices without it. Read <a href="/premium">Opt-Out Premium</a>.</p><p>Opt-Out Premium is ${price("US$49")} a year for individuals and ${price("US$249+")} a year for organizations.</p></div></section>`
+      main: `<section class="section"><div class="wrap prose"><p>Auditing is optional. The free opt-out still records preferences and notices without it. Read <a href="/premium">Opt-Out Premium</a>.</p><p>Opt-Out Premium is ${price("US$49")} a year for individuals and from ${price("US$299")} a year for rights holders.</p></div></section>`
     },
     {
       path: "/resources/opt-out-limitations",
@@ -349,7 +349,7 @@ export function orgPages(images) {
         { q: "Does Credtent guarantee compliance?", a: "No. We cannot guarantee that every company will act on your request." },
         { q: "Does registration delete prior copies?", a: "No. Registration does not automatically remove work from datasets." },
         { q: "Are notices the same as confirmation?", a: "No. Sent notices are distinct from confirmed receipt or action." },
-        { q: "Does Premium prove infringement?", a: "No. Monthly observations are not proof of dataset inclusion or infringement." }
+        { q: "Does Premium prove infringement?", a: "No. Audit results are not proof of dataset inclusion or infringement." }
       ],
       main: `<section class="section"><div class="wrap prose"><p>Corporate licensing questions are answered on <a href="https://credtent.com/faq">credtent.com/faq</a>.</p></div></section>`
     },
@@ -474,14 +474,14 @@ export function orgPages(images) {
     {
       path: "/wga",
       title: "Writers Guild of America and Credtent",
-      description: "Screenplay certification reviewed and accepted by the Writers Guild of America. $149 for WGA members, against a regular price of $298.",
+      description: "Screenplay certification reviewed and accepted by the Writers Guild of America. US$300 per screenplay, with 50% off for WGA West members who register through the WGA.",
       eyebrow: "Writers Guild of America",
       h1: "Certified Human Composed for screenwriters.",
       capsule: "The Writers Guild of America reviewed Credtent's screenplay certification process and accepted it. The badge is a record of review, not a promise about copyright registration.",
       crumbs: [{ name: "WGA", href: "https://credtent.org/wga" }],
       faq: [
         { q: "Is this called a partnership?", a: "No. The accurate public line is that the Guild reviewed the process and accepted it." },
-        { q: "What does it cost?", a: "WGA members pay $149, against the regular price of $298. That includes expert validation, end-credits documentation, and free Creative Origin badge access." },
+        { q: "What does it cost?", a: "US$300 per screenplay. Members of the Writers Guild of America West who register through the WGA currently receive 50% off. That includes expert validation, end-credits documentation, and free Creative Origin badge access." },
         { q: "Is my screenplay used for AI training?", a: "No. Analysis runs in a closed environment and your work is never used for training." }
       ],
       main: `<section class="section section-white"><div class="wrap split">
@@ -489,7 +489,7 @@ export function orgPages(images) {
           <img src="/badges/human-composed-creation-badge.svg" width="160" height="160" alt="Certified Human Composed badge">
           <h2>A certification service for screenwriters.</h2>
           <p>Credtent's certification process validates that your work is human-authored, which strengthens your copyright position and your credibility as AI reshapes the business. Production companies and studios need assurance that screenplays are human-authored to avoid copyright and IP risk.</p>
-          <p class="price-stack"><span class="price">$149</span> <span class="price-meta">WGA member price. Regular price $298.</span></p>
+          <p class="price-stack"><span class="price">US$300</span> <span class="price-meta">per screenplay. 50% off for WGA West members who register through the WGA.</span></p>
         </div>
         <ul class="check-list">
           <li>Third-party attestation that improves your chances of getting a copyright registration</li>
@@ -520,8 +520,8 @@ export function orgPages(images) {
         </div>
       </div></section>
       <section class="section"><div class="wrap prose">
-        <h2>WGA member offer: $149.</h2>
-        <p>The Writers Guild of America reviewed Credtent's screenplay certification process and accepted it, and WGA members receive a discount: $149 for members, against the regular price of $298.</p>
+        <h2>WGA West member offer: 50% off.</h2>
+        <p>The Writers Guild of America reviewed Credtent's screenplay certification process and accepted it. Certification is US$300 per screenplay, and members of the Writers Guild of America West who register through the WGA currently receive 50% off.</p>
         <div class="btn-row"><a class="btn" href="https://registry.credtent.org/auth/sign-in?next=/script-ai-analyzer">Continue to the registry</a></div>
         <p class="small">Questions? Write to <a href="mailto:partners@credtent.org">partners@credtent.org</a>.</p>
       </div></section>`
@@ -581,7 +581,7 @@ export function orgPages(images) {
         <p>Only for the rights holders who sign it. Credtent states the limit in these words: "We can structure a going-forward license plus a covenant not to sue from the rights holders who sign, covering the named works. That is not a release from everyone else, and it is not a regulator cure." Rights holders who did not sign keep every claim they had.</p>
         <h2>How can a rights holder participate?</h2>
         <p>Document ownership, list the works, set which uses and buyers you will accept, and approve each agreement. With Credtent, you submit catalog metadata, ownership documentation, and your licensing terms; we verify ownership and tag the content so AI buyers can find it; we bring licensing terms to you for approval before any contract is signed; and royalties are paid quarterly with usage reports. Listing transfers no copyright and no exclusivity, and you can end our representation at any time. Details are on <a href="https://credtent.com/content-owners">credtent.com/content-owners</a>.</p>
-        <p>You can also choose the <a href="/opt-out">free opt-out</a> instead. Opt-Out Premium is <span class="price">US$49</span> a year for individuals and <span class="price">US$249+</span> a year for organizations. It adds auditing and does not include licensing. Licensing for individuals is $99 a year, and Rights-Holder Licensing, for publishers and others who represent many creatives, starts at $299 a year. Full terms are on the <a href="https://credtent.com/pricing">pricing page</a>.</p>
+        <p>You can also choose the <a href="/opt-out">free opt-out</a> instead. Opt-Out Premium, at <span class="price">US$49</span> a year for individuals and from <span class="price">US$299</span> a year for rights holders, enrolls your works in Credtent's periodic AI model audits and does not include licensing. Licensing for individuals is $99 a year, and Rights-Holder Licensing, for publishers and others who represent many creatives, starts at $299 a year. Full terms are on the <a href="https://credtent.com/pricing">pricing page</a>.</p>
         <p>Opting out and licensing are not permanent choices. A work registered for opt-out can be made licensable later, and a licensable work can be withdrawn to opt-out, with no retroactive fees.</p>
       </div></section>`
     },
@@ -689,6 +689,6 @@ function stub(path, title, capsule) {
     capsule,
     crumbs: [{ name: "Resources", href: "https://credtent.org/resources" }, { name: title, href: "https://credtent.org" + path }],
     faq: [],
-    main: `<section class="section"><div class="wrap prose"><p><a href="/resources">Back to resources</a></p></div></section>`
+    main: `<section class="section"><div class="wrap prose"><p>Coming soon.</p><p><a href="/resources">Back to resources</a></p></div></section>`
   };
 }

@@ -20,7 +20,17 @@ const patterns = [
   { name: "misspelled-jim", re: /Jim Lee/i },
   { name: "address-placeholder", re: /Street address TBC/i },
   { name: "dropped-face", re: /IBM Plex|Playfair Display|Nunito Sans|--font-mono/i },
-  { name: "advisory-council", re: /Advisory Council/i }
+  { name: "advisory-council", re: /Advisory Council/i },
+  // EB rulings 2026-10-31 and LD-049: Credtent relays and records opt-outs and never enforces them;
+  // audits are periodic and come with Opt-Out Premium; the $249 rights-holder price is superseded.
+  { name: "barred-249", re: /US\$249|\$249\b|"249"/ },
+  { name: "monthly-audit", re: /monthly\s+(premium\s+)?(audit|auditing|observation)/i },
+  { name: "continuous-audit", re: /continuous(ly)?\s+(audit|auditing|monitor)/i },
+  { name: "opt-out-enforcement", re: /enforc\w*\s+(your\s+|the\s+|an\s+)?opt-?outs?|opt-?outs?\s+enforcement/i },
+  { name: "round-the-clock", re: /24\/7|around-the-clock/i },
+  { name: "compliance-monitoring", re: /compliance\s+monitoring|track(s|ing)?\s+compliance/i },
+  { name: "bylaw-claim", re: /bylaw|acquisition-proof/i },
+  { name: "product-name", re: /Credtent Aegis/i }
 ];
 
 function walk(dir, out = []) {

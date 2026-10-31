@@ -381,7 +381,7 @@ ${LICENSE_SENTENCE}
 ## Company
 - [About](https://credtent.com/about): Credtent, Inc. is a Delaware Public Benefit Corporation and a certified B Corp, founded by E.R. Burgess and Dr. Galen Buckwalter.
 - [FAQ](https://credtent.com/faq): Answers for AI companies and content owners on licensing scope, documentation, and valuation limits.
-- [Pricing](https://credtent.com/pricing): Opt-Out Premium is US$49 for individuals and US$249+ for organizations. The Collaborithmic Age lists its published book prices.
+- [Pricing](https://credtent.com/pricing): Opt-Out Premium is US$49 a year for individuals and from US$299 a year for rights holders. The Collaborithmic Age lists its published book prices.
 - [Contact](https://credtent.com/contact): AI companies can use the licensing form. Content owners start an inquiry in the app. Other questions open an email.
 
 Opt-out and Creative Consent: see https://credtent.org/llms.txt
@@ -395,10 +395,10 @@ ${CAPSULE.orgHome}
 - [Home](https://credtent.org/): ${CAPSULE.orgHome}
 - [Free opt-out](https://credtent.org/opt-out): Register preferences once. Credtent records the reservation and sends notices to AI companies. Free, and not a guarantee.
 - [Creative Consent](https://credtent.org/creative-consent): Full Protection means consent comes first. See how Credtent describes Full, Optional, and No Protection.
-- [Auditing](https://credtent.org/resources/auditing): Monthly audits record observable model responses. They are not proof of dataset inclusion.
+- [Auditing](https://credtent.org/resources/auditing): Opt-Out Premium enrolls your works in periodic AI model audits. Audit results are not proof of dataset inclusion.
 - [Opt-out limitations](https://credtent.org/resources/opt-out-limitations): What Credtent's free opt-out does not do: it cannot force every company to act, and it does not erase datasets.
 - [Licensing guide](https://credtent.org/guides/ai-training-data-licensing/): What a training license grants, what it does not grant, and how rights holders keep the choice to opt out.
-- [Premium](https://credtent.org/premium): Monthly audits of observable model responses. US$49 annually for individuals and US$249+ for organizations.
+- [Premium](https://credtent.org/premium): Opt-Out Premium (opt-out plus enrollment in periodic AI model audits, no licensing). US$49 a year for individuals and from US$299 a year for rights holders.
 - [Standards](https://credtent.org/standards): A working catalog of AI disclosure standards: badges, registries, watermarks, and protocols maintained by Credtent.
 - [Blog](https://credtent.org/blog): Writing on AI, creative rights, and copyright, published on Substack and Medium.
 - [Contact](https://credtent.org/contact): Contact Credtent about opt-out, Creative Consent, and resources.
@@ -508,7 +508,9 @@ function vercel(site, pages) {
     redirectRule("/parking/blog.html", "https://credtent.org/parking/blog", 301),
     redirectRule("/parking/blog/disneys-ai-gambit-how-a-billion-dollar.html", "https://credtent.org/parking/blog/disneys-ai-gambit-how-a-billion-dollar", 301),
     redirectRule("/parking/lws.html", "https://credtent.org/parking/lws", 301),
-    redirectRule("/parking/services.html", "https://credtent.org/parking/services", 301)
+    redirectRule("/parking/services.html", "https://credtent.com/services", 301),
+    redirectRule("/parking/services", "https://credtent.com/services", 301),
+    redirectRule("/parking/services/", "https://credtent.com/services", 301)
   ] : [];
   const partners = holdPartners();
   const reserved = new Set([...specific, ...partners].map((rule) => rule.source));
@@ -622,14 +624,9 @@ async function main() {
       eyebrow: "Parked",
       capsule: "Older member page retained at its previous URL.",
       crumb: "Parked member page"
-    }),
-    legacyPage(SITES.org, "parking/services.html", "/parking/services", {
-      title: "Parked services page | Credtent",
-      h1: "Parked services page",
-      eyebrow: "Parked",
-      capsule: "Older services page retained at its previous URL. Current services are on credtent.com.",
-      crumb: "Parked services"
     })
+    // parking/services was removed from the live site on 2026-10-31 (PR #24): its round-the-clock
+    // monitoring copy contradicts relay-and-record. Its old URLs 301 to the current services page.
   ];
 
   const bundles = { com, org };

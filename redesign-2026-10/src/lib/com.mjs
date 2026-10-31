@@ -3,9 +3,9 @@ import { ORG_ID, diagramHtml, figure, inquiryForm, picture, tallyEmbed } from ".
 
 function editions() {
   return `<ul class="editions">
-    <li><p class="kicker">Standard e-book</p><p>${price("$15")}</p><p>A standalone digital edition. Quarterly updates are not included.</p></li>
-    <li><p class="kicker">Paperback</p><p>${price("$25")}</p><p>A standalone printed edition. Quarterly updates are not included.</p></li>
-    <li><p class="kicker">Living e-book</p><p>${price("$50")}</p><p>The digital book with quarterly updates included.</p></li>
+    <li><p class="kicker">Standard e-book</p><p>${price("$14.99")}</p><p>A standalone digital edition. Quarterly updates are not included.</p></li>
+    <li><p class="kicker">Paperback</p><p>${price("$24.99")}</p><p>A standalone printed edition. Quarterly updates are not included.</p></li>
+    <li><p class="kicker">Living e-book</p><p>${price("$49")}</p><p>The digital book with quarterly updates included.</p></li>
   </ul>`;
 }
 
@@ -83,7 +83,7 @@ export function comPages(images) {
               ${hero("aiTeam", { sizes: "(min-width: 1000px) 480px, 100vw" })}
               <p class="kicker">AI Companies</p>
               <h3>Find content for training and AI citation rights.</h3>
-              <p>Full cycle Credtent licensing as a service includes referencing for AI training, for RAG, and for generative results referencing including citation rights. Help with your disclosure pack for the EU AI Act. And CABB filings.</p>
+              <p>Full-cycle Credtent licensing covers AI training, retrieval-augmented generation (RAG), and Generative Results Referencing, including citation rights.</p>
               <p>${LICENSE_SENTENCE}</p>
               <p><a href="/ai-training">Explore content licensing</a></p>
             </article>
@@ -94,8 +94,8 @@ export function comPages(images) {
         <div class="wrap">
           <p class="eyebrow">Content valuation</p>
           <h2>Understand your content's value. Explore your licensing options.</h2>
-          <p class="lede">Credtent is the leading authority on valuation in AI content licensing. We ensure that high quality, credible content is licensed at appropriate values and are helping set standards for fair market pricing on AI content licensing of all types.</p>
-          <p>A baseline valuation comes when you register on Credtent. Optional paid custom content valuation provides a meaningfully higher valuation because it is based on the intrinsic and value of your content.</p>
+          <p class="lede">Credtent assesses what content is worth for AI licensing, so that high-quality, credible work is licensed at an appropriate value.</p>
+          <p>A baseline valuation comes when you register on Credtent. Optional paid custom valuation goes deeper, into the catalog, its evidence, and its intended use.</p>
           <h3 style="margin-top:28px">The Burgess-Buckwalter methodology, the Credtent Universal Content Valuation System</h3>
           ${diagramHtml()}
           <div class="btn-row"><a class="btn" href="/valuation">Request a valuation</a></div>
@@ -325,7 +325,7 @@ export function comPages(images) {
         <article class="card"><h3>Content valuation</h3><p>Qualitative context for a pricing conversation.</p><p><a href="/valuation">Explore content valuation</a></p></article>
         <article class="card"><h3>AI training licensing</h3><p>License a defined corpus.</p><p><a href="/ai-training">Explore training licensing</a></p></article>
         <article class="card"><h3>Citation licensing</h3><p>License use in AI answers.</p><p><a href="/citation-licensing">Explore citation licensing</a></p></article>
-        <article class="card"><h3>Auditing</h3><p>Monthly observation of model responses for Opt-Out Premium.</p><p><a href="https://credtent.org/resources/auditing">Read how auditing works</a></p></article>
+        <article class="card"><h3>Auditing</h3><p>Opt-Out Premium enrolls your works in Credtent's periodic AI model audits.</p><p><a href="https://credtent.org/resources/auditing">Read how auditing works</a></p></article>
       </div></section>`
     },
     {
@@ -685,14 +685,14 @@ export function comPages(images) {
       description: "Custom licensing for AI companies, 85/15 revenue terms for content partners, a free opt-out for creatives, and published plan prices.",
       eyebrow: "Pricing",
       h1: "Pricing that scales with you.",
-      capsule: "AI companies license through custom agreements priced per deal. Content partners keep 85% of every licensing deal Credtent closes, and a platform fee applies. Creatives can opt out for free, add auditing with Opt-Out Premium at US$49 a year, or license their work for $99 a year.",
+      capsule: "AI companies license through custom agreements priced per deal. Content partners keep 85% of every licensing deal Credtent closes, and a platform fee applies. Creatives can opt out for free, enroll their works in periodic AI model audits with Opt-Out Premium at US$49 a year, or license their work for $99 a year.",
       crumbs: [{ name: "Pricing", href: "https://credtent.com/pricing" }],
       faq: [
-        { q: "How much does Credtent cost?", a: "It depends on which side of the market you are on. AI companies pay for custom licensing priced per deal. Content partners keep 85% of every licensing deal Credtent closes, with Credtent keeping 15%, and a platform fee applies. Individual creatives can opt out for free, add auditing with Opt-Out Premium, or license their work with a licensing plan." },
+        { q: "How much does Credtent cost?", a: "It depends on which side of the market you are on. AI companies pay for custom licensing priced per deal. Content partners keep 85% of every licensing deal Credtent closes, with Credtent keeping 15%, and a platform fee applies. Individual creatives can opt out for free, enroll their works in periodic AI model audits with Opt-Out Premium, or license their work with a licensing plan." },
         { q: "How much does Credtent cost for AI companies?", a: "There is no fixed public price. Licenses are custom agreements scoped to the content, the license type, and the size of the organization, and each one includes a disclosure pack. Pricing is set in a scoping conversation, not from a rate card." },
         { q: "How much does Credtent cost for content partners?", a: "A platform fee applies, and Credtent keeps 15% of each licensing deal it closes and sends the other 85% to the rights holder under the Starter Partner terms. The Organization License keeps the same split and adds more services for larger catalogs, and Enterprise is priced to the catalog." },
-        { q: "What does Opt-Out Premium cost?", a: "US$49 annually for individuals and US$249+ annually for organizations." },
-        { q: "What does the book cost?", a: "The published collaborithmic.com prices are $15 for the e-book, $25 for the paperback, and $50 for the living e-book." }
+        { q: "What does Opt-Out Premium cost?", a: "US$49 a year for individuals and from US$299 a year for rights holders, scaling with catalog size." },
+        { q: "What does the book cost?", a: "The published collaborithmic.com prices are $14.99 for the e-book, $24.99 for the paperback, and $49 for the living e-book." }
       ],
       main: `<section class="section section-white"><div class="wrap">
         <p class="eyebrow">AI companies</p>
@@ -718,10 +718,10 @@ export function comPages(images) {
       <section class="section section-white"><div class="wrap">
         <p class="eyebrow">Individual creatives</p>
         <h2>A free way to say no, and room to grow.</h2>
-        <p class="lede">Every creative gets a free path to opt out. Add auditing to see where your opt-out stands, or choose a licensing plan to start earning from AI licensing.</p>
+        <p class="lede">Every creative gets a free path to opt out. Add Opt-Out Premium to enroll your works in periodic AI model audits, or choose a licensing plan to earn from AI licensing.</p>
         <div class="grid-4" style="margin-top:24px">
-          <article class="card"><p class="kicker">For every creative</p><h3>Opt-Out Free</h3><p><span class="price">$0</span> forever</p><ul><li>Add your name and works to the opt-out list</li><li>Include your website or specific pages</li><li>Submissions recorded for compliance</li></ul><p><a href="https://credtent.org/opt-out">Get started</a></p></article>
-          <article class="card"><p class="kicker">For creatives who want proof</p><h3>Opt-Out Premium</h3><p><span class="price">US$49</span> a year for individuals</p><p><span class="price">US$249+</span> a year for organizations</p><ul><li>Everything in Opt-Out Free</li><li>Access to the opt-out auditing system</li><li>Does not include licensing</li></ul><p><a href="https://credtent.org/premium">Read about Opt-Out Premium</a></p></article>
+          <article class="card"><p class="kicker">For every creative</p><h3>Opt-Out Free</h3><p><span class="price">$0</span> forever</p><ul><li>Add your name and works to the opt-out list</li><li>Include your website or specific pages</li><li>Each opt-out notice recorded with its delivery date</li></ul><p><a href="https://credtent.org/opt-out">Get started</a></p></article>
+          <article class="card"><p class="kicker">For creatives who want audits</p><h3>Opt-Out Premium</h3><p><span class="price">US$49</span> a year for individuals</p><p>From <span class="price">US$299</span> a year for rights holders</p><ul><li>Everything in Opt-Out Free</li><li>Works enrolled in periodic AI model audits</li><li>Does not include licensing</li></ul><p><a href="https://credtent.org/premium">Read about Opt-Out Premium</a></p></article>
           <article class="card"><p class="kicker">For creatives ready to license</p><h3>Licensing for individuals</h3><p><span class="price">$99</span> a year</p><ul><li>Everything in Opt-Out Premium</li><li>Upload your content</li><li>Content valuation</li><li>Listing in the Credtent marketplace</li></ul><p><a href="https://app.credtent.org/">Get started</a></p></article>
           <article class="card"><p class="kicker">For publishers and representatives</p><h3>Rights-Holder Licensing</h3><p>From <span class="price">$299</span> a year</p><ul><li>Everything in licensing for individuals</li><li>Bring in work by the creatives you publish or represent</li><li>Each creative is credited for their own work</li><li>Sales-assisted pricing for larger catalogs</li></ul><p><a href="https://app.credtent.org/">Get started</a></p></article>
         </div>
@@ -729,9 +729,9 @@ export function comPages(images) {
       <section class="section"><div class="wrap">
         <div class="grid-2">
           <article class="card"><h3>The Collaborithmic Age</h3><ul class="editions">
-    <li><p class="kicker">Standard e-book</p><p><span class="price">$15</span></p><p>A standalone digital edition. Quarterly updates are not included.</p></li>
-    <li><p class="kicker">Paperback</p><p><span class="price">$25</span></p><p>A standalone printed edition. Quarterly updates are not included.</p></li>
-    <li><p class="kicker">Living e-book</p><p><span class="price">$50</span></p><p>The digital book with quarterly updates included.</p></li>
+    <li><p class="kicker">Standard e-book</p><p><span class="price">$14.99</span></p><p>A standalone digital edition. Quarterly updates are not included.</p></li>
+    <li><p class="kicker">Paperback</p><p><span class="price">$24.99</span></p><p>A standalone printed edition. Quarterly updates are not included.</p></li>
+    <li><p class="kicker">Living e-book</p><p><span class="price">$49</span></p><p>The digital book with quarterly updates included.</p></li>
   </ul><p><a href="https://collaborithmic.com/">Explore the book</a></p></article>
           <article class="card"><h3>Need something different?</h3><p>Whether you're an AI company with unusual content needs or a content partner with a complex catalog, let's figure it out together.</p><div class="btn-row"><a class="btn" href="/contact#ai-licensing">AI companies</a><a class="btn btn-ghost" href="https://app.credtent.org/inquiries/content-partner">Content partners</a></div></article>
         </div>
@@ -759,7 +759,7 @@ export function comPages(images) {
         { q: "Can I choose which AI companies license my content?", a: "Yes. When you register your catalog, you set limits by vertical, use case, and type of application. You can exclude specific licensees or whole categories, and every deal needs your approval before it goes ahead." },
         { q: "What kinds of content can I list?", a: "Text, audio, video, images, and structured data, across education, healthcare, sports, entertainment, and media. You can register a mixed-format catalog in one place." },
         { q: "Is Credtent tied to any AI company or big-tech platform?", a: "No. Credtent does not build models, take equity positions, or share data outside of licensed transactions." },
-        { q: "Where is Credtent incorporated?", a: "Credtent, Inc. is a Delaware Public Benefit Corporation. That structure legally obligates Credtent to protect creative rights in the AI economy alongside financial returns, which is why its neutrality and its free opt-out are written into the company itself." },
+        { q: "Where is Credtent incorporated?", a: "Credtent, Inc. is a Delaware Public Benefit Corporation. Its stated public benefit is protecting creative rights in the AI economy, alongside financial returns." },
         { q: "Where do creative opt-out questions live?", a: "Questions about the free opt-out, what it can and cannot do, and switching to licensing later are answered at credtent.org/opt-out and credtent.org/resources/opt-out-limitations." },
         { q: "I have a question that isn't here.", a: "We're happy to help. Write to hello@credtent.com." }
       ],
