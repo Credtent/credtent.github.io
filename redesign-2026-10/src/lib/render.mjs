@@ -110,7 +110,7 @@ export function creditLine(img) {
   const lic = img.licenseHref
     ? `<a href="${esc(img.licenseHref)}">${esc(img.license)}</a>`
     : esc(img.license || "");
-  return `<figcaption>Photo: ${who}${lic ? ` / ${lic}` : ""}</figcaption>`;
+  return `<figcaption class="credit">Photo: ${who}${lic ? ` / ${lic}` : ""}</figcaption>`;
 }
 
 export function figure(img, opts = {}) {
@@ -129,6 +129,12 @@ function nav(site, path) {
     ? `<span class="btn-nav-short">${esc(site.cta.shortLabel)}</span>`
     : "";
   const shortClass = site.cta.shortLabel ? " has-short" : "";
+  const login = site.login
+    ? `<a class="nav-login" href="${esc(site.login.href)}">${esc(site.login.label)}</a>`
+    : "";
+  const mobileLogin = site.login
+    ? `<a class="nav-login-mobile" href="${esc(site.login.href)}">${esc(site.login.label)}</a>`
+    : "";
   return `<header class="site-header">
     <div class="header-inner">
       <a class="brand" href="/" aria-label="Credtent home">
@@ -137,17 +143,18 @@ function nav(site, path) {
       </a>
       <nav class="site-nav site-nav-desktop" aria-label="Primary">${links}</nav>
       <div class="header-tools">
+        ${login}
         <a class="btn btn-nav${shortClass}" href="${esc(site.cta.href)}"${ctaExternal}><span class="btn-nav-full">${esc(site.cta.label)}</span>${short}</a>
         <details class="nav-details">
           <summary class="nav-summary">Menu</summary>
-          <nav class="site-nav site-nav-mobile" aria-label="Primary">${links}</nav>
+          <nav class="site-nav site-nav-mobile" aria-label="Primary">${links}${mobileLogin}</nav>
         </details>
       </div>
     </div>
   </header>`;
 }
 
-function footer(site, cookieSettings) {
+function footer(site, cookieSettings, disclosures = "") {
   const contact = site.id === "com" ? "https://credtent.com/contact" : "https://credtent.org/contact";
   const sitemap = site.id === "com" ? "https://credtent.com/sitemap" : "https://credtent.org/sitemap";
   const privacy = site.id === "com" ? "https://credtent.com/privacy-policy" : "https://credtent.org/privacy-policy";
@@ -158,12 +165,12 @@ function footer(site, cookieSettings) {
       <div>
         <img class="word" src="/brand/wordmark-white.svg" width="160" height="30" alt="Credtent">
         <p>Credtent helps creatives and AI companies navigate consent, credit, and compensation.</p>
-        <p>Credtent, Inc. is a Delaware Public Benefit Corporation and a certified B Corp.</p>
+        <p>Certified B Corp</p>
         ${bcorpBadge()}
         <p><a href="mailto:${esc(site.email)}">${esc(site.email)}</a></p>
       </div>
       <div>
-        <h2>For creatives</h2>
+        <p class="footer-title">For creatives</p>
         <ul>
           <li><a href="https://credtent.org/opt-out">Free opt-out</a></li>
           <li><a href="https://credtent.org/resources/auditing">Auditing</a></li>
@@ -172,7 +179,7 @@ function footer(site, cookieSettings) {
         </ul>
       </div>
       <div>
-        <h2>For companies</h2>
+        <p class="footer-title">For companies</p>
         <ul>
           <li><a href="https://credtent.com/valuation">Valuation</a></li>
           <li><a href="https://credtent.com/ai-training">AI training</a></li>
@@ -181,7 +188,7 @@ function footer(site, cookieSettings) {
         </ul>
       </div>
       <div>
-        <h2>Company</h2>
+        <p class="footer-title">Company</p>
         <ul>
           <li><a href="https://credtent.com/about">About</a></li>
           <li><a href="https://tally.so/r/2ExeBp" target="_blank" rel="noopener">Investors</a></li>
@@ -194,6 +201,7 @@ function footer(site, cookieSettings) {
         </ul>
       </div>
     </div>
+    ${disclosures}
     <div class="wrap footer-base">
       <span>${ADDRESS_LINE}</span>
       <span>© ${new Date().getFullYear()} Credtent, Inc.</span>
@@ -209,7 +217,7 @@ function faqHtml(faq) {
   </details>`).join("");
   return `<section class="section section-tight" id="faq">
     <div class="wrap">
-      <h2>Questions</h2>
+      <h2>Frequently Asked Questions</h2>
       <div class="faq-list">${items}</div>
     </div>
   </section>`;
@@ -341,11 +349,13 @@ export function renderPage(site, page) {
   const crumbBlock = crumbs ? `<p class="crumbs">${crumbs}</p>` : "";
   const eyebrow = page.eyebrow ? `<p class="eyebrow">${esc(page.eyebrow)}</p>` : "";
   const h1 = `<h1>${page.h1}</h1>`;
-  const capsule = page.capsule ? `<p class="capsule">${esc(page.capsule)}</p>` : "";
+  const capsule = page.capsule && !page.capsuleOutsideHero ? `<p class="capsule">${esc(page.capsule)}</p>` : "";
   const lede = page.lede ? `<p class="lede">${page.lede}</p>` : "";
   const actions = page.actions || "";
   const intro = `${crumbBlock}${eyebrow}${h1}${capsule}${lede}${actions}`;
-  const top = page.media
+  const top = page.media && page.heroBand
+    ? `<div class="hero-band"><div class="hero hero-home"><div class="hero-copy">${intro}</div>${page.media}</div></div>`
+    : page.media
     ? `<div class="wrap"><div class="hero"><div>${intro}</div>${page.media}</div></div>`
     : `<div class="wrap section-tight">${intro}</div>`;
 
@@ -374,7 +384,7 @@ export function renderPage(site, page) {
   const production = process.env.SITE_ENV === "production";
   const noindex = page.noindex || !production;
   const robots = noindex
-    ? `${production ? "" : "<!-- TODO(launch): this noindex meta is for preview builds. SITE_ENV=production omits it on pages that are allowed to be indexed. -->\n  "}<meta name="robots" content="noindex, nofollow">`
+    ? `<meta name="robots" content="noindex, nofollow">`
     : "";
   const canonical = page.file === "404.html" ? "" : `<link rel="canonical" href="${esc(pageUrl)}">`;
   const previewBar = production
@@ -419,7 +429,7 @@ export function renderPage(site, page) {
     ${page.main || ""}
     ${faqHtml(page.faq)}
   </main>
-  ${footer(site, consent.footerItem)}
+  ${footer(site, consent.footerItem, page.disclosures?.length ? `<div class="wrap footer-disclosures" aria-label="Disclosures">${page.disclosures.map((d) => `<p>${d}</p>`).join("")}</div>` : "")}
   ${consent.banner}
 </body>
 </html>
@@ -429,11 +439,11 @@ export function renderPage(site, page) {
 export function diagramHtml() {
   return `<div class="diagram">
     <ol class="diagram-inputs">
-      <li><h3>Intended AI use</h3><p>Training, answers, or both</p></li>
-      <li><h3>Evidence of success</h3><p>Audience reception and awards</p></li>
-      <li><h3>Cultural significance</h3><p>Context and distinctive contribution</p></li>
-      <li><h3>Quality and expertise</h3><p>The work and its specialist value</p></li>
-      <li><h3>Rights and scope</h3><p>Permissions, limits, and exclusivity</p></li>
+      <li><svg class="diagram-icon" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg><h3>Intended AI use</h3><p>Training, answers, or both</p></li>
+      <li><svg class="diagram-icon" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 4h8v5a4 4 0 0 1-8 0V4z"/><path d="M8 6H5a2 2 0 0 0 0 4h3M16 6h3a2 2 0 0 1 0 4h-3"/><path d="M12 13v4M8 21h8M9 17h6"/></svg><h3>Evidence of success</h3><p>Audience reception and awards</p></li>
+      <li><svg class="diagram-icon" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 21h18M4 10h16M12 3l9 5H3l9-5z"/><path d="M6 10v8M10 10v8M14 10v8M18 10v8"/></svg><h3>Cultural significance</h3><p>Context and distinctive contribution</p></li>
+      <li><svg class="diagram-icon" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9L12 3z"/></svg><h3>Quality and expertise</h3><p>The work and its specialist value</p></li>
+      <li><svg class="diagram-icon" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><h3>Rights and scope</h3><p>Permissions, limits, and exclusivity</p></li>
     </ol>
     <svg class="diagram-lines" viewBox="0 0 100 36" preserveAspectRatio="none" aria-hidden="true">
       <line x1="10" y1="0" x2="50" y2="36"></line>
@@ -446,7 +456,6 @@ export function diagramHtml() {
       <h3>A neutral assessment</h3>
       <p>An informed starting point for what to charge.</p>
     </div>
-    <p class="fine">Illustrative inputs, not a formula. Evidence, assumptions, and intended use inform the assessment; the parties agree the final price.</p>
   </div>`;
 }
 

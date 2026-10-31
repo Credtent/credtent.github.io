@@ -27,10 +27,11 @@ const SITES = {
     // Reused for credtent.com per EB's 2026-10-29 ask for GA on both hosts; one property, split
     // by hostname in reports. Swap in a separate G- id here if EB wants .com in its own stream.
     measurementId: "G-3BJJV0MSLW",
-    cta: { href: "https://app.credtent.org/", label: "Sign up" },
+    cta: { href: "https://app.credtent.org/", label: "Sign Up" },
+    login: { href: "https://app.credtent.org/login", label: "Login" },
     nav: [
-      { href: "/content-owners", label: "Content owners" },
-      { href: "/ai-companies", label: "AI companies" },
+      { href: "/content-owners", label: "Content Owners" },
+      { href: "/ai-companies", label: "AI Companies" },
       { href: "/services", label: "Services" },
       { href: "/about", label: "About" }
     ]
@@ -41,7 +42,7 @@ const SITES = {
     email: "hello@credtent.org",
     dir: path.join(OUT_ROOT, "org"),
     measurementId: "G-3BJJV0MSLW",
-    cta: { href: "https://app.credtent.org/opt-out", label: "Free opt-out", shortLabel: "Opt out" },
+    cta: { href: "https://app.credtent.org/opt-out", label: "Free Opt-Out", shortLabel: "Opt Out" },
     nav: [
       { href: "/opt-out", label: "Opt-Out" },
       { href: "/creative-consent", label: "Creative Consent" },
@@ -192,7 +193,7 @@ function notFound(site) {
     noindex: true,
     path: "/404.html",
     title: "Page not found | Credtent",
-    description: "That page is not on this preview.",
+    description: "That page could not be found.",
     eyebrow: "404",
     h1: "Page not found.",
     capsule: "The link may have moved. Use the sitemap to continue.",
@@ -303,10 +304,7 @@ function copyBuilder(dir) {
 }
 
 function robotsPreview(origin) {
-  return `# TODO(launch): replace this file with robots.production.txt when SITE_ENV=production.
-# Do not remove Disallow until Eric publishes AND credtent.com returns production 200s.
-# Preview builds stay noindex via this file, the meta robots tag, and X-Robots-Tag.
-User-agent: *
+  return `User-agent: *
 Disallow: /
 
 Sitemap: ${origin}/sitemap.xml
@@ -382,7 +380,7 @@ ${LICENSE_SENTENCE}
 - [Company map](https://credtent.com/guides/ai-training-data-licensing-companies/): A neutral map of public licensing programs, marketplaces, and registries. It is not a list of Credtent customers.
 
 ## Company
-- [About](https://credtent.com/about): Credtent, Inc. is a Delaware Public Benefit Corporation and a certified B Corp, founded by Eric R. Burgess and Dr. Galen Buckwalter.
+- [About](https://credtent.com/about): Credtent, Inc. is a Delaware Public Benefit Corporation and a certified B Corp, founded by E.R. Burgess and Dr. Galen Buckwalter.
 - [FAQ](https://credtent.com/faq): Answers for AI companies and content owners on licensing scope, documentation, and valuation limits.
 - [Pricing](https://credtent.com/pricing): Opt-Out Premium is US$49 for individuals and US$299+ for organizations. The Collaborithmic Age lists its published book prices.
 - [Contact](https://credtent.com/contact): AI companies can use the licensing form. Content owners start an inquiry in the app. Other questions open an email.
@@ -558,7 +556,7 @@ async function main() {
       eyebrow: "Guide",
       capsule: "A neutral map of public licensing programs, marketplaces, and registries. It is not a list of Credtent customers.",
       crumb: "Company map",
-      faq: [{ q: "Is every company here a Credtent partner?", a: "No. This is a map of the public market, described from each company's own pages." }]
+      intro: `<p class="fine">Not every company here is a Credtent partner. This is a map of the public market, described from each company's own pages.</p>`
     })
   ];
   const org = [
@@ -570,7 +568,7 @@ async function main() {
       eyebrow: "Standards",
       capsule: "A catalog of disclosure badges, registries, watermarks, and protocols maintained by Credtent.",
       crumb: "Standards",
-      faq: [{ q: "Does this catalog certify the listed projects?", a: "No. It describes public standards. It is not an endorsement, and it is not a Credtent certification." }]
+      intro: `<p class="fine">This catalog describes public standards. It is not an endorsement, and it is not a Credtent certification.</p>`
     }),
     legacyPage(SITES.org, "privacy-policy.html", "/privacy-policy", {
       title: `Privacy Policy | ${hostLabel(SITES.org)}`,

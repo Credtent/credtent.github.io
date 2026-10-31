@@ -3,7 +3,6 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- TODO(launch): this noindex meta is for preview builds. SITE_ENV=production omits it on pages that are allowed to be indexed. -->
   <meta name="robots" content="noindex, nofollow">
   <title>Contact Credtent</title>
   <meta name="description" content="AI companies can use the licensing form. Content owners start an inquiry in the app. Other questions open an email.">
@@ -36,12 +35,13 @@
         <img class="shield" src="/brand/shield.svg" width="32" height="36" alt="">
         <img class="word" src="/brand/wordmark.svg" width="148" height="27" alt="Credtent">
       </a>
-      <nav class="site-nav site-nav-desktop" aria-label="Primary"><a href="/content-owners">Content owners</a><a href="/ai-companies">AI companies</a><a href="/services">Services</a><a href="/about">About</a></nav>
+      <nav class="site-nav site-nav-desktop" aria-label="Primary"><a href="/content-owners">Content Owners</a><a href="/ai-companies">AI Companies</a><a href="/services">Services</a><a href="/about">About</a></nav>
       <div class="header-tools">
-        <a class="btn btn-nav" href="https://app.credtent.org/" target="_blank" rel="noopener"><span class="btn-nav-full">Sign up</span></a>
+        <a class="nav-login" href="https://app.credtent.org/login">Login</a>
+        <a class="btn btn-nav" href="https://app.credtent.org/" target="_blank" rel="noopener"><span class="btn-nav-full">Sign Up</span></a>
         <details class="nav-details">
           <summary class="nav-summary">Menu</summary>
-          <nav class="site-nav site-nav-mobile" aria-label="Primary"><a href="/content-owners">Content owners</a><a href="/ai-companies">AI companies</a><a href="/services">Services</a><a href="/about">About</a></nav>
+          <nav class="site-nav site-nav-mobile" aria-label="Primary"><a href="/content-owners">Content Owners</a><a href="/ai-companies">AI Companies</a><a href="/services">Services</a><a href="/about">About</a><a class="nav-login-mobile" href="https://app.credtent.org/login">Login</a></nav>
         </details>
       </div>
     </div>
@@ -121,7 +121,7 @@
       </div></section>
     <section class="section section-tight" id="faq">
     <div class="wrap">
-      <h2>Questions</h2>
+      <h2>Frequently Asked Questions</h2>
       <div class="faq-list"><details open>
     <summary>Which email should companies use?</summary>
     <p>Write to hello@credtent.com.</p>
@@ -137,12 +137,12 @@
       <div>
         <img class="word" src="/brand/wordmark-white.svg" width="160" height="30" alt="Credtent">
         <p>Credtent helps creatives and AI companies navigate consent, credit, and compensation.</p>
-        <p>Credtent, Inc. is a Delaware Public Benefit Corporation and a certified B Corp.</p>
+        <p>Certified B Corp</p>
         <p class="bcorp-badge" role="img" aria-label="Credtent is a Certified B Corporation."><span>Certified</span><strong>B Corp</strong></p>
         <p><a href="mailto:hello@credtent.com">hello@credtent.com</a></p>
       </div>
       <div>
-        <h2>For creatives</h2>
+        <p class="footer-title">For creatives</p>
         <ul>
           <li><a href="https://credtent.org/opt-out">Free opt-out</a></li>
           <li><a href="https://credtent.org/resources/auditing">Auditing</a></li>
@@ -151,7 +151,7 @@
         </ul>
       </div>
       <div>
-        <h2>For companies</h2>
+        <p class="footer-title">For companies</p>
         <ul>
           <li><a href="https://credtent.com/valuation">Valuation</a></li>
           <li><a href="https://credtent.com/ai-training">AI training</a></li>
@@ -160,7 +160,7 @@
         </ul>
       </div>
       <div>
-        <h2>Company</h2>
+        <p class="footer-title">Company</p>
         <ul>
           <li><a href="https://credtent.com/about">About</a></li>
           <li><a href="https://tally.so/r/2ExeBp" target="_blank" rel="noopener">Investors</a></li>
@@ -173,6 +173,7 @@
         </ul>
       </div>
     </div>
+    
     <div class="wrap footer-base">
       <span>1822 E. Route 66, Suite A353, Glendora, California 91740</span>
       <span>© 2026 Credtent, Inc.</span>

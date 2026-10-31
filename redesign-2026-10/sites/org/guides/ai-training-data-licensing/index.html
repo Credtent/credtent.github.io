@@ -3,7 +3,6 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- TODO(launch): this noindex meta is for preview builds. SITE_ENV=production omits it on pages that are allowed to be indexed. -->
   <meta name="robots" content="noindex, nofollow">
   <title>How AI training data licensing works | Credtent</title>
   <meta name="description" content="What a training license grants, what it does not grant, and how rights holders keep the choice to opt out.">
@@ -38,7 +37,8 @@
       </a>
       <nav class="site-nav site-nav-desktop" aria-label="Primary"><a href="/opt-out">Opt-Out</a><a href="/creative-consent">Creative Consent</a><a href="/resources">Resources</a><a href="https://credtent.com/about" rel="noopener">About</a></nav>
       <div class="header-tools">
-        <a class="btn btn-nav has-short" href="https://app.credtent.org/opt-out" target="_blank" rel="noopener"><span class="btn-nav-full">Free opt-out</span><span class="btn-nav-short">Opt out</span></a>
+        
+        <a class="btn btn-nav has-short" href="https://app.credtent.org/opt-out" target="_blank" rel="noopener"><span class="btn-nav-full">Free Opt-Out</span><span class="btn-nav-short">Opt Out</span></a>
         <details class="nav-details">
           <summary class="nav-summary">Menu</summary>
           <nav class="site-nav site-nav-mobile" aria-label="Primary"><a href="/opt-out">Opt-Out</a><a href="/creative-consent">Creative Consent</a><a href="/resources">Resources</a><a href="https://credtent.com/about" rel="noopener">About</a></nav>
@@ -50,21 +50,37 @@
     <div class="wrap section-tight"><p class="crumbs"><a href="https://credtent.org/guides/">Guides</a> / <span>AI training data licensing</span></p><p class="eyebrow">Guide</p><h1>How AI training data licensing works.</h1><p class="capsule">AI training data licensing is a written agreement in which the owner of text, images, audio, video, or data grants permission to use specific works to train a model, on defined terms.</p></div>
     <section class="section"><div class="wrap prose">
         <p>Updated October 2026. Published by Credtent, a Delaware Public Benefit Corporation.</p>
+        <p>Questions about AI training data licensing reach us from both sides of the table: creatives and rights holders register their works with us for opt-out, licensing, or both, and AI companies come to us to license named collections of that work. This guide answers the questions rights holders bring to us.</p>
+        <h2>What is AI training data licensing?</h2>
+        <p>It is a written agreement in which the owner of text, images, audio, video, or data grants an AI developer permission to use specific works to train a model, in exchange for payment and on defined terms. The license names the works, the permitted uses, the duration, and the documentation the developer receives.</p>
+        <p>Every training license has two parties with different worries. The developer wants to know that the people granting permission had the right to grant it, and that the paperwork will hold up when a regulator or a court asks where the training data came from. The rights holder wants to know what the work will be used for, who else can use it, and how payment reaches the people who made it.</p>
+        <p>In the European Union, the text and data mining exception in Article 4 of Directive (EU) 2019/790 applies only where rights holders have not expressly reserved their rights, and for content published online that reservation can be made by machine-readable means. Once a rights holder has reserved those rights, a developer who still wants the work needs permission, and a license is how permission is given.</p>
         <h2>What rights does a training license grant?</h2>
-        <p>A training license grants permission to use named works to train or fine-tune a model, within the scope the contract states. It does not automatically cover use in AI answers, and it does not transfer copyright.</p>
-        <p>A license also conveys only the rights its signatories hold. That is why a careful license comes with a manifest.</p>
+        <p>A training license grants permission to use named works to train or fine-tune a model, within the scope the contract states. It does not automatically cover inference or grounding, where content is retrieved to answer a user's question, and it does not transfer copyright. Those uses, and any indemnity, need their own written terms.</p>
+        <p>The difference matters because some programs now license them separately. Microsoft's Publisher Content Marketplace, announced on February 3, 2026, is built for grounding: in Microsoft's description, publishers set licensing and usage terms while AI builders license content for specific grounding scenarios. A training license and a grounding license can cover the same article and still be two different contracts.</p>
+        <p>A license also conveys only the rights its signatories hold. A book can carry rights held by an author, a publisher, an illustrator, and a translator, and a license signed by one of them does not bind the others. That is why a careful license comes with a manifest, a list of exactly which works are covered, and with records showing who warranted which rights.</p>
         <p>Our corporate page states the boundary in these words: "Licenses include the rights the contracting holders warranted, a named manifest, and a disclosure pack your counsel can use for EU AI Act Art. 53 and CA AB 2013 filings. Those statutes still bind the developer. Indemnity, if any, is only as written in the signed license."</p>
         <h2>Who can offer a license?</h2>
-        <p>Individual creatives, publishers and other catalog owners, marketplaces, and collective programs. They differ in scale and in how payment is arranged. Credtent does not publish a rate card.</p>
+        <p>Licenses come from four kinds of sellers: individual creatives, publishers and other rights holders who own catalogs, aggregators and marketplaces that gather content from many owners, and collective or platform-run programs that offer one set of terms to many participants. They differ in scale, documentation, and how payment reaches the people who made the work.</p>
+        <p>Individual creatives can license their own work directly or reach AI buyers through an agent, a marketplace, or a collective program. Publishers, studios, labels, archives, and data providers can license a catalog directly; their main questions are which rights they hold for each work and how much control they keep after signing. Aggregators and marketplaces either take a license from each owner and resell it, or act as an agent and route payment back to the owners. Collective programs offer standard terms to many participants at once: Copyright Clearance Center, for example, offers an AI Systems Training License to organizations training AI systems for external uses.</p>
+        <p>The neutral company map is on <a href="https://credtent.com/guides/ai-training-data-licensing-companies/">credtent.com</a>.</p>
+        <h2>How are licenses priced?</h2>
+        <p>Four structures are common: a flat fee for a defined collection, a per-work or per-unit rate, a revenue share between seller and rights holders, and usage-based fees tied to how often content is accessed. The price depends on exclusivity, quality, documentation, the rights layers involved, and the license term.</p>
+        <p>Credtent does not publish a rate card for AI companies. On the rights-holder side our structure is a revenue share: as of October 2026, Credtent routes 85% of gross revenue from each licensing deal to the rights holders and data providers whose content was licensed and keeps 15% for the platform, legal work, compliance tools, and operations, with royalties paid quarterly.</p>
+        <p>Usage-based pricing appears in access and grounding programs. Cloudflare's pay per crawl, which its own page describes as a private beta feature of AI Crawl Control, lets publishers charge AI crawlers for access.</p>
         <h2>What records do developers need?</h2>
-        <p>Developers of general-purpose AI models in the EU must publish a sufficiently detailed summary of training content and keep a copyright policy that honors rights reservations, under Article 53 of the EU AI Act. California's AB 2013 requires developers to post training-data documentation. A developer's filings remain the developer's responsibility.</p>
+        <p>Developers of general-purpose AI models in the EU must publish a sufficiently detailed summary of training content and keep a copyright policy that honors rights reservations, under Article 53 of the EU AI Act. Under Article 113, those obligations apply from 2 August 2025. California's AB 2013 (Chapter 817, approved September 28, 2024) requires developers to post training-data documentation, including the sources or owners of the datasets and whether they were purchased or licensed.</p>
+        <p>A developer's filings remain the developer's responsibility. A good license improves the evidence available to the people who write them: a manifest of named works, a record of who warranted which rights, and dates for when the content was delivered.</p>
+        <h2>Can a license cover content a model already trained on?</h2>
+        <p>Only for the rights holders who sign it. Credtent states the limit in these words: "We can structure a going-forward license plus a covenant not to sue from the rights holders who sign, covering the named works. That is not a release from everyone else, and it is not a regulator cure." Rights holders who did not sign keep every claim they had.</p>
         <h2>How can a rights holder participate?</h2>
-        <p>Document ownership, list the works, set which uses you will accept, and approve each agreement. You can also choose the <a href="/opt-out">free opt-out</a> instead. Opt-Out Premium is <span class="price">US$49</span> a year for individuals and <span class="price">US$299+</span> a year for organizations. It adds auditing and does not include licensing.</p>
-        <p>The company map is on <a href="https://credtent.com/guides/ai-training-data-licensing-companies/">credtent.com</a>.</p>
+        <p>Document ownership, list the works, set which uses and buyers you will accept, and approve each agreement. With Credtent, you submit catalog metadata, ownership documentation, and your licensing terms; we verify ownership and tag the content so AI buyers can find it; we bring licensing terms to you for approval before any contract is signed; and royalties are paid quarterly with usage reports. Listing transfers no copyright and no exclusivity, and you can end our representation at any time. Details are on <a href="https://credtent.com/content-owners">credtent.com/content-owners</a>.</p>
+        <p>You can also choose the <a href="/opt-out">free opt-out</a> instead. Opt-Out Premium is <span class="price">US$49</span> a year for individuals and <span class="price">US$299+</span> a year for organizations. It enrolls your works in Credtent's periodic AI model audits and does not include licensing. Licensing for individuals is $99 a year, and Rights-Holder Licensing, for publishers and others who represent many creatives, starts at $299 a year. Full terms are on the <a href="https://credtent.com/pricing">pricing page</a>.</p>
+        <p>Opting out and licensing are not permanent choices. A work registered for opt-out can be made licensable later, and a licensable work can be withdrawn to opt-out, with no retroactive fees.</p>
       </div></section>
     <section class="section section-tight" id="faq">
     <div class="wrap">
-      <h2>Questions</h2>
+      <h2>Frequently Asked Questions</h2>
       <div class="faq-list"><details open>
     <summary>Does a training license include answers and excerpts?</summary>
     <p>Not automatically. Inference, grounding, and display need their own written terms.</p>
@@ -80,12 +96,12 @@
       <div>
         <img class="word" src="/brand/wordmark-white.svg" width="160" height="30" alt="Credtent">
         <p>Credtent helps creatives and AI companies navigate consent, credit, and compensation.</p>
-        <p>Credtent, Inc. is a Delaware Public Benefit Corporation and a certified B Corp.</p>
+        <p>Certified B Corp</p>
         <p class="bcorp-badge" role="img" aria-label="Credtent is a Certified B Corporation."><span>Certified</span><strong>B Corp</strong></p>
         <p><a href="mailto:hello@credtent.org">hello@credtent.org</a></p>
       </div>
       <div>
-        <h2>For creatives</h2>
+        <p class="footer-title">For creatives</p>
         <ul>
           <li><a href="https://credtent.org/opt-out">Free opt-out</a></li>
           <li><a href="https://credtent.org/resources/auditing">Auditing</a></li>
@@ -94,7 +110,7 @@
         </ul>
       </div>
       <div>
-        <h2>For companies</h2>
+        <p class="footer-title">For companies</p>
         <ul>
           <li><a href="https://credtent.com/valuation">Valuation</a></li>
           <li><a href="https://credtent.com/ai-training">AI training</a></li>
@@ -103,7 +119,7 @@
         </ul>
       </div>
       <div>
-        <h2>Company</h2>
+        <p class="footer-title">Company</p>
         <ul>
           <li><a href="https://credtent.com/about">About</a></li>
           <li><a href="https://tally.so/r/2ExeBp" target="_blank" rel="noopener">Investors</a></li>
@@ -116,6 +132,7 @@
         </ul>
       </div>
     </div>
+    
     <div class="wrap footer-base">
       <span>1822 E. Route 66, Suite A353, Glendora, California 91740</span>
       <span>© 2026 Credtent, Inc.</span>

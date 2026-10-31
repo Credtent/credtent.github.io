@@ -185,7 +185,7 @@ p { margin: 0; }
   font-size: 20px;
   line-height: 1.2;
   padding: 14px 22px;
-  border-radius: var(--radius-control);
+  border-radius: var(--radius-button);
   text-decoration: none;
   border: 2px solid var(--orange);
   min-height: 52px;
@@ -502,8 +502,9 @@ figcaption, .credit {
 .site-footer .bcorp-badge { color: var(--footer-text); border-color: var(--footer-text); }
 .site-footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
 .site-footer li a { display: flex; }
-.site-footer h2 {
+.site-footer .footer-title {
   font-family: var(--font-body);
+  line-height: 1.12;
   font-variant-numeric: tabular-nums;
   font-size: 12px;
   letter-spacing: 0.08em;
@@ -685,7 +686,7 @@ th { font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; }
 .tier-row.is-selected { border-color: var(--orange); background: #fff7f1; }
 .tier-name { display: block; font-weight: 700; color: var(--ink); }
 .tier-blurb { display: block; color: var(--muted); font-size: 15px; }
-.generate-btn { font: inherit; font-weight: 700; font-size: 20px; background: var(--orange); color: #fff; border: 0; border-radius: 8px; padding: 12px 18px; cursor: pointer; }
+.generate-btn { font: inherit; font-weight: 700; font-size: 20px; background: var(--orange); color: #fff; border: 0; border-radius: var(--radius-button); padding: 12px 18px; cursor: pointer; }
 .result-grid { display: grid; grid-template-columns: 180px 1fr; gap: 18px; align-items: center; }
 .result-preview svg { width: 160px; height: 160px; }
 .download-btn { display: inline-flex; margin: 6px 8px 0 0; color: var(--purple); font-weight: 700; }
@@ -739,3 +740,118 @@ th { font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; }
   .header-tools { margin-left: 28px; }
   .site-nav-desktop a { padding: 0; }
 }
+
+/* 2026-10-28 masthead and hero refresh (shared by option a and b) */
+:root { --hero-bg: #ECEFF9; --radius-button: 12px; } /* was the page paper #F7F8FC: same indigo hue, +6 pts saturation, slightly deeper */
+.nav-login {
+  color: var(--purple);
+  font-weight: 600;
+  font-size: 18px;
+  text-decoration: none;
+  padding: 10px 8px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+.nav-login:hover { text-decoration: underline; }
+.nav-login-mobile { color: var(--purple) !important; font-weight: 600; }
+@media (max-width: 599px) { .nav-login { display: none; } }
+@media (min-width: 600px) { .nav-login-mobile { display: none !important; } }
+.hero-band { background: var(--hero-bg); }
+.hero-band .eyebrow { color: var(--text); }
+.hero-home { max-width: 1400px; margin: 0 auto; padding: 56px 28px 48px; }
+.hero-home h1 { max-width: none; font-size: clamp(40px, 3.7vw, 56px); }
+.hero-home h1 { white-space: nowrap; }
+.hero-home .lede { max-width: 36rem; }
+.audience-list { margin: 4px 0 14px 1.2em; padding: 0; columns: 2; column-gap: 24px; }
+.audience-list li { margin: 0 0 4px; }
+main h2.h2-wide { max-width: 30ch; }
+@media (max-width: 999px) {
+  .br-desk { display: none; }
+  .hero-home { padding: 32px 16px 32px; }
+  .hero-home h1 { white-space: normal; }
+}
+/* Warmer valuation section with icon cards */
+.section-warm { background: linear-gradient(180deg, #FFF4EA 0%, #FFFAF5 100%); border-top: 3px solid var(--orange); }
+.section-warm .eyebrow { color: var(--text); }
+.diagram-icon { display: block; color: var(--purple); margin-bottom: 10px; }
+.diagram-inputs li { border-top: 3px solid var(--orange); }
+.diagram-note { font-size: 13px; color: var(--text); margin-top: 24px; font-style: italic; }
+/* One shared button radius; the neutral-assessment hub is an indigo content block, not a button */
+.nav-login { border-radius: var(--radius-button); }
+.diagram-hub {
+  background: var(--purple);
+  color: #fff;
+  border-radius: 20px;
+  border-left: 6px solid var(--orange);
+  padding: 26px 28px;
+  max-width: 480px;
+  cursor: default;
+  box-shadow: none;
+}
+.diagram-hub:hover { background: var(--purple); }
+.diagram-hub h3, .diagram-hub p { color: #fff; }
+/* Footer disclosures, smaller photo credits, wider podcast media, book-section break */
+.footer-disclosures { border-top: 1px solid rgba(200, 202, 222, 0.25); padding-top: 16px; margin-top: 8px; }
+.footer-disclosures p { font-size: 13px; color: var(--footer-muted); margin: 0 0 6px; }
+figcaption.credit { font-size: 9px; line-height: 1.3; color: var(--text); margin-top: 6px; }
+.media-wide { margin-top: 36px; }
+.media-wide figure { margin: 0; }
+.media-wide img { width: 100%; height: 520px; object-fit: cover; border-radius: var(--radius); }
+@media (max-width: 999px) { .media-wide img { height: 280px; } }
+.book-banner { background: var(--tint); border-top: 4px solid var(--purple); border-bottom: 1px solid var(--line); margin-top: 48px; padding: 18px 0; }
+.book-banner p { margin: 0; text-align: center; font-size: 18px; }
+.book-banner a { color: var(--purple); font-weight: 600; text-decoration: none; }
+.book-banner a:hover { text-decoration: underline; }
+.book-banner cite { font-style: italic; }
+
+/* Masthead alignment (Eric, Oct 29): on pages with the wide home hero, match the header container to the hero container so the wordmark's left edge lines up with the hero h1. */
+body:has(.hero-band) .header-inner { max-width: 1400px; padding-left: 28px; padding-right: 28px; }
+@media (max-width: 999px) { body:has(.hero-band) .header-inner { padding-left: 16px; padding-right: 16px; } }
+
+/* Option (b): full-bleed hero. The photo fills the band; an indigo overlay keeps text at AA or better.
+   Root cause of the small image is the default figure margin on .com (see option a). */
+.hero-band { position: relative; overflow: hidden; background: #121F56; }
+.hero-home { position: relative; display: block; min-height: 600px; display: flex; align-items: center; }
+.hero-home > figure { position: absolute; inset: 0; margin: 0; z-index: 0; }
+.hero-band .hero-home > figure { left: calc(-1 * max(0px, (100vw - 1400px) / 2)); right: calc(-1 * max(0px, (100vw - 1400px) / 2)); }
+.hero-home > figure picture, .hero-home > figure img { width: 100%; height: 100%; }
+.hero-home > figure img { object-fit: cover; border-radius: 0 !important; }
+.hero-home > figure::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(18,31,86,0.90) 0%, rgba(18,31,86,0.80) 55%, rgba(18,31,86,0.55) 100%); }
+.hero-home > figure figcaption { position: absolute; right: 16px; bottom: 10px; z-index: 2; color: #fff; font-size: 13px; background: rgba(18,31,86,0.85); padding: 2px 8px; border-radius: 4px; }
+.hero-home > figure figcaption a { color: #fff; }
+.hero-home > figure .caption-panel { position: absolute; right: 28px; bottom: 48px; z-index: 2; background: rgba(18,31,86,0.85); border: 0; border-radius: 8px; padding: 16px 20px; max-width: 320px; }
+.hero-home > figure .caption-panel strong, .hero-home > figure .caption-panel span { color: #fff; }
+.hero-home .hero-copy { position: relative; z-index: 1; max-width: 680px; color: #fff; }
+.hero-home .hero-copy h1, .hero-home .hero-copy .lede, .hero-home .hero-copy .eyebrow, .hero-home .hero-copy p { color: #fff; }
+.hero-home .hero-copy .capsule { background: rgba(18,31,86,0.9); color: #fff; }
+.hero-home .hero-copy .btn-ghost { color: #fff; border-color: #fff; }
+.hero-home .hero-copy .btn-ghost:hover { background: #fff; color: var(--ink); }
+.hero-home .hero-copy a:not(.btn) { color: #fff; }
+@media (max-width: 999px) {
+  .hero-home { min-height: 560px; }
+  .hero-home > figure::after { background: rgba(18,31,86,0.86); }
+  .hero-home > figure .caption-panel { display: none; }
+}
+
+/* 320px header fit: logo, CTA, and Menu stay inside the viewport on the narrowest phones. */
+@media (max-width: 360px) {
+  .header-inner, body:has(.hero-band) .header-inner { gap: 6px; }
+  .brand { gap: 6px; }
+  .brand img.shield { width: 26px; height: 29px; }
+  .brand img.word { width: 90px; height: 17px; }
+  .btn-nav { padding: 9px 9px; min-width: 0; }
+  .nav-summary { padding: 0 8px; }
+}
+@media (max-width: 360px) {
+  .grid-2 > *, .grid-3 > *, .grid-4 > * { min-width: 0; }
+  .card { overflow-wrap: break-word; }
+}
+
+/* Restored live-depth lists (phase 2) */
+.check-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.check-list li { position: relative; padding-left: 28px; }
+.check-list li::before { content: "\2713"; position: absolute; left: 0; top: 0; color: var(--ink); font-weight: 700; }
+.advisor-list { list-style: none; padding: 0; }
+.advisor-list li { padding: 12px 0; border-top: 1px solid rgba(18,31,86,0.15); min-width: 0; }
