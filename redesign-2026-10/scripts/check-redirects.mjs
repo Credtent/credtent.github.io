@@ -440,7 +440,8 @@ function assertProduction(outDir) {
   if (!/name="robots" content="noindex, nofollow"/.test(parked)) fail("production parking page is missing noindex");
   const stub = fs.readFileSync(path.join(outDir, "org/resources/how-to-read-platform-terms/index.html"), "utf8");
   if (!/name="robots" content="noindex, nofollow"/.test(stub)) fail("production coming-soon page is missing noindex");
-  if (!stub.includes("Coming soon.")) fail("coming-soon page is missing the Coming soon line");
+  // The 10/29 previews dropped the "Coming soon." line; the stub stays noindex and capsule-only.
+  if (!stub.includes("Back to resources")) fail("resource stub is missing its link back to resources");
   if (/TODO\(Eric\)/.test(stub)) fail("coming-soon page still shows a TODO");
   for (const rel of ["creative-consent/index.html", "creative-consent/platforms/index.html", "creative-consent/guide/index.html"]) {
     const withheld = fs.readFileSync(path.join(outDir, "org", rel), "utf8");

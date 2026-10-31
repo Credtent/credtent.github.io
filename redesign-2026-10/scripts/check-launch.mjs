@@ -20,6 +20,7 @@ export const BANNED = [
   { id: "opt-out-enforcement", re: /opt-?out\s+enforcement|enforc\w*\s+(of\s+)?(the\s+|your\s+)?opt-?outs?\b/i },
   { id: "bylaw-acquisition", re: /bylaw|cannot be acquired|can't be acquired|legally enforced/i },
   { id: "premium-auditing-system", re: /access to the (opt-out )?auditing system/i },
+  { id: "premium-adds-auditing", re: /\badds? auditing\b/i },
   { id: "held-sign-up", re: /registry\.credtent\.org\/auth\/sign-up/i },
   { id: "rosen-public", re: /\bRosen\b/ },
   { id: "wga-partner", re: /WGA[^.<]{0,60}\b(partner|endorse)/i },
@@ -42,7 +43,7 @@ export function visibleText(html) {
   return html
     .replace(/<script[\s\S]*?<\/script>/gi, " ")
     .replace(/<style[\s\S]*?<\/style>/gi, " ")
-    .replace(/<\/(a|strong|em|span|b|i|code)>/gi, "")
+    .replace(/<\/(a|strong|em|span|b|i|code|cite)>/gi, "")
     .replace(/<[^>]+>/g, " ");
 }
 
