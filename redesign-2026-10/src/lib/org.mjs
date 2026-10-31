@@ -28,7 +28,7 @@ export function orgPages(images) {
       faq: [
         { q: "What does the free opt-out do?", a: CAPSULE.orgHome },
         { q: "Does registration remove work from datasets?", a: "No. Registration does not automatically remove work from datasets. Credtent records preferences and the notices it sends." },
-        { q: "What is Opt-Out Premium?", a: "Optional monthly auditing of observable model responses. It is US$49 a year for individuals and US$249+ a year for organizations. The observations are not proof of dataset inclusion." }
+        { q: "What is Opt-Out Premium?", a: "Optional monthly auditing of observable model responses. It is US$49 a year for individuals and US$299+ a year for organizations. The observations are not proof of dataset inclusion." }
       ],
       main: `<section class="section">
         <div class="wrap">
@@ -71,7 +71,7 @@ export function orgPages(images) {
           <div class="price-stack">
             <p>${price("US$49")}</p>
             <span class="price-meta">annually for individuals</span>
-            <p>${price("US$249+")}</p>
+            <p>${price("US$299+")}</p>
             <span class="price-meta">annually for organizations</span>
           </div>
         </div>
@@ -247,7 +247,7 @@ export function orgPages(images) {
     {
       path: "/premium",
       title: "Opt-Out Premium | Credtent",
-      description: "Monthly audits of observable model responses. US$49 annually for individuals and US$249+ for organizations.",
+      description: "Monthly audits of observable model responses. US$49 annually for individuals and US$299+ for organizations.",
       eyebrow: "Opt-Out Premium",
       h1: "Monthly audits. A clearer record.",
       capsule: "Opt-Out Premium adds monthly auditing of observable model responses for individuals. Observations are not proof of dataset inclusion or infringement.",
@@ -274,24 +274,24 @@ export function orgPages(images) {
             "@id": "https://credtent.org/premium#organizations",
             name: "Opt-Out Premium for organizations",
             priceCurrency: "USD",
-            description: "US$249+ annually for organizations.",
+            description: "US$299+ annually for organizations.",
             url: "https://credtent.org/premium",
             priceSpecification: {
               "@type": "PriceSpecification",
-              minPrice: "249",
+              minPrice: "299",
               priceCurrency: "USD",
-              description: "US$249 or more annually for organizations."
+              description: "US$299 or more annually for organizations."
             }
           }
         ]
       }],
       faq: [
         { q: "What does the audit prove?", a: "Nothing about dataset inclusion or infringement. It records observable model responses." },
-        { q: "What does Opt-Out Premium cost?", a: "US$49 annually for individuals and US$249+ annually for organizations." }
+        { q: "What does Opt-Out Premium cost?", a: "US$49 annually for individuals and US$299+ annually for organizations." }
       ],
       main: `<section class="section"><div class="wrap premium">
         <div><p>For individuals. Early member pricing. The free opt-out remains available without this add-on.</p><p><a href="${OPT_OUT_FLOW}">Get the free opt-out</a></p></div>
-        <div class="price-stack"><p>${price("US$49")}</p><span class="price-meta">annually for individuals</span><p>${price("US$249+")}</p><span class="price-meta">annually for organizations</span></div>
+        <div class="price-stack"><p>${price("US$49")}</p><span class="price-meta">annually for individuals</span><p>${price("US$299+")}</p><span class="price-meta">annually for organizations</span></div>
       </div></section>`
     },
     {
@@ -325,9 +325,9 @@ export function orgPages(images) {
       crumbs: [{ name: "Resources", href: "https://credtent.org/resources" }, { name: "Auditing", href: "https://credtent.org/resources/auditing" }],
       faq: [
         { q: "Is an audit proof my work was in a training set?", a: "No. It is an observation of a model response, not a dataset inventory." },
-        { q: "Who is it for?", a: "Individuals pay US$49 a year. Organizations pay US$249+ a year." }
+        { q: "Who is it for?", a: "Individuals pay US$49 a year. Organizations pay US$299+ a year." }
       ],
-      main: `<section class="section"><div class="wrap prose"><p>Auditing is optional. The free opt-out still records preferences and notices without it. Read <a href="/premium">Opt-Out Premium</a>.</p><p>Opt-Out Premium is ${price("US$49")} a year for individuals and ${price("US$249+")} a year for organizations.</p></div></section>`
+      main: `<section class="section"><div class="wrap prose"><p>Auditing is optional. The free opt-out still records preferences and notices without it. Read <a href="/premium">Opt-Out Premium</a>.</p><p>Opt-Out Premium is ${price("US$49")} a year for individuals and ${price("US$299+")} a year for organizations.</p></div></section>`
     },
     {
       path: "/resources/opt-out-limitations",
@@ -513,7 +513,7 @@ export function orgPages(images) {
         <h2>What records do developers need?</h2>
         <p>Developers of general-purpose AI models in the EU must publish a sufficiently detailed summary of training content and keep a copyright policy that honors rights reservations, under Article 53 of the EU AI Act. California's AB 2013 requires developers to post training-data documentation. A developer's filings remain the developer's responsibility.</p>
         <h2>How can a rights holder participate?</h2>
-        <p>Document ownership, list the works, set which uses you will accept, and approve each agreement. You can also choose the <a href="/opt-out">free opt-out</a> instead. Opt-Out Premium is ${price("US$49")} a year for individuals and ${price("US$249+")} a year for organizations. It adds auditing and does not include licensing.</p>
+        <p>Document ownership, list the works, set which uses you will accept, and approve each agreement. You can also choose the <a href="/opt-out">free opt-out</a> instead. Opt-Out Premium is ${price("US$49")} a year for individuals and ${price("US$299+")} a year for organizations. It adds auditing and does not include licensing.</p>
         <p>The company map is on <a href="https://credtent.com/guides/ai-training-data-licensing-companies/">credtent.com</a>.</p>
       </div></section>`
     },

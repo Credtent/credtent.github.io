@@ -384,7 +384,7 @@ ${LICENSE_SENTENCE}
 ## Company
 - [About](https://credtent.com/about): Credtent, Inc. is a Delaware Public Benefit Corporation and a certified B Corp, founded by Eric R. Burgess and Dr. Galen Buckwalter.
 - [FAQ](https://credtent.com/faq): Answers for AI companies and content owners on licensing scope, documentation, and valuation limits.
-- [Pricing](https://credtent.com/pricing): Opt-Out Premium is US$49 for individuals and US$249+ for organizations. The Collaborithmic Age lists its published book prices.
+- [Pricing](https://credtent.com/pricing): Opt-Out Premium is US$49 for individuals and US$299+ for organizations. The Collaborithmic Age lists its published book prices.
 - [Contact](https://credtent.com/contact): AI companies can use the licensing form. Content owners start an inquiry in the app. Other questions open an email.
 
 Opt-out and Creative Consent: see https://credtent.org/llms.txt
@@ -401,7 +401,7 @@ ${CAPSULE.orgHome}
 - [Auditing](https://credtent.org/resources/auditing): Monthly audits record observable model responses. They are not proof of dataset inclusion.
 - [Opt-out limitations](https://credtent.org/resources/opt-out-limitations): What Credtent's free opt-out does not do: it cannot force every company to act, and it does not erase datasets.
 - [Licensing guide](https://credtent.org/guides/ai-training-data-licensing/): What a training license grants, what it does not grant, and how rights holders keep the choice to opt out.
-- [Premium](https://credtent.org/premium): Monthly audits of observable model responses. US$49 annually for individuals and US$249+ for organizations.
+- [Premium](https://credtent.org/premium): Monthly audits of observable model responses. US$49 annually for individuals and US$299+ for organizations.
 - [Standards](https://credtent.org/standards): A working catalog of AI disclosure standards: badges, registries, watermarks, and protocols maintained by Credtent.
 - [Blog](https://credtent.org/blog): Writing on AI, creative rights, and copyright, published on Substack and Medium.
 - [Contact](https://credtent.org/contact): Contact Credtent about opt-out, Creative Consent, and resources.

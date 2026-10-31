@@ -474,18 +474,18 @@ export function comPages(images) {
     {
       path: "/pricing",
       title: "Pricing | Credtent",
-      description: "Opt-Out Premium is US$49 for individuals and US$249+ for organizations. The Collaborithmic Age lists its published book prices.",
+      description: "Opt-Out Premium is US$49 for individuals and US$299+ for organizations. The Collaborithmic Age lists its published book prices.",
       eyebrow: "Pricing",
       h1: "Published prices.",
-      capsule: "Opt-Out Premium is US$49 a year for individuals and US$249+ a year for organizations. The Collaborithmic Age is $14.99, $24.99, and $49.",
+      capsule: "Opt-Out Premium is US$49 a year for individuals and US$299+ a year for organizations. The Collaborithmic Age is $14.99, $24.99, and $49.",
       crumbs: [{ name: "Pricing", href: "https://credtent.com/pricing" }],
       faq: [
-        { q: "What does Opt-Out Premium cost?", a: "US$49 annually for individuals and US$249+ annually for organizations." },
+        { q: "What does Opt-Out Premium cost?", a: "US$49 annually for individuals and US$299+ annually for organizations." },
         { q: "What does the book cost?", a: "The published collaborithmic.com prices are $14.99 for the e-book, $24.99 for the paperback, and $49 for the living e-book." }
       ],
       main: `<section class="section section-white"><div class="wrap">
         <div class="grid-2">
-          <article class="card"><h3>Opt-Out Premium</h3><p>${price("US$49")} annually for individuals.</p><p>${price("US$249+")} annually for organizations.</p><p><a href="https://credtent.org/premium">Read about Opt-Out Premium</a></p></article>
+          <article class="card"><h3>Opt-Out Premium</h3><p>${price("US$49")} annually for individuals.</p><p>${price("US$299+")} annually for organizations.</p><p><a href="https://credtent.org/premium">Read about Opt-Out Premium</a></p></article>
           <article class="card"><h3>The Collaborithmic Age</h3>${editions()}<p><a href="${BOOK}">Explore the book</a></p></article>
         </div>
         <p class="fine">Enterprise licensing and other catalog fees are discussed directly. They are quoted directly.</p>

@@ -327,8 +327,8 @@ console.log(kept.length ? `kept product names:\n${kept.join("\n")}` : "kept prod
 const home = fs.readFileSync(path.join(sites["https://credtent.com"], "index.html"), "utf8");
 if (!/src="\/media\/bridge-1600\.webp" width="1600"/.test(home)) fail("com home hero width is not 1600");
 const premium = fs.readFileSync(path.join(sites["https://credtent.org"], "premium/index.html"), "utf8");
-if (!premium.includes('"@type":"Offer"') || !premium.includes('"price":"49"') || !premium.includes('"minPrice":"249"')) {
-  fail("org premium is missing Offer markup for 49 and 249+");
+if (!premium.includes('"@type":"Offer"') || !premium.includes('"price":"49"') || !premium.includes('"minPrice":"299"')) {
+  fail("org premium is missing Offer markup for 49 and 299+ (LD-049)");
 }
 const contact = fs.readFileSync(path.join(sites["https://credtent.com"], "contact/index.html"), "utf8");
 if (/TODO\(Eric\)/.test(contact)) fail("com contact still has a TODO");
