@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex, nofollow">
+  
   <title>Opt-out limitations | Credtent</title>
   <meta name="description" content="What Credtent's free opt-out does not do: it cannot force every company to act, and it does not erase datasets.">
   <link rel="canonical" href="https://credtent.org/resources/opt-out-limitations">
@@ -24,11 +24,82 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
   <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png">
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://credtent.com/#organization","name":"Credtent","legalName":"Credtent, Inc.","url":"https://credtent.com/","logo":"https://credtent.com/brand/shield.svg","email":"hello@credtent.org","foundingDate":"2023","description":"Credtent, Inc. is a Delaware Public Benefit Corporation and a certified B Corp, a neutral marketplace connecting content owners and AI companies through consent, licensing, and compensation.","address":{"@type":"PostalAddress","streetAddress":"1822 E. Route 66, Suite A353","addressLocality":"Glendora","addressRegion":"California","postalCode":"91740","addressCountry":"US"},"founder":[{"@id":"https://credtent.com/about#eric-r-burgess"},{"@id":"https://credtent.com/about#galen-buckwalter"}],"sameAs":["https://credtent.org/","https://www.linkedin.com/company/credtent","https://www.cbinsights.com/company/credtent"]},{"@type":"WebSite","@id":"https://credtent.org/#website","url":"https://credtent.org/","name":"Credtent","description":"Credtent for creatives: opt-out, Creative Consent, and resources.","publisher":{"@id":"https://credtent.com/#organization"}},{"@type":"WebPage","@id":"https://credtent.org/resources/opt-out-limitations#page","url":"https://credtent.org/resources/opt-out-limitations","name":"Opt-out limitations | Credtent","description":"What Credtent's free opt-out does not do: it cannot force every company to act, and it does not erase datasets.","isPartOf":{"@id":"https://credtent.org/#website"},"about":{"@id":"https://credtent.com/#organization"},"publisher":{"@id":"https://credtent.com/#organization"},"inLanguage":"en"},{"@type":"FAQPage","@id":"https://credtent.org/resources/opt-out-limitations#faq","url":"https://credtent.org/resources/opt-out-limitations","isPartOf":{"@id":"https://credtent.org/#website"},"mainEntity":[{"@type":"Question","name":"Does Credtent guarantee compliance?","acceptedAnswer":{"@type":"Answer","text":"No. We cannot guarantee that every company will act on your request."}},{"@type":"Question","name":"Does registration delete prior copies?","acceptedAnswer":{"@type":"Answer","text":"No. Registration does not automatically remove work from datasets."}},{"@type":"Question","name":"Are notices the same as confirmation?","acceptedAnswer":{"@type":"Answer","text":"No. Sent notices are distinct from confirmed receipt or action."}},{"@type":"Question","name":"Does Premium prove infringement?","acceptedAnswer":{"@type":"Answer","text":"No. Monthly observations are not proof of dataset inclusion or infringement."}}]},{"@type":"BreadcrumbList","@id":"https://credtent.org/resources/opt-out-limitations#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://credtent.org/"},{"@type":"ListItem","position":2,"name":"Resources","item":"https://credtent.org/resources"},{"@type":"ListItem","position":3,"name":"Opt-out limitations","item":"https://credtent.org/resources/opt-out-limitations"}]}]}</script>
-  
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      analytics_storage: 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      wait_for_update: 500
+    });
+    (function () {
+      var gaId = "G-3BJJV0MSLW";
+      var gaHosts = ["credtent.org","www.credtent.org"];
+      var gaHostOk = gaHosts.indexOf(String(location.hostname).toLowerCase()) !== -1;
+      var storageKey = 'credtent_cookie_consent';
+      var gaOptions = {"anonymize_ip":true,"allow_google_signals":false,"allow_ad_personalization_signals":false};
+      var denied = {
+        analytics_storage: 'denied',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied'
+      };
+      function loadGtag() {
+        gtag('consent', 'update', {
+          analytics_storage: 'granted',
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied'
+        });
+        if (!gaHostOk) return;
+        if (document.querySelector('script[data-ga="1"]')) return;
+        gtag('js', new Date());
+        gtag('config', gaId, gaOptions);
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(gaId);
+        script.setAttribute('data-ga', '1');
+        document.head.appendChild(script);
+      }
+      function setChoice(value) {
+        try { localStorage.setItem(storageKey, value); } catch (error) {}
+        if (value === 'accepted') loadGtag();
+        else gtag('consent', 'update', denied);
+        var banner = document.getElementById('cookie-banner');
+        if (banner) banner.hidden = true;
+        var settings = document.getElementById('cookie-settings');
+        if (settings) settings.focus();
+      }
+      function showBanner() {
+        var banner = document.getElementById('cookie-banner');
+        if (!banner) return;
+        banner.hidden = false;
+        var accept = document.getElementById('cookie-accept');
+        if (accept) accept.focus();
+      }
+      document.addEventListener('DOMContentLoaded', function () {
+        var stored = '';
+        try { stored = localStorage.getItem(storageKey) || ''; } catch (error) {}
+        var accept = document.getElementById('cookie-accept');
+        var decline = document.getElementById('cookie-decline');
+        var settings = document.getElementById('cookie-settings');
+        if (accept) accept.addEventListener('click', function () { setChoice('accepted'); });
+        if (decline) decline.addEventListener('click', function () { setChoice('declined'); });
+        if (settings) settings.addEventListener('click', function (event) {
+          event.preventDefault();
+          showBanner();
+        });
+        if (stored === 'accepted') loadGtag();
+        else if (stored !== 'declined') showBanner();
+      });
+    })();
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#content">Skip to content</a>
-  <p class="preview-bar"><strong>Preview.</strong> This build is noindex until Eric publishes.</p>
+  
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="/" aria-label="Credtent home">
@@ -103,7 +174,7 @@
           <li><a href="https://credtent.org/contact">Contact</a></li>
           <li><a href="https://credtent.org/sitemap">Sitemap</a></li>
           <li><a href="https://credtent.org/privacy-policy">Privacy</a></li>
-          
+          <li><a href="#cookie-banner" id="cookie-settings">Cookie settings</a></li>
           <li><a href="https://credtent.org/terms-of-service">Terms</a></li>
           <li><a href="https://credtent.org/credits">Photo credits</a></li>
         </ul>
@@ -115,6 +186,17 @@
       <span>© 2026 Credtent, Inc.</span>
     </div>
   </footer>
-  
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-modal="false" aria-labelledby="cookie-banner-title" aria-describedby="cookie-banner-text" hidden>
+    <div class="cookie-banner-inner">
+      <div>
+        <p id="cookie-banner-title"><strong>Cookies</strong></p>
+        <p id="cookie-banner-text">We use Google Analytics to understand how this site is used. Analytics stays off unless you accept. <a href="https://credtent.org/privacy-policy">Privacy Policy</a></p>
+      </div>
+      <div class="cookie-banner-actions">
+        <button type="button" class="btn" id="cookie-accept">Accept</button>
+        <button type="button" class="btn btn-ghost" id="cookie-decline">Decline</button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
