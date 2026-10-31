@@ -127,7 +127,6 @@ function copyShared(dir) {
   const media = path.join(dir, "media");
   fs.mkdirSync(media, { recursive: true });
   fs.writeFileSync(path.join(media, "placeholder-ea.svg"), placeholder("EA"));
-  fs.writeFileSync(path.join(media, "placeholder-ac.svg"), placeholder("AC"));
 }
 
 function writePage(dir, site, page) {
@@ -170,7 +169,7 @@ function sitemapPage(site, pages) {
 function creditsPage(site, images, keys) {
   const items = keys.map((key) => {
     const img = images[key];
-    return `<li><strong>${img.alt}.</strong> ${creditLine(img).replace(/<\/?figcaption>/g, "")}</li>`;
+    return `<li><strong>${img.alt}.</strong> ${creditLine(img).replace(/<\/?figcaption[^>]*>/g, "")}</li>`;
   }).join("");
   return {
     path: "/credits",

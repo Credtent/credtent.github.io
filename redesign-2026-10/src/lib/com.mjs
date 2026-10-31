@@ -583,8 +583,8 @@ export function comPages(images) {
         <div class="team" style="margin-top:24px">
           <article class="person">${picture(images.eric, { sizes: "240px" })}<h3>E.R. Burgess</h3><p class="role">Founder and CEO</p><p><a href="https://www.linkedin.com/in/erburgess">E.R. Burgess on LinkedIn</a></p></article>
           <article class="person">${picture(images.galen, { sizes: "240px" })}<h3>Dr. Galen Buckwalter</h3><p class="role">Co-Founder and Chief Science Officer</p><p><a href="https://www.linkedin.com/in/j-galen-buckwalter-04139510">Galen on LinkedIn</a></p></article>
-          <article class="person"><img src="/media/placeholder-ea.svg" width="480" height="480" alt="Edmond Allmond" data-placeholder="headshot"><h3>Edmond Allmond</h3><p class="role">Chief Partnerships Officer</p></article>
-          <article class="person"><img src="/media/placeholder-ac.svg" width="480" height="480" alt="Abigail Cameron" data-placeholder="headshot"><h3>Abigail Cameron</h3><p class="role">Engineering</p></article>
+          <article class="person"><img src="/media/placeholder-ea.svg" width="480" height="480" alt="" data-placeholder="headshot"><h3>Edmond Allmond</h3><p class="role">Chief Partnerships Officer</p></article>
+          <article class="person">${picture(images.abigail, { sizes: "240px" })}<h3>Abigail Cameron</h3><p class="role">Engineering</p></article>
           <article class="person">${picture(images.carmen, { sizes: "240px" })}<h3>Carmen Sinata</h3><p class="role">Onboarding</p></article>
           <article class="person">${picture(images.freddy, { sizes: "240px" })}<h3>Freddy Mota</h3><p class="role">Operations</p></article>
           <article class="person">${picture(images.michael, { sizes: "240px" })}<h3>Michael Thompson</h3><p class="role">Revenue</p></article>

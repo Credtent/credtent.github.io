@@ -13,6 +13,7 @@ export const PHOTOS = [
   { key: "resourceJudgment", file: "resource-judgment-v4.jpg", alt: "A person drawing in a sketchbook", credit: "Felicity Tai", creditHref: "https://www.pexels.com/photo/focused-ethnic-woman-drawing-in-sketchbook-7951214/", license: "Pexels License", licenseHref: "https://www.pexels.com/license/", widths: [480, 800, 1200] },
   { key: "galen", file: "galen.jpg", alt: "Dr. Galen Buckwalter", credit: "Credtent", license: "Company portrait", widths: [320, 640] },
   { key: "eric", absTeam: "eric-burgess-640.png", alt: "E.R. Burgess", credit: "Credtent", license: "Company portrait", widths: [320, 640] },
+  { key: "abigail", absTeam: "abigail-cameron.jpg", alt: "Abigail Cameron", credit: "Credtent", license: "Company portrait", widths: [320, 640] },
   { key: "carmen", absTeam: "carmen-sinata.jpg", alt: "Carmen Sinata", credit: "Credtent", license: "Company portrait", widths: [320, 640] },
   { key: "freddy", absTeam: "freddy-mota.jpg", alt: "Freddy Mota", credit: "Credtent", license: "Company portrait", widths: [320, 640] },
   { key: "michael", abs: "team/michael-thompson.jpg", alt: "Michael Thompson", credit: "Credtent", license: "Company portrait", widths: [320, 640] },

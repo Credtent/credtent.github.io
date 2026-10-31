@@ -851,3 +851,21 @@ body:has(.hero-band) .header-inner { max-width: 1400px; padding-left: 28px; padd
 .check-list li::before { content: "\2713"; position: absolute; left: 0; top: 0; color: var(--ink); font-weight: 700; }
 .advisor-list { list-style: none; padding: 0; }
 .advisor-list li { padding: 12px 0; border-top: 1px solid rgba(18,31,86,0.15); min-width: 0; }
+
+/* 2026-10-31 phone fixes (Clarke). Kept last so they win over the earlier width-specific rules. */
+/* Brand badge art (Creative Consent and other /brand/ marks) is shown whole at its native 96px, never cover-cropped or stretched. */
+.card img[src^="/brand/"] { width: 96px; height: 96px; object-fit: contain; border-radius: 0; }
+/* Touch targets: 44px minimum for standalone links, FAQ rows, the skip link, and form checkboxes. */
+.skip-link { min-height: 44px; display: inline-flex; align-items: center; }
+.faq-list summary { min-height: 44px; display: flex; align-items: center; gap: 8px; list-style: none; }
+.faq-list summary::-webkit-details-marker { display: none; }
+.faq-list summary::before { content: "\25B8"; flex: none; transition: transform 0.15s ease; }
+.faq-list details[open] > summary::before { transform: rotate(90deg); }
+main p > a:only-child,
+.crumbs a,
+.sitemap-cols a { display: inline-flex; align-items: center; min-height: 44px; }
+.form label:has(input[type="checkbox"]) > span { display: flex; align-items: center; gap: 10px; min-height: 44px; }
+.form input[type="checkbox"] { width: 24px; height: 24px; margin: 0; padding: 0; flex: none; }
+/* Photo credits: readable text; links get a taller hit area without shifting the layout. */
+figcaption.credit { font-size: 12px; line-height: 1.4; }
+figcaption.credit a { padding-block: 16px; }
