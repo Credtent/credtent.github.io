@@ -510,8 +510,7 @@ function vercel(site, pages) {
     redirectRule("/parking/badges.html", "https://credtent.org/parking/badges", 301),
     redirectRule("/parking/blog.html", "https://credtent.org/parking/blog", 301),
     redirectRule("/parking/blog/disneys-ai-gambit-how-a-billion-dollar.html", "https://credtent.org/parking/blog/disneys-ai-gambit-how-a-billion-dollar", 301),
-    redirectRule("/parking/lws.html", "https://credtent.org/parking/lws", 301),
-    redirectRule("/parking/services.html", "https://credtent.org/parking/services", 301)
+    redirectRule("/parking/lws.html", "https://credtent.org/parking/lws", 301)
   ] : [];
   const partners = holdPartners();
   const reserved = new Set([...specific, ...partners].map((rule) => rule.source));
@@ -625,14 +624,8 @@ async function main() {
       eyebrow: "Parked",
       capsule: "Older member page retained at its previous URL.",
       crumb: "Parked member page"
-    }),
-    legacyPage(SITES.org, "parking/services.html", "/parking/services", {
-      title: "Parked services page | Credtent",
-      h1: "Parked services page",
-      eyebrow: "Parked",
-      capsule: "Older services page retained at its previous URL. Current services are on credtent.com.",
-      crumb: "Parked services"
     })
+    // The parked services page was removed from the live site in #24 (2026-10-31) and is not rebuilt here.
   ];
 
   const bundles = { com, org };
