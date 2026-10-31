@@ -223,10 +223,22 @@ function faqHtml(faq) {
   </section>`;
 }
 
-function consentUi(site) {
+// GA4 hosts. gtag.js loads only on these exact hostnames, after Accept. Every other host
+// (vercel.app previews, localhost, the other Credtent domain) shows the banner at most and
+// never contacts Google, so preview traffic cannot reach the property.
+export const GA_HOSTS = {
+  com: ["credtent.com", "www.credtent.com"],
+  org: ["credtent.org", "www.credtent.org"]
+};
+
+// The banner ships on production builds. GA_CONSENT_PREVIEW=1 also renders it on a preview
+// build so the banner can be checked on a vercel.app URL; the host list still blocks gtag.js there.
+export function consentUi(site) {
   const id = site.measurementId || "";
-  const enabled = process.env.SITE_ENV === "production" && /^G-[A-Z0-9]+$/.test(id);
+  const wanted = process.env.SITE_ENV === "production" || process.env.GA_CONSENT_PREVIEW === "1";
+  const enabled = wanted && /^G-[A-Z0-9]+$/.test(id);
   if (!enabled) return { head: "", banner: "", footerItem: "" };
+  const hosts = GA_HOSTS[site.id] || [];
   const privacy = site.id === "com" ? "https://credtent.com/privacy-policy" : "https://credtent.org/privacy-policy";
   const options = {
     anonymize_ip: true,
@@ -245,6 +257,8 @@ function consentUi(site) {
     });
     (function () {
       var gaId = ${JSON.stringify(id)};
+      var gaHosts = ${JSON.stringify(hosts)};
+      var gaHostOk = gaHosts.indexOf(String(location.hostname).toLowerCase()) !== -1;
       var storageKey = 'credtent_cookie_consent';
       var gaOptions = ${JSON.stringify(options)};
       var denied = {
@@ -260,6 +274,7 @@ function consentUi(site) {
           ad_user_data: 'denied',
           ad_personalization: 'denied'
         });
+        if (!gaHostOk) return;
         if (document.querySelector('script[data-ga="1"]')) return;
         gtag('js', new Date());
         gtag('config', gaId, gaOptions);

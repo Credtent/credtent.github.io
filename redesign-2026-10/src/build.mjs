@@ -7,6 +7,7 @@ import { comPages } from "./lib/com.mjs";
 import { ADDRESS_HTML, CAPSULE, LICENSE_SENTENCE } from "./lib/copy.mjs";
 import { orgPages } from "./lib/org.mjs";
 import { ORG_ID, creditLine, renderPage } from "./lib/render.mjs";
+import { securityHeaders } from "./lib/security-headers.mjs";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const REPO = path.resolve(ROOT, "..");
@@ -22,9 +23,10 @@ const SITES = {
     origin: "https://credtent.com",
     email: "hello@credtent.com",
     dir: path.join(OUT_ROOT, "com"),
-    // G-3BJJV0MSLW is the current public site's only GA4 id. Leave .com empty until Eric
-    // confirms that property should also collect credtent.com, or supplies a separate id.
-    measurementId: "",
+    // G-3BJJV0MSLW is the current public site's only GA4 id (components.js on credtent.org).
+    // Reused for credtent.com per EB's 2026-10-29 card answer; one property, split by hostname
+    // in reports. Swap in a separate G- id here if EB wants .com in its own stream.
+    measurementId: "G-3BJJV0MSLW",
     cta: { href: "https://app.credtent.org/", label: "Sign Up" },
     login: { href: "https://app.credtent.org/login", label: "Login" },
     nav: [
@@ -455,7 +457,8 @@ function vercel(site, pages) {
   // trailingSlash is left unset. Vercel's trailingSlash:false 308s every slash URL,
   // including /guides/*/, and a redirect back to the slash form loops. Slash duplicates
   // are 301s instead, and guide canonicals keep their slash.
-  const headers = [hostNoindex(site)];
+  // The host gate stays first (check-redirects asserts it); the security headers follow and apply sitewide.
+  const headers = [hostNoindex(site), securityHeaders()];
   if (!PRODUCTION) headers.push(noindexHeader("/(.*)"));
   if (site.id === "org") {
     for (const source of [
