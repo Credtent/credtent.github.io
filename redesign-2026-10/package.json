@@ -7,6 +7,6 @@
     "check": "node scripts/check-copy.mjs && node scripts/check-links.mjs && node scripts/check-redirects.mjs && node scripts/check-html.mjs"
   },
   "dependencies": {
-    "sharp": "^0.34.4"
+    "sharp": "^0.35.0"
   }
 }
