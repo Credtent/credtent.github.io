@@ -97,7 +97,9 @@ export function run() {
         if (!canon) fails.push(`${site.id}/${rel}: no canonical`);
         else if (!canon.startsWith(`https://${HOST[site.id]}/`) && !canon.startsWith("https://registry.credtent.org/")) fails.push(`${site.id}/${rel}: canonical on wrong host ${canon}`);
         for (const og of ["og:title", "og:description", "og:url"]) if (!metaContent(raw, "property", og)) fails.push(`${site.id}/${rel}: no ${og}`);
-        if (!metaContent(raw, "property", "og:image")) warns.push(`${site.id}/${rel}: no og:image`);
+        const ogImage = metaContent(raw, "property", "og:image");
+        if (!ogImage) fails.push(`${site.id}/${rel}: no og:image`);
+        else if (!ogImage.startsWith("https://")) fails.push(`${site.id}/${rel}: og:image is not absolute`);
       }
       if (!noindex && isParkedOr404) fails.push(`${site.id}/${rel}: parked or 404 page is indexable`);
       for (const [, href] of raw.matchAll(/href="([^"]+)"/g)) {

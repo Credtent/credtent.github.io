@@ -396,6 +396,8 @@ export function renderPage(site, page) {
   <meta property="og:url" content="${esc(pageUrl)}">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Credtent">
+  <meta property="og:image" content="${esc(site.origin)}/brand/logo-official.png">
+  <meta property="og:image:alt" content="Credtent logo">
   <meta name="twitter:card" content="summary">
   <link rel="preload" href="/fonts/inter-latin-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/source-serif-4-latin-700.woff2" as="font" type="font/woff2" crossorigin>
