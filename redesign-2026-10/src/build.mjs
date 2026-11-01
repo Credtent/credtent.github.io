@@ -7,6 +7,7 @@ import { comPages } from "./lib/com.mjs";
 import { ADDRESS_HTML, CAPSULE, LICENSE_SENTENCE } from "./lib/copy.mjs";
 import { orgPages } from "./lib/org.mjs";
 import { ORG_ID, creditLine, renderPage } from "./lib/render.mjs";
+import { securityHeaders } from "./lib/security-headers.mjs";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const REPO = path.resolve(ROOT, "..");
@@ -20,11 +21,12 @@ const SITES = {
   com: {
     id: "com",
     origin: "https://credtent.com",
-    email: "hello@credtent.com",
+    email: "hello@credtent.org",
     dir: path.join(OUT_ROOT, "com"),
-    // G-3BJJV0MSLW is the current public site's only GA4 id. Leave .com empty until Eric
-    // confirms that property should also collect credtent.com, or supplies a separate id.
-    measurementId: "",
+    // G-3BJJV0MSLW is the current public site's only GA4 id (components.js on credtent.org).
+    // Reused for credtent.com per EB's 2026-10-29 card answer; one property, split by hostname
+    // in reports. Swap in a separate G- id here if EB wants .com in its own stream.
+    measurementId: "G-3BJJV0MSLW",
     cta: { href: "https://app.credtent.org/", label: "Sign Up" },
     login: { href: "https://app.credtent.org/login", label: "Login" },
     nav: [
@@ -122,12 +124,14 @@ function copyShared(dir) {
   const fav = path.join(dir, "favicon");
   fs.mkdirSync(fav, { recursive: true });
   for (const file of fs.readdirSync(path.join(REPO, "favicon"))) {
-    fs.copyFileSync(path.join(REPO, "favicon", file), path.join(fav, file));
+    if (file === "site.webmanifest") {
+      const manifest = fs.readFileSync(path.join(REPO, "favicon", file), "utf8").replace("Credtent - Bringing", "Credtent: Bringing");
+      fs.writeFileSync(path.join(fav, file), manifest);
+    } else fs.copyFileSync(path.join(REPO, "favicon", file), path.join(fav, file));
   }
   const media = path.join(dir, "media");
   fs.mkdirSync(media, { recursive: true });
   fs.writeFileSync(path.join(media, "placeholder-ea.svg"), placeholder("EA"));
-  fs.writeFileSync(path.join(media, "placeholder-ac.svg"), placeholder("AC"));
 }
 
 function writePage(dir, site, page) {
@@ -170,7 +174,7 @@ function sitemapPage(site, pages) {
 function creditsPage(site, images, keys) {
   const items = keys.map((key) => {
     const img = images[key];
-    return `<li><strong>${img.alt}.</strong> ${creditLine(img).replace(/<\/?figcaption>/g, "")}</li>`;
+    return `<li><strong>${img.alt}.</strong> ${creditLine(img).replace(/<\/?figcaption[^>]*>/g, "")}</li>`;
   }).join("");
   return {
     path: "/credits",
@@ -232,7 +236,8 @@ function rewriteLinks(html, origin) {
     [/href="(?:\.\.\/|\.\/|\/)*badges\/?"/g, 'href="https://credtent.org/badges/"'],
     [/href="(?:\.\.\/|\.\/|\/)*blog(?:\.html)?"/g, 'href="https://credtent.org/blog"'],
     [/href="(?:\.\.\/|\.\/|\/)*wga(?:\.html)?"/g, 'href="https://credtent.org/wga"'],
-    [/href="(?:\.\.\/|\.\/|\/)*lws(?:\.html)?"/g, 'href="https://credtent.org/lws"']
+    [/href="(?:\.\.\/|\.\/|\/)*lws(?:\.html)?"/g, 'href="https://credtent.org/lws"'],
+    [/href="https:\/\/app\.credtent\.org\/pricing[^"]*"/g, 'href="https://credtent.com/pricing"']
   ];
   let out = rules.reduce((acc, [re, to]) => acc.replace(re, to), html);
   const absolute = [
@@ -252,9 +257,26 @@ function rewriteLinks(html, origin) {
 function legacyPage(site, file, pagePath, opts = {}) {
   const extracted = extractLegacy(path.join(REPO, file));
   let body = scrub(rewriteLinks(extracted.body, site.origin));
-  if (site.id === "com") body = body.replaceAll("hello@credtent.org", "hello@credtent.com");
-  if (site.id === "com" && (pagePath === "/privacy-policy" || pagePath === "/terms-of-service")) {
-    body = body.replace(/\b([A-Za-z0-9._%+-]+)@credtent\.org\b/g, "$1@credtent.com");
+  if (pagePath === "/parking/lws") {
+    // No permanent free promise on any page (Cherryh, EB-approved 2026-11-01); the live parking/lws.html is untouched.
+    body = body.replace("Basic protection is always free, no credit card required.", "Basic protection is free, with no credit card required. Credtent does not plan to charge for the free opt-out.");
+  }
+  if (pagePath === "/terms-of-service") {
+    // Cherryh's rulings 1a to 1e (EB-approved 2026-11-01). The old strings are split so the copy check
+    // does not match the text being removed. The effective date waits on the section 12
+    // notice email; EFFECTIVE-DATE-PENDING is a deliberate placeholder that check-launch fails on.
+    const tos = [
+      ["Effective Date: May 27, 2025", "Effective Date: EFFECTIVE-DATE-PENDING (30 days after the section 12 notice email)"],
+      ["Register your name and creative works to be excluded from AI training data usage. We submit opt-out requests to AI developers and track " + "compliance on your behalf. This service is free and always will be.",
+        "Register your name and creative works to record your opt-out from AI training. Each quarter, Credtent delivers the opt-out notice to AI companies, records each response, and follows up at 30, 60 and 90 days. Credtent relays and records opt-outs. It does not enforce them or monitor whether any company complies. There is no charge for the opt-out."],
+      ["<h3>Premium Opt-Out</h3>", "<h3>Opt-Out Premium</h3>"],
+      ["Enhanced tracking of opt-out requests with detailed reporting, auditing, and compliance " + "monitoring. Available on paid plans.",
+        "Opt-Out Premium enrolls your works in Credtent's periodic AI model audits, and Credtent records the results. Audit results are not proof of dataset inclusion or infringement. Available with Opt-Out Premium and every tier above it."]
+    ];
+    for (const [from, to] of tos) {
+      if (!body.includes(from)) throw new Error(`terms-of-service: expected text not found: ${from.slice(0, 60)}`);
+      body = body.replace(from, to);
+    }
   }
   if (pagePath === "/privacy-policy") {
     body = body.replace(
@@ -285,9 +307,22 @@ function copyBadges(dir) {
   fs.mkdirSync(dest, { recursive: true });
   for (const file of fs.readdirSync(path.join(REPO, "badges"))) {
     if (!file.endsWith(".svg")) continue;
-    if (/legacy|ai-composed/i.test(file)) continue;
+    // Legacy Creation is a current tier (LD-001 amendment); the retired AI-Composed art 301s to /badges/.
+    if (/ai-composed/i.test(file)) continue;
     const raw = fs.readFileSync(path.join(REPO, "badges", file), "utf8");
     fs.writeFileSync(path.join(dest, file), scrub(raw));
+  }
+}
+
+// Brand files the old credtent.org served at these paths; kept so hot links and the old schema logo resolve.
+function copyLegacyAssets(dir) {
+  for (const file of ["credtent-logo-mark.svg", "credtent-wordmark.svg", "shield-check.svg"]) {
+    fs.copyFileSync(path.join(REPO, file), path.join(dir, file));
+  }
+  const images = path.join(dir, "images");
+  fs.mkdirSync(images, { recursive: true });
+  for (const file of fs.readdirSync(path.join(REPO, "images"))) {
+    if (file.endsWith(".svg")) fs.copyFileSync(path.join(REPO, "images", file), path.join(images, file));
   }
 }
 
@@ -380,7 +415,7 @@ ${LICENSE_SENTENCE}
 ## Company
 - [About](https://credtent.com/about): Credtent, Inc. is a Delaware Public Benefit Corporation and a certified B Corp, founded by E.R. Burgess and Dr. Galen Buckwalter.
 - [FAQ](https://credtent.com/faq): Answers for AI companies and content owners on licensing scope, documentation, and valuation limits.
-- [Pricing](https://credtent.com/pricing): Opt-Out Premium is US$49 for individuals and US$249+ for organizations. The Collaborithmic Age lists its published book prices.
+- [Pricing](https://credtent.com/pricing): Licensing for individual creatives is US$49 a year for sign-ups through December 31, 2026, with audits included; Opt-Out Premium for rights holders starts at US$299 a year. The Collaborithmic Age lists its published book prices.
 - [Contact](https://credtent.com/contact): AI companies can use the licensing form. Content owners start an inquiry in the app. Other questions open an email.
 
 Opt-out and Creative Consent: see https://credtent.org/llms.txt
@@ -394,10 +429,10 @@ ${CAPSULE.orgHome}
 - [Home](https://credtent.org/): ${CAPSULE.orgHome}
 - [Free opt-out](https://credtent.org/opt-out): Register preferences once. Credtent records the reservation and sends notices to AI companies. Free, and not a guarantee.
 - [Creative Consent](https://credtent.org/creative-consent): Full Protection means consent comes first. See how Credtent describes Full, Optional, and No Protection.
-- [Auditing](https://credtent.org/resources/auditing): Monthly audits record observable model responses. They are not proof of dataset inclusion.
+- [Auditing](https://credtent.org/resources/auditing): Opt-Out Premium enrolls your works in periodic AI model audits. Audit results are not proof of dataset inclusion.
 - [Opt-out limitations](https://credtent.org/resources/opt-out-limitations): What Credtent's free opt-out does not do: it cannot force every company to act, and it does not erase datasets.
 - [Licensing guide](https://credtent.org/guides/ai-training-data-licensing/): What a training license grants, what it does not grant, and how rights holders keep the choice to opt out.
-- [Premium](https://credtent.org/premium): Monthly audits of observable model responses. US$49 annually for individuals and US$249+ for organizations.
+- [Premium](https://credtent.org/premium): Opt-Out Premium for rights holders (opt-out plus enrollment in periodic AI model audits, no licensing), from US$299 a year.
 - [Standards](https://credtent.org/standards): A working catalog of AI disclosure standards: badges, registries, watermarks, and protocols maintained by Credtent.
 - [Blog](https://credtent.org/blog): Writing on AI, creative rights, and copyright, published on Substack and Medium.
 - [Contact](https://credtent.org/contact): Contact Credtent about opt-out, Creative Consent, and resources.
@@ -456,7 +491,8 @@ function vercel(site, pages) {
   // trailingSlash is left unset. Vercel's trailingSlash:false 308s every slash URL,
   // including /guides/*/, and a redirect back to the slash form loops. Slash duplicates
   // are 301s instead, and guide canonicals keep their slash.
-  const headers = [hostNoindex(site)];
+  // The host gate stays first (check-redirects asserts it); the security headers follow and apply sitewide.
+  const headers = [hostNoindex(site), securityHeaders()];
   if (!PRODUCTION) headers.push(noindexHeader("/(.*)"));
   if (site.id === "org") {
     for (const source of [
@@ -506,7 +542,14 @@ function vercel(site, pages) {
     redirectRule("/parking/blog.html", "https://credtent.org/parking/blog", 301),
     redirectRule("/parking/blog/disneys-ai-gambit-how-a-billion-dollar.html", "https://credtent.org/parking/blog/disneys-ai-gambit-how-a-billion-dollar", 301),
     redirectRule("/parking/lws.html", "https://credtent.org/parking/lws", 301),
-    redirectRule("/parking/services.html", "https://credtent.org/parking/services", 301)
+    redirectRule("/licensing", "https://credtent.com/ai-companies", 301),
+    redirectRule("/licensing/", "https://credtent.com/ai-companies", 301),
+    ...["carmen-sinata", "colin-devenish", "eric-burgess", "erick-vallejos", "freddy-mota", "galen-buckwalter", "jim-li", "michael-thompson", "raymond-jia"]
+      .map((name) => redirectRule(`/team/${name}.jpg`, "https://credtent.com/about", 301)),
+    redirectRule("/badges/ai-composed-creation-badge.svg", "https://credtent.org/badges/", 301),
+    redirectRule("/parking/services.html", "https://credtent.com/services", 301),
+    redirectRule("/parking/services", "https://credtent.com/services", 301),
+    redirectRule("/parking/services/", "https://credtent.com/services", 301)
   ] : [];
   const partners = holdPartners();
   const reserved = new Set([...specific, ...partners].map((rule) => rule.source));
@@ -527,6 +570,7 @@ async function main() {
     imagesFor[site.id] = await buildImages(site.dir);
   }
   copyBadges(SITES.org.dir);
+  copyLegacyAssets(SITES.org.dir);
   copyBuilder(SITES.org.dir);
 
   const com = [
@@ -538,7 +582,7 @@ async function main() {
       eyebrow: "Legal",
       capsule: "How Credtent collects, uses, and protects information.",
       crumb: "Privacy Policy",
-      intro: `<p>Last updated April 9, 2025. On this host, also write to <a href="mailto:hello@credtent.com">hello@credtent.com</a>.</p>${ADDRESS_HTML}`
+      intro: `<p>Last updated April 9, 2025. Privacy questions go to <a href="mailto:hello@credtent.org">hello@credtent.org</a>.</p>${ADDRESS_HTML}`
     }),
     legacyPage(SITES.com, "terms-of-service.html", "/terms-of-service", {
       title: `Terms of Service | ${hostLabel(SITES.com)}`,
@@ -620,14 +664,9 @@ async function main() {
       eyebrow: "Parked",
       capsule: "Older member page retained at its previous URL.",
       crumb: "Parked member page"
-    }),
-    legacyPage(SITES.org, "parking/services.html", "/parking/services", {
-      title: "Parked services page | Credtent",
-      h1: "Parked services page",
-      eyebrow: "Parked",
-      capsule: "Older services page retained at its previous URL. Current services are on credtent.com.",
-      crumb: "Parked services"
     })
+    // parking/services was removed from the live site on 2026-10-31 (PR #24): its round-the-clock
+    // monitoring copy contradicts relay-and-record. Its old URLs 301 to the current services page.
   ];
 
   const bundles = { com, org };

@@ -11,6 +11,8 @@
   <meta property="og:description" content="Contact Credtent about opt-out, Creative Consent, and resources.">
   <meta property="og:url" content="https://credtent.org/contact">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="https://credtent.org/brand/logo-official.png">
+  <meta property="og:image:alt" content="Credtent logo">
   <meta property="og:site_name" content="Credtent">
   <meta name="twitter:card" content="summary">
   <link rel="preload" href="/fonts/inter-latin-400.woff2" as="font" type="font/woff2" crossorigin>
@@ -45,15 +47,15 @@
     </div>
   </header>
   <main id="content">
-    <div class="wrap section-tight"><p class="crumbs"><span>Contact</span></p><p class="eyebrow">Contact</p><h1>Contact Credtent.</h1><p class="capsule">Creatives can write to hello@credtent.org. Sending opens an email to sales@credtent.com.</p></div>
+    <div class="wrap section-tight"><p class="crumbs"><span>Contact</span></p><p class="eyebrow">Contact</p><h1>Contact Credtent.</h1><p class="capsule">Creatives can write to hello@credtent.org, and this form opens an email to that address.</p></div>
     <section class="section"><div class="wrap grid-2">
-        <form class="form" action="mailto:sales@credtent.com" method="post" enctype="text/plain" data-subject="Credtent inquiry">
+        <form class="form" action="mailto:hello@credtent.org" method="post" enctype="text/plain" data-subject="Credtent inquiry">
           <label>Name <input name="name" type="text" autocomplete="name" required></label>
           <label>Email <input name="email" type="email" autocomplete="email" required></label>
           <label>Message <textarea name="message" required></textarea></label>
           <button class="btn" type="submit">Send</button>
-          <p class="small">Sending opens an email to sales@credtent.com.</p>
-          <noscript><p class="small"><a href="mailto:sales@credtent.com">Email sales@credtent.com</a></p></noscript>
+          <p class="small">Sending opens an email to hello@credtent.org.</p>
+          <noscript><p class="small"><a href="mailto:hello@credtent.org">Email hello@credtent.org</a></p></noscript>
           <script>
           (function () {
             var form = document.currentScript.parentElement;
@@ -74,7 +76,7 @@
               var mailSubject = form.getAttribute("data-subject") || "Credtent inquiry";
               var topic = form.querySelector("[name=topic]");
               if (topic && topic.value) mailSubject += ": " + topic.value;
-              window.location.href = "mailto:sales@credtent.com?subject=" + encodeURIComponent(mailSubject) + "&body=" + encodeURIComponent(lines.join("\n"));
+              window.location.href = "mailto:hello@credtent.org?subject=" + encodeURIComponent(mailSubject) + "&body=" + encodeURIComponent(lines.join("\n"));
             });
           })();
           </script>
@@ -121,7 +123,7 @@
         <p class="footer-title">Company</p>
         <ul>
           <li><a href="https://credtent.com/about">About</a></li>
-          <li><a href="https://tally.so/r/2ExeBp" target="_blank" rel="noopener">Investors</a></li>
+          <li><a href="https://app.credtent.org/inquiries/investor">Investors</a></li>
           <li><a href="https://credtent.org/contact">Contact</a></li>
           <li><a href="https://credtent.org/sitemap">Sitemap</a></li>
           <li><a href="https://credtent.org/privacy-policy">Privacy</a></li>

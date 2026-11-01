@@ -19,6 +19,31 @@
       "source": "/(.*)",
       "headers": [
         {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
+        },
+        {
+          "key": "Content-Security-Policy-Report-Only",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://tally.so https://vercel.live; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://tally.so https://vercel.live; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com https://tally.so; style-src 'self' 'unsafe-inline'; font-src 'self'; frame-src https://tally.so https://vercel.live; frame-ancestors 'self'; form-action 'self' mailto:; base-uri 'self'; object-src 'none'"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
           "key": "X-Robots-Tag",
           "value": "noindex, nofollow"
         }
@@ -344,8 +369,78 @@
       "statusCode": 301
     },
     {
+      "source": "/licensing",
+      "destination": "https://credtent.com/ai-companies",
+      "statusCode": 301
+    },
+    {
+      "source": "/licensing/",
+      "destination": "https://credtent.com/ai-companies",
+      "statusCode": 301
+    },
+    {
+      "source": "/team/carmen-sinata.jpg",
+      "destination": "https://credtent.com/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/team/colin-devenish.jpg",
+      "destination": "https://credtent.com/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/team/eric-burgess.jpg",
+      "destination": "https://credtent.com/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/team/erick-vallejos.jpg",
+      "destination": "https://credtent.com/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/team/freddy-mota.jpg",
+      "destination": "https://credtent.com/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/team/galen-buckwalter.jpg",
+      "destination": "https://credtent.com/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/team/jim-li.jpg",
+      "destination": "https://credtent.com/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/team/michael-thompson.jpg",
+      "destination": "https://credtent.com/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/team/raymond-jia.jpg",
+      "destination": "https://credtent.com/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/badges/ai-composed-creation-badge.svg",
+      "destination": "https://credtent.org/badges/",
+      "statusCode": 301
+    },
+    {
       "source": "/parking/services.html",
-      "destination": "https://credtent.org/parking/services",
+      "destination": "https://credtent.com/services",
+      "statusCode": 301
+    },
+    {
+      "source": "/parking/services",
+      "destination": "https://credtent.com/services",
+      "statusCode": 301
+    },
+    {
+      "source": "/parking/services/",
+      "destination": "https://credtent.com/services",
       "statusCode": 301
     },
     {
@@ -486,11 +581,6 @@
     {
       "source": "/parking/lws/",
       "destination": "https://credtent.org/parking/lws",
-      "statusCode": 301
-    },
-    {
-      "source": "/parking/services/",
-      "destination": "https://credtent.org/parking/services",
       "statusCode": 301
     },
     {

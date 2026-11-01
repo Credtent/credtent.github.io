@@ -38,7 +38,7 @@ function hostGateValue(origin) {
 }
 
 function unconditionalSitewide(config) {
-  return (config.headers || []).some((item) => item.source === "/(.*)" && !item.missing);
+  return (config.headers || []).some((item) => item.source === "/(.*)" && !item.missing && (item.headers || []).some((h) => h.key === "X-Robots-Tag"));
 }
 
 function assertHostGate(origin, config) {
@@ -220,8 +220,9 @@ for (const [origin, dir] of Object.entries(sites)) {
         fail(`${origin} sitemap lists withheld URL ${hidden}`);
       }
     }
-    if (locs.length !== 21) {
-      fail(`${origin} sitemap has ${locs.length} URLs, expected 21 after dropping parked, coming-soon, and Creative Consent draft pages`);
+    // 20: /lws is noindex until Cherryh clears the member page (2026-11-01 review finding).
+    if (locs.length !== 20 || locs.some((loc) => loc.endsWith("/lws"))) {
+      fail(`${origin} sitemap has ${locs.length} URLs, expected 20 after dropping parked, coming-soon, Creative Consent draft, and /lws pages`);
     }
   }
   for (const loc of locs) {
@@ -260,7 +261,8 @@ for (const [origin, dir] of Object.entries(sites)) {
       if (canonical) fail(`${path.relative(root, file)} should not have a canonical`);
     } else if (!canonical) fail(`${path.relative(root, file)} missing canonical`);
     else if (!canonical[1].startsWith(origin)) fail(`${path.relative(root, file)} canonical ${canonical[1]}`);
-    const investor = 'href="https://tally.so/r/2ExeBp" target="_blank" rel="noopener"';
+    // D10: investor CTAs use the native inquiry form, not Tally.
+    const investor = 'href="https://app.credtent.org/inquiries/investor"';
     if (!html.includes(investor)) fail(`${path.relative(root, file)} is missing the investor link`);
     if (html.includes("nroELN")) fail(`${path.relative(root, file)} still references the dead Tally id`);
     if (/\bAlmond\b/.test(html)) fail(`${path.relative(root, file)} spells Allmond as Almond`);
@@ -273,7 +275,7 @@ for (const [origin, dir] of Object.entries(sites)) {
     } else {
       if (html.includes("preview-bar")) fail(`${path.relative(root, file)} still shows the preview bar`);
       if (loadsGtagNow) fail(`${path.relative(root, file)} loads gtag.js before consent`);
-      if (origin.endsWith(".org")) {
+      {
         if (!html.includes("https://www.googletagmanager.com/gtag/js?id=")) fail(`${path.relative(root, file)} is missing the consent-gated GA loader`);
         if (!html.includes('"anonymize_ip":true') || !html.includes('"allow_ad_personalization_signals":false')) {
           fail(`${path.relative(root, file)} is missing anonymized GA defaults`);
@@ -285,8 +287,6 @@ for (const [origin, dir] of Object.entries(sites)) {
           fail(`${path.relative(root, file)} is missing the cookie banner`);
         }
         if (!html.includes('id="cookie-settings"')) fail(`${path.relative(root, file)} is missing Cookie settings`);
-      } else if (/googletagmanager\.com|google-analytics\.com|id="cookie-banner"|id="cookie-settings"/.test(html)) {
-        fail(`${path.relative(root, file)} loads analytics without a .com measurement id`);
       }
       if (staysNoindex(rel)) {
         if (!/name="robots" content="noindex, nofollow"/.test(html)) fail(`${path.relative(root, file)} is missing its noindex meta`);
@@ -319,7 +319,8 @@ const kept = [];
 const audience = new RegExp("\\bcreat" + "ors?\\b", "i");
 for (const file of Object.values(sites).flatMap((dir) => walk(dir)).filter((file) => /\.(html|txt|json|xml)$/.test(file))) {
   const text = fs.readFileSync(file, "utf8");
-  if (audience.test(text)) fail(`${path.relative(root, file)} still says creator/creators`);
+  // The charter's own wording, "creators of original works", is quoted on purpose (Cherryh, 2026-11-01).
+  if (audience.test(text.replace(/creators of original works/g, ""))) fail(`${path.relative(root, file)} still says creator/creators`);
   for (const name of ["Creator Licensing", "ICR Creator"]) {
     if (text.includes(name)) kept.push(`${name} in ${path.relative(root, file)}`);
   }
@@ -329,8 +330,9 @@ console.log(kept.length ? `kept product names:\n${kept.join("\n")}` : "kept prod
 const home = fs.readFileSync(path.join(sites["https://credtent.com"], "index.html"), "utf8");
 if (!/src="\/media\/bridge-1600\.webp" width="1600"/.test(home)) fail("com home hero width is not 1600");
 const premium = fs.readFileSync(path.join(sites["https://credtent.org"], "premium/index.html"), "utf8");
-if (!premium.includes('"@type":"Offer"') || !premium.includes('"price":"49"') || !premium.includes('"minPrice":"249"')) {
-  fail("org premium is missing Offer markup for 49 and 249+");
+// EB 2026-10-31 "Hide Premium": the US$49 individual Premium is off public pages until 2026-12-31.
+if (!premium.includes('"@type":"Offer"') || premium.includes('"price":"49"') || !premium.includes('"minPrice":"299"')) {
+  fail("org premium Offer markup must carry the rights-holder 299+ offer and no 49 offer");
 }
 const contact = fs.readFileSync(path.join(sites["https://credtent.com"], "contact/index.html"), "utf8");
 if (/TODO\(Eric\)/.test(contact)) fail("com contact still has a TODO");
@@ -342,10 +344,10 @@ if (!contact.includes("https://tally.so/r/BzbXK7")) fail("com contact is missing
 if (!contact.includes('href="https://app.credtent.org/inquiries/content-partner"')) {
   fail("com contact is missing the content partner inquiry link");
 }
-if (!contact.includes("Prefer email? <a href=\"mailto:sales@credtent.com\">sales@credtent.com</a>")) {
-  fail("com contact is missing the sales@ email line");
+if (!contact.includes("Prefer email? <a href=\"mailto:hello@credtent.org\">hello@credtent.org</a>")) {
+  fail("com contact is missing the hello@ email line");
 }
-if (!contact.includes('action="mailto:sales@credtent.com"')) fail("com contact is missing the remaining mailto form");
+if (!contact.includes('action="mailto:hello@credtent.org"')) fail("com contact is missing the remaining mailto form");
 const owners = fs.readFileSync(path.join(sites["https://credtent.com"], "content-owners/index.html"), "utf8");
 if (!owners.includes('href="https://app.credtent.org/inquiries/content-partner"')) fail("content owners CTA does not open the app inquiry page");
 if (owners.includes("#content-partners") || owners.includes("VL10Ga")) fail("content owners CTA still points at the Tally section");
@@ -355,12 +357,12 @@ if (/TODO\(Eric\): No Tally/.test(orgContact) || /TODO\(Eric\): No Tally/.test(c
   fail("mailto pages still have a Tally TODO");
 }
 const orgMailto = expectSlot(orgContact, "org contact", TALLY_FORM_IDS.orgContact);
-if ((orgContact.match(/action="mailto:sales@credtent.com"/g) || []).length !== orgMailto) {
+if ((orgContact.match(/action="mailto:hello@credtent.org"/g) || []).length !== orgMailto) {
   fail("org contact form does not match its Tally slot");
 }
 const consentMailto = expectSlot(consent, "creative consent clarification", TALLY_FORM_IDS.consentClarification)
   + expectSlot(consent, "creative consent updates", TALLY_FORM_IDS.consentUpdates);
-if ((consent.match(/action="mailto:sales@credtent.com"/g) || []).length !== consentMailto) {
+if ((consent.match(/action="mailto:hello@credtent.org"/g) || []).length !== consentMailto) {
   fail("creative consent forms do not match their Tally slots");
 }
 if (!/name="robots" content="noindex, nofollow"/.test(consent)) fail("creative consent is missing noindex");
@@ -424,16 +426,16 @@ function assertProduction(outDir) {
     if (indexable.includes("preview-bar")) fail(`${origin} production home still shows the preview bar`);
     const loadsGtagNow = /src="https:\/\/www\.googletagmanager\.com\/gtag\/js/.test(indexable);
     if (loadsGtagNow) fail(`${origin} production home loads gtag.js before consent`);
-    if (origin.endsWith(".org")) {
+    {
       if (!indexable.includes("https://www.googletagmanager.com/gtag/js?id=") || !indexable.includes('"anonymize_ip":true') || !indexable.includes('"allow_ad_personalization_signals":false')) {
         fail(`${origin} production home is missing anonymized GA4`);
       }
       if (!indexable.includes("analytics_storage: 'denied'") || !indexable.includes('id="cookie-banner"') || !indexable.includes('id="cookie-settings"')) {
         fail(`${origin} production home is missing the consent banner`);
       }
-    } else if (/googletagmanager\.com|id="cookie-banner"/.test(indexable)) {
-      fail(`${origin} production home loads analytics without a measurement id`);
     }
+    const hostGate = `var gaHosts = ${JSON.stringify(origin.endsWith(".com") ? ["credtent.com", "www.credtent.com"] : ["credtent.org", "www.credtent.org"])};`;
+    if (!indexable.includes(hostGate)) fail(`${origin} production home is missing the GA hostname allowlist`);
     const missing = fs.readFileSync(path.join(dir, "404.html"), "utf8");
     if (/rel="canonical"/.test(missing)) fail(`${origin} production 404 still has a canonical`);
     if (!/name="robots" content="noindex, nofollow"/.test(missing)) fail(`${origin} production 404 is missing noindex`);

@@ -28,7 +28,9 @@ export function scrub(input, { code = false } = {}) {
   out = out.replace(/1822 E\. (?:Rt\.|Route) 66,?\s*(?:Suite A353|Ste #A353)?/g, "1822 E. Route 66, Suite A353");
   out = out.replace(/Glendora, CA(?:\s+91740)?/g, "Glendora, California 91740");
   out = out.replace(/\bJim Lee\b/g, "");
-  out = out.replace(/\u2014/g, ", ");
+  out = out.replace(/\s*\u2014\s*/g, ", ");
+  // A numeric range keeps a hyphen, never an en dash.
+  out = out.replace(/(\d)\u2013(\d)/g, "$1-$2");
   if (!code) {
     const parts = out.split(/(<!--[\s\S]*?-->)/g);
     out = parts.map((part, index) => (index % 2 === 1 ? part : part.replace(/!/g, "."))).join("");
