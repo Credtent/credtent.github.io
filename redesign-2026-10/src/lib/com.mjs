@@ -83,7 +83,7 @@ export function comPages(images) {
               ${hero("aiTeam", { sizes: "(min-width: 1000px) 480px, 100vw" })}
               <p class="kicker">AI Companies</p>
               <h3>Find content for training and AI citation rights.</h3>
-              <p>Full-cycle Credtent licensing covers AI training, retrieval-augmented generation (RAG), and Generative Results Referencing, including citation rights.</p>
+              <p>Full-cycle Credtent licensing covers AI training, retrieval-augmented generation (RAG), and Generative Results Referencing, including citation rights. Credtent also helps with your disclosure pack for the EU AI Act and with California AB 2013 training-data disclosures.</p>
               <p>${LICENSE_SENTENCE}</p>
               <p><a href="/ai-training">Explore content licensing</a></p>
             </article>
