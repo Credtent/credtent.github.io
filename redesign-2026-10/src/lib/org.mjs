@@ -109,7 +109,7 @@ export function orgPages(images) {
           <div class="prose who-bio"><p>Credtent connects AI companies and the creative industries through licensing, so AI solutions are ethical and commercially safe.</p>
 <p>E.R. Burgess founded Credtent after more than eight years of research into creative rights and data provenance, well before the public AI debate grew loud. The starting idea was simple: AI and human creativity can work together, ethically, legally, and profitably, when the people who make the work are paid and their consent is on record.</p>
 <p>E.R. Burgess brings over 30 years of industry experience. He is also a published tabletop game designer, with card, board, and role-playing games to his name. He leads Credtent as Founder and CEO, alongside Co-Founder and Chief Science Officer Dr. Galen Buckwalter.</p>
-<p>Our mission is to bring AI and creativity together ethically, legally, and profitably. Credtent, Inc. is a Delaware Public Benefit Corporation and a Certified B Corp, so protecting creative rights in the AI economy is part of how the company is built.</p></div>
+<p>Our mission is to bring AI and creativity together ethically, legally, and profitably. Credtent, Inc. is a Delaware Public Benefit Corporation and a Certified B Corp. Its charter names protecting creators of original works in the AI marketplace as a public benefit.</p></div>
           ${bcorpBadge()}
           <div class="team" style="margin-top:24px">
             <article class="person">${picture(images.eric, { sizes: "240px" })}<h3>E.R. Burgess</h3><p class="role">Founder and CEO</p></article>
@@ -229,7 +229,7 @@ export function orgPages(images) {
         <h2>One registration, one notice to the industry.</h2>
         <p class="lede">When you register works with Credtent and choose opt-out, Credtent records your reservation of rights and delivers the notice to AI companies, with a dated record of when it went out. Instead of relying on each platform's separate setting, you set your preference once.</p>
         <div class="steps" style="margin-top:24px">
-          <article class="step"><p class="kicker">01</p><h3>Create a free account</h3><p>Sign up for the Independent Creative Registry. The opt-out account is free and stays free. There is no charge to decline AI use of your work.</p></article>
+          <article class="step"><p class="kicker">01</p><h3>Create a free account</h3><p>Sign up for the Independent Creative Registry. The opt-out account is free. There is no charge to decline AI use of your work.</p></article>
           <article class="step"><p class="kicker">02</p><h3>Register your works</h3><p>Add text, audio, video, image, or data to the registry and mark them opted out. One registration covers every AI company Credtent notifies.</p></article>
           <article class="step"><p class="kicker">03</p><h3>Credtent sends the notice</h3><p>Credtent records your reservation and delivers the notice to AI companies, with a dated record of each delivery.</p></article>
         </div>
@@ -237,8 +237,8 @@ export function orgPages(images) {
       </div></section>
       <section class="section"><div class="wrap prose">
         <h2>What you can count on</h2>
-        <h3>It is free, and it stays free.</h3>
-        <p>Registering a work for the opt-out costs nothing and will stay free. It is a standing commitment tied to Credtent's structure as a Delaware Public Benefit Corporation, which legally obligates the company to protect creative rights. The free path is not a trial.</p>
+        <h3>It is free.</h3>
+        <p>Registering a work for the opt-out costs nothing. The free opt-out is not a trial, and the paid tiers add periodic AI model audits, not a different opt-out. Credtent does not plan to charge for the free opt-out.</p>
         <h3>You can change your mind.</h3>
         <p>You can update your preferences at any time to enable licensing, with no retroactive fees and no penalties. A work that is opted out today can be made licensable tomorrow, and a licensable work can go back to opt-out.</p>
         <h3>It is recorded and dated.</h3>
@@ -466,7 +466,7 @@ export function orgPages(images) {
     {
       path: "/wga",
       title: "Writers Guild of America and Credtent",
-      description: "Screenplay certification reviewed and accepted by the Writers Guild of America. US$300 per screenplay, with 50% off for WGA West members who register through the WGA.",
+      description: "Credtent's screenplay certification process was reviewed by the Writers Guild of America and accepted. US$300 per screenplay, with 50% off for WGA West members who register through the WGA.",
       eyebrow: "Writers Guild of America",
       h1: "Certified Human Composed for screenwriters.",
       capsule: "The Writers Guild of America reviewed Credtent's screenplay certification process and accepted it. The badge is a record of review, not a promise about copyright registration.",
@@ -599,7 +599,7 @@ export function orgPages(images) {
         <ul class="check-list">
           <li>Two years of a paid registry account for the price of one, renewable</li>
           <li>Copyright-ready certification at LWS member rates</li>
-          <li>A free opt-out account, always, with no charge to decline AI use</li>
+          <li>A free opt-out account, with no charge to decline AI use</li>
           <li>Revenue share on certification services</li>
           <li>Priority support from the Credtent partnerships team</li>
         </ul>
@@ -610,7 +610,7 @@ export function orgPages(images) {
         <div class="grid-3" style="margin-top:20px">
           <article class="card"><p class="kicker">01</p><h3>Two years for the price of one</h3><p>Buy-one-get-one pricing on paid registry accounts, renewable for the life of your LWS membership.</p></article>
           <article class="card"><p class="kicker">02</p><h3>Certification</h3><p>Copyright-ready certification at LWS member pricing, with revenue share on every deal.</p></article>
-          <article class="card"><p class="kicker">03</p><h3>Free opt-out, always</h3><p>Don't want to license to AI? Register a free opt-out account and record your reservation of rights.</p></article>
+          <article class="card"><p class="kicker">03</p><h3>Free opt-out</h3><p>Don't want to license to AI? Register a free opt-out account and record your reservation of rights.</p></article>
         </div>
       </div></section>
       <section class="section section-white"><div class="wrap">

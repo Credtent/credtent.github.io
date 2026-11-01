@@ -34,7 +34,19 @@ export const BANNED = [
   { id: "old-wga-price", re: /\$149\b|\$298\b/ },
   { id: "rounded-book-price", re: /\$(15|25|50)(?![\d.,])/ },
   { id: "hidden-49-premium", re: /Opt-Out Premium[^.<]{0,80}\$\s?49\b|\$\s?49[^.<]{0,30}\bfor individuals\b/i },
-  { id: "leading-authority", re: /leading authority/i }
+  { id: "leading-authority", re: /leading authority/i },
+  // Cherryh 2026-11-01, EB-approved: no permanent free promise; only "Credtent does not plan to charge for the free opt-out."
+  { id: "free-forever-promise", re: /always free|free,? always|(will )?stays? free|always will be|free forever|\$0<\/span>\s*forever/i },
+  { id: "pbc-legal-duty-claim", re: /legally obligat\w*/i },
+  // The revised terms take effect 30 days after the section 12 notice email; the date is set when it is sent.
+  { id: "tos-effective-date-placeholder", re: /EFFECTIVE-DATE-PENDING/ }
+];
+// Hard launch preconditions that no file can prove. Each needs an explicit, dated confirmation in the environment.
+export const PRECONDITIONS = [
+  {
+    env: "AUDITOR_RESUMED",
+    why: "EB 2026-11-01: launch waits until Credtent's Auditor is running again (Premium copy says works are enrolled in periodic AI model audits). Set AUDITOR_RESUMED=YYYY-MM-DD, the date the first post-pause audit completed."
+  }
 ];
 // Old live URLs that must keep resolving on credtent.org after the DNS move (copied or 301'd).
 export const LEGACY_ORG_PATHS = [
@@ -133,6 +145,9 @@ export function run() {
     }
   }
   for (const p of LEGACY_ORG_PATHS) if (!resolves(sites.org, p)) fails.push(`org: legacy URL no longer resolves: ${p}`);
+  for (const pre of PRECONDITIONS) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(process.env[pre.env] || "")) fails.push(`precondition ${pre.env} not confirmed: ${pre.why}`);
+  }
   return { fails, reviews, warns };
 }
 
