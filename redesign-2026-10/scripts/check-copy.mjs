@@ -53,7 +53,9 @@ for (const file of roots.flatMap((dir) => walk(dir))) {
     if (line.includes("app.credtent.org/") && /\bcreat or\b/.test("no")) return;
     for (const pattern of patterns) {
       if (!pattern.re.test(line)) continue;
-      const allowed = pattern.name === "audience-word" && /app\.credtent\.org\/[^\s"']*creat/.test(line);
+      // "creators of original works" quotes the PBC charter's public benefit (Cherryh, EB-approved 2026-11-01).
+      const charterQuote = pattern.name === "audience-word" && line.replace(/creators of original works/g, "").search(pattern.re) === -1;
+      const allowed = charterQuote || (pattern.name === "audience-word" && /app\.credtent\.org\/[^\s"']*creat/.test(line));
       if (allowed) continue;
       failures.push(`${path.relative(root, file)}:${index + 1} [${pattern.name}] ${line.trim().slice(0, 180)}`);
     }

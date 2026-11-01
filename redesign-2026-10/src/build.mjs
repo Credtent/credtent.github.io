@@ -257,6 +257,27 @@ function rewriteLinks(html, origin) {
 function legacyPage(site, file, pagePath, opts = {}) {
   const extracted = extractLegacy(path.join(REPO, file));
   let body = scrub(rewriteLinks(extracted.body, site.origin));
+  if (pagePath === "/parking/lws") {
+    // No permanent free promise on any page (Cherryh, EB-approved 2026-11-01); the live parking/lws.html is untouched.
+    body = body.replace("Basic protection is always free, no credit card required.", "Basic protection is free, with no credit card required. Credtent does not plan to charge for the free opt-out.");
+  }
+  if (pagePath === "/terms-of-service") {
+    // Cherryh's rulings 1a to 1e (EB-approved 2026-11-01). The old strings are split so the copy check
+    // does not match the text being removed. The effective date waits on the section 12
+    // notice email; EFFECTIVE-DATE-PENDING is a deliberate placeholder that check-launch fails on.
+    const tos = [
+      ["Effective Date: May 27, 2025", "Effective Date: EFFECTIVE-DATE-PENDING (30 days after the section 12 notice email)"],
+      ["Register your name and creative works to be excluded from AI training data usage. We submit opt-out requests to AI developers and track " + "compliance on your behalf. This service is free and always will be.",
+        "Register your name and creative works to record your opt-out from AI training. Each quarter, Credtent delivers the opt-out notice to AI companies, records each response, and follows up at 30, 60 and 90 days. Credtent relays and records opt-outs. It does not enforce them or monitor whether any company complies. There is no charge for the opt-out."],
+      ["<h3>Premium Opt-Out</h3>", "<h3>Opt-Out Premium</h3>"],
+      ["Enhanced tracking of opt-out requests with detailed reporting, auditing, and compliance " + "monitoring. Available on paid plans.",
+        "Opt-Out Premium enrolls your works in Credtent's periodic AI model audits, and Credtent records the results. Audit results are not proof of dataset inclusion or infringement. Available with Opt-Out Premium and every tier above it."]
+    ];
+    for (const [from, to] of tos) {
+      if (!body.includes(from)) throw new Error(`terms-of-service: expected text not found: ${from.slice(0, 60)}`);
+      body = body.replace(from, to);
+    }
+  }
   if (pagePath === "/privacy-policy") {
     body = body.replace(
       "We use cookies and similar technologies to improve your experience, analyze usage, and support our Services. You can control cookie preferences through your browser settings, though disabling some cookies may affect functionality.",

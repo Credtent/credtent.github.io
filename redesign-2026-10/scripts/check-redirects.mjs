@@ -319,7 +319,8 @@ const kept = [];
 const audience = new RegExp("\\bcreat" + "ors?\\b", "i");
 for (const file of Object.values(sites).flatMap((dir) => walk(dir)).filter((file) => /\.(html|txt|json|xml)$/.test(file))) {
   const text = fs.readFileSync(file, "utf8");
-  if (audience.test(text)) fail(`${path.relative(root, file)} still says creator/creators`);
+  // The charter's own wording, "creators of original works", is quoted on purpose (Cherryh, 2026-11-01).
+  if (audience.test(text.replace(/creators of original works/g, ""))) fail(`${path.relative(root, file)} still says creator/creators`);
   for (const name of ["Creator Licensing", "ICR Creator"]) {
     if (text.includes(name)) kept.push(`${name} in ${path.relative(root, file)}`);
   }
