@@ -1,1 +1,9 @@
 node_modules/
+# Working notes for the redesign live outside this public repository (2026-10-31).
+# Only site source belongs here: src/, scripts/, sites/, inputs/assets/ and package files.
+/HOSTING.md
+/brandkit/
+/inputs/*
+!/inputs/assets/
+*.md
+!/README.md
