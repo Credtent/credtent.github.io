@@ -191,7 +191,7 @@ function footer(site, cookieSettings, disclosures = "") {
         <p class="footer-title">Company</p>
         <ul>
           <li><a href="https://credtent.com/about">About</a></li>
-          <li><a href="https://tally.so/r/2ExeBp" target="_blank" rel="noopener">Investors</a></li>
+          <li><a href="https://app.credtent.org/inquiries/investor">Investors</a></li>
           <li><a href="${contact}">Contact</a></li>
           <li><a href="${sitemap}">Sitemap</a></li>
           <li><a href="${privacy}">Privacy</a></li>
@@ -405,6 +405,8 @@ export function renderPage(site, page) {
   <meta property="og:description" content="${esc(page.description)}">
   <meta property="og:url" content="${esc(pageUrl)}">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="${esc(site.origin)}/brand/logo-official.png">
+  <meta property="og:image:alt" content="Credtent logo">
   <meta property="og:site_name" content="Credtent">
   <meta name="twitter:card" content="summary">
   <link rel="preload" href="/fonts/inter-latin-400.woff2" as="font" type="font/woff2" crossorigin>
@@ -457,10 +459,10 @@ export function diagramHtml() {
   </div>`;
 }
 
-const SALES_EMAIL = "sales@credtent.com";
+const SALES_EMAIL = "hello@credtent.org";
 
 // Eric: put a real Tally id in one of these strings to replace that page's mailto form.
-// Leave "" and the mailto:sales@credtent.com form stays. An empty value never renders an embed.
+// Leave "" and the mailto:hello@credtent.org form stays. An empty value never renders an embed.
 // orgContact: Credtent.org Contact, on sites/org/contact.
 // consentClarification: Creative Consent platform clarification, on sites/org/creative-consent.
 // consentUpdates: Creative Consent updates, on sites/org/creative-consent.

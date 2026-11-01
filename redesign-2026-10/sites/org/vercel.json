@@ -369,6 +369,66 @@
       "statusCode": 301
     },
     {
+      "source": "/licensing",
+      "destination": "https://credtent.com/ai-companies",
+      "statusCode": 301
+    },
+    {
+      "source": "/licensing/",
+      "destination": "https://credtent.com/ai-companies",
+      "statusCode": 301
+    },
+    {
+      "source": "/team/carmen-sinata.jpg",
+      "destination": "https://credtent.com/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/team/colin-devenish.jpg",
+      "destination": "https://credtent.com/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/team/eric-burgess.jpg",
+      "destination": "https://credtent.com/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/team/erick-vallejos.jpg",
+      "destination": "https://credtent.com/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/team/freddy-mota.jpg",
+      "destination": "https://credtent.com/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/team/galen-buckwalter.jpg",
+      "destination": "https://credtent.com/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/team/jim-li.jpg",
+      "destination": "https://credtent.com/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/team/michael-thompson.jpg",
+      "destination": "https://credtent.com/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/team/raymond-jia.jpg",
+      "destination": "https://credtent.com/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/badges/ai-composed-creation-badge.svg",
+      "destination": "https://credtent.org/badges/",
+      "statusCode": 301
+    },
+    {
       "source": "/parking/services.html",
       "destination": "https://credtent.com/services",
       "statusCode": 301

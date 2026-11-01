@@ -15,7 +15,7 @@ Licenses include the rights the contracting holders warranted, a named manifest,
 ## Company
 - [About](https://credtent.com/about): Credtent, Inc. is a Delaware Public Benefit Corporation and a certified B Corp, founded by E.R. Burgess and Dr. Galen Buckwalter.
 - [FAQ](https://credtent.com/faq): Answers for AI companies and content owners on licensing scope, documentation, and valuation limits.
-- [Pricing](https://credtent.com/pricing): Opt-Out Premium is US$49 a year for individuals and from US$299 a year for rights holders. The Collaborithmic Age lists its published book prices.
+- [Pricing](https://credtent.com/pricing): Licensing for individual creatives is US$49 a year for sign-ups through December 31, 2026, with audits included; Opt-Out Premium for rights holders starts at US$299 a year. The Collaborithmic Age lists its published book prices.
 - [Contact](https://credtent.com/contact): AI companies can use the licensing form. Content owners start an inquiry in the app. Other questions open an email.
 
 Opt-out and Creative Consent: see https://credtent.org/llms.txt

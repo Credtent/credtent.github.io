@@ -29,7 +29,7 @@ export function orgPages(images) {
       faq: [
         { q: "What does the free opt-out do?", a: CAPSULE.orgHome },
         { q: "Does registration remove work from datasets?", a: "No. Registration does not automatically remove work from datasets. Credtent records preferences and the notices it sends." },
-        { q: "What is Opt-Out Premium?", a: "Opt-Out Premium enrolls your works in Credtent's periodic AI model audits. It is US$49 a year for individuals and from US$299 a year for rights holders. Audit results are not proof of dataset inclusion." }
+        { q: "What is Opt-Out Premium?", a: "Opt-Out Premium for rights holders enrolls their works in Credtent's periodic AI model audits, from US$299 a year. Individual creatives get the same audits with licensing, at US$49 a year for sign-ups through December 31, 2026. Audit results are not proof of dataset inclusion." }
       ],
       main: `<section class="section">
         <div class="wrap">
@@ -71,7 +71,7 @@ export function orgPages(images) {
           </div>
           <div class="price-stack">
             <p>${price("US$49")}</p>
-            <span class="price-meta">annually for individuals</span>
+            <span class="price-meta">annually for individual creatives, with licensing, for sign-ups through December 31, 2026</span>
             <p>${price("US$299+")}</p>
             <span class="price-meta">annually for rights holders, scaling with catalog size</span>
           </div>
@@ -164,7 +164,7 @@ export function orgPages(images) {
           subject: "Creative Consent platform clarification",
           submitLabel: "Submit for review",
           style: "margin-top:18px",
-          note: "Submissions are reviewed. They do not automatically change an assessment. Sending opens an email to sales@credtent.com.",
+          note: "Submissions are reviewed. They do not automatically change an assessment. Sending opens an email to hello@credtent.org.",
           fields: `<label>Platform / organization <input name="platform" type="text" required></label>
           <label>Supporting policy URL <input name="policy" type="url" required></label>
           <label>Scope and requested correction <textarea name="scope" required></textarea></label>`
@@ -179,7 +179,7 @@ export function orgPages(images) {
           subject: "Creative Consent updates",
           submitLabel: "Subscribe to updates",
           style: "margin-top:18px",
-          note: "The guide and platform list remain open whether or not you subscribe. Sending opens an email to sales@credtent.com.",
+          note: "The guide and platform list remain open whether or not you subscribe. Sending opens an email to hello@credtent.org.",
           fields: `<label>Email address <input name="email" type="email" autocomplete="email" required></label>
           <label><span><input name="consent" type="checkbox"> Yes, send me Creative Consent updates.</span></label>`
         })}
@@ -257,10 +257,10 @@ export function orgPages(images) {
     {
       path: "/premium",
       title: "Opt-Out Premium | Credtent",
-      description: "Opt-Out Premium enrolls your works in Credtent's periodic AI model audits. US$49 a year for individuals and from US$299 a year for rights holders.",
+      description: "Opt-Out Premium for rights holders enrolls their works in Credtent's periodic AI model audits, from US$299 a year.",
       eyebrow: "Opt-Out Premium",
       h1: "Periodic AI model audits. A clearer record.",
-      capsule: "Opt-Out Premium, at US$49 a year, enrolls your works in Credtent's periodic AI model audits but does not include licensing. Audit results are not proof of dataset inclusion or infringement.",
+      capsule: "Opt-Out Premium for rights holders, from US$299 a year, enrolls their works in Credtent's periodic AI model audits but does not include licensing. Audit results are not proof of dataset inclusion or infringement.",
       actions: `<div class="btn-row"><a class="btn" href="/resources/auditing">Understand auditing</a></div>`,
       crumbs: [{ name: "Opt-Out Premium", href: "https://credtent.org/premium" }],
       extraLd: [{
@@ -270,15 +270,6 @@ export function orgPages(images) {
         provider: { "@id": ORG_ID },
         description: "Enrollment of your works in Credtent's periodic AI model audits. Audit results are not proof of dataset inclusion or infringement.",
         offers: [
-          {
-            "@type": "Offer",
-            "@id": "https://credtent.org/premium#individuals",
-            name: "Opt-Out Premium for individuals",
-            price: "49",
-            priceCurrency: "USD",
-            description: "US$49 annually for individuals.",
-            url: "https://credtent.org/premium"
-          },
           {
             "@type": "Offer",
             "@id": "https://credtent.org/premium#rights-holders",
@@ -297,11 +288,12 @@ export function orgPages(images) {
       }],
       faq: [
         { q: "What does an audit prove?", a: "Nothing about dataset inclusion or infringement. It records how AI models respond." },
-        { q: "What does Opt-Out Premium cost?", a: "US$49 a year for individuals and from US$299 a year for rights holders, scaling with catalog size." }
+        { q: "What does Opt-Out Premium cost?", a: "From US$299 a year for rights holders, scaling with catalog size." },
+        { q: "Can individual creatives get audits?", a: "Yes, with licensing. US$49 a year for individual creatives who sign up by December 31, 2026, with licensing, the opt-out, and periodic AI model audits included." }
       ],
       main: `<section class="section"><div class="wrap premium">
-        <div><p>For individuals. Early member pricing. The free opt-out remains available without this add-on.</p><p><a href="${OPT_OUT_FLOW}">Get the free opt-out</a></p></div>
-        <div class="price-stack"><p>${price("US$49")}</p><span class="price-meta">annually for individuals</span><p>${price("US$299+")}</p><span class="price-meta">annually for rights holders, scaling with catalog size</span></div>
+        <div><p>For rights holders. Individual creatives get audits with licensing, at US$49 a year for sign-ups through December 31, 2026; see the <a href="https://credtent.com/pricing">pricing page</a>. The free opt-out remains available without either.</p><p><a href="${OPT_OUT_FLOW}">Get the free opt-out</a></p></div>
+        <div class="price-stack"><p>${price("US$299+")}</p><span class="price-meta">annually for rights holders, scaling with catalog size</span></div>
       </div></section>`
     },
     {
@@ -333,9 +325,9 @@ export function orgPages(images) {
       crumbs: [{ name: "Resources", href: "https://credtent.org/resources" }, { name: "Auditing", href: "https://credtent.org/resources/auditing" }],
       faq: [
         { q: "Is an audit proof my work was in a training set?", a: "No. It is an observation of a model response, not a dataset inventory." },
-        { q: "Who is it for?", a: "Opt-Out Premium members and every licensing tier above it. Opt-Out Premium is US$49 a year for individuals and from US$299 a year for rights holders." }
+        { q: "Who is it for?", a: "Opt-Out Premium for rights holders, from US$299 a year, and every licensing plan, including the US$49 licensing promotion for individual creatives who sign up by December 31, 2026." }
       ],
-      main: `<section class="section"><div class="wrap prose"><p>Auditing is optional. The free opt-out still records preferences and notices without it. Read <a href="/premium">Opt-Out Premium</a>.</p><p>Opt-Out Premium is ${price("US$49")} a year for individuals and from ${price("US$299")} a year for rights holders.</p></div></section>`
+      main: `<section class="section"><div class="wrap prose"><p>Auditing is optional. The free opt-out still records preferences and notices without it. Read <a href="/premium">Opt-Out Premium</a>.</p><p>Opt-Out Premium for rights holders starts at ${price("US$299")} a year. Individual creatives get audits with licensing, at ${price("US$49")} a year for sign-ups through December 31, 2026.</p></div></section>`
     },
     {
       path: "/resources/opt-out-limitations",
@@ -581,12 +573,14 @@ export function orgPages(images) {
         <p>Only for the rights holders who sign it. Credtent states the limit in these words: "We can structure a going-forward license plus a covenant not to sue from the rights holders who sign, covering the named works. That is not a release from everyone else, and it is not a regulator cure." Rights holders who did not sign keep every claim they had.</p>
         <h2>How can a rights holder participate?</h2>
         <p>Document ownership, list the works, set which uses and buyers you will accept, and approve each agreement. With Credtent, you submit catalog metadata, ownership documentation, and your licensing terms; we verify ownership and tag the content so AI buyers can find it; we bring licensing terms to you for approval before any contract is signed; and royalties are paid quarterly with usage reports. Listing transfers no copyright and no exclusivity, and you can end our representation at any time. Details are on <a href="https://credtent.com/content-owners">credtent.com/content-owners</a>.</p>
-        <p>You can also choose the <a href="/opt-out">free opt-out</a> instead. Opt-Out Premium, at <span class="price">US$49</span> a year for individuals and from <span class="price">US$299</span> a year for rights holders, enrolls your works in Credtent's periodic AI model audits and does not include licensing. Licensing for individual creatives is US$49 a year for sign-ups through December 31, 2026, and creatives who sign up during the promotion keep US$49 after the price moves to US$99 in 2027. Rights-Holder Licensing, for publishers and others who represent many creatives, starts at $299 a year. Full terms are on the <a href="https://credtent.com/pricing">pricing page</a>.</p>
+        <p>You can also choose the <a href="/opt-out">free opt-out</a> instead. Opt-Out Premium for rights holders, from <span class="price">US$299</span> a year, enrolls their works in Credtent's periodic AI model audits and does not include licensing. Licensing for individual creatives is US$49 a year for sign-ups through December 31, 2026, with audits included. Creatives who sign up during the promotion keep US$49 a year through 2028 while the subscription stays active, then move to the regular price, which becomes US$99 in 2027. Rejoining after a lapse or cancellation is at the regular price. Rights-Holder Licensing, for publishers and others who represent many creatives, starts at $299 a year. Full terms are on the <a href="https://credtent.com/pricing">pricing page</a>.</p>
         <p>Opting out and licensing are not permanent choices. A work registered for opt-out can be made licensable later, and a licensable work can be withdrawn to opt-out, with no retroactive fees.</p>
       </div></section>`
     },
     {
       path: "/lws",
+      // Out of the sitemap and noindex until Cherryh clears the member page (legal hold review).
+      noindex: true,
       title: "London Writers' Salon | Credtent",
       description: "London Writers' Salon members get two years for the price of one on a paid registry account, and a free opt-out any time.",
       eyebrow: "London Writers' Salon",
@@ -655,7 +649,7 @@ export function orgPages(images) {
       description: "Contact Credtent about opt-out, Creative Consent, and resources.",
       eyebrow: "Contact",
       h1: "Contact Credtent.",
-      capsule: "Creatives can write to hello@credtent.org. Sending opens an email to sales@credtent.com.",
+      capsule: "Creatives can write to hello@credtent.org, and this form opens an email to that address.",
       crumbs: [{ name: "Contact", href: "https://credtent.org/contact" }],
       faq: [],
       main: `<section class="section"><div class="wrap grid-2">
@@ -664,7 +658,7 @@ export function orgPages(images) {
           title: "Credtent.org Contact",
           subject: "Credtent inquiry",
           submitLabel: "Send",
-          note: "Sending opens an email to sales@credtent.com.",
+          note: "Sending opens an email to hello@credtent.org.",
           fields: `<label>Name <input name="name" type="text" autocomplete="name" required></label>
           <label>Email <input name="email" type="email" autocomplete="email" required></label>
           <label>Message <textarea name="message" required></textarea></label>`

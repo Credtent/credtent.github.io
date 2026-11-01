@@ -531,7 +531,7 @@ export function comPages(images) {
           jobTitle: "Co-Founder and Chief Science Officer",
           worksFor: { "@id": ORG_ID },
           url: "https://credtent.com/about",
-          image: "https://credtent.com/media/galen-640.webp",
+          image: "https://credtent.com/media/galen-256.webp",
           sameAs: ["https://www.linkedin.com/in/j-galen-buckwalter-04139510"]
         }
       ],
@@ -559,7 +559,7 @@ export function comPages(images) {
         <p class="lede">Every structural, legal, and financial decision traces back to that.</p>
         <div class="grid-3" style="margin-top:24px">
           <article class="card"><p class="kicker">01</p><h3>Structural neutrality</h3><p>We don't train models. We don't compete with AI companies. We don't publish content. Our only business is connecting both sides on fair terms.</p></article>
-          <article class="card"><p class="kicker">02</p><h3>Rights holders first</h3><p>The 85/15 split reflects our belief that the people who made the content that trains AI deserve most of the value it creates. That principle is built in, not aspirational.</p></article>
+          <article class="card"><p class="kicker">02</p><h3>Rights holders first</h3><p>The 85/15 split reflects our belief that the people who made the content that trains AI deserve most of the value it creates.</p></article>
           <article class="card"><p class="kicker">03</p><h3>Ethical by design</h3><p>Opt-outs are free, always. License terms include anti-plagiarism guardrails. Compliance documentation is standard, not optional.</p></article>
         </div>
         <div class="grid-3" style="margin-top:24px">
@@ -607,9 +607,9 @@ export function comPages(images) {
       <section class="section"><div class="wrap prose">
         <h2>Want to work with us?</h2>
         <p>Whether you're an AI company, a rights holder, or an investor, we'd like to talk.</p>
-        <div class="btn-row"><a class="btn" href="/ai-companies">AI companies</a><a class="btn btn-ghost" href="/content-owners">Content partners</a><a class="btn btn-ghost" href="https://tally.so/r/2ExeBp" target="_blank" rel="noopener">Investors</a></div>
+        <div class="btn-row"><a class="btn" href="/ai-companies">AI companies</a><a class="btn btn-ghost" href="/content-owners">Content partners</a><a class="btn btn-ghost" href="https://app.credtent.org/inquiries/investor">Investors</a></div>
         <h2>How can we help?</h2>
-        <p>For questions about opt-out, auditing, valuation, or licensing, contact <a href="mailto:hello@credtent.com">hello@credtent.com</a>.</p>
+        <p>For questions about opt-out, auditing, valuation, or licensing, contact <a href="mailto:hello@credtent.org">hello@credtent.org</a>.</p>
         ${ADDRESS_HTML}
         <div class="btn-row"><a class="btn" href="/contact">Contact Credtent</a></div>
       </div></section>
@@ -634,10 +634,10 @@ export function comPages(images) {
       description: "AI companies can use the licensing form. Content owners start an inquiry in the app. Other questions open an email.",
       eyebrow: "Contact",
       h1: "Start a conversation.",
-      capsule: "AI companies can use the licensing form on this page. Content owners start an inquiry in the app. Valuation, citation licensing, and other notes still open an email to sales@credtent.com.",
+      capsule: "AI companies can use the licensing form on this page. Content owners start an inquiry in the app. Valuation, citation licensing, and other notes still open an email to hello@credtent.org.",
       crumbs: [{ name: "Contact", href: "https://credtent.com/contact" }],
       faq: [
-        { q: "Which email should companies use?", a: "Write to hello@credtent.com." },
+        { q: "Which email should companies use?", a: "Write to hello@credtent.org." },
         { q: "Where is Credtent?", a: "Credtent, Inc. is at 1822 E. Route 66, Suite A353, Glendora, California 91740." }
       ],
       main: `<section class="section section-white"><div class="wrap">
@@ -659,7 +659,7 @@ export function comPages(images) {
             ${inquiryForm({
               subject: "Credtent inquiry",
               submitLabel: "Send",
-              note: "Sending opens an email to sales@credtent.com.",
+              note: "Sending opens an email to hello@credtent.org.",
               fields: `<label>Name <input name="name" type="text" autocomplete="name" required></label>
           <label>Email <input name="email" type="email" autocomplete="email" required></label>
           <label>Topic
@@ -673,7 +673,7 @@ export function comPages(images) {
             })}
           </div>
           <div>
-            <p><a href="mailto:hello@credtent.com">hello@credtent.com</a></p>
+            <p><a href="mailto:hello@credtent.org">hello@credtent.org</a></p>
             ${ADDRESS_HTML}
           </div>
         </div>
@@ -685,14 +685,14 @@ export function comPages(images) {
       description: "Custom licensing for AI companies, 85/15 revenue terms for content partners, a free opt-out for creatives, and published plan prices.",
       eyebrow: "Pricing",
       h1: "Pricing that scales with you.",
-      capsule: "AI companies license through custom agreements priced per deal. Content partners keep 85% of every licensing deal Credtent closes, and a platform fee applies. Creatives can opt out for free, enroll their works in periodic AI model audits with Opt-Out Premium at US$49 a year, or license their work for US$49 a year under a promotion for individual creatives who sign up by December 31, 2026.",
+      capsule: "AI companies license through custom agreements priced per deal. Content partners keep 85% of every licensing deal Credtent closes, and a platform fee applies. Creatives can opt out for free, or license their work for US$49 a year, with periodic AI model audits included, under a promotion for individual creatives who sign up by December 31, 2026.",
       crumbs: [{ name: "Pricing", href: "https://credtent.com/pricing" }],
       faq: [
         { q: "How much does Credtent cost?", a: "It depends on which side of the market you are on. AI companies pay for custom licensing priced per deal. Content partners keep 85% of every licensing deal Credtent closes, with Credtent keeping 15%, and a platform fee applies. Individual creatives can opt out for free, enroll their works in periodic AI model audits with Opt-Out Premium, or license their work with a licensing plan." },
         { q: "How much does Credtent cost for AI companies?", a: "There is no fixed public price. Licenses are custom agreements scoped to the content, the license type, and the size of the organization, and each one includes a disclosure pack. Pricing is set in a scoping conversation, not from a rate card." },
         { q: "How much does Credtent cost for content partners?", a: "A platform fee applies, and Credtent keeps 15% of each licensing deal it closes and sends the other 85% to the rights holder under the Starter Partner terms. The Organization License keeps the same split and adds more services for larger catalogs, and Enterprise is priced to the catalog." },
-        { q: "What does Opt-Out Premium cost?", a: "US$49 a year for individuals and from US$299 a year for rights holders, scaling with catalog size." },
-        { q: "What does licensing cost for individual creatives?", a: "US$49 a year for individual creatives who sign up by December 31, 2026, with licensing and the opt-out included. Creatives who sign up during the promotion keep US$49 a year after the price moves to US$99 in 2027. Rights holders who publish or represent many creatives use Rights-Holder Licensing, from US$299 a year." },
+        { q: "What does Opt-Out Premium for rights holders cost?", a: "It starts at US$299 a year and scales with catalog size. It enrolls the works in periodic AI model audits and does not include licensing." },
+        { q: "What does licensing cost for individual creatives?", a: "US$49 a year for individual creatives who sign up by December 31, 2026, with licensing, the opt-out, and periodic AI model audits included. Creatives who sign up during the promotion keep US$49 a year through 2028 while the subscription stays active, then move to the regular price, which becomes US$99 in 2027. Rejoining after a lapse or cancellation is at the regular price. Rights holders who publish or represent many creatives use Rights-Holder Licensing, from US$299 a year." },
         { q: "What does the book cost?", a: "The published collaborithmic.com prices are $14.99 for the e-book, $24.99 for the paperback, and $49 for the living e-book." }
       ],
       main: `<section class="section section-white"><div class="wrap">
@@ -722,8 +722,8 @@ export function comPages(images) {
         <p class="lede">Every creative gets a free path to opt out. Add Opt-Out Premium to enroll your works in periodic AI model audits, or choose a licensing plan to earn from AI licensing.</p>
         <div class="grid-4" style="margin-top:24px">
           <article class="card"><p class="kicker">For every creative</p><h3>Opt-Out Free</h3><p><span class="price">$0</span> forever</p><ul><li>Add your name and works to the opt-out list</li><li>Include your website or specific pages</li><li>Each opt-out notice recorded with its delivery date</li></ul><p><a href="https://credtent.org/opt-out">Get started</a></p></article>
-          <article class="card"><p class="kicker">For creatives who want audits</p><h3>Opt-Out Premium</h3><p><span class="price">US$49</span> a year for individuals</p><p>From <span class="price">US$299</span> a year for rights holders</p><ul><li>Everything in Opt-Out Free</li><li>Works enrolled in periodic AI model audits</li><li>Does not include licensing</li></ul><p><a href="https://credtent.org/premium">Read about Opt-Out Premium</a></p></article>
-          <article class="card"><p class="kicker">For individual creatives ready to license</p><h3>Licensing for individuals</h3><p><span class="price">US$49</span> a year, promotional price for sign-ups through December 31, 2026</p><p class="small">Sign up during the promotion and keep US$49 a year after the price moves to US$99 in 2027.</p><ul><li>Everything in Opt-Out Premium</li><li>Upload your content</li><li>Content valuation</li><li>Listing in the Credtent marketplace</li></ul><p><a href="https://app.credtent.org/">Get started</a></p></article>
+          <article class="card"><p class="kicker">For rights holders who want audits</p><h3>Opt-Out Premium for rights holders</h3><p>From <span class="price">US$299</span> a year, scaling with catalog size</p><ul><li>Everything in Opt-Out Free</li><li>Works enrolled in periodic AI model audits</li><li>Does not include licensing</li></ul><p><a href="https://credtent.org/premium">Read about Opt-Out Premium</a></p></article>
+          <article class="card"><p class="kicker">For individual creatives ready to license</p><h3>Licensing for individuals</h3><p><span class="price">US$49</span> a year, promotional price for sign-ups through December 31, 2026</p><p class="small">Creatives who sign up during the promotion keep US$49 a year through 2028 while the subscription stays active, then move to the regular price, which becomes US$99 in 2027. Rejoining after a lapse or cancellation is at the regular price.</p><ul><li>Everything in Opt-Out Premium</li><li>Upload your content</li><li>Content valuation</li><li>Listing in the Credtent marketplace</li></ul><p><a href="https://app.credtent.org/">Get started</a></p></article>
           <article class="card"><p class="kicker">For publishers and representatives</p><h3>Rights-Holder Licensing</h3><p>From <span class="price">$299</span> a year</p><ul><li>Everything in licensing for individuals</li><li>Bring in work by the creatives you publish or represent</li><li>Each creative is credited for their own work</li><li>Sales-assisted pricing for larger catalogs</li></ul><p><a href="https://app.credtent.org/">Get started</a></p></article>
         </div>
       </div></section>
@@ -736,7 +736,7 @@ export function comPages(images) {
   </ul><p><a href="https://collaborithmic.com/">Explore the book</a></p></article>
           <article class="card"><h3>Need something different?</h3><p>Whether you're an AI company with unusual content needs or a content partner with a complex catalog, let's figure it out together.</p><div class="btn-row"><a class="btn" href="/contact#ai-licensing">AI companies</a><a class="btn btn-ghost" href="https://app.credtent.org/inquiries/content-partner">Content partners</a></div></article>
         </div>
-        <p class="fine">Questions about pricing? Read the <a href="/faq">FAQ</a> or write to <a href="mailto:hello@credtent.com">hello@credtent.com</a>.</p>
+        <p class="fine">Questions about pricing? Read the <a href="/faq">FAQ</a> or write to <a href="mailto:hello@credtent.org">hello@credtent.org</a>.</p>
       </div></section>`
     },
     {
@@ -762,7 +762,7 @@ export function comPages(images) {
         { q: "Is Credtent tied to any AI company or big-tech platform?", a: "No. Credtent does not build models, take equity positions, or share data outside of licensed transactions." },
         { q: "Where is Credtent incorporated?", a: "Credtent, Inc. is a Delaware Public Benefit Corporation. Its stated public benefit is protecting creative rights in the AI economy, alongside financial returns." },
         { q: "Where do creative opt-out questions live?", a: "Questions about the free opt-out, what it can and cannot do, and switching to licensing later are answered at credtent.org/opt-out and credtent.org/resources/opt-out-limitations." },
-        { q: "I have a question that isn't here.", a: "We're happy to help. Write to hello@credtent.com." }
+        { q: "I have a question that isn't here.", a: "We're happy to help. Write to hello@credtent.org." }
       ],
       main: `<section class="section"><div class="wrap prose"><p>The questions above are the corporate set. For creatives, start with the <a href="https://credtent.org/opt-out">free opt-out</a> and the <a href="https://credtent.org/resources/opt-out-limitations">opt-out limitations FAQ</a>.</p></div></section>`
     },

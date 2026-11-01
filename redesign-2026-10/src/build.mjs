@@ -21,7 +21,7 @@ const SITES = {
   com: {
     id: "com",
     origin: "https://credtent.com",
-    email: "hello@credtent.com",
+    email: "hello@credtent.org",
     dir: path.join(OUT_ROOT, "com"),
     // G-3BJJV0MSLW is the current public site's only GA4 id (components.js on credtent.org).
     // Reused for credtent.com per EB's 2026-10-29 card answer; one property, split by hostname
@@ -124,7 +124,10 @@ function copyShared(dir) {
   const fav = path.join(dir, "favicon");
   fs.mkdirSync(fav, { recursive: true });
   for (const file of fs.readdirSync(path.join(REPO, "favicon"))) {
-    fs.copyFileSync(path.join(REPO, "favicon", file), path.join(fav, file));
+    if (file === "site.webmanifest") {
+      const manifest = fs.readFileSync(path.join(REPO, "favicon", file), "utf8").replace("Credtent - Bringing", "Credtent: Bringing");
+      fs.writeFileSync(path.join(fav, file), manifest);
+    } else fs.copyFileSync(path.join(REPO, "favicon", file), path.join(fav, file));
   }
   const media = path.join(dir, "media");
   fs.mkdirSync(media, { recursive: true });
@@ -233,7 +236,8 @@ function rewriteLinks(html, origin) {
     [/href="(?:\.\.\/|\.\/|\/)*badges\/?"/g, 'href="https://credtent.org/badges/"'],
     [/href="(?:\.\.\/|\.\/|\/)*blog(?:\.html)?"/g, 'href="https://credtent.org/blog"'],
     [/href="(?:\.\.\/|\.\/|\/)*wga(?:\.html)?"/g, 'href="https://credtent.org/wga"'],
-    [/href="(?:\.\.\/|\.\/|\/)*lws(?:\.html)?"/g, 'href="https://credtent.org/lws"']
+    [/href="(?:\.\.\/|\.\/|\/)*lws(?:\.html)?"/g, 'href="https://credtent.org/lws"'],
+    [/href="https:\/\/app\.credtent\.org\/pricing[^"]*"/g, 'href="https://credtent.com/pricing"']
   ];
   let out = rules.reduce((acc, [re, to]) => acc.replace(re, to), html);
   const absolute = [
@@ -253,10 +257,6 @@ function rewriteLinks(html, origin) {
 function legacyPage(site, file, pagePath, opts = {}) {
   const extracted = extractLegacy(path.join(REPO, file));
   let body = scrub(rewriteLinks(extracted.body, site.origin));
-  if (site.id === "com") body = body.replaceAll("hello@credtent.org", "hello@credtent.com");
-  if (site.id === "com" && (pagePath === "/privacy-policy" || pagePath === "/terms-of-service")) {
-    body = body.replace(/\b([A-Za-z0-9._%+-]+)@credtent\.org\b/g, "$1@credtent.com");
-  }
   if (pagePath === "/privacy-policy") {
     body = body.replace(
       "We use cookies and similar technologies to improve your experience, analyze usage, and support our Services. You can control cookie preferences through your browser settings, though disabling some cookies may affect functionality.",
@@ -286,9 +286,22 @@ function copyBadges(dir) {
   fs.mkdirSync(dest, { recursive: true });
   for (const file of fs.readdirSync(path.join(REPO, "badges"))) {
     if (!file.endsWith(".svg")) continue;
-    if (/legacy|ai-composed/i.test(file)) continue;
+    // Legacy Creation is a current tier (LD-001 amendment); the retired AI-Composed art 301s to /badges/.
+    if (/ai-composed/i.test(file)) continue;
     const raw = fs.readFileSync(path.join(REPO, "badges", file), "utf8");
     fs.writeFileSync(path.join(dest, file), scrub(raw));
+  }
+}
+
+// Brand files the old credtent.org served at these paths; kept so hot links and the old schema logo resolve.
+function copyLegacyAssets(dir) {
+  for (const file of ["credtent-logo-mark.svg", "credtent-wordmark.svg", "shield-check.svg"]) {
+    fs.copyFileSync(path.join(REPO, file), path.join(dir, file));
+  }
+  const images = path.join(dir, "images");
+  fs.mkdirSync(images, { recursive: true });
+  for (const file of fs.readdirSync(path.join(REPO, "images"))) {
+    if (file.endsWith(".svg")) fs.copyFileSync(path.join(REPO, "images", file), path.join(images, file));
   }
 }
 
@@ -381,7 +394,7 @@ ${LICENSE_SENTENCE}
 ## Company
 - [About](https://credtent.com/about): Credtent, Inc. is a Delaware Public Benefit Corporation and a certified B Corp, founded by E.R. Burgess and Dr. Galen Buckwalter.
 - [FAQ](https://credtent.com/faq): Answers for AI companies and content owners on licensing scope, documentation, and valuation limits.
-- [Pricing](https://credtent.com/pricing): Opt-Out Premium is US$49 a year for individuals and from US$299 a year for rights holders. The Collaborithmic Age lists its published book prices.
+- [Pricing](https://credtent.com/pricing): Licensing for individual creatives is US$49 a year for sign-ups through December 31, 2026, with audits included; Opt-Out Premium for rights holders starts at US$299 a year. The Collaborithmic Age lists its published book prices.
 - [Contact](https://credtent.com/contact): AI companies can use the licensing form. Content owners start an inquiry in the app. Other questions open an email.
 
 Opt-out and Creative Consent: see https://credtent.org/llms.txt
@@ -398,7 +411,7 @@ ${CAPSULE.orgHome}
 - [Auditing](https://credtent.org/resources/auditing): Opt-Out Premium enrolls your works in periodic AI model audits. Audit results are not proof of dataset inclusion.
 - [Opt-out limitations](https://credtent.org/resources/opt-out-limitations): What Credtent's free opt-out does not do: it cannot force every company to act, and it does not erase datasets.
 - [Licensing guide](https://credtent.org/guides/ai-training-data-licensing/): What a training license grants, what it does not grant, and how rights holders keep the choice to opt out.
-- [Premium](https://credtent.org/premium): Opt-Out Premium (opt-out plus enrollment in periodic AI model audits, no licensing). US$49 a year for individuals and from US$299 a year for rights holders.
+- [Premium](https://credtent.org/premium): Opt-Out Premium for rights holders (opt-out plus enrollment in periodic AI model audits, no licensing), from US$299 a year.
 - [Standards](https://credtent.org/standards): A working catalog of AI disclosure standards: badges, registries, watermarks, and protocols maintained by Credtent.
 - [Blog](https://credtent.org/blog): Writing on AI, creative rights, and copyright, published on Substack and Medium.
 - [Contact](https://credtent.org/contact): Contact Credtent about opt-out, Creative Consent, and resources.
@@ -508,6 +521,11 @@ function vercel(site, pages) {
     redirectRule("/parking/blog.html", "https://credtent.org/parking/blog", 301),
     redirectRule("/parking/blog/disneys-ai-gambit-how-a-billion-dollar.html", "https://credtent.org/parking/blog/disneys-ai-gambit-how-a-billion-dollar", 301),
     redirectRule("/parking/lws.html", "https://credtent.org/parking/lws", 301),
+    redirectRule("/licensing", "https://credtent.com/ai-companies", 301),
+    redirectRule("/licensing/", "https://credtent.com/ai-companies", 301),
+    ...["carmen-sinata", "colin-devenish", "eric-burgess", "erick-vallejos", "freddy-mota", "galen-buckwalter", "jim-li", "michael-thompson", "raymond-jia"]
+      .map((name) => redirectRule(`/team/${name}.jpg`, "https://credtent.com/about", 301)),
+    redirectRule("/badges/ai-composed-creation-badge.svg", "https://credtent.org/badges/", 301),
     redirectRule("/parking/services.html", "https://credtent.com/services", 301),
     redirectRule("/parking/services", "https://credtent.com/services", 301),
     redirectRule("/parking/services/", "https://credtent.com/services", 301)
@@ -531,6 +549,7 @@ async function main() {
     imagesFor[site.id] = await buildImages(site.dir);
   }
   copyBadges(SITES.org.dir);
+  copyLegacyAssets(SITES.org.dir);
   copyBuilder(SITES.org.dir);
 
   const com = [
@@ -542,7 +561,7 @@ async function main() {
       eyebrow: "Legal",
       capsule: "How Credtent collects, uses, and protects information.",
       crumb: "Privacy Policy",
-      intro: `<p>Last updated April 9, 2025. On this host, also write to <a href="mailto:hello@credtent.com">hello@credtent.com</a>.</p>${ADDRESS_HTML}`
+      intro: `<p>Last updated April 9, 2025. Privacy questions go to <a href="mailto:hello@credtent.org">hello@credtent.org</a>.</p>${ADDRESS_HTML}`
     }),
     legacyPage(SITES.com, "terms-of-service.html", "/terms-of-service", {
       title: `Terms of Service | ${hostLabel(SITES.com)}`,
