@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex, nofollow">
+  
   <title>Pricing | Credtent</title>
   <meta name="description" content="Custom licensing for AI companies, 85/15 revenue terms for content partners, a free opt-out for creatives, and published plan prices.">
   <link rel="canonical" href="https://credtent.com/pricing">
@@ -24,11 +24,82 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
   <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png">
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://credtent.com/#organization","name":"Credtent","legalName":"Credtent, Inc.","url":"https://credtent.com/","logo":"https://credtent.com/brand/shield.svg","email":"hello@credtent.org","foundingDate":"2023","description":"Credtent, Inc. is a Delaware Public Benefit Corporation and a certified B Corp, a neutral marketplace connecting content owners and AI companies through consent, licensing, and compensation.","address":{"@type":"PostalAddress","streetAddress":"1822 E. Route 66, Suite A353","addressLocality":"Glendora","addressRegion":"California","postalCode":"91740","addressCountry":"US"},"founder":[{"@id":"https://credtent.com/about#eric-r-burgess"},{"@id":"https://credtent.com/about#galen-buckwalter"}],"sameAs":["https://credtent.org/","https://www.linkedin.com/company/credtent","https://www.cbinsights.com/company/credtent"]},{"@type":"WebSite","@id":"https://credtent.com/#website","url":"https://credtent.com/","name":"Credtent","description":"Credtent for content owners and AI companies.","publisher":{"@id":"https://credtent.com/#organization"}},{"@type":"WebPage","@id":"https://credtent.com/pricing#page","url":"https://credtent.com/pricing","name":"Pricing | Credtent","description":"Custom licensing for AI companies, 85/15 revenue terms for content partners, a free opt-out for creatives, and published plan prices.","isPartOf":{"@id":"https://credtent.com/#website"},"about":{"@id":"https://credtent.com/#organization"},"publisher":{"@id":"https://credtent.com/#organization"},"inLanguage":"en"},{"@type":"FAQPage","@id":"https://credtent.com/pricing#faq","url":"https://credtent.com/pricing","isPartOf":{"@id":"https://credtent.com/#website"},"mainEntity":[{"@type":"Question","name":"How much does Credtent cost?","acceptedAnswer":{"@type":"Answer","text":"It depends on which side of the market you are on. AI companies pay for custom licensing priced per deal. Content partners keep 85% of every licensing deal Credtent closes, with Credtent keeping 15%, and a platform fee applies. Individual creatives can opt out for free, enroll their works in periodic AI model audits with Opt-Out Premium, or license their work with a licensing plan."}},{"@type":"Question","name":"How much does Credtent cost for AI companies?","acceptedAnswer":{"@type":"Answer","text":"There is no fixed public price. Licenses are custom agreements scoped to the content, the license type, and the size of the organization, and each one includes a disclosure pack. Pricing is set in a scoping conversation, not from a rate card."}},{"@type":"Question","name":"How much does Credtent cost for content partners?","acceptedAnswer":{"@type":"Answer","text":"A platform fee applies, and Credtent keeps 15% of each licensing deal it closes and sends the other 85% to the rights holder under the Starter Partner terms. The Organization License keeps the same split and adds more services for larger catalogs, and Enterprise is priced to the catalog."}},{"@type":"Question","name":"What does Opt-Out Premium for rights holders cost?","acceptedAnswer":{"@type":"Answer","text":"It starts at US$299 a year and scales with catalog size. It enrolls the works in periodic AI model audits and does not include licensing."}},{"@type":"Question","name":"What does licensing cost for individual creatives?","acceptedAnswer":{"@type":"Answer","text":"US$49 a year for individual creatives who sign up by December 31, 2026, with licensing, the opt-out, and periodic AI model audits included. Creatives who sign up during the promotion keep US$49 a year through 2028 while the subscription stays active, then move to the regular price, which becomes US$99 in 2027. Rejoining after a lapse or cancellation is at the regular price. Rights holders who publish or represent many creatives use Rights-Holder Licensing, from US$299 a year."}},{"@type":"Question","name":"What does the book cost?","acceptedAnswer":{"@type":"Answer","text":"The published collaborithmic.com prices are $14.99 for the e-book, $24.99 for the paperback, and $49 for the living e-book."}}]},{"@type":"BreadcrumbList","@id":"https://credtent.com/pricing#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://credtent.com/"},{"@type":"ListItem","position":2,"name":"Pricing","item":"https://credtent.com/pricing"}]}]}</script>
-  
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      analytics_storage: 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      wait_for_update: 500
+    });
+    (function () {
+      var gaId = "G-3BJJV0MSLW";
+      var gaHosts = ["credtent.com","www.credtent.com"];
+      var gaHostOk = gaHosts.indexOf(String(location.hostname).toLowerCase()) !== -1;
+      var storageKey = 'credtent_cookie_consent';
+      var gaOptions = {"anonymize_ip":true,"allow_google_signals":false,"allow_ad_personalization_signals":false};
+      var denied = {
+        analytics_storage: 'denied',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied'
+      };
+      function loadGtag() {
+        gtag('consent', 'update', {
+          analytics_storage: 'granted',
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied'
+        });
+        if (!gaHostOk) return;
+        if (document.querySelector('script[data-ga="1"]')) return;
+        gtag('js', new Date());
+        gtag('config', gaId, gaOptions);
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(gaId);
+        script.setAttribute('data-ga', '1');
+        document.head.appendChild(script);
+      }
+      function setChoice(value) {
+        try { localStorage.setItem(storageKey, value); } catch (error) {}
+        if (value === 'accepted') loadGtag();
+        else gtag('consent', 'update', denied);
+        var banner = document.getElementById('cookie-banner');
+        if (banner) banner.hidden = true;
+        var settings = document.getElementById('cookie-settings');
+        if (settings) settings.focus();
+      }
+      function showBanner() {
+        var banner = document.getElementById('cookie-banner');
+        if (!banner) return;
+        banner.hidden = false;
+        var accept = document.getElementById('cookie-accept');
+        if (accept) accept.focus();
+      }
+      document.addEventListener('DOMContentLoaded', function () {
+        var stored = '';
+        try { stored = localStorage.getItem(storageKey) || ''; } catch (error) {}
+        var accept = document.getElementById('cookie-accept');
+        var decline = document.getElementById('cookie-decline');
+        var settings = document.getElementById('cookie-settings');
+        if (accept) accept.addEventListener('click', function () { setChoice('accepted'); });
+        if (decline) decline.addEventListener('click', function () { setChoice('declined'); });
+        if (settings) settings.addEventListener('click', function (event) {
+          event.preventDefault();
+          showBanner();
+        });
+        if (stored === 'accepted') loadGtag();
+        else if (stored !== 'declined') showBanner();
+      });
+    })();
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#content">Skip to content</a>
-  <p class="preview-bar"><strong>Preview.</strong> This build is noindex until Eric publishes.</p>
+  
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="/" aria-label="Credtent home">
@@ -151,7 +222,7 @@
           <li><a href="https://credtent.com/contact">Contact</a></li>
           <li><a href="https://credtent.com/sitemap">Sitemap</a></li>
           <li><a href="https://credtent.com/privacy-policy">Privacy</a></li>
-          
+          <li><a href="#cookie-banner" id="cookie-settings">Cookie settings</a></li>
           <li><a href="https://credtent.com/terms-of-service">Terms</a></li>
           <li><a href="https://credtent.com/credits">Photo credits</a></li>
         </ul>
@@ -163,6 +234,17 @@
       <span>© 2026 Credtent, Inc.</span>
     </div>
   </footer>
-  
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-modal="false" aria-labelledby="cookie-banner-title" aria-describedby="cookie-banner-text" hidden>
+    <div class="cookie-banner-inner">
+      <div>
+        <p id="cookie-banner-title"><strong>Cookies</strong></p>
+        <p id="cookie-banner-text">We use Google Analytics to understand how this site is used. Analytics stays off unless you accept. <a href="https://credtent.com/privacy-policy">Privacy Policy</a></p>
+      </div>
+      <div class="cookie-banner-actions">
+        <button type="button" class="btn" id="cookie-accept">Accept</button>
+        <button type="button" class="btn btn-ghost" id="cookie-decline">Decline</button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
