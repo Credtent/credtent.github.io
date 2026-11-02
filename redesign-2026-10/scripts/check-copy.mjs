@@ -1,10 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
-import { loadPrivateNames, findNames, nameLines, MISSING_MESSAGE } from "./private-names.mjs";
+import { loadPrivateNames, findNames, nameLines, decodeAll, MISSING_MESSAGE } from "./private-names.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const roots = [path.join(root, "src"), path.join(root, "sites")];
-const exts = new Set([".html", ".css", ".js", ".mjs", ".svg", ".txt", ".xml", ".json"]);
+const exts = new Set([".html", ".css", ".js", ".mjs", ".svg", ".txt", ".xml", ".json", ".webmanifest"]);
 
 const audience = "creat" + "ors?";
 const specName = "c" + "2pa";
@@ -12,9 +12,6 @@ const patterns = [
   { name: "audience-word", re: new RegExp("\\b" + audience + "\\b", "i") },
   { name: "locked-spec", re: new RegExp("\\b" + specName + "\\b", "i") },
   { name: "retired-illustration", re: /bridge-illustration/i },
-  { name: "removed-person", re: /Debor\s*ah Drake|Deborah Drake/i },
-  { name: "removed-jason", re: /Jason Pitcock|jason-pitcock/i },
-  { name: "misspelled-jim", re: /Jim Lee/i },
   { name: "address-placeholder", re: /Street address TBC/i },
   { name: "dropped-face", re: /IBM Plex|Playfair Display|Nunito Sans|--font-mono/i },
   { name: "advisory-council", re: /Advisory Council/i }
@@ -38,8 +35,9 @@ for (const file of roots.flatMap((dir) => walk(dir))) {
   const lines = text.split(/\n/);
   lines.forEach((line, index) => {
     if (line.includes("app.credtent.org/") && /\bcreat or\b/.test("no")) return;
+    const decoded = decodeAll(line);
     for (const pattern of patterns) {
-      if (!pattern.re.test(line)) continue;
+      if (!pattern.re.test(line) && !pattern.re.test(decoded)) continue;
       const allowed = pattern.name === "audience-word" && /app\.credtent\.org\/[^\s"']*creat/.test(line);
       if (allowed) continue;
       // File, line and rule only: page text is never printed, so no name can reach a log.
