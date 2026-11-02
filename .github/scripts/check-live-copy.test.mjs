@@ -6,7 +6,9 @@ import path from "node:path";
 import { RULES, scanText, run, served, jekyllExcludes } from "./check-live-copy.mjs";
 import { findNames, MISSING_MESSAGE } from "./private-names.mjs";
 
-const hit = (html, id) => RULES.find((r) => r.id === id).re.test(scanText(html));
+const hit = (html, id) => { const r = RULES.find((x) => x.id === id); const t = scanText(html); return r.test ? r.test(t) : r.re.test(t); };
+// Ten synthetic entries: the loader treats a shorter list as missing.
+const LIST = ["Example Corp", "Acmeworks", "Filler One", "Filler Two", "Filler Three", "Filler Four", "Filler Five", "Filler Six", "Filler Seven", "Filler Eight"].join("\n");
 const tmp = (files) => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "live-copy-"));
   for (const [rel, body] of Object.entries(files)) { fs.mkdirSync(path.dirname(path.join(dir, rel)), { recursive: true }); fs.writeFileSync(path.join(dir, rel), body); }
@@ -19,18 +21,32 @@ test("fails closed with no names list", () => {
 });
 test("a listed name fails with file, line and rule only, never the name", () => {
   const root = tmp({ "a.html": "<p>ok</p>\n<p>Example Corp signed</p>", "notes/b.md": "Example Corp" });
-  const fails = run({ env: { CREDTENT_REVIEW_NAMES: "Example Corp" }, localFile: null, root });
+  const fails = run({ env: { CREDTENT_REVIEW_NAMES: LIST }, localFile: null, root });
   assert.deepEqual(fails.sort(), ["a.html:2: private-name", "notes/b.md:1: private-name"]);
   assert.ok(fails.every((f) => !/Example/.test(f)));
 });
 test("claim failures print no page text", () => {
   const root = tmp({ "p.html": "<p>Opt-Out Premium is $49 a year</p>" });
-  assert.deepEqual(run({ env: { CREDTENT_REVIEW_NAMES: "Unused Name" }, localFile: null, root }), ["p.html:1: hidden-49-premium"]);
+  assert.deepEqual(run({ env: { CREDTENT_REVIEW_NAMES: LIST }, localFile: null, root }), ["p.html:1: hidden-49-premium"]);
 });
-test("coverage follows the Jekyll build: dot, underscore and _config.yml excludes are skipped", () => {
-  const root = tmp({ "_config.yml": "exclude:\n  - drafts\n", "drafts/x.md": "x", ".hidden/y.html": "y", "_inc/z.html": "z", "keep/k.json": "{}" });
+test("coverage: _config.yml excludes are skipped; underscore, dot and unlisted files are scanned; include wins", () => {
+  const root = tmp({ "_config.yml": "exclude:\n  - drafts\ninclude:\n  - drafts/keep.md\n", "drafts/x.md": "x", "drafts/keep.md": "k", ".well-known/y.txt": "y", "_includes/z.html": "z", "data.csv": "a,b", ".github/w.yml": "w" });
   assert.deepEqual(jekyllExcludes(root), ["drafts"]);
-  assert.deepEqual(served(root), ["keep/k.json"]);
+  assert.deepEqual(served(root), [".well-known/y.txt", "_includes/z.html", "data.csv", "drafts/keep.md"]);
+});
+test("names in paths, includes, Markdown, CSV and escaped JSON are found; Liquid needs review", () => {
+  const root = tmp({ "case-studies/acmeworks/index.html": "<p>ok</p>", "_includes/footer.html": "<p>Acmeworks</p>", "page.markdown": "Acmeworks", "data.csv": "x,Acmeworks", "data.json": '{"n":"\\u0041cmeworks"}', "liq.html": '---\n---\n<p>{{ "Acme" | append: "works" }}</p>' });
+  const fails = run({ env: { CREDTENT_REVIEW_NAMES: LIST }, localFile: null, root });
+  for (const f of ["case-studies/acmeworks/index.html:0: private-name-in-path", "_includes/footer.html:1: private-name", "page.markdown:1: private-name", "data.csv:1: private-name", "data.json:1: private-name", "liq.html:0: liquid-needs-review", "liq.html:3: private-name"]) assert.ok(fails.includes(f), f);
+});
+test("markup that renders the same does not hide a claim", () => {
+  assert.ok(hit("<p>The opt-out is al<b>ways</b> free.</p>", "free-forever-promise"));
+  assert.ok(hit("<p>Opt-Out Pre<span>mium</span> is $49 a year</p>", "hidden-49-premium"));
+  assert.ok(hit("<style>.p::after{content:'always free'}</style>", "free-forever-promise"));
+  assert.ok(hit("<script>el.textContent='always free'</script>", "free-forever-promise"));
+  assert.ok(hit("<p title=always&#32;free>x</p>", "free-forever-promise"));
+  assert.ok(hit("<p>Under its terms, 85% of revenue goes to owners.</p>", "85-without-standard-terms"));
+  assert.ok(hit("<p>Credtent also audits AI models periodically.</p>", "present-tense-audits"));
 });
 test("entities, attributes and JSON-LD are decoded and scanned", () => {
   assert.ok(hit("<p>a &mdash; b</p>", "em-dash"));

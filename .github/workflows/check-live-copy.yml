@@ -1,24 +1,49 @@
 name: Check live copy
 
-# Runs the copy gate for the pages GitHub Pages serves from main. The counterparty review list is a
-# repository secret (CREDTENT_REVIEW_NAMES), never a file in this public repo; without it the job fails.
+# The copy gate for everything GitHub Pages publishes from main. The names list is a repository secret
+# (CREDTENT_REVIEW_NAMES, one entry per line), never a file in this public repo; without it the job fails.
+# Each entry is masked before any step runs, and once the gate exists on main, the gate scripts come from main
+# so a pull request cannot change what checks it.
 on:
   pull_request:
     branches: [main]
   push:
     branches: [main]
 
+permissions:
+  contents: read
+
 jobs:
   check:
     runs-on: ubuntu-latest
     steps:
+      - name: Mask each names-list entry
+        env:
+          CREDTENT_REVIEW_NAMES: ${{ secrets.CREDTENT_REVIEW_NAMES }}
+        run: |
+          printf '%s\n' "$CREDTENT_REVIEW_NAMES" | tr '|' '\n' | while IFS= read -r line; do
+            entry="$(printf '%s' "$line" | sed -E 's/^(allow|drop|block|strip):[[:space:]]*//; s/^[^ ]+ //; s/^[[:space:]]+|[[:space:]]+$//g')"
+            [ -n "$line" ] && echo "::add-mask::$line"
+            [ -n "$entry" ] && echo "::add-mask::$entry"
+          done
+          true
       - uses: actions/checkout@v4
+        with:
+          path: tree
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          path: gate-main
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
+      - name: Pick the gate scripts
+        run: |
+          if [ -f gate-main/.github/scripts/check-live-copy.mjs ]; then echo "GATE=gate-main" >> "$GITHUB_ENV"; else echo "GATE=tree" >> "$GITHUB_ENV"; fi
       - name: Gate tests
-        run: node --test .github/scripts/check-live-copy.test.mjs
+        run: node --test "$GATE/.github/scripts/check-live-copy.test.mjs"
       - name: Live copy gate
         env:
           CREDTENT_REVIEW_NAMES: ${{ secrets.CREDTENT_REVIEW_NAMES }}
-        run: node .github/scripts/check-live-copy.mjs
+          CHECK_ROOT: tree
+        run: node "$GATE/.github/scripts/check-live-copy.mjs"
