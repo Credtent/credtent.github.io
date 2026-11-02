@@ -16,9 +16,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
+      - name: Gate tests
+        run: node --test .github/scripts/check-live-copy.test.mjs
       - name: Live copy gate
         env:
           CREDTENT_REVIEW_NAMES: ${{ secrets.CREDTENT_REVIEW_NAMES }}
         run: node .github/scripts/check-live-copy.mjs
-      - name: Gate tests
-        run: node --test .github/scripts/check-live-copy.test.mjs

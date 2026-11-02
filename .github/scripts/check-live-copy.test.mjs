@@ -1,18 +1,61 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { RULES, scanText, loadNames } from "./check-live-copy.mjs";
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { RULES, scanText, run, served, jekyllExcludes } from "./check-live-copy.mjs";
+import { findNames, MISSING_MESSAGE } from "./private-names.mjs";
 
 const hit = (html, id) => RULES.find((r) => r.id === id).re.test(scanText(html));
+const tmp = (files) => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "live-copy-"));
+  for (const [rel, body] of Object.entries(files)) { fs.mkdirSync(path.dirname(path.join(dir, rel)), { recursive: true }); fs.writeFileSync(path.join(dir, rel), body); }
+  return dir;
+};
 
-test("entity-encoded em dash is caught", () => assert.ok(hit("<p>a &mdash; b</p>", "em-dash")));
-test("free-forever promise hidden by &nbsp; is caught", () => assert.ok(hit("<p>free&nbsp;forever</p>", "free-forever-promise")));
-test("claims in alt text are caught", () => assert.ok(hit('<img alt="Opt-Out Premium is $49 a year">', "hidden-49-premium")));
-test("claims in JSON-LD are caught", () => assert.ok(hit('<script type="application/ld+json">{"text":"legally obligates the company"}</script>', "pbc-legal-duty-claim")));
-test("Creator Licensing at $99 without the promo is caught", () => assert.ok(hit("<p>Creator Licensing at $99 per year</p>", "licensing-99-without-promo")));
-test("the soft free line passes", () => assert.ok(!hit("<p>Credtent does not plan to charge for the free opt-out.</p>", "free-forever-promise")));
-test("the names list fails closed when absent", () => {
-  const names = loadNames({ CREDTENT_REVIEW_NAMES: "" });
-  // With no env value the gate falls back to the gitignored file; in CI that file never exists.
-  assert.ok(Array.isArray(names));
-  assert.equal(loadNames({ CREDTENT_REVIEW_NAMES: "Alpha | Beta" }).length, 2);
+test("fails closed with no names list", () => {
+  const root = tmp({ "index.html": "<p>ok</p>" });
+  assert.ok(run({ env: { CREDTENT_REVIEW_NAMES: "" }, localFile: null, root }).includes(MISSING_MESSAGE));
+});
+test("a listed name fails with file, line and rule only, never the name", () => {
+  const root = tmp({ "a.html": "<p>ok</p>\n<p>Example Corp signed</p>", "notes/b.md": "Example Corp" });
+  const fails = run({ env: { CREDTENT_REVIEW_NAMES: "Example Corp" }, localFile: null, root });
+  assert.deepEqual(fails.sort(), ["a.html:2: private-name", "notes/b.md:1: private-name"]);
+  assert.ok(fails.every((f) => !/Example/.test(f)));
+});
+test("claim failures print no page text", () => {
+  const root = tmp({ "p.html": "<p>Opt-Out Premium is $49 a year</p>" });
+  assert.deepEqual(run({ env: { CREDTENT_REVIEW_NAMES: "Unused Name" }, localFile: null, root }), ["p.html:1: hidden-49-premium"]);
+});
+test("coverage follows the Jekyll build: dot, underscore and _config.yml excludes are skipped", () => {
+  const root = tmp({ "_config.yml": "exclude:\n  - drafts\n", "drafts/x.md": "x", ".hidden/y.html": "y", "_inc/z.html": "z", "keep/k.json": "{}" });
+  assert.deepEqual(jekyllExcludes(root), ["drafts"]);
+  assert.deepEqual(served(root), ["keep/k.json"]);
+});
+test("entities, attributes and JSON-LD are decoded and scanned", () => {
+  assert.ok(hit("<p>a &mdash; b</p>", "em-dash"));
+  assert.ok(hit("<p>a &#x2014 b</p>", "em-dash"));
+  assert.ok(hit("<p>free&nbsp;forever</p>", "free-forever-promise"));
+  assert.ok(hit("<img alt='Opt-Out Premium is &#x24;49 a year'>", "hidden-49-premium"));
+  assert.ok(hit('<div data-x="legally obligates"></div>', "pbc-legal-duty-claim"));
+  assert.ok(hit('<script type="application/ld+json">{"t":"85% of every deal"}</script>', "85-every-deal"));
+});
+test("the review's misses are caught", () => {
+  assert.ok(hit("<p>take control with a free opt-out, forever.</p>", "forever-near-free"));
+  assert.ok(hit("<p>Built into every contract.</p>", "every-contract-or-no-exceptions"));
+  assert.ok(hit("<p>Every deal Credtent closes returns 85% of revenue.</p>", "every-contract-or-no-exceptions"));
+  assert.ok(hit("<li>Everything in Opt-Out Premium</li>", "premium-included-in-49"));
+  assert.ok(hit("<p>and credtent does not plan to charge</p>", "lowercase-brand"));
+  assert.ok(!hit("<p>hello@credtent.org and credtent.com</p>", "lowercase-brand"));
+  assert.ok(hit("<p>As a Delaware Public Benefit Corporation, Credtent acts as a neutral agent</p>", "pbc-as-cause-of-neutrality"));
+});
+test("the soft free line and standard-terms 85/15 pass", () => {
+  assert.ok(!hit("<p>Credtent does not plan to charge for the free opt-out.</p>", "free-forever-promise"));
+  assert.ok(!hit("<p>Under Credtent's standard terms, content partners keep 85% of each licensing deal.</p>", "85-every-deal"));
+});
+test("names hide in comments, scripts, data attributes, entities and split strings, and are still found", () => {
+  const list = { names: ["Example Corp"], allow: new Set() };
+  for (const raw of ["<!-- Example Corp -->", "<script>x='Example Corp'</script>", '<i data-x="Example Corp">', "Exa&#x6d;ple Corp", "Exam​ple Corp", "Ex<b>ample</b> Corp", '"Example" + " Corp"']) {
+    assert.equal(findNames(raw, ["a.html"], list).length, 1, raw);
+  }
 });
