@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { loadPrivateNames, findNames, MISSING_MESSAGE } from "./private-names.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const roots = [path.join(root, "src"), path.join(root, "sites")];
@@ -71,10 +72,13 @@ for (const file of roots.flatMap((dir) => walk(dir))) {
   });
 }
 
-const partnerNeedles = ["Science and Medicine Group", "Cannabis Business Times", "Sports Reference", "Twin Sisters", "Vix Foster", "MathTV", "XYZ Textbooks"];
-const siteText = walk(path.join(root, "sites")).concat(walk(path.join(root, "src"))).map((file) => fs.readFileSync(file, "utf8")).join("\n");
-for (const name of partnerNeedles) {
-  if (siteText.includes(name)) failures.push(`partner name present in src or sites: ${name}`);
+// Names stay out of this public repo: they come from the private list (scripts/private-names.mjs), fail closed.
+const privateNames = loadPrivateNames();
+if (privateNames.missing) failures.push(MISSING_MESSAGE);
+for (const file of walk(path.join(root, "sites")).concat(walk(path.join(root, "src")))) {
+  const rel = path.relative(root, file).split(path.sep).join("/");
+  const where = rel.replace(/^sites\//, "");
+  if (findNames(fs.readFileSync(file, "utf8"), where, privateNames).length) failures.push(`${rel} [private-name] names an entry from the private list (withheld from the log)`);
 }
 
 for (const file of walk(path.join(root, "sites")).filter((item) => item.endsWith(".html"))) {

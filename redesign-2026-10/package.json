@@ -4,7 +4,9 @@
   "type": "module",
   "scripts": {
     "build": "node src/build.mjs",
-    "check": "node scripts/check-copy.mjs && node scripts/check-links.mjs && node scripts/check-redirects.mjs && node scripts/check-html.mjs"
+    "check": "node scripts/check-copy.mjs && node scripts/check-links.mjs && node scripts/check-redirects.mjs && node scripts/check-launch.mjs preview && node --test scripts/test-ga-and-headers.mjs scripts/test-phone.mjs scripts/test-check-launch.mjs",
+    "check:production": "node scripts/check-copy.mjs && node scripts/check-links.mjs && SITE_ENV=production node scripts/check-redirects.mjs && node scripts/check-launch.mjs production && node --test scripts/test-ga-and-headers.mjs scripts/test-phone.mjs scripts/test-check-launch.mjs",
+    "check:html": "node scripts/check-html.mjs"
   },
   "dependencies": {
     "sharp": "^0.35.0"

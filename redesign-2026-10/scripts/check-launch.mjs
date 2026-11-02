@@ -1,14 +1,20 @@
-// Launch gate for the two built sites. Run: node scripts/check-launch.mjs [comDir] [orgDir]
-// Defaults to sites/com and sites/org. Exits 1 on any FAIL; REVIEW lines need a human read.
+// Launch gate for the two built sites. Run: node scripts/check-launch.mjs <preview|production> [comDir] [orgDir]
+// The mode is required and is asserted (robots, noindex, headers). Defaults to sites/com and sites/org.
+// Exits 1 on any FAIL. Launch preconditions FAIL in production mode and WARN in preview mode.
+// Names never live in this file: see scripts/private-names.mjs (fails closed without the private list).
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { CURRENT_TERMS_FILE, CURRENT_TERMS_EFFECTIVE, REVISED_TERMS_EFFECTIVE, UPCOMING_TERMS_PATH, DATE_PLACEHOLDER, VERBATIM_START, VERBATIM_END, REVISED_CHANGES, termsText } from "../src/lib/terms.mjs";
+import { CURRENT_TERMS_FILE, CURRENT_TERMS_EFFECTIVE, REVISED_TERMS_DATE, TERMS_SWAP, UPCOMING_TERMS_PATH, DATE_PLACEHOLDER, VERBATIM_START, VERBATIM_END, REVISED_CHANGES, termsText, reviseTerms, termsGuard, liveTermsParts } from "../src/lib/terms.mjs";
+import { loadPrivateNames, findNames, MISSING_MESSAGE } from "./private-names.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const REPO = path.resolve(ROOT, "..");
+const MODES = ["preview", "production"];
+const MODE = process.argv[2];
 const dirs = {
-  com: path.resolve(process.argv[2] || path.join(ROOT, "sites/com")),
-  org: path.resolve(process.argv[3] || path.join(ROOT, "sites/org"))
+  com: path.resolve(process.argv[3] || path.join(ROOT, "sites/com")),
+  org: path.resolve(process.argv[4] || path.join(ROOT, "sites/org"))
 };
 const HOST = { com: "credtent.com", org: "credtent.org" };
 
@@ -23,7 +29,6 @@ export const BANNED = [
   { id: "premium-auditing-system", re: /access to the (opt-out )?auditing system/i },
   { id: "premium-adds-auditing", re: /\badds? (access to )?auditing\b/i },
   { id: "held-sign-up", re: /registry\.credtent\.org\/auth\/sign-up/i },
-  { id: "rosen-public", re: /\bRosen\b/ },
   { id: "wga-partner", re: /WGA[^.<]{0,60}\b(partner|endorse)/i },
   { id: "comma-artifact", re: /\S\s+,\s/ },
   { id: "copyright-alliance-member", re: /member of (the )?Copyright Alliance|Copyright Alliance member/i },
@@ -38,8 +43,22 @@ export const BANNED = [
   { id: "leading-authority", re: /leading authority/i },
   // Cherryh 2026-11-01, EB-approved: no permanent free promise; only "Credtent does not plan to charge for the free opt-out."
   { id: "free-forever-promise", re: /always free|free,? always|(will )?stays? free|always will be|free forever|\$0<\/span>\s*forever/i },
-  { id: "pbc-legal-duty-claim", re: /legally obligat\w*/i }
+  { id: "pbc-legal-duty-claim", re: /legally (obligat|bound)\w*/i },
+  // Review round 2026-11-01: 85/15 is Credtent's standard terms, not every deal; the WGA discount is screenplay-only.
+  { id: "85-every-deal", re: /85\s?%\s+of\s+(every|all)\b|\bevery\s+(licensing\s+)?deal\s+(Credtent|we)\s+closes?\s+(sends|routes|pays)\s+85|85\s?%\s+of\s+gross\s+revenue\s+from\s+every\b/i },
+  { id: "wga-discount-widened", re: /WGA members receive a discount|discount on certification fees/i }
 ];
+// Served pages of the live site (GitHub Pages from main) are scanned too until the DNS cutover.
+// The current terms and privacy policy stay verbatim (EB 2026-11-01); the LWS pages are under legal hold item 11.
+export const ROOT_SCAN = true;
+const ROOT_EXEMPT = new Set(["terms-of-service.html", "privacy-policy.html", "lws.html", "parking/lws.html"]);
+const ROOT_SKIP_DIRS = new Set([".git", ".github", ".claude", "redesign-2026-10", "node_modules", ".worktrees"]);
+// Pages that stay noindex in production.
+export function staysNoindex(rel) {
+  return rel === "404.html" || rel.startsWith("parking/") || rel === "lws/index.html" || rel.startsWith("terms-of-service/upcoming/") ||
+    /^resources\/(what-an-opt-out-can-do|how-to-read-platform-terms|use-ai-without-giving-up-judgment)\/index\.html$/.test(rel) ||
+    /^creative-consent(\/(platforms|guide))?\/index\.html$/.test(rel);
+}
 // Hard launch preconditions that no file can prove. Each needs an explicit, dated confirmation in the environment.
 export const PRECONDITIONS = [
   {
@@ -53,8 +72,7 @@ export const LEGACY_ORG_PATHS = [
   "/badges/legacy-creation-badge.svg", "/badges/creative-origin-legacy.svg", "/badges/ai-composed-creation-badge.svg",
   "/credtent-logo-mark.svg", "/credtent-wordmark.svg", "/shield-check.svg", "/parking/services"
 ];
-// Names that may appear only as public-market context, never as customers or partners. A human reads each hit.
-export const REVIEW_NAMES = /\b(APM Music|Barnes (&amp;|&|and) Noble|Macmillan|Toronto Star|Gannett|Houghton Mifflin|Springer|CEDRO|USA Today|Whistling Woods|Whispering Woods|SOFA Entertainment|Oracle|BBC Studios|Helium Media|EDM Ghost|XYZ Textbooks)\b/;
+// (The review-name list moved to the private source; see scripts/private-names.mjs.)
 
 function walk(dir, out = []) {
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -65,12 +83,42 @@ function walk(dir, out = []) {
   return out;
 }
 
+export function decode(s) {
+  return s
+    .replace(/&nbsp;|&#160;|&#xa0;/gi, " ")
+    .replace(/&mdash;|&#8212;|&#x2014;/gi, "\u2014")
+    .replace(/&ndash;|&#8211;|&#x2013;/gi, "\u2013")
+    .replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">")
+    .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
+    .replace(/&amp;/g, "&");
+}
+
 export function visibleText(html) {
-  return html
+  return decode(html
     .replace(/<script[\s\S]*?<\/script>/gi, " ")
     .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<!--[\s\S]*?-->/g, " ")
     .replace(/<\/(a|strong|em|span|b|i|code|cite)>/gi, "")
-    .replace(/<[^>]+>/g, " ");
+    // Block boundaries end a sentence for the claim rules, so a match cannot run from one card into the next.
+    .replace(/<\/(p|div|li|h[1-6]|section|article|td|th|dd|dt|figcaption)>|<br\s*\/?>/gi, " . ")
+    .replace(/<[^>]+>/g, " "));
+}
+
+function jsonStrings(value, out = []) {
+  if (typeof value === "string") out.push(value);
+  else if (Array.isArray(value)) value.forEach((v) => jsonStrings(v, out));
+  else if (value && typeof value === "object") Object.values(value).forEach((v) => jsonStrings(v, out));
+  return out;
+}
+
+/** Visible text, every human-facing attribute value, and every JSON-LD string, entities decoded. */
+export function scanText(html) {
+  const attrs = [...html.matchAll(/\s(?:content|alt|title|aria-label|placeholder|value)="([^"]*)"/gi)].map((m) => decode(m[1]));
+  const ld = [];
+  for (const m of html.matchAll(/<script[^>]*application\/ld\+json[^>]*>([\s\S]*?)<\/script>/gi)) {
+    try { ld.push(...jsonStrings(JSON.parse(m[1]))); } catch { ld.push(m[1]); }
+  }
+  return `${visibleText(html)} ${attrs.join(" ")} ${ld.map(decode).join(" ")}`.replace(/\s+/g, " ");
 }
 
 function metaContent(html, attr, name) {
@@ -98,46 +146,56 @@ function resolves(site, urlPath) {
 // EB 2026-11-01: until the swap, /terms-of-service is the current terms verbatim and the revised text lives
 // only on the noindex, unlinked upcoming page. After the swap the revised text, with its date, is the main page.
 export function checkTerms(sites, fails) {
-  const repo = path.resolve(ROOT, "..");
-  const liveRaw = fs.readFileSync(path.join(repo, CURRENT_TERMS_FILE), "utf8");
-  // The live page's nav and footer placeholders hold site chrome (the crawlable footer link list), not terms.
-  const liveBody = (liveRaw.split(/<body[^>]*>/i)[1] || "").split(/<\/body>/i)[0]
-    .replace(/<div id="nav-placeholder"[\s\S]*?<\/div>/i, "")
-    .replace(/<div id="footer-placeholder"[\s\S]*$/i, "")
-    .replace(/<h1\b[\s\S]*?<\/h1>/i, "");
+  for (const e of termsGuard()) fails.push(`terms settings: ${e}`);
+  const liveRaw = fs.readFileSync(path.join(REPO, CURRENT_TERMS_FILE), "utf8");
+  const live = liveTermsParts(liveRaw);
+  const liveBody = live.body;
   const liveText = termsText(liveBody);
-  // Distinctive revised sentences only; a short heading such as "Opt-Out Premium" also appears in site copy.
+  const expectedRevised = termsText(reviseTerms(liveBody));
   const revisedOnly = REVISED_CHANGES.map(([, to]) => termsText(to).join(" ")).filter((t) => t.length > 40);
   const upcomingRel = UPCOMING_TERMS_PATH.replace(/^\//, "") + "/index.html";
+  const forms = [UPCOMING_TERMS_PATH, `${UPCOMING_TERMS_PATH}/`, `${UPCOMING_TERMS_PATH}/index.html`];
+  const sameLines = (got, want, label) => {
+    const diff = got.findIndex((line, i) => line !== want[i]);
+    if (got.length !== want.length || diff >= 0) fails.push(`${label} at line ${diff >= 0 ? diff + 1 : Math.min(got.length, want.length) + 1}: "${(got[diff] || "").slice(0, 80)}"`);
+  };
+  const legalBlock = (html) => {
+    const m = html.match(/<div class="wrap legacy">([\s\S]*?)<\/div><\/section>/);
+    return m ? m[1] : "";
+  };
   for (const site of Object.values(sites)) {
     const mainFile = path.join(site.dir, "terms-of-service/index.html");
     if (!fs.existsSync(mainFile)) { fails.push(`${site.id}: /terms-of-service is missing`); continue; }
     const main = fs.readFileSync(mainFile, "utf8");
     const mainText = termsText(main).join(" ");
     const upcomingFile = path.join(site.dir, upcomingRel);
-    if (!REVISED_TERMS_EFFECTIVE) {
+    const config = JSON.parse(fs.readFileSync(path.join(site.dir, "vercel.json"), "utf8"));
+    const headerFor = (src) => (config.headers || []).find((h) => h.source === src && (h.headers || []).some((x) => x.key === "X-Robots-Tag" && /noindex/.test(x.value)));
+    const redirectFor = (src) => (config.redirects || []).find((r) => r.source === src);
+    if (!TERMS_SWAP) {
       const a = main.indexOf(VERBATIM_START), b = main.indexOf(VERBATIM_END);
       if (a < 0 || b < a) fails.push(`${site.id}/terms-of-service: the current terms are not served verbatim (markers missing)`);
-      else {
-        const served = termsText(main.slice(a, b));
-        const diff = served.findIndex((line, i) => line !== liveText[i]);
-        if (served.length !== liveText.length || diff >= 0) fails.push(`${site.id}/terms-of-service: current terms differ from ${CURRENT_TERMS_FILE} at line ${diff >= 0 ? diff + 1 : Math.min(served.length, liveText.length) + 1}: "${(served[diff] || "").slice(0, 80)}"`);
-      }
+      else sameLines(termsText(main.slice(a, b)), liveText, `${site.id}/terms-of-service: current terms differ from ${CURRENT_TERMS_FILE}`);
+      const intro = termsText(main.slice(0, main.indexOf(VERBATIM_START)));
+      if (intro.filter((l) => l === live.eyebrow).length !== 1 || !intro.includes(live.capsule.replace(/&#39;/g, "'"))) fails.push(`${site.id}/terms-of-service: the live intro (eyebrow and summary) is not shown exactly once`);
       if (!mainText.includes(`Effective Date: ${CURRENT_TERMS_EFFECTIVE}`)) fails.push(`${site.id}/terms-of-service: does not show Effective Date: ${CURRENT_TERMS_EFFECTIVE}`);
       for (const needle of [...revisedOnly, "EFFECTIVE-DATE-PENDING"]) if (mainText.includes(needle)) fails.push(`${site.id}/terms-of-service: revised-only text before the swap: "${needle.slice(0, 70)}"`);
       if (!fs.existsSync(upcomingFile)) { fails.push(`${site.id}: ${UPCOMING_TERMS_PATH} is missing`); continue; }
       const up = fs.readFileSync(upcomingFile, "utf8");
-      const upText = termsText(up).join(" ");
       if (!/<meta name="robots" content="noindex/i.test(up)) fails.push(`${site.id}${UPCOMING_TERMS_PATH}: not noindex`);
-      for (const needle of revisedOnly) if (!upText.includes(needle)) fails.push(`${site.id}${UPCOMING_TERMS_PATH}: missing revised text "${needle.slice(0, 70)}"`);
-      // EB card "Change to hello@" (2026-11-01): section 13 of the revised terms names hello@; the current terms keep info@ (verbatim).
+      // The upcoming page is the live terms with exactly the approved changes and the effective date applied.
+      sameLines(termsText(legalBlock(up)), expectedRevised, `${site.id}${UPCOMING_TERMS_PATH}: differs from the live terms plus the approved changes`);
       if (up.includes("info@credtent.org") || !/13\. Contact[\s\S]*?mailto:hello@credtent\.org/.test(up)) fails.push(`${site.id}${UPCOMING_TERMS_PATH}: section 13 contact is not hello@credtent.org`);
       for (const f of ["sitemap.xml", "llms.txt"]) {
-        const t = fs.readFileSync(path.join(site.dir, f), "utf8");
-        if (t.includes(UPCOMING_TERMS_PATH)) fails.push(`${site.id}/${f}: lists ${UPCOMING_TERMS_PATH}`);
+        if (fs.readFileSync(path.join(site.dir, f), "utf8").includes(UPCOMING_TERMS_PATH)) fails.push(`${site.id}/${f}: lists ${UPCOMING_TERMS_PATH}`);
       }
-      const vj = fs.readFileSync(path.join(site.dir, "vercel.json"), "utf8");
-      if (!vj.includes(`"source": "${UPCOMING_TERMS_PATH}"`) && !vj.includes(`"source":"${UPCOMING_TERMS_PATH}"`)) fails.push(`${site.id}/vercel.json: no X-Robots-Tag rule for ${UPCOMING_TERMS_PATH}`);
+      for (const src of forms) {
+        const r = redirectFor(src);
+        // The slash and index.html forms may 301 to the bare upcoming URL (the site's slash convention); nothing may leave it.
+        const toBare = r && r.statusCode === 301 && r.destination.endsWith(UPCOMING_TERMS_PATH) && src !== UPCOMING_TERMS_PATH;
+        if (r && !toBare) fails.push(`${site.id}/vercel.json: ${src} redirects away before the swap`);
+        if (!toBare && !headerFor(src)) fails.push(`${site.id}/vercel.json: no X-Robots-Tag noindex rule for ${src}`);
+      }
       for (const other of Object.values(sites)) {
         for (const rel of other.files) {
           if (!rel.endsWith(".html") || rel === upcomingRel) continue;
@@ -145,19 +203,50 @@ export function checkTerms(sites, fails) {
         }
       }
     } else {
-      if (!mainText.includes(`Effective Date: ${REVISED_TERMS_EFFECTIVE}`)) fails.push(`${site.id}/terms-of-service: does not show Effective Date: ${REVISED_TERMS_EFFECTIVE}`);
-      for (const needle of revisedOnly) if (!mainText.includes(needle)) fails.push(`${site.id}/terms-of-service: missing revised text "${needle.slice(0, 70)}"`);
+      sameLines(termsText(legalBlock(main)), expectedRevised, `${site.id}/terms-of-service: after the swap it differs from the live terms plus the approved changes`);
+      if (!mainText.includes(`Effective Date: ${REVISED_TERMS_DATE}`)) fails.push(`${site.id}/terms-of-service: does not show Effective Date: ${REVISED_TERMS_DATE}`);
       if (main.includes(VERBATIM_START) || mainText.includes("EFFECTIVE-DATE-PENDING")) fails.push(`${site.id}/terms-of-service: still the pre-swap page`);
       if (fs.existsSync(upcomingFile)) fails.push(`${site.id}${UPCOMING_TERMS_PATH}: still built after the swap`);
+      for (const src of forms) {
+        const r = redirectFor(src);
+        if (!r || r.statusCode !== 301 || r.destination !== `https://${HOST[site.id]}/terms-of-service`) fails.push(`${site.id}/vercel.json: ${src} does not 301 to /terms-of-service after the swap`);
+        if (headerFor(src)) fails.push(`${site.id}/vercel.json: ${src} still has its pre-swap noindex rule`);
+      }
     }
   }
   // The placeholder may appear only on the upcoming page, and only before the swap.
   for (const site of Object.values(sites)) {
     for (const rel of site.files) {
-      if (!rel.endsWith(".html") || (!REVISED_TERMS_EFFECTIVE && rel === upcomingRel)) continue;
+      if (!rel.endsWith(".html") || (!TERMS_SWAP && rel === upcomingRel)) continue;
       if (fs.readFileSync(path.join(site.dir, rel), "utf8").includes(DATE_PLACEHOLDER.split(" ")[0])) fails.push(`${site.id}/${rel}: effective-date placeholder outside the upcoming terms page`);
     }
   }
+}
+
+function checkMode(site, fails) {
+  const robots = fs.readFileSync(path.join(site.dir, "robots.txt"), "utf8");
+  const ready = fs.readFileSync(path.join(site.dir, "robots.production.txt"), "utf8");
+  const config = JSON.parse(fs.readFileSync(path.join(site.dir, "vercel.json"), "utf8"));
+  const sitewide = (config.headers || []).filter((h) => h.source === "/(.*)" && !h.missing && (h.headers || []).some((x) => x.key === "X-Robots-Tag"));
+  const hostGate = (config.headers || [])[0];
+  if (!hostGate || !hostGate.missing || !(hostGate.headers || []).some((x) => x.key === "X-Robots-Tag" && /noindex/.test(x.value))) fails.push(`${site.id}/vercel.json: the first header rule is not the host-gated noindex`);
+  if (MODE === "preview") {
+    if (!/^Disallow:\s*\/\s*$/m.test(robots)) fails.push(`${site.id}/robots.txt: preview build does not disallow crawling`);
+    if (!sitewide.length) fails.push(`${site.id}/vercel.json: preview build has no sitewide X-Robots-Tag`);
+  } else {
+    if (robots !== ready) fails.push(`${site.id}/robots.txt: production build does not serve robots.production.txt`);
+    if (sitewide.length) fails.push(`${site.id}/vercel.json: production build still sends a sitewide X-Robots-Tag`);
+  }
+}
+
+function rootServed(dir = REPO, out = []) {
+  for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+    const p = path.join(dir, e.name);
+    const rel = path.relative(REPO, p).split(path.sep).join("/");
+    if (e.isDirectory()) { if (!ROOT_SKIP_DIRS.has(e.name)) rootServed(p, out); }
+    else if (/\.html$/.test(e.name) || rel === "llms.txt") out.push(rel);
+  }
+  return out;
 }
 
 export function run() {
@@ -165,6 +254,22 @@ export function run() {
   const fails = [];
   const reviews = [];
   const warns = [];
+  const names = loadPrivateNames();
+  if (names.missing) fails.push(MISSING_MESSAGE);
+  for (const site of Object.values(sites)) checkMode(site, fails);
+  if (ROOT_SCAN) {
+    for (const rel of rootServed()) {
+      const raw = fs.readFileSync(path.join(REPO, rel), "utf8");
+      const text = rel.endsWith(".html") ? scanText(raw) : decode(raw);
+      if (!names.missing && findNames(text, `root/${rel}`, names).length) fails.push(`root/${rel}: names an entry from the private list (withheld from the log)`);
+      if (ROOT_EXEMPT.has(rel)) continue;
+      for (const b of BANNED) {
+        if (b.id === "comma-artifact" || b.id === "rounded-book-price") continue;
+        const m = text.match(b.re);
+        if (m) fails.push(`root/${rel}: ${b.id}: "${text.slice(Math.max(0, m.index - 50), m.index + 60).trim()}"`);
+      }
+    }
+  }
   for (const site of Object.values(sites)) {
     for (const req of ["404.html", "robots.txt", "robots.production.txt", "sitemap.xml", "llms.txt", "vercel.json"]) {
       if (!site.files.has(req)) fails.push(`${site.id}: missing ${req}`);
@@ -177,15 +282,16 @@ export function run() {
       const hasVerbatim = raw.includes(VERBATIM_START);
       if (hasVerbatim && rel !== "terms-of-service/index.html") fails.push(`${site.id}/${rel}: verbatim terms block outside /terms-of-service`);
       const checked = hasVerbatim ? raw.slice(0, raw.indexOf(VERBATIM_START)) + raw.slice(raw.indexOf(VERBATIM_END) + VERBATIM_END.length) : raw;
-      const text = rel.endsWith(".html") ? visibleText(checked) + " " + (checked.match(/content="[^"]*"/g) || []).join(" ") : checked;
+      const text = rel.endsWith(".html") ? scanText(checked) : decode(checked);
       for (const b of BANNED) {
         const m = text.match(b.re);
         if (m) fails.push(`${site.id}/${rel}: ${b.id}: "${text.slice(Math.max(0, m.index - 50), m.index + 60).replace(/\s+/g, " ").trim()}"`);
       }
-      const n = rel.endsWith(".html") ? visibleText(raw).match(REVIEW_NAMES) : null;
-      if (n) reviews.push(`${site.id}/${rel}: names "${n[1]}"`);
+      if (!names.missing && findNames(rel.endsWith(".html") ? scanText(raw) : decode(raw), `${site.id}/${rel}`, names).length) fails.push(`${site.id}/${rel}: names an entry from the private list (withheld from the log)`);
       if (!rel.endsWith(".html")) continue;
       const noindex = /<meta name="robots" content="noindex/i.test(raw);
+      if (MODE === "preview" && !noindex) fails.push(`${site.id}/${rel}: preview page is missing its noindex meta`);
+      if (MODE === "production" && noindex !== staysNoindex(rel)) fails.push(`${site.id}/${rel}: production noindex is ${noindex ? "on" : "off"}, expected ${staysNoindex(rel) ? "on" : "off"}`);
       const isParkedOr404 = rel === "404.html" || rel.startsWith("parking/");
       if (!/<title>[^<]+<\/title>/.test(raw)) fails.push(`${site.id}/${rel}: no <title>`);
       if (!metaContent(raw, "name", "description")) fails.push(`${site.id}/${rel}: no meta description`);
@@ -214,14 +320,25 @@ export function run() {
     }
   }
   checkTerms(sites, fails);
+  // Review round 2026-11-01: the .org home never shows US$49 as an Opt-Out Premium price.
+  const orgHome = fs.readFileSync(path.join(sites.org.dir, "index.html"), "utf8");
+  const premium = (orgHome.match(/<section[^>]*id="premium"[\s\S]*?<\/section>/) || [""])[0];
+  const premiumText = visibleText(premium).replace(/\s+/g, " ");
+  if (!/Licensing for individuals \. US\$49 \(promo\)/.test(premiumText) || !/Opt-Out Premium for rights holders \. from US\$299/.test(premiumText)) fails.push("org/index.html: the #premium prices are not labeled \"Licensing for individuals US$49 (promo)\" and \"Opt-Out Premium for rights holders from US$299\"");
   for (const p of LEGACY_ORG_PATHS) if (!resolves(sites.org, p)) fails.push(`org: legacy URL no longer resolves: ${p}`);
   for (const pre of PRECONDITIONS) {
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(process.env[pre.env] || "")) fails.push(`precondition ${pre.env} not confirmed: ${pre.why}`);
+    const v = process.env[pre.env] || "";
+    const ok = /^\d{4}-\d{2}-\d{2}$/.test(v) && Date.parse(`${v}T00:00:00Z`) <= Date.now();
+    if (!ok) (MODE === "production" ? fails : warns).push(`precondition ${pre.env} not confirmed (a past YYYY-MM-DD date): ${pre.why}`);
   }
   return { fails, reviews, warns };
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  if (!MODES.includes(MODE)) {
+    console.error(`usage: node scripts/check-launch.mjs <${MODES.join("|")}> [comDir] [orgDir]`);
+    process.exit(2);
+  }
   const { fails, reviews, warns } = run();
   for (const r of reviews) console.log(`REVIEW ${r}`);
   for (const w of warns) console.log(`WARN ${w}`);
