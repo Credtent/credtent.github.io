@@ -130,6 +130,8 @@ export function checkTerms(sites, fails) {
       const upText = termsText(up).join(" ");
       if (!/<meta name="robots" content="noindex/i.test(up)) fails.push(`${site.id}${UPCOMING_TERMS_PATH}: not noindex`);
       for (const needle of revisedOnly) if (!upText.includes(needle)) fails.push(`${site.id}${UPCOMING_TERMS_PATH}: missing revised text "${needle.slice(0, 70)}"`);
+      // EB card "Change to hello@" (2026-11-01): section 13 of the revised terms names hello@; the current terms keep info@ (verbatim).
+      if (up.includes("info@credtent.org") || !/13\. Contact[\s\S]*?mailto:hello@credtent\.org/.test(up)) fails.push(`${site.id}${UPCOMING_TERMS_PATH}: section 13 contact is not hello@credtent.org`);
       for (const f of ["sitemap.xml", "llms.txt"]) {
         const t = fs.readFileSync(path.join(site.dir, f), "utf8");
         if (t.includes(UPCOMING_TERMS_PATH)) fails.push(`${site.id}/${f}: lists ${UPCOMING_TERMS_PATH}`);

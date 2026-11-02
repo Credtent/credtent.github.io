@@ -26,7 +26,10 @@ export const REVISED_CHANGES = [
     "Register your name and creative works to record your opt-out from AI training. Each quarter, Credtent delivers the opt-out notice to AI companies, records each response, and follows up at 30, 60 and 90 days. Credtent relays and records opt-outs. It does not enforce them or monitor whether any company complies. Credtent does not plan to charge for the free opt-out."],
   ["<h3>Premium Opt-Out</h3>", "<h3>Opt-Out Premium</h3>"],
   ["Enhanced tracking of opt-out requests with detailed reporting, auditing, and compliance " + "monitoring. Available on paid plans.",
-    "Opt-Out Premium enrolls your works in Credtent's periodic AI model audits, and Credtent records the results. Audit results are not proof of dataset inclusion or infringement. Available with Opt-Out Premium and every tier above it."]
+    "Opt-Out Premium enrolls your works in Credtent's periodic AI model audits, and Credtent records the results. Audit results are not proof of dataset inclusion or infringement. Available with Opt-Out Premium and every tier above it."],
+  // EB card "Change to hello@" (2026-11-01): section 13 contact in the revised terms only.
+  ['<a href="mailto:info@credtent.org" style="color:var(--c-purple)">info@credtent.org</a>',
+    '<a href="mailto:hello@credtent.org" style="color:var(--c-purple)">hello@credtent.org</a>']
 ];
 
 /** Apply the revised changes and the effective date to a terms body. Throws if any source text is missing. */
