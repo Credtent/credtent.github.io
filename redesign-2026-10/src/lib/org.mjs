@@ -64,16 +64,18 @@ export function orgPages(images) {
       <section class="section" id="premium">
         <div class="wrap premium">
           <div>
-            <p class="eyebrow">Opt-Out Premium</p>
+            <p class="eyebrow">Periodic AI model audits</p>
             <h2>Periodic AI model audits. A clearer record.</h2>
             <p class="lede">Opt-Out Premium enrolls your works in Credtent's periodic AI model audits, and Credtent records the results. Audit results are not proof of dataset inclusion or infringement.</p>
             <div class="btn-row"><a class="btn" href="/resources/auditing">Understand auditing</a></div>
           </div>
           <div class="price-stack">
-            <p>${price("US$49")}</p>
-            <span class="price-meta">annually for individual creatives, with licensing, for sign-ups through December 31, 2026</span>
-            <p>${price("US$299+")}</p>
-            <span class="price-meta">annually for rights holders, scaling with catalog size</span>
+            <p class="price-meta">Licensing for individuals</p>
+            <p>${price("US$49")} (promo)</p>
+            <span class="price-meta">a year, with licensing, for sign-ups through December 31, 2026</span>
+            <p class="price-meta">Opt-Out Premium for rights holders</p>
+            <p>from ${price("US$299")}</p>
+            <span class="price-meta">a year, scaling with catalog size</span>
           </div>
         </div>
       </section>
