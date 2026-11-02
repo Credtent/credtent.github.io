@@ -27,7 +27,10 @@ export const RULES = [
   { id: "pbc-legal-duty-claim", re: /legally (obligat|bound)\w*/i },
   { id: "written-into", re: /written into (every|its corporate|the company|our corporate)/i },
   { id: "old-wga-price", re: /\$149\b|\$298\b/ },
-  { id: "superseded-249", re: /\$\s?249\b/ }
+  { id: "superseded-249", re: /\$\s?249\b/ },
+  // 85/15 is Credtent's standard terms, not every deal; the WGA discount is screenplay-only.
+  { id: "85-every-deal", re: /85\s?%\s+of\s+(every|all)\b|\bevery\s+(licensing\s+)?deal\s+(Credtent|we)\s+closes?\s+(sends|routes|pays)\s+85|85\s?%\s+of\s+gross\s+revenue\s+from\s+every\b/i },
+  { id: "wga-discount-widened", re: /WGA members receive a discount|discount on certification fees/i }
 ];
 
 export function decode(s) {
