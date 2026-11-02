@@ -1,9 +1,11 @@
 const audience = "creat" + "or";
 const plural = audience + "s";
 const specName = "C" + "2PA";
-const brand = "S" + "ony";
-const bodyName = "I" + "SO";
-const dropped = "Deb" + "orah Drake";
+// Names come from the private list (scripts/private-names.mjs); none are written in this public file.
+// "drop:" entries lose any paragraph, list item or table row naming them; "block:" entries stop the build.
+import { loadPrivateNames, MISSING_MESSAGE } from "./private-names.mjs";
+const NAMES = loadPrivateNames();
+const reName = (n) => n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 function applyCase(sample, lower) {
   if (sample === sample.toUpperCase()) return lower.toUpperCase();
@@ -16,6 +18,7 @@ function replaceWord(input, from, to) {
 }
 
 export function scrub(input, { code = false } = {}) {
+  if (NAMES.missing) throw new Error(MISSING_MESSAGE);
   let out = String(input);
   out = out.replace(new RegExp("\\b" + plural + "['’]", "gi"), (match) => applyCase(match.slice(0, -1), "creatives") + match.slice(-1));
   out = out.replace(new RegExp("\\b" + audience + "['’]", "gi"), (match) => applyCase(match.slice(0, -1), "creative") + match.slice(-1));
@@ -27,26 +30,31 @@ export function scrub(input, { code = false } = {}) {
   out = out.replace(/,?\s*and, as of October 2026, routes 85% of gross licensing revenue to rights holders/gi, "");
   out = out.replace(/1822 E\. (?:Rt\.|Route) 66,?\s*(?:Suite A353|Ste #A353)?/g, "1822 E. Route 66, Suite A353");
   out = out.replace(/Glendora, CA(?:\s+91740)?/g, "Glendora, California 91740");
-  out = out.replace(/\bJim Lee\b/g, "");
   out = out.replace(/\u2014/g, ", ");
   if (!code) {
     const parts = out.split(/(<!--[\s\S]*?-->)/g);
     out = parts.map((part, index) => (index % 2 === 1 ? part : part.replace(/!/g, "."))).join("");
   }
-  const block = (tag) => new RegExp("<" + tag + "\\b[\\s\\S]*?\\b" + brand + "\\b[\\s\\S]*?</" + tag + ">", "gi");
-  out = out.replace(block("p"), "");
-  out = out.replace(block("li"), "");
-  out = out.replace(block("tr"), "");
-  out = out.replace(new RegExp(dropped, "g"), "");
+  for (const name of NAMES.drop) {
+    const block = (tag) => new RegExp("<" + tag + "\\b[\\s\\S]*?\\b" + reName(name) + "\\b[\\s\\S]*?</" + tag + ">", "gi");
+    out = out.replace(block("p"), "");
+    out = out.replace(block("li"), "");
+    out = out.replace(block("tr"), "");
+  }
+  for (const name of NAMES.strip) out = out.replace(new RegExp("\\b" + reName(name) + "\\b", "g"), "");
   out = out.replace(/bridge-illustration\.png/gi, "");
   const leftovers = [];
-  for (const token of [plural, audience, brand, bodyName, specName, "bridge-illustration"]) {
+  for (const token of [plural, audience, specName, "bridge-illustration"]) {
     const re = new RegExp("\\b" + token + "\\b", "i");
     if (re.test(out)) leftovers.push(token);
   }
   if (leftovers.length) {
     const hit = out.match(new RegExp(".{0,80}\\b(" + leftovers.join("|") + ")\\b.{0,80}", "i"));
     throw new Error("Scrub left a blocked token near: " + (hit ? hit[0] : leftovers.join(",")));
+  }
+  // A private-list name left after scrubbing stops the build; the message never names it.
+  if ([...NAMES.drop, ...NAMES.block].some((n) => new RegExp("\\b" + reName(n) + "\\b", "i").test(out))) {
+    throw new Error("Scrub left a name from the private list (withheld)");
   }
   return out;
 }
