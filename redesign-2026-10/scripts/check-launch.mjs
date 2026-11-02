@@ -49,7 +49,10 @@ export const BANNED = [
   { id: "85-every-deal", re: /85\s?%\s+of\s+(every|all)\b|\bevery\s+(licensing\s+)?deal\s+(Credtent|we)\s+closes?\s+(sends|routes|pays)\s+85|85\s?%\s+of\s+gross\s+revenue\s+from\s+every\b/i },
   { id: "wga-discount-widened", re: /WGA members receive a discount|discount on certification fees/i },
   // Review round 2026-11-01 (second pass).
-  { id: "every-contract-or-no-exceptions", re: /\bevery contract\b|\bNo exceptions\b|\breturns 85\s?%|\bevery deal\b[^.<]{0,60}\b85\s?%/i },
+  // "Every deal" near 85% is a claim about every deal unless the sentence says standard terms
+  // ("approve every deal ... receive 85% ... under standard terms" is not).
+  { id: "every-contract-or-no-exceptions", test: (text) => /\bevery contract\b|\bNo exceptions\b|\breturns 85\s?%/i.test(text) ||
+    text.split(/(?<=[.?!])\s+/).some((x) => /\bevery deal\b[^.<]{0,60}\b85\s?%/i.test(x) && !/standard terms/i.test(x)) },
   { id: "forever-near-free", re: /\b(free|opt-?out)\b[^.<]{0,30}\bforever\b|\bforever\b[^.<]{0,30}\b(free|opt-?out)\b/i },
   { id: "premium-included-in-49", re: /Everything in Opt-Out Premium/i },
   { id: "lowercase-brand", re: /(^|[\s(,;:])credtent(?![.\-@/\w])/, cs: true },

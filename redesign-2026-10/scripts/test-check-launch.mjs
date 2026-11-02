@@ -139,3 +139,10 @@ test("round four: paths, UTF-16, NUL bytes, the raw terms block and redaction, e
   assert.match(out, /org\/nul\.data:1: private-name/);
   assert.doesNotMatch(out, /example[\s-]?corp/i);
 });
+test("every deal near 85% needs standard terms in the same sentence", async () => {
+  const { ruleHit } = await import("./check-launch.mjs");
+  const r = BANNED.find((b) => b.id === "every-contract-or-no-exceptions");
+  assert.ok(ruleHit(r, scanText("<p>Owners get every deal at 85% of revenue.</p>")));
+  assert.ok(!ruleHit(r, scanText("<p>Owners approve every deal before it executes, receive 85% of gross licensing revenue under standard terms.</p>")));
+  assert.ok(ruleHit(r, scanText("<p>No exceptions.</p>")));
+});
