@@ -7,3 +7,4 @@ node_modules/
 !/inputs/assets/
 *.md
 !/README.md
+/scripts/review-names.local.txt
