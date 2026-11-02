@@ -218,9 +218,12 @@ export function run({ env = process.env, localFile = LOCAL_FILE, root = ROOT } =
       for (const line of found.length ? nameLines(raw, names, found) : []) fails.push(`${rel}:${line}: private-name`);
     }
     // Liquid renders in _layouts, _includes and _sass, and in Markdown and HTML with or without front matter.
-    if ((/^_(layouts|includes|sass)\//.test(rel) || /\.(md|markdown|html?)$/i.test(rel)) && /\{\{|\{%/.test(raw)) fails.push(`${rel}:0: liquid-needs-review`);
+    // Only Jekyll renders Liquid, so this applies to what Pages builds (the S3 copy serves the raw text, which the scans above read).
+    if (claimSet.has(rel) && (/^_(layouts|includes|sass)\//.test(rel) || /\.(md|markdown|html?)$/i.test(rel)) && /\{\{|\{%/.test(raw)) fails.push(`${rel}:0: liquid-needs-review`);
     // Text assembled by script at render time is beyond what this gate can evaluate; a person reviews it.
-    if (/\.(html?|js|mjs)$/i.test(rel) && /\batob\(|fromCodePoint\(|fromCharCode\(|\.split\([^)]*\)\.reverse\(\)|["'`]\.concat\(/.test(raw)) fails.push(`${rel}:0: render-time-text-needs-review`);
+    // Pages-served html, js and mjs are checked; for files only the S3 sync publishes, html and js (a build script's
+    // .mjs is not loaded by any page).
+    if ((claimSet.has(rel) ? /\.(html?|js|mjs)$/i : /\.(html?|js)$/i).test(rel) && /\batob\(|fromCodePoint\(|fromCharCode\(|\.split\([^)]*\)\.reverse\(\)|["'`]\.concat\(/.test(raw)) fails.push(`${rel}:0: render-time-text-needs-review`);
     if (EXEMPT.has(rel)) {
       if (sha256(buf) !== EXEMPT.get(rel)) fails.push(`${rel}:0: exempt-page-changed (re-review, then update its pin)`);
       continue;
