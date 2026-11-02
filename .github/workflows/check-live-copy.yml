@@ -21,10 +21,20 @@ jobs:
         env:
           CREDTENT_REVIEW_NAMES: ${{ secrets.CREDTENT_REVIEW_NAMES }}
         run: |
+          # Mask the raw line and the bare name of every entry kind (plain, drop:, block:, strip:, and
+          # allow: <where> Name), plus its lowercase, hyphen-slug and no-space forms.
           printf '%s\n' "$CREDTENT_REVIEW_NAMES" | tr '|' '\n' | while IFS= read -r line; do
-            entry="$(printf '%s' "$line" | sed -E 's/^(allow|drop|block|strip):[[:space:]]*//; s/^[^ ]+ //; s/^[[:space:]]+|[[:space:]]+$//g')"
-            if [ -n "$line" ]; then echo "::add-mask::$line"; fi
-            if [ -n "$entry" ]; then echo "::add-mask::$entry"; fi
+            raw="$(printf '%s' "$line" | sed -E 's/^[[:space:]]+//; s/[[:space:]]+$//')"
+            if [ -z "$raw" ]; then continue; fi
+            echo "::add-mask::$raw"
+            entry="$(printf '%s' "$raw" | sed -E 's/^(drop|block|strip):[[:space:]]*//; s/^allow:[[:space:]]*[^[:space:]]+[[:space:]]+//; s/^[[:space:]]+//; s/[[:space:]]+$//')"
+            if [ -z "$entry" ]; then continue; fi
+            lower="$(printf '%s' "$entry" | tr '[:upper:]' '[:lower:]')"
+            slug="$(printf '%s' "$lower" | sed -E 's/[^a-z0-9]+/-/g; s/^-+//; s/-+$//')"
+            compact="$(printf '%s' "$lower" | sed -E 's/[^a-z0-9]+//g')"
+            for v in "$entry" "$lower" "$slug" "$compact"; do
+              if [ "${#v}" -ge 4 ]; then echo "::add-mask::$v"; fi
+            done
           done
       - uses: actions/checkout@v4
         with:

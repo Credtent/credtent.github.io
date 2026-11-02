@@ -14,19 +14,30 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
-import { loadPrivateNames, findNames, nameLines, decodeAll, LOCAL_FILE, MISSING_MESSAGE } from "./private-names.mjs";
+import crypto from "node:crypto";
+import { loadPrivateNames, findNames, nameLines, decodeAll, redactLine, LOCAL_FILE, MISSING_MESSAGE } from "./private-names.mjs";
 
 // CHECK_ROOT lets CI run the gate scripts from main against a pull request's tree.
 export const ROOT = process.env.CHECK_ROOT ? path.resolve(process.env.CHECK_ROOT) : path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 // The current terms and privacy policy stay verbatim until the revised terms take effect (EB 2026-11-01).
 // lws.html and parking/lws.html are under legal hold item 11 and are not edited until Cherryh clears it.
-// Cherryh's hold item 11 covers credtent.org/lws (lws.html) only; the parked page is checked like any other.
-const EXEMPT = new Set(["terms-of-service.html", "privacy-policy.html", "lws.html"]);
-const CLAIMS = /\.(html?|txt|md|markdown|svg|css|js|mjs)$/i;
+// Exempt from the claim rules, each pinned to the sha256 of the version reviewed: the current terms and privacy
+// policy stay verbatim until the revised terms take effect (EB 2026-11-01), and lws.html is under Cherryh's
+// hold item 11 (that item covers credtent.org/lws only). Any change to a pinned file fails until the pin is
+// reviewed and updated.
+export const EXEMPT = new Map([
+  ["terms-of-service.html", "2a43523f0631d87f383a10b992129b8b9db86e7801be6059e08fdb65e838e635"],
+  ["privacy-policy.html", "d3c53c6fc6b27bf011e5920dfda1742cf4674d37e10bb06fd8ca1b7e8fe84d07"],
+  ["lws.html", "315a2fd0423a37d47f5347899c71956c656d1430f6c8751fb0a6e5f66242324a"]
+]);
+const CLAIMS = /\.(html?|txt|md|markdown|svg|css|scss|sass|js|mjs|xml|json|ya?ml|webmanifest)$/i;
+// Real binaries, by extension or magic bytes. Anything else is read as text.
+const BINARY_EXT = /\.(png|jpe?g|gif|webp|avif|ico|bmp|tiff?|woff2?|ttf|otf|eot|pdf|mp4|mov|webm|mp3|wav|zip|gz|tgz|br)$/i;
+const TEXT_EXT = /\.(html?|svg|css|scss|sass|js|mjs|md|markdown|txt|xml|json|ya?ml|webmanifest|csv)$/i;
 
 export const RULES = [
-  { id: "em-dash", re: /—/ },
-  { id: "spaced-en-dash", re: /\s–\s/ },
+  { id: "em-dash", re: /[\u2014\u2015\u2e3a\u2e3b]/ },
+  { id: "spaced-en-dash", re: /\s\u2013\s/ },
   // LD-015 item 1.2, EB card "Hide Premium" (2026-10-31): no $49 Opt-Out Premium offer on public pages until 2026-12-31.
   { id: "hidden-49-premium", re: /Opt-Out Premium[^.<]{0,80}\$\s?49\b|\$\s?49[^.<]{0,40}Opt-Out Premium/i },
   { id: "premium-included-in-49", re: /Everything in Opt-Out Premium/i },
@@ -47,7 +58,11 @@ export const RULES = [
   // Third review round (2026-11-01): 85% only with Credtent's standard terms in the same sentence; audits are an
   // enrollment, not a present-tense service (LD-067 item 6); the product-name and 24/7 rules from the redesign copy check.
   // A bare stat numeral ("85%" above its label) is not a sentence; the label next to it carries the qualifier.
-  { id: "85-without-standard-terms", test: (text) => text.split(/(?<=[.?!])\s+/).some((x) => /\b85\s?(%|percent)/i.test(x) && x.trim().split(/\s+/).length > 2 && !/standard terms/i.test(x)) },
+  { id: "85-without-standard-terms", test: (text) => text.split(/(?<=[.?!])\s+/).some((x) => {
+    // A bare figure or price label ("85%", "85/15 + premium") is not a statement; anything with two words is.
+    const words = x.split(/\s+/).filter((w) => /[a-z]/i.test(w)).length;
+    return words >= 2 && ((/\b85\s?(%|percent)/i.test(x) && !/standard terms/i.test(x)) || (/\b85\/15\b/.test(x) && !/\bstandard\b/i.test(x)));
+  }) },
   { id: "present-tense-audits", re: /\bCredtent (also )?audits AI models\b|\baudits AI models periodically\b/i },
   { id: "product-name", re: /Credtent Aegis/i },
   { id: "round-the-clock", re: /24\/7|around-the-clock/i }
@@ -59,14 +74,13 @@ const ruleHit = (r, text) => (r.test ? r.test(text) : r.re.test(text));
 export const decode = (s) => decodeAll(s).normalize("NFKC").replace(/\p{Cf}/gu, "");
 
 const TAG = /<(?:[^>"']|"[^"]*"|'[^']*')*>/g;
-const INLINE = "a|abbr|b|bdi|bdo|cite|code|em|font|i|kbd|label|mark|q|s|samp|small|span|strong|sub|sup|time|u|var|wbr";
+// Block elements end a sentence; every other tag (inline, custom or unknown) is removed with no gap.
+const BLOCK = "p|div|li|h[1-6]|section|article|header|footer|nav|aside|main|td|th|dd|dt|dl|figure|figcaption|blockquote|tr|ul|ol|table|form|fieldset|details|summary|pre|hr|br|address|body|html|head|title|option|button";
 export function visibleText(html) {
   return decode(html
     .replace(/<script[\s\S]*?<\/script>/gi, " ").replace(/<style[\s\S]*?<\/style>/gi, " ").replace(/<!--[\s\S]*?-->/g, " ")
-    // Inline tags render no gap, so they are removed without one; only block boundaries end a sentence.
-    .replace(new RegExp(`</?(?:${INLINE})\\b(?:[^>"']|"[^"]*"|'[^']*')*>`, "gi"), "")
-    .replace(/<\/(p|div|li|h[1-6]|section|article|header|footer|nav|aside|td|th|dd|dt|figcaption|blockquote|tr|ul|ol|table)>|<br\s*\/?>/gi, " . ")
-    .replace(TAG, " "));
+    .replace(new RegExp(`</?(?:${BLOCK})\\b(?:[^>"']|"[^"]*"|'[^']*')*>`, "gi"), " . ")
+    .replace(TAG, ""));
 }
 
 function jsonStrings(value, out = []) {
@@ -76,9 +90,11 @@ function jsonStrings(value, out = []) {
   return out;
 }
 
-const cssContent = (css) => [...css.matchAll(/content\s*:\s*(["'])((?:\\.|(?!\1).)*)\1/g)]
-  .map((m) => decode(m[2].replace(/\\([0-9a-f]{1,6}) ?/gi, (_, h) => String.fromCodePoint(parseInt(h, 16))))).join(" . ");
-const jsStrings = (js) => [...js.matchAll(/`((?:\\.|[^`])*)`|"((?:\\.|[^"\n])*)"|'((?:\\.|[^'\n])*)'/g)]
+// Every string in every CSS content value (a value may hold several), escapes decoded.
+const cssContent = (css) => [...css.matchAll(/content\s*:\s*([^;}]*)/g)]
+  .map((m) => [...m[1].matchAll(/(["'])((?:\\.|(?!\1).)*)\1/g)].map((x) => x[2]).join(""))
+  .map((t) => decode(t.replace(/\\([0-9a-f]{1,6}) ?/gi, (_, h) => String.fromCodePoint(parseInt(h, 16))))).join(" . ");
+const jsStrings = (js) => [...js.replace(/["'`]\s*\+\s*["'`]/g, "").matchAll(/`((?:\\.|[^`])*)`|"((?:\\.|[^"\n])*)"|'((?:\\.|[^'\n])*)'/g)]
   .map((m) => (m[1] ?? m[2] ?? m[3]).replace(/\\u\{([0-9a-f]+)\}|\\u([0-9a-f]{4})|\\x([0-9a-f]{2})/gi, (_, a, b, c) => String.fromCodePoint(parseInt(a || b || c, 16)))).join(" . ");
 
 // Visible text, every attribute value except URLs, every JSON-LD string, inline script string literals and CSS
@@ -131,9 +147,16 @@ function configList(root, key) {
   return out;
 }
 export const jekyllExcludes = (root = ROOT) => configList(root, "exclude");
+// Jekyll keeps only the last of duplicated top-level keys; this parser would merge them, so duplicates fail.
+export function configDuplicates(root = ROOT) {
+  const cfg = path.join(root, "_config.yml");
+  if (!fs.existsSync(cfg)) return [];
+  const keys = fs.readFileSync(cfg, "utf8").split("\n").map((l) => (l.match(/^([A-Za-z_][\w-]*):/) || [])[1]).filter(Boolean);
+  return keys.filter((k, i) => keys.indexOf(k) !== i);
+}
 
 function tracked(root) {
-  try { return execFileSync("git", ["-C", root, "ls-files", "-z"], { encoding: "utf8" }).split("\0").filter(Boolean); }
+  try { return execFileSync("git", ["-C", root, "ls-files", "-z"], { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).split("\0").filter(Boolean); }
   catch {
     const out = [];
     const walk = (dir) => { for (const e of fs.readdirSync(dir, { withFileTypes: true })) { if (e.name === ".git") continue; const p = path.join(dir, e.name); if (e.isDirectory()) walk(p); else out.push(path.relative(root, p).split(path.sep).join("/")); } };
@@ -142,38 +165,73 @@ function tracked(root) {
   }
 }
 
-export function served(root = ROOT) {
-  const excludes = jekyllExcludes(root);
+// What is published. Pages: every tracked file except _config.yml excludes (include always wins). The S3 sync
+// in deploy-main.yml publishes everything except .git/, .github/ and README.md, excluded files included, so the
+// name scan reads every tracked file; the claim rules follow the Pages view.
+export function served(root = ROOT, { forNames = false } = {}) {
+  const excludes = forNames ? [] : jekyllExcludes(root);
   const includes = configList(root, "include");
   const under = (rel, x) => rel === x || rel.startsWith(`${x}/`);
   return tracked(root).filter((rel) => {
-    if (rel.startsWith(".github/") || rel.startsWith(".git/") || rel === "_config.yml") return false;
+    if (rel.startsWith(".git/")) return false;
     if (includes.some((x) => under(rel, x))) return true;
+    if (rel.startsWith(".github/")) return false;
     return !excludes.some((x) => under(rel, x));
   }).sort();
 }
 
-const isBinary = (buf) => buf.subarray(0, 8192).includes(0);
+const MAGIC = [[0x89, 0x50, 0x4e, 0x47], [0xff, 0xd8, 0xff], [0x47, 0x49, 0x46, 0x38], [0x25, 0x50, 0x44, 0x46], [0x50, 0x4b, 0x03, 0x04], [0x52, 0x49, 0x46, 0x46], [0x00, 0x00, 0x00]];
+const isBinary = (rel, buf) => BINARY_EXT.test(rel) || (!TEXT_EXT.test(rel) && MAGIC.some((m) => m.every((b, i) => buf[i] === b)));
+// UTF-16 and UTF-32 with a byte-order mark are decoded as browsers do; otherwise UTF-8.
+function readText(buf) {
+  if (buf[0] === 0xff && buf[1] === 0xfe && buf[2] === 0 && buf[3] === 0) return { text: decodeUtf32(buf.subarray(4), true), bom: true };
+  if (buf[0] === 0 && buf[1] === 0 && buf[2] === 0xfe && buf[3] === 0xff) return { text: decodeUtf32(buf.subarray(4), false), bom: true };
+  if (buf[0] === 0xff && buf[1] === 0xfe) return { text: new TextDecoder("utf-16le").decode(buf.subarray(2)), bom: true };
+  if (buf[0] === 0xfe && buf[1] === 0xff) return { text: new TextDecoder("utf-16be").decode(buf.subarray(2)), bom: true };
+  return { text: new TextDecoder("utf-8").decode(buf), bom: false };
+}
+function decodeUtf32(b, le) {
+  let out = "";
+  for (let i = 0; i + 3 < b.length; i += 4) out += String.fromCodePoint(le ? b.readUInt32LE(i) : b.readUInt32BE(i));
+  return out;
+}
+const sha256 = (buf) => crypto.createHash("sha256").update(buf).digest("hex");
 
 export function run({ env = process.env, localFile = LOCAL_FILE, root = ROOT } = {}) {
   const fails = [];
   const names = loadPrivateNames(env, localFile);
   if (names.missing) fails.push(MISSING_MESSAGE);
-  for (const rel of served(root)) {
+  for (const k of configDuplicates(root)) fails.push(`_config.yml:0: duplicate-top-level-key (${k})`);
+  const claimSet = new Set(served(root));
+  for (const rel of served(root, { forNames: true })) {
     if (!names.missing && findNames(rel, [rel, `root/${rel}`], names).length) fails.push(`${rel}:0: private-name-in-path`);
     const buf = fs.readFileSync(path.join(root, rel));
-    if (isBinary(buf)) continue;
-    const raw = buf.toString("utf8");
+    if (isBinary(rel, buf)) continue;
+    let { text: raw, bom } = readText(buf);
+    if (raw.includes("\0")) {
+      // A NUL byte in a text file is not a reason to skip it: report it and scan the rest.
+      if (!bom) fails.push(`${rel}:0: nul-byte-in-text`);
+      raw = raw.replace(/\0/g, "");
+    }
     if (!names.missing) {
       const found = findNames(raw, [rel, `root/${rel}`], names);
       for (const line of found.length ? nameLines(raw, names, found) : []) fails.push(`${rel}:${line}: private-name`);
     }
-    if (/^---\s*\n/.test(raw) && /\{\{|\{%/.test(raw)) fails.push(`${rel}:0: liquid-needs-review`);
-    if (EXEMPT.has(rel) || !CLAIMS.test(rel)) continue;
+    // Liquid renders in _layouts, _includes and _sass, and in Markdown and HTML with or without front matter.
+    if ((/^_(layouts|includes|sass)\//.test(rel) || /\.(md|markdown|html?)$/i.test(rel)) && /\{\{|\{%/.test(raw)) fails.push(`${rel}:0: liquid-needs-review`);
+    // Text assembled by script at render time is beyond what this gate can evaluate; a person reviews it.
+    if (/\.(html?|js|mjs)$/i.test(rel) && /\batob\(|fromCodePoint\(|fromCharCode\(|\.split\([^)]*\)\.reverse\(\)|["'`]\.concat\(/.test(raw)) fails.push(`${rel}:0: render-time-text-needs-review`);
+    if (EXEMPT.has(rel)) {
+      if (sha256(buf) !== EXEMPT.get(rel)) fails.push(`${rel}:0: exempt-page-changed (re-review, then update its pin)`);
+      continue;
+    }
+    if (!claimSet.has(rel) || !CLAIMS.test(rel)) continue;
     const text = claimText(rel, raw);
     for (const r of RULES) if (ruleHit(r, text)) fails.push(`${rel}:${lineOf(raw, r)}: ${r.id}`);
+    if (/\.html?$/i.test(rel) && /"price"\s*:\s*"?249"?\b/.test(raw)) fails.push(`${rel}:0: superseded-249`);
   }
-  return fails;
+  // Never print a path, URL or line that names a listed entry: such text is replaced by a short hash.
+  return fails.map((f) => redactLine(f, names));
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

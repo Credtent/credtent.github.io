@@ -32,12 +32,17 @@ test("claim failures print no page text", () => {
 test("coverage: _config.yml excludes are skipped; underscore, dot and unlisted files are scanned; include wins", () => {
   const root = tmp({ "_config.yml": "exclude:\n  - drafts\ninclude:\n  - drafts/keep.md\n", "drafts/x.md": "x", "drafts/keep.md": "k", ".well-known/y.txt": "y", "_includes/z.html": "z", "data.csv": "a,b", ".github/w.yml": "w" });
   assert.deepEqual(jekyllExcludes(root), ["drafts"]);
-  assert.deepEqual(served(root), [".well-known/y.txt", "_includes/z.html", "data.csv", "drafts/keep.md"]);
+  assert.deepEqual(served(root), [".well-known/y.txt", "_config.yml", "_includes/z.html", "data.csv", "drafts/keep.md"]);
+  // The name scan follows the S3 sync, which publishes excluded files too.
+  assert.ok(served(root, { forNames: true }).includes("drafts/x.md"));
 });
 test("names in paths, includes, Markdown, CSV and escaped JSON are found; Liquid needs review", () => {
   const root = tmp({ "case-studies/acmeworks/index.html": "<p>ok</p>", "_includes/footer.html": "<p>Acmeworks</p>", "page.markdown": "Acmeworks", "data.csv": "x,Acmeworks", "data.json": '{"n":"\\u0041cmeworks"}', "liq.html": '---\n---\n<p>{{ "Acme" | append: "works" }}</p>' });
   const fails = run({ env: { CREDTENT_REVIEW_NAMES: LIST }, localFile: null, root });
-  for (const f of ["case-studies/acmeworks/index.html:0: private-name-in-path", "_includes/footer.html:1: private-name", "page.markdown:1: private-name", "data.csv:1: private-name", "data.json:1: private-name", "liq.html:0: liquid-needs-review", "liq.html:3: private-name"]) assert.ok(fails.includes(f), f);
+  for (const f of ["_includes/footer.html:1: private-name", "page.markdown:1: private-name", "data.csv:1: private-name", "data.json:1: private-name", "liq.html:0: liquid-needs-review", "liq.html:3: private-name"]) assert.ok(fails.includes(f), f);
+  // A path that names a listed entry is printed only as a short hash.
+  assert.ok(fails.some((f) => /^\[redacted:[0-9a-f]{12}\]:0: private-name-in-path$/.test(f)));
+  assert.ok(fails.every((f) => !/acmeworks/i.test(f)));
 });
 test("markup that renders the same does not hide a claim", () => {
   assert.ok(hit("<p>The opt-out is al<b>ways</b> free.</p>", "free-forever-promise"));
@@ -74,4 +79,27 @@ test("names hide in comments, scripts, data attributes, entities and split strin
   for (const raw of ["<!-- Example Corp -->", "<script>x='Example Corp'</script>", '<i data-x="Example Corp">', "Exa&#x6d;ple Corp", "Exam​ple Corp", "Ex<b>ample</b> Corp", '"Example" + " Corp"']) {
     assert.equal(findNames(raw, ["a.html"], list).length, 1, raw);
   }
+});
+
+test("round four: UTF-16, NUL bytes, duplicate config keys, Liquid without front matter, render-time text", () => {
+  const root = tmp({ "_config.yml": "exclude: [a]\nexclude: [b]\n", "plain.md": "{{ site.title }}", "s.html": "<script>t=atob('QQ==')</script>" });
+  fs.writeFileSync(path.join(root, "utf16.html"), Buffer.concat([Buffer.from([0xff, 0xfe]), Buffer.from("<p>Acmeworks</p>", "utf16le")]));
+  fs.writeFileSync(path.join(root, "nul.html"), "<p>ok<!-- \0 --> Acmeworks</p>");
+  const fails = run({ env: { CREDTENT_REVIEW_NAMES: LIST }, localFile: null, root });
+  for (const f of ["_config.yml:0: duplicate-top-level-key (exclude)", "plain.md:0: liquid-needs-review", "s.html:0: render-time-text-needs-review", "utf16.html:1: private-name", "nul.html:0: nul-byte-in-text", "nul.html:1: private-name"]) assert.ok(fails.includes(f), f);
+});
+test("exempt live pages are pinned: any change fails until the pin is reviewed", () => {
+  const root = tmp({ "lws.html": "<p>changed</p>" });
+  assert.ok(run({ env: { CREDTENT_REVIEW_NAMES: LIST }, localFile: null, root }).some((f) => f.startsWith("lws.html:0: exempt-page-changed")));
+});
+test("85/15 statements need the standard qualifier; bare figures do not", () => {
+  assert.ok(hit("<p>Payments follow the 85/15 split.</p>", "85-without-standard-terms"));
+  assert.ok(!hit("<p>Payments follow the standard 85/15 split.</p>", "85-without-standard-terms"));
+  assert.ok(!hit('<div><span>85/15</span><span>+ premium</span></div>', "85-without-standard-terms"));
+  assert.ok(hit("<p>a \u2015 b</p>", "em-dash"));
+});
+test("the names list ignores a local file in CI and counts unique entries", async () => {
+  const { loadPrivateNames } = await import("./private-names.mjs");
+  assert.equal(loadPrivateNames({ CI: "true", CREDTENT_REVIEW_NAMES: "" }).missing, true);
+  assert.equal(loadPrivateNames({ CREDTENT_REVIEW_NAMES: Array(12).fill("Same Name").join("\n") }).missing, true);
 });
