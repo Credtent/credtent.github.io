@@ -30,10 +30,9 @@ jobs:
         run: |
           printf '%s\n' "$CREDTENT_REVIEW_NAMES" | tr '|' '\n' | while IFS= read -r line; do
             entry="$(printf '%s' "$line" | sed -E 's/^(allow|drop|block|strip):[[:space:]]*//; s/^[^ ]+ //; s/^[[:space:]]+|[[:space:]]+$//g')"
-            [ -n "$line" ] && echo "::add-mask::$line"
-            [ -n "$entry" ] && echo "::add-mask::$entry"
+            if [ -n "$line" ]; then echo "::add-mask::$line"; fi
+            if [ -n "$entry" ]; then echo "::add-mask::$entry"; fi
           done
-          true
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
