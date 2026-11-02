@@ -28,6 +28,8 @@ const ORG_WITHHELD = [
 
 function staysNoindex(rel) {
   if (rel === "404.html" || rel.startsWith("parking/")) return true;
+  // The upcoming terms (EB 2026-11-01) and /lws (legal hold item 11) stay out of search in production too.
+  if (rel.startsWith("terms-of-service/upcoming/") || rel === "lws/index.html") return true;
   if (HIDDEN_RESOURCES.some((item) => rel === `${item.slice(1)}/index.html`)) return true;
   if (ORG_WITHHELD.some((item) => rel === `${item.slice(1)}/index.html`)) return true;
   return false;

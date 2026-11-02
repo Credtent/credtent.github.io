@@ -8,7 +8,7 @@ import { ADDRESS_HTML, CAPSULE, LICENSE_SENTENCE } from "./lib/copy.mjs";
 import { orgPages } from "./lib/org.mjs";
 import { ORG_ID, creditLine, renderPage } from "./lib/render.mjs";
 import { securityHeaders } from "./lib/security-headers.mjs";
-import { REVISED_TERMS_EFFECTIVE, UPCOMING_TERMS_PATH, VERBATIM_START, VERBATIM_END, reviseTerms } from "./lib/terms.mjs";
+import { TERMS_SWAP, UPCOMING_TERMS_PATH, VERBATIM_START, VERBATIM_END, reviseTerms, termsGuard, liveTermsParts } from "./lib/terms.mjs";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const REPO = path.resolve(ROOT, "..");
@@ -262,13 +262,15 @@ function legacyPage(site, file, pagePath, opts = {}) {
     // No permanent free promise on any page (Cherryh, EB-approved 2026-11-01); the live parking/lws.html is untouched.
     body = body.replace("Basic protection is always free, no credit card required.", "Basic protection is free, with no credit card required. Credtent does not plan to charge for the free opt-out.");
   }
+  const termsParts = opts.terms ? liveTermsParts(fs.readFileSync(path.join(REPO, file), "utf8")) : null;
   if (opts.terms === "current") {
-    // The current terms, verbatim (EB 2026-11-01): link targets are rewritten, the text is not scrubbed.
-    const current = rewriteLinks(extracted.body, site.origin).replace(/<h1\b[\s\S]*?<\/h1>/i, "");
-    body = `${VERBATIM_START}${current}${VERBATIM_END}`;
+    // The current terms, verbatim (EB 2026-11-01): link targets are rewritten, the text is not scrubbed. The
+    // live hero's eyebrow and summary render once, in the page header, instead of a second intro.
+    body = `${VERBATIM_START}${rewriteLinks(termsParts.body, site.origin)}${VERBATIM_END}`;
   } else if (opts.terms === "revised") {
-    // Cherryh's revised terms (EB-approved 2026-11-01), with the effective date or its placeholder.
-    body = reviseTerms(body);
+    // Cherryh's revised terms (EB-approved 2026-11-01), built from the same unscrubbed source so only the
+    // approved changes differ from the current terms (the address lines stay as they are).
+    body = reviseTerms(rewriteLinks(termsParts.body, site.origin));
   }
   if (pagePath === "/privacy-policy") {
     body = body.replace(
@@ -284,9 +286,9 @@ function legacyPage(site, file, pagePath, opts = {}) {
     trailingSlash: pagePath.endsWith("/"),
     title: opts.title || title || "Credtent",
     description: opts.description || description || "Credtent page.",
-    eyebrow: opts.eyebrow || "From the current site",
+    eyebrow: opts.terms === "current" ? termsParts.eyebrow : opts.eyebrow || "From the current site",
     h1: opts.h1 || opts.title || "Credtent",
-    capsule: opts.capsule || description || "Ported page.",
+    capsule: opts.terms === "current" ? termsParts.capsule.replace(/&#39;/g, "'") : opts.capsule || description || "Ported page.",
     noindex: Boolean(opts.noindex) || pagePath.startsWith("/parking"),
     crumbs: [{ name: opts.crumb || "Page", href: site.origin + pagePath }],
     faq: opts.faq || [],
@@ -504,7 +506,7 @@ function vercel(site, pages) {
     ]) headers.push(noindexHeader(source));
   }
   // The upcoming terms page stays out of search until the swap (EB 2026-11-01, src/lib/terms.mjs).
-  if (!REVISED_TERMS_EFFECTIVE) for (const source of [UPCOMING_TERMS_PATH, `${UPCOMING_TERMS_PATH}/`]) headers.push(noindexHeader(source));
+  if (!TERMS_SWAP) for (const source of [UPCOMING_TERMS_PATH, `${UPCOMING_TERMS_PATH}/`, `${UPCOMING_TERMS_PATH}/index.html`]) headers.push(noindexHeader(source));
   // /creative-origin stays a page on this host. Do not send it to the registry until Eric decides.
   // /partners is withheld (302 to home) so the path can return after names are reconfirmed.
   const specific = site.id === "org" ? [
@@ -546,7 +548,7 @@ function vercel(site, pages) {
     redirectRule("/parking/services/", "https://credtent.com/services", 301)
   ] : [];
   // After the swap the old upcoming URL lands on the terms now in effect.
-  const termsSwap = REVISED_TERMS_EFFECTIVE ? [UPCOMING_TERMS_PATH, `${UPCOMING_TERMS_PATH}/`].map((source) => redirectRule(source, `${site.origin}/terms-of-service`, 301)) : [];
+  const termsSwap = TERMS_SWAP ? [UPCOMING_TERMS_PATH, `${UPCOMING_TERMS_PATH}/`, `${UPCOMING_TERMS_PATH}/index.html`].map((source) => redirectRule(source, `${site.origin}/terms-of-service`, 301)) : [];
   const partners = [...holdPartners(), ...termsSwap];
   const reserved = new Set([...specific, ...partners].map((rule) => rule.source));
   const redirects = [...specific, ...slashRedirects(site, pages, reserved), ...partners];
@@ -559,6 +561,8 @@ function reset(dir) {
 }
 
 async function main() {
+  const termsErrors = termsGuard();
+  if (termsErrors.length) throw new Error(`terms settings: ${termsErrors.join("; ")}`);
   const imagesFor = {};
   for (const site of Object.values(SITES)) {
     reset(site.dir);
@@ -581,7 +585,7 @@ async function main() {
       intro: `<p>Last updated April 9, 2025. Privacy questions go to <a href="mailto:hello@credtent.org">hello@credtent.org</a>.</p>${ADDRESS_HTML}`
     }),
     legacyPage(SITES.com, "terms-of-service.html", "/terms-of-service", {
-      terms: REVISED_TERMS_EFFECTIVE ? "revised" : "current",
+      terms: TERMS_SWAP ? "revised" : "current",
       title: `Terms of Service | ${hostLabel(SITES.com)}`,
       description: "These terms govern use of credtent.com, Credtent's site for content owners and AI companies, including the services described on these pages.",
       h1: "Terms of Service",
@@ -589,7 +593,7 @@ async function main() {
       capsule: "The agreement governing use of Credtent's website, platform, and services.",
       crumb: "Terms of Service"
     }),
-    ...(REVISED_TERMS_EFFECTIVE ? [] : [legacyPage(SITES.com, "terms-of-service.html", UPCOMING_TERMS_PATH, {
+    ...(TERMS_SWAP ? [] : [legacyPage(SITES.com, "terms-of-service.html", UPCOMING_TERMS_PATH, {
       // PROPOSED copy (Vonnegut): the revised terms before their effective date. Noindex and linked from nowhere.
       terms: "revised",
       noindex: true,
@@ -630,7 +634,7 @@ async function main() {
       intro: ADDRESS_HTML
     }),
     legacyPage(SITES.org, "terms-of-service.html", "/terms-of-service", {
-      terms: REVISED_TERMS_EFFECTIVE ? "revised" : "current",
+      terms: TERMS_SWAP ? "revised" : "current",
       title: `Terms of Service | ${hostLabel(SITES.org)}`,
       description: "These terms govern use of credtent.org, including the free opt-out, Creative Consent, and the other resources Credtent publishes for creatives.",
       h1: "Terms of Service",
@@ -638,7 +642,7 @@ async function main() {
       capsule: "The agreement governing use of Credtent's website, platform, and services.",
       crumb: "Terms of Service"
     }),
-    ...(REVISED_TERMS_EFFECTIVE ? [] : [legacyPage(SITES.org, "terms-of-service.html", UPCOMING_TERMS_PATH, {
+    ...(TERMS_SWAP ? [] : [legacyPage(SITES.org, "terms-of-service.html", UPCOMING_TERMS_PATH, {
       // PROPOSED copy (Vonnegut): the revised terms before their effective date. Noindex and linked from nowhere.
       terms: "revised",
       noindex: true,

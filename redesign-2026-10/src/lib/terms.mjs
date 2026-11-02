@@ -6,14 +6,19 @@
 // (EB-approved 2026-11-01) are served at /terms-of-service/upcoming: noindex, out of the sitemap and
 // llms.txt, and linked from nowhere.
 //
-// The swap, on the effective date (30 days after the section 12 notice email): set
-// REVISED_TERMS_EFFECTIVE to the date as it should read on the page (for example "December 15, 2026"),
-// rebuild, run the checks, and deploy. The revised text then serves at /terms-of-service with that date,
-// and /terms-of-service/upcoming 301s to it. scripts/check-launch.mjs enforces both states.
+// Three recorded settings drive the swap:
+// - TERMS_NOTICE_SENT: the date (YYYY-MM-DD) the section 12 notice email went out.
+// - REVISED_TERMS_DATE: the effective date as it reads on the page (for example "December 15, 2026").
+//   It must be at least 30 days after the notice. Once set, the upcoming page shows it instead of the placeholder.
+// - TERMS_SWAP: true only on or after that date. The revised text then serves at /terms-of-service and
+//   /terms-of-service/upcoming 301s to it. termsGuard() refuses an early or unnoticed swap; the build and
+//   scripts/check-launch.mjs both run it.
 
 export const CURRENT_TERMS_FILE = "terms-of-service.html";
 export const CURRENT_TERMS_EFFECTIVE = "May 27, 2025";
-export const REVISED_TERMS_EFFECTIVE = "";
+export const TERMS_NOTICE_SENT = "";
+export const REVISED_TERMS_DATE = "";
+export const TERMS_SWAP = false;
 export const UPCOMING_TERMS_PATH = "/terms-of-service/upcoming";
 export const DATE_PLACEHOLDER = "EFFECTIVE-DATE-PENDING (30 days after the section 12 notice email)";
 export const VERBATIM_START = "<!--legal:" + "current-terms:start-->";
@@ -32,8 +37,25 @@ export const REVISED_CHANGES = [
     '<a href="mailto:hello@credtent.org" style="color:var(--c-purple)">hello@credtent.org</a>']
 ];
 
+/**
+ * Split the live terms page into its intro (eyebrow and one-line summary from the page hero) and the legal
+ * body. Site chrome (nav and footer placeholders, scripts, styles) and the hero are removed from the body; the
+ * new pages render the same eyebrow and summary once, in their own header.
+ */
+export function liveTermsParts(raw) {
+  let body = (raw.split(/<body[^>]*>/i)[1] || "").split(/<\/body>/i)[0];
+  body = body.replace(/<div id="nav-placeholder"[\s\S]*?<\/div>/i, "").replace(/<div id="footer-placeholder"[\s\S]*$/i, "")
+    .replace(/<script[\s\S]*?<\/script>/gi, "").replace(/<style[\s\S]*?<\/style>/gi, "");
+  const hero = body.match(/<section class="page-hero"[\s\S]*?<\/section>/i);
+  if (!hero) throw new Error("terms-of-service: page hero not found");
+  const eyebrow = (hero[0].match(/<div class="eyebrow">([^<]*)<\/div>/) || [])[1];
+  const capsule = (hero[0].match(/<p>([^<]*)<\/p>/) || [])[1];
+  if (!eyebrow || !capsule) throw new Error("terms-of-service: hero eyebrow or summary not found");
+  return { eyebrow, capsule, body: body.replace(hero[0], "") };
+}
+
 /** Apply the revised changes and the effective date to a terms body. Throws if any source text is missing. */
-export function reviseTerms(body, effective = REVISED_TERMS_EFFECTIVE || DATE_PLACEHOLDER) {
+export function reviseTerms(body, effective = REVISED_TERMS_DATE || DATE_PLACEHOLDER) {
   const changes = [[`Effective Date: ${CURRENT_TERMS_EFFECTIVE}`, `Effective Date: ${effective}`], ...REVISED_CHANGES];
   for (const [from, to] of changes) {
     if (!body.includes(from)) throw new Error(`terms-of-service: expected text not found: ${from.slice(0, 60)}`);
@@ -52,4 +74,20 @@ export function termsText(html) {
     .split("\n")
     .map((line) => line.replace(/\s+/g, " ").trim())
     .filter(Boolean);
+}
+
+/** Errors that make the recorded terms settings unsafe to build or ship. Empty when they are consistent. */
+export function termsGuard(today = new Date(), cfg = { TERMS_NOTICE_SENT, REVISED_TERMS_DATE, TERMS_SWAP }) {
+  const errors = [];
+  const day = 24 * 60 * 60 * 1000;
+  const notice = /^\d{4}-\d{2}-\d{2}$/.test(cfg.TERMS_NOTICE_SENT) ? Date.parse(`${cfg.TERMS_NOTICE_SENT}T00:00:00Z`) : NaN;
+  const effective = cfg.REVISED_TERMS_DATE ? Date.parse(`${cfg.REVISED_TERMS_DATE} 00:00:00 UTC`) : NaN;
+  if (cfg.REVISED_TERMS_DATE || cfg.TERMS_SWAP) {
+    if (Number.isNaN(notice)) errors.push("TERMS_NOTICE_SENT is not a recorded YYYY-MM-DD date");
+    if (Number.isNaN(effective)) errors.push("REVISED_TERMS_DATE is not a readable date");
+    if (!Number.isNaN(notice) && !Number.isNaN(effective) && effective - notice < 30 * day) errors.push("REVISED_TERMS_DATE is less than 30 days after TERMS_NOTICE_SENT (section 12)");
+  }
+  if (cfg.TERMS_SWAP && !Number.isNaN(effective) && effective > today.getTime()) errors.push("TERMS_SWAP is on before REVISED_TERMS_DATE");
+  if (cfg.TERMS_SWAP && !cfg.REVISED_TERMS_DATE) errors.push("TERMS_SWAP is on without REVISED_TERMS_DATE");
+  return errors;
 }
