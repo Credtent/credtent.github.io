@@ -103,3 +103,8 @@ test("the names list ignores a local file in CI and counts unique entries", asyn
   assert.equal(loadPrivateNames({ CI: "true", CREDTENT_REVIEW_NAMES: "" }).missing, true);
   assert.equal(loadPrivateNames({ CREDTENT_REVIEW_NAMES: Array(12).fill("Same Name").join("\n") }).missing, true);
 });
+test("rules ported from the new-sites gate: whatever the deal size; every deal near 85% needs standard terms", () => {
+  assert.ok(hit("<p>Royalties are paid quarterly, whatever the deal size.</p>", "every-contract-split"));
+  assert.ok(hit("<p>Owners get every deal at 85% of revenue.</p>", "every-contract-or-no-exceptions"));
+  assert.ok(!hit("<p>Owners approve every deal before it executes, receive 85% of gross licensing revenue under standard terms.</p>", "every-contract-or-no-exceptions"));
+});

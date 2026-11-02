@@ -52,7 +52,12 @@ export const RULES = [
   { id: "superseded-249", re: /\$\s?249\b/ },
   // 85/15 is Credtent's standard terms, not every deal; the WGA discount is screenplay-only and WGA West-only.
   { id: "85-every-deal", re: /85\s?%\s+of\s+(every|all)\b|\bevery\s+(licensing\s+)?deal\s+(Credtent|we)\s+closes?\s+(sends|routes|pays|returns)\s+85|85\s?%\s+of\s+gross\s+revenue\s+from\s+every\b|85\s?%\s+on\s+every\b/i },
-  { id: "every-contract-or-no-exceptions", re: /\bevery contract\b|\bNo exceptions\b|\breturns 85\s?%/i },
+  // "Every deal" near 85% is a claim about every deal unless the sentence says standard terms
+  // ("approve every deal ... receive 85% ... under standard terms" is not).
+  { id: "every-contract-or-no-exceptions", test: (text) => /\bevery contract\b|\bNo exceptions\b|\breturns 85\s?%/i.test(text) ||
+    text.split(/(?<=[.?!])\s+/).some((x) => /\bevery deal\b[^.<]{0,60}\b85\s?%/i.test(x) && !/standard terms/i.test(x)) },
+  // Ported from the new-sites launch gate so both gates agree (claims removed in #23).
+  { id: "every-contract-split", re: /written into every|whatever the deal size|built in, not aspirational/i },
   { id: "wga-discount-widened", re: /WGA members receive a discount|discount on certification fees|^WGA members:/i },
   { id: "lowercase-brand", re: /(^|[\s(,;:])credtent(?![.\-@/\w])/ },
   // Third review round (2026-11-01): 85% only with Credtent's standard terms in the same sentence; audits are an
