@@ -3,6 +3,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { CURRENT_TERMS_FILE, CURRENT_TERMS_EFFECTIVE, REVISED_TERMS_EFFECTIVE, UPCOMING_TERMS_PATH, DATE_PLACEHOLDER, VERBATIM_START, VERBATIM_END, REVISED_CHANGES, termsText } from "../src/lib/terms.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dirs = {
@@ -37,9 +38,7 @@ export const BANNED = [
   { id: "leading-authority", re: /leading authority/i },
   // Cherryh 2026-11-01, EB-approved: no permanent free promise; only "Credtent does not plan to charge for the free opt-out."
   { id: "free-forever-promise", re: /always free|free,? always|(will )?stays? free|always will be|free forever|\$0<\/span>\s*forever/i },
-  { id: "pbc-legal-duty-claim", re: /legally obligat\w*/i },
-  // The revised terms take effect 30 days after the section 12 notice email; the date is set when it is sent.
-  { id: "tos-effective-date-placeholder", re: /EFFECTIVE-DATE-PENDING/ }
+  { id: "pbc-legal-duty-claim", re: /legally obligat\w*/i }
 ];
 // Hard launch preconditions that no file can prove. Each needs an explicit, dated confirmation in the environment.
 export const PRECONDITIONS = [
@@ -96,6 +95,71 @@ function resolves(site, urlPath) {
   return site.redirects.some((src) => src === `/${p}` || src === `/${bare}` || (src.includes("(") && new RegExp(`^${src}$`).test(`/${p}`)));
 }
 
+// EB 2026-11-01: until the swap, /terms-of-service is the current terms verbatim and the revised text lives
+// only on the noindex, unlinked upcoming page. After the swap the revised text, with its date, is the main page.
+export function checkTerms(sites, fails) {
+  const repo = path.resolve(ROOT, "..");
+  const liveRaw = fs.readFileSync(path.join(repo, CURRENT_TERMS_FILE), "utf8");
+  // The live page's nav and footer placeholders hold site chrome (the crawlable footer link list), not terms.
+  const liveBody = (liveRaw.split(/<body[^>]*>/i)[1] || "").split(/<\/body>/i)[0]
+    .replace(/<div id="nav-placeholder"[\s\S]*?<\/div>/i, "")
+    .replace(/<div id="footer-placeholder"[\s\S]*$/i, "")
+    .replace(/<h1\b[\s\S]*?<\/h1>/i, "");
+  const liveText = termsText(liveBody);
+  // Distinctive revised sentences only; a short heading such as "Opt-Out Premium" also appears in site copy.
+  const revisedOnly = REVISED_CHANGES.map(([, to]) => termsText(to).join(" ")).filter((t) => t.length > 40);
+  const upcomingRel = UPCOMING_TERMS_PATH.replace(/^\//, "") + "/index.html";
+  for (const site of Object.values(sites)) {
+    const mainFile = path.join(site.dir, "terms-of-service/index.html");
+    if (!fs.existsSync(mainFile)) { fails.push(`${site.id}: /terms-of-service is missing`); continue; }
+    const main = fs.readFileSync(mainFile, "utf8");
+    const mainText = termsText(main).join(" ");
+    const upcomingFile = path.join(site.dir, upcomingRel);
+    if (!REVISED_TERMS_EFFECTIVE) {
+      const a = main.indexOf(VERBATIM_START), b = main.indexOf(VERBATIM_END);
+      if (a < 0 || b < a) fails.push(`${site.id}/terms-of-service: the current terms are not served verbatim (markers missing)`);
+      else {
+        const served = termsText(main.slice(a, b));
+        const diff = served.findIndex((line, i) => line !== liveText[i]);
+        if (served.length !== liveText.length || diff >= 0) fails.push(`${site.id}/terms-of-service: current terms differ from ${CURRENT_TERMS_FILE} at line ${diff >= 0 ? diff + 1 : Math.min(served.length, liveText.length) + 1}: "${(served[diff] || "").slice(0, 80)}"`);
+      }
+      if (!mainText.includes(`Effective Date: ${CURRENT_TERMS_EFFECTIVE}`)) fails.push(`${site.id}/terms-of-service: does not show Effective Date: ${CURRENT_TERMS_EFFECTIVE}`);
+      for (const needle of [...revisedOnly, "EFFECTIVE-DATE-PENDING"]) if (mainText.includes(needle)) fails.push(`${site.id}/terms-of-service: revised-only text before the swap: "${needle.slice(0, 70)}"`);
+      if (!fs.existsSync(upcomingFile)) { fails.push(`${site.id}: ${UPCOMING_TERMS_PATH} is missing`); continue; }
+      const up = fs.readFileSync(upcomingFile, "utf8");
+      const upText = termsText(up).join(" ");
+      if (!/<meta name="robots" content="noindex/i.test(up)) fails.push(`${site.id}${UPCOMING_TERMS_PATH}: not noindex`);
+      for (const needle of revisedOnly) if (!upText.includes(needle)) fails.push(`${site.id}${UPCOMING_TERMS_PATH}: missing revised text "${needle.slice(0, 70)}"`);
+      // EB card "Change to hello@" (2026-11-01): section 13 of the revised terms names hello@; the current terms keep info@ (verbatim).
+      if (up.includes("info@credtent.org") || !/13\. Contact[\s\S]*?mailto:hello@credtent\.org/.test(up)) fails.push(`${site.id}${UPCOMING_TERMS_PATH}: section 13 contact is not hello@credtent.org`);
+      for (const f of ["sitemap.xml", "llms.txt"]) {
+        const t = fs.readFileSync(path.join(site.dir, f), "utf8");
+        if (t.includes(UPCOMING_TERMS_PATH)) fails.push(`${site.id}/${f}: lists ${UPCOMING_TERMS_PATH}`);
+      }
+      const vj = fs.readFileSync(path.join(site.dir, "vercel.json"), "utf8");
+      if (!vj.includes(`"source": "${UPCOMING_TERMS_PATH}"`) && !vj.includes(`"source":"${UPCOMING_TERMS_PATH}"`)) fails.push(`${site.id}/vercel.json: no X-Robots-Tag rule for ${UPCOMING_TERMS_PATH}`);
+      for (const other of Object.values(sites)) {
+        for (const rel of other.files) {
+          if (!rel.endsWith(".html") || rel === upcomingRel) continue;
+          if (fs.readFileSync(path.join(other.dir, rel), "utf8").includes(UPCOMING_TERMS_PATH)) fails.push(`${other.id}/${rel}: links to ${UPCOMING_TERMS_PATH}`);
+        }
+      }
+    } else {
+      if (!mainText.includes(`Effective Date: ${REVISED_TERMS_EFFECTIVE}`)) fails.push(`${site.id}/terms-of-service: does not show Effective Date: ${REVISED_TERMS_EFFECTIVE}`);
+      for (const needle of revisedOnly) if (!mainText.includes(needle)) fails.push(`${site.id}/terms-of-service: missing revised text "${needle.slice(0, 70)}"`);
+      if (main.includes(VERBATIM_START) || mainText.includes("EFFECTIVE-DATE-PENDING")) fails.push(`${site.id}/terms-of-service: still the pre-swap page`);
+      if (fs.existsSync(upcomingFile)) fails.push(`${site.id}${UPCOMING_TERMS_PATH}: still built after the swap`);
+    }
+  }
+  // The placeholder may appear only on the upcoming page, and only before the swap.
+  for (const site of Object.values(sites)) {
+    for (const rel of site.files) {
+      if (!rel.endsWith(".html") || (!REVISED_TERMS_EFFECTIVE && rel === upcomingRel)) continue;
+      if (fs.readFileSync(path.join(site.dir, rel), "utf8").includes(DATE_PLACEHOLDER.split(" ")[0])) fails.push(`${site.id}/${rel}: effective-date placeholder outside the upcoming terms page`);
+    }
+  }
+}
+
 export function run() {
   const sites = { com: loadSite("com"), org: loadSite("org") };
   const fails = [];
@@ -108,7 +172,12 @@ export function run() {
     for (const rel of site.files) {
       if (!/\.(html|txt|xml|json|css|js)$/.test(rel) || rel.startsWith("fonts/")) continue;
       const raw = fs.readFileSync(path.join(site.dir, rel), "utf8");
-      const text = rel.endsWith(".html") ? visibleText(raw) + " " + (raw.match(/content="[^"]*"/g) || []).join(" ") : raw;
+      // The current terms are served verbatim (EB 2026-11-01); checkTerms proves that block equals the live
+      // page, so copy rules apply to everything outside it. The block may appear only on /terms-of-service.
+      const hasVerbatim = raw.includes(VERBATIM_START);
+      if (hasVerbatim && rel !== "terms-of-service/index.html") fails.push(`${site.id}/${rel}: verbatim terms block outside /terms-of-service`);
+      const checked = hasVerbatim ? raw.slice(0, raw.indexOf(VERBATIM_START)) + raw.slice(raw.indexOf(VERBATIM_END) + VERBATIM_END.length) : raw;
+      const text = rel.endsWith(".html") ? visibleText(checked) + " " + (checked.match(/content="[^"]*"/g) || []).join(" ") : checked;
       for (const b of BANNED) {
         const m = text.match(b.re);
         if (m) fails.push(`${site.id}/${rel}: ${b.id}: "${text.slice(Math.max(0, m.index - 50), m.index + 60).replace(/\s+/g, " ").trim()}"`);
@@ -144,6 +213,7 @@ export function run() {
       }
     }
   }
+  checkTerms(sites, fails);
   for (const p of LEGACY_ORG_PATHS) if (!resolves(sites.org, p)) fails.push(`org: legacy URL no longer resolves: ${p}`);
   for (const pre of PRECONDITIONS) {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(process.env[pre.env] || "")) fails.push(`precondition ${pre.env} not confirmed: ${pre.why}`);

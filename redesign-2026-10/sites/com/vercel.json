@@ -39,6 +39,24 @@
           "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://tally.so https://vercel.live; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://tally.so https://vercel.live; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com https://tally.so; style-src 'self' 'unsafe-inline'; font-src 'self'; frame-src https://tally.so https://vercel.live; frame-ancestors 'self'; form-action 'self' mailto:; base-uri 'self'; object-src 'none'"
         }
       ]
+    },
+    {
+      "source": "/terms-of-service/upcoming",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/terms-of-service/upcoming/",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
     }
   ],
   "redirects": [
@@ -105,6 +123,11 @@
     {
       "source": "/terms-of-service/",
       "destination": "https://credtent.com/terms-of-service",
+      "statusCode": 301
+    },
+    {
+      "source": "/terms-of-service/upcoming/",
+      "destination": "https://credtent.com/terms-of-service/upcoming",
       "statusCode": 301
     },
     {

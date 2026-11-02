@@ -156,6 +156,24 @@
           "value": "noindex, nofollow"
         }
       ]
+    },
+    {
+      "source": "/terms-of-service/upcoming",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/terms-of-service/upcoming/",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
     }
   ],
   "redirects": [
@@ -547,6 +565,11 @@
     {
       "source": "/terms-of-service/",
       "destination": "https://credtent.org/terms-of-service",
+      "statusCode": 301
+    },
+    {
+      "source": "/terms-of-service/upcoming/",
+      "destination": "https://credtent.org/terms-of-service/upcoming",
       "statusCode": 301
     },
     {

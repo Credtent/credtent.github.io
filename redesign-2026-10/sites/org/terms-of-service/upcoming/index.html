@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Terms of Service, upcoming revision | Credtent for creatives</title>
+  <meta name="description" content="A revised version of Credtent's terms of service that is not yet in effect.">
+  <link rel="canonical" href="https://credtent.org/terms-of-service/upcoming">
+  <meta property="og:title" content="Terms of Service, upcoming revision | Credtent for creatives">
+  <meta property="og:description" content="A revised version of Credtent's terms of service that is not yet in effect.">
+  <meta property="og:url" content="https://credtent.org/terms-of-service/upcoming">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://credtent.org/brand/logo-official.png">
+  <meta property="og:image:alt" content="Credtent logo">
+  <meta property="og:site_name" content="Credtent">
+  <meta name="twitter:card" content="summary">
+  <link rel="preload" href="/fonts/inter-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/source-serif-4-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+  
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/site.css">
+  <link rel="icon" href="/favicon/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://credtent.com/#organization","name":"Credtent","legalName":"Credtent, Inc.","url":"https://credtent.com/","logo":"https://credtent.com/brand/shield.svg","email":"hello@credtent.org","foundingDate":"2023","description":"Credtent, Inc. is a Delaware Public Benefit Corporation and a certified B Corp, a neutral marketplace connecting content owners and AI companies through consent, licensing, and compensation.","address":{"@type":"PostalAddress","streetAddress":"1822 E. Route 66, Suite A353","addressLocality":"Glendora","addressRegion":"California","postalCode":"91740","addressCountry":"US"},"founder":[{"@id":"https://credtent.com/about#eric-r-burgess"},{"@id":"https://credtent.com/about#galen-buckwalter"}],"sameAs":["https://credtent.org/","https://www.linkedin.com/company/credtent","https://www.cbinsights.com/company/credtent"]},{"@type":"WebSite","@id":"https://credtent.org/#website","url":"https://credtent.org/","name":"Credtent","description":"Credtent for creatives: opt-out, Creative Consent, and resources.","publisher":{"@id":"https://credtent.com/#organization"}},{"@type":"WebPage","@id":"https://credtent.org/terms-of-service/upcoming#page","url":"https://credtent.org/terms-of-service/upcoming","name":"Terms of Service, upcoming revision | Credtent for creatives","description":"A revised version of Credtent's terms of service that is not yet in effect.","isPartOf":{"@id":"https://credtent.org/#website"},"about":{"@id":"https://credtent.com/#organization"},"publisher":{"@id":"https://credtent.com/#organization"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://credtent.org/terms-of-service/upcoming#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://credtent.org/"},{"@type":"ListItem","position":2,"name":"Upcoming terms","item":"https://credtent.org/terms-of-service/upcoming"}]}]}</script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      analytics_storage: 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      wait_for_update: 500
+    });
+    (function () {
+      var gaId = "G-3BJJV0MSLW";
+      var gaHosts = ["credtent.org","www.credtent.org"];
+      var gaHostOk = gaHosts.indexOf(String(location.hostname).toLowerCase()) !== -1;
+      var storageKey = 'credtent_cookie_consent';
+      var gaOptions = {"anonymize_ip":true,"allow_google_signals":false,"allow_ad_personalization_signals":false};
+      var denied = {
+        analytics_storage: 'denied',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied'
+      };
+      function loadGtag() {
+        gtag('consent', 'update', {
+          analytics_storage: 'granted',
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied'
+        });
+        if (!gaHostOk) return;
+        if (document.querySelector('script[data-ga="1"]')) return;
+        gtag('js', new Date());
+        gtag('config', gaId, gaOptions);
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(gaId);
+        script.setAttribute('data-ga', '1');
+        document.head.appendChild(script);
+      }
+      function setChoice(value) {
+        try { localStorage.setItem(storageKey, value); } catch (error) {}
+        if (value === 'accepted') loadGtag();
+        else gtag('consent', 'update', denied);
+        var banner = document.getElementById('cookie-banner');
+        if (banner) banner.hidden = true;
+        var settings = document.getElementById('cookie-settings');
+        if (settings) settings.focus();
+      }
+      function showBanner() {
+        var banner = document.getElementById('cookie-banner');
+        if (!banner) return;
+        banner.hidden = false;
+        var accept = document.getElementById('cookie-accept');
+        if (accept) accept.focus();
+      }
+      document.addEventListener('DOMContentLoaded', function () {
+        var stored = '';
+        try { stored = localStorage.getItem(storageKey) || ''; } catch (error) {}
+        var accept = document.getElementById('cookie-accept');
+        var decline = document.getElementById('cookie-decline');
+        var settings = document.getElementById('cookie-settings');
+        if (accept) accept.addEventListener('click', function () { setChoice('accepted'); });
+        if (decline) decline.addEventListener('click', function () { setChoice('declined'); });
+        if (settings) settings.addEventListener('click', function (event) {
+          event.preventDefault();
+          showBanner();
+        });
+        if (stored === 'accepted') loadGtag();
+        else if (stored !== 'declined') showBanner();
+      });
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+  
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="/" aria-label="Credtent home">
+        <img class="shield" src="/brand/shield.svg" width="32" height="36" alt="">
+        <img class="word" src="/brand/wordmark.svg" width="148" height="27" alt="Credtent">
+      </a>
+      <nav class="site-nav site-nav-desktop" aria-label="Primary"><a href="/opt-out">Opt-Out</a><a href="/creative-consent">Creative Consent</a><a href="/resources">Resources</a><a href="https://credtent.com/about" rel="noopener">About</a></nav>
+      <div class="header-tools">
+        
+        <a class="btn btn-nav has-short" href="https://app.credtent.org/opt-out" target="_blank" rel="noopener"><span class="btn-nav-full">Free Opt-Out</span><span class="btn-nav-short">Opt Out</span></a>
+        <details class="nav-details">
+          <summary class="nav-summary">Menu</summary>
+          <nav class="site-nav site-nav-mobile" aria-label="Primary"><a href="/opt-out">Opt-Out</a><a href="/creative-consent">Creative Consent</a><a href="/resources">Resources</a><a href="https://credtent.com/about" rel="noopener">About</a></nav>
+        </details>
+      </div>
+    </div>
+  </header>
+  <main id="content">
+    <div class="wrap section-tight"><p class="crumbs"><span>Upcoming terms</span></p><p class="eyebrow">Legal</p><h1>Terms of Service: upcoming revision</h1><p class="capsule">These revised terms are not yet in effect. The terms in effect now are at /terms-of-service.</p></div>
+    <section class="section"><div class="wrap legacy">
+
+
+
+<!-- ══ PAGE HERO ══════════════════════════════════════════════ -->
+<section class="page-hero" style="padding-bottom:60px">
+  <div class="page-hero-content">
+    <div class="eyebrow">Legal</div>
+    
+    <p>The agreement governing your use of Credtent's platform and services.</p>
+  </div>
+</section>
+
+<!-- ══ LEGAL CONTENT ══════════════════════════════════════════ -->
+<section class="section-pad" style="background:#fff">
+  <div class="container">
+    <div class="legal-content">
+
+      <p class="legal-effective">Effective Date: EFFECTIVE-DATE-PENDING (30 days after the section 12 notice email) &nbsp;|&nbsp; Credtent, Inc.</p>
+
+      <p>These Terms of Service ("Terms") govern your access to and use of Credtent's website, platform, and services (collectively, the "Services"). By creating an account or using our Services, you agree to be bound by these Terms.</p>
+
+      <p>Credtent, Inc. is a neutral, third-party utility uniting creatives and AI companies for mutual prosperity. We are a Delaware Public Benefit Corporation.</p>
+
+      <h2>1. Core Services</h2>
+      <p>Credtent provides the following primary services:</p>
+
+      <h3>Opt-Out Services (Free)</h3>
+      <p>Register your name and creative works to record your opt-out from AI training. Each quarter, Credtent delivers the opt-out notice to AI companies, records each response, and follows up at 30, 60 and 90 days. Credtent relays and records opt-outs. It does not enforce them or monitor whether any company complies. Credtent does not plan to charge for the free opt-out.</p>
+
+      <h3>Opt-Out Premium</h3>
+      <p>Opt-Out Premium enrolls your works in Credtent's periodic AI model audits, and Credtent records the results. Audit results are not proof of dataset inclusion or infringement. Available with Opt-Out Premium and every tier above it.</p>
+
+      <h3>Licensing Services</h3>
+      <p>Standard and Premium licensing of your content to AI developers. Credtent facilitates agreements on your behalf and distributes earnings quarterly, minus our 15% platform fee and applicable transaction costs.</p>
+
+      <h2>2. Account Registration</h2>
+      <p>To access most features, you must create an account. You agree to:</p>
+      <ul>
+        <li>Provide accurate and complete information</li>
+        <li>Maintain the security of your account credentials</li>
+        <li>Promptly update your information if it changes</li>
+        <li>Notify us immediately of any unauthorized access</li>
+        <li>Accept responsibility for all activity under your account</li>
+      </ul>
+
+      <h2>3. Content Ownership and Licensing Rights</h2>
+
+      <h3>Your Representations</h3>
+      <p>By registering content, you represent and warrant that:</p>
+      <ul>
+        <li>You own or control all rights to the registered content</li>
+        <li>The content does not infringe any third-party rights</li>
+        <li>You have the authority to grant Credtent the rights described in these Terms</li>
+        <li>The content complies with all applicable laws</li>
+      </ul>
+
+      <h3>License Grant to Credtent</h3>
+      <p>For Licensing Service users, you grant Credtent a limited, non-exclusive right to license your registered content to AI developers on your behalf, subject to the terms and pricing you set (or Credtent's standard rates if you haven't set custom pricing).</p>
+
+      <h3>Exclusivity During Licensing</h3>
+      <p>While your content is enrolled in Credtent's Licensing Service, you may not offer a license to the same content to any AI developer directly or through any other intermediary with respect to content for which you've granted us an exclusive licensing right.</p>
+
+      <h2>4. Prohibited Content</h2>
+      <p>You may not register or use the platform in connection with content that is:</p>
+      <ul>
+        <li>Obscene, pornographic, or sexually explicit</li>
+        <li>Threatening, harassing, or promoting violence</li>
+        <li>Defamatory or knowingly false</li>
+        <li>Discriminatory based on protected characteristics</li>
+        <li>In violation of any law or regulation</li>
+        <li>Infringing on third-party intellectual property rights</li>
+      </ul>
+
+      <h2>5. Payments and Earnings</h2>
+
+      <h3>Subscription Fees</h3>
+      <p>Paid plan subscription fees are billed annually and are non-refundable unless required by applicable law.</p>
+
+      <h3>Licensing Earnings</h3>
+      <p>License payments are distributed quarterly, after deducting:</p>
+      <ul>
+        <li>Credtent's 15% platform fee</li>
+        <li>Payment processing and transaction costs</li>
+        <li>Any applicable taxes or withholdings</li>
+      </ul>
+      <p>Payments are made in USD via PayPal, Venmo, Zelle, or ACH bank transfer. You must maintain a valid payment method to receive earnings.</p>
+
+      <h3>Pricing</h3>
+      <p>Credtent uses a science-driven content valuation methodology to establish fair market rates for standard licensing. Premium plan members may set their own pricing, which must fall within Credtent's published minimum and maximum ranges.</p>
+
+      <h2>6. Platform Rules</h2>
+      <p>You agree not to:</p>
+      <ul>
+        <li>Use the platform for any unlawful purpose</li>
+        <li>Attempt to reverse engineer, decompile, or hack the platform</li>
+        <li>Use automated tools to scrape or extract data</li>
+        <li>Interfere with platform operations or other users' access</li>
+        <li>Create multiple accounts to circumvent restrictions</li>
+        <li>Misrepresent your identity or affiliation</li>
+      </ul>
+
+      <h2>7. Termination</h2>
+      <p>Either party may terminate these Terms at any time. You may close your account through account settings. We may suspend or terminate your account if you violate these Terms. Upon termination, your right to use the Services ends, but we will continue to pay any outstanding earnings owed to you.</p>
+
+      <h2>8. Disclaimers</h2>
+      <p>The Services are provided "as is" and "as available" without warranties of any kind, express or implied. Credtent does not warrant that the Services will be uninterrupted, error-free, or that opt-out requests will result in full compliance by all AI companies. We do not guarantee specific earnings from licensing.</p>
+
+      <h2>9. Limitation of Liability</h2>
+      <p>To the maximum extent permitted by law, Credtent's total liability to you for any claims arising from these Terms or your use of the Services shall not exceed the greater of (a) the amount you paid to Credtent in the 12 months before the claim arose, or (b) $100. We are not liable for any indirect, incidental, special, or consequential damages.</p>
+
+      <h2>10. Dispute Resolution</h2>
+
+      <h3>Binding Arbitration</h3>
+      <p>All disputes arising from these Terms or your use of the Services will be resolved through binding individual arbitration, not in court, except as noted below. You waive your right to participate in class action lawsuits.</p>
+
+      <h3>Opt-Out Right</h3>
+      <p>You may opt out of this arbitration provision within 30 days of creating your account by sending written notice via certified mail to:</p>
+      <div style="background:var(--c-bg-light);border-radius:12px;padding:20px 24px;margin:16px 0">
+        Credtent, Inc., Attn: Arbitration Opt-Out<br>
+        1822 E. Route 66, Suite A353<br>
+        Glendora, California 91740
+      </div>
+
+      <h3>Exceptions</h3>
+      <p>Either party may seek injunctive or other equitable relief in court to prevent infringement of intellectual property rights or unauthorized access to the platform.</p>
+
+      <h2>11. Governing Law</h2>
+      <p>These Terms are governed by the laws of the State of California, without regard to conflict of law principles.</p>
+
+      <h2>12. Changes to Terms</h2>
+      <p>We may update these Terms from time to time. Material changes will be communicated via email or prominent notice on the platform at least 30 days before taking effect. Continued use after that date constitutes acceptance.</p>
+
+      <h2>13. Contact</h2>
+      <div style="background:var(--c-bg-light);border-radius:12px;padding:24px;margin-top:16px">
+        <strong>Credtent, Inc.</strong><br>
+        1822 E. Route 66, Suite A353<br>
+        Glendora, California 91740<br>
+        <a href="mailto:hello@credtent.org" style="color:var(--c-purple)">hello@credtent.org</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</div></section>
+    
+  </main>
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <img class="word" src="/brand/wordmark-white.svg" width="160" height="30" alt="Credtent">
+        <p>Credtent helps creatives and AI companies navigate consent, credit, and compensation.</p>
+        <p>Certified B Corp</p>
+        <p class="bcorp-badge" role="img" aria-label="Credtent is a Certified B Corporation."><span>Certified</span><strong>B Corp</strong></p>
+        <p><a href="mailto:hello@credtent.org">hello@credtent.org</a></p>
+      </div>
+      <div>
+        <p class="footer-title">For creatives</p>
+        <ul>
+          <li><a href="https://credtent.org/opt-out">Free opt-out</a></li>
+          <li><a href="https://credtent.org/resources/auditing">Auditing</a></li>
+          <li><a href="https://credtent.org/creative-consent">Creative Consent</a></li>
+          <li><a href="https://credtent.org/resources">Resources</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-title">For companies</p>
+        <ul>
+          <li><a href="https://credtent.com/valuation">Valuation</a></li>
+          <li><a href="https://credtent.com/ai-training">AI training</a></li>
+          <li><a href="https://credtent.com/citation-licensing">Citations</a></li>
+          <li><a href="https://credtent.com/services">Services</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-title">Company</p>
+        <ul>
+          <li><a href="https://credtent.com/about">About</a></li>
+          <li><a href="https://app.credtent.org/inquiries/investor">Investors</a></li>
+          <li><a href="https://credtent.org/contact">Contact</a></li>
+          <li><a href="https://credtent.org/sitemap">Sitemap</a></li>
+          <li><a href="https://credtent.org/privacy-policy">Privacy</a></li>
+          <li><a href="#cookie-banner" id="cookie-settings">Cookie settings</a></li>
+          <li><a href="https://credtent.org/terms-of-service">Terms</a></li>
+          <li><a href="https://credtent.org/credits">Photo credits</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="wrap footer-base">
+      <span>1822 E. Route 66, Suite A353, Glendora, California 91740</span>
+      <span>© 2026 Credtent, Inc.</span>
+    </div>
+  </footer>
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-modal="false" aria-labelledby="cookie-banner-title" aria-describedby="cookie-banner-text" hidden>
+    <div class="cookie-banner-inner">
+      <div>
+        <p id="cookie-banner-title"><strong>Cookies</strong></p>
+        <p id="cookie-banner-text">We use Google Analytics to understand how this site is used. Analytics stays off unless you accept. <a href="https://credtent.org/privacy-policy">Privacy Policy</a></p>
+      </div>
+      <div class="cookie-banner-actions">
+        <button type="button" class="btn" id="cookie-accept">Accept</button>
+        <button type="button" class="btn btn-ghost" id="cookie-decline">Decline</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
