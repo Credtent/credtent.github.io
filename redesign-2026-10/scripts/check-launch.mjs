@@ -51,8 +51,18 @@ export const BANNED = [
   { id: "every-contract-or-no-exceptions", re: /\bevery contract\b|\bNo exceptions\b|\breturns 85\s?%|\bevery deal\b[^.<]{0,60}\b85\s?%/i },
   { id: "forever-near-free", re: /\b(free|opt-?out)\b[^.<]{0,30}\bforever\b|\bforever\b[^.<]{0,30}\b(free|opt-?out)\b/i },
   { id: "premium-included-in-49", re: /Everything in Opt-Out Premium/i },
-  { id: "lowercase-brand", re: /(^|[\s(,;:])credtent(?![.\-@/\w])/, cs: true }
+  { id: "lowercase-brand", re: /(^|[\s(,;:])credtent(?![.\-@/\w])/, cs: true },
+  // Third review round (2026-11-01).
+  { id: "85-without-standard-terms", test: (text) => text.split(/(?<=[.?!])\s+/).some((x) => /\b85\s?(%|percent)/i.test(x) && x.trim().split(/\s+/).length > 2 && !/standard terms/i.test(x)) },
+  { id: "present-tense-audits", re: /\bCredtent (also )?audits AI models\b|\baudits AI models periodically\b/i },
+  // Ported from check-copy so they also run on decoded text; new-site pages only (the live site still says "creators").
+  { id: "product-name", re: /Credtent Aegis/i, siteOnly: true },
+  { id: "round-the-clock", re: /24\/7|around-the-clock/i, siteOnly: true },
+  { id: "advisory-council", re: /Advisory Council/i, siteOnly: true },
+  { id: "audience-word", test: (text) => /\bcreators?\b/i.test(text.replace(/creators of (artistic, scholastic, scientific, journalistic, and other )?original works/gi, "").replace(/app\.credtent\.org\/\S*/gi, "")), siteOnly: true },
+  { id: "locked-spec", re: /\bc2pa\b/i, siteOnly: true }
 ];
+export const ruleHit = (r, text) => (r.test ? r.test(text) : r.re.test(text));
 // Served pages of the live site (GitHub Pages from main) are scanned too until the DNS cutover.
 // The current terms and privacy policy stay verbatim (EB 2026-11-01); the LWS pages are under legal hold item 11.
 export const ROOT_SCAN = true;
@@ -90,25 +100,19 @@ function walk(dir, out = []) {
   return out;
 }
 
-// Named, decimal and hex entities (with or without the semicolon), zero-width characters and soft hyphens.
-export const decode = decodeAll;
+// Entities, compatibility forms (fullwidth digits and signs) and invisible format characters. Dashes are kept,
+// so the em-dash rule still sees them.
+export const decode = (s) => decodeAll(s).normalize("NFKC").replace(/\p{Cf}/gu, "");
 
-// The first raw line where a rule matches, so a failure can name a line without printing page text.
-function lineOf(raw, re) {
-  const lines = raw.split("\n");
-  const i = lines.findIndex((l) => re.test(decode(l.replace(/<[^>]*>/g, " "))));
-  return i >= 0 ? i + 1 : 0;
-}
-
+const TAG = /<(?:[^>"']|"[^"]*"|'[^']*')*>/g;
+const INLINE = "a|abbr|b|bdi|bdo|cite|code|em|font|i|kbd|label|mark|q|s|samp|small|span|strong|sub|sup|time|u|var|wbr";
 export function visibleText(html) {
   return decode(html
-    .replace(/<script[\s\S]*?<\/script>/gi, " ")
-    .replace(/<style[\s\S]*?<\/style>/gi, " ")
-    .replace(/<!--[\s\S]*?-->/g, " ")
-    .replace(/<\/(a|strong|em|span|b|i|code|cite)>/gi, "")
-    // Block boundaries end a sentence for the claim rules, so a match cannot run from one card into the next.
-    .replace(/<\/(p|div|li|h[1-6]|section|article|td|th|dd|dt|figcaption)>|<br\s*\/?>/gi, " . ")
-    .replace(/<[^>]+>/g, " "));
+    .replace(/<script[\s\S]*?<\/script>/gi, " ").replace(/<style[\s\S]*?<\/style>/gi, " ").replace(/<!--[\s\S]*?-->/g, " ")
+    // Inline tags render no gap, so they are removed without one; only block boundaries end a sentence.
+    .replace(new RegExp(`</?(?:${INLINE})\\b(?:[^>"']|"[^"]*"|'[^']*')*>`, "gi"), "")
+    .replace(/<\/(p|div|li|h[1-6]|section|article|header|footer|nav|aside|td|th|dd|dt|figcaption|blockquote|tr|ul|ol|table)>|<br\s*\/?>/gi, " . ")
+    .replace(TAG, " "));
 }
 
 function jsonStrings(value, out = []) {
@@ -118,14 +122,36 @@ function jsonStrings(value, out = []) {
   return out;
 }
 
-/** Visible text, every human-facing attribute value, and every JSON-LD string, entities decoded. */
+const cssContent = (css) => [...css.matchAll(/content\s*:\s*(["'])((?:\\.|(?!\1).)*)\1/g)]
+  .map((m) => decode(m[2].replace(/\\([0-9a-f]{1,6}) ?/gi, (_, h) => String.fromCodePoint(parseInt(h, 16))))).join(" . ");
+const jsStrings = (js) => [...js.matchAll(/`((?:\\.|[^`])*)`|"((?:\\.|[^"\n])*)"|'((?:\\.|[^'\n])*)'/g)]
+  .map((m) => (m[1] ?? m[2] ?? m[3]).replace(/\\u\{([0-9a-f]+)\}|\\u([0-9a-f]{4})|\\x([0-9a-f]{2})/gi, (_, a, b, c) => String.fromCodePoint(parseInt(a || b || c, 16)))).join(" . ");
+
+// Visible text, every attribute value except URLs, every JSON-LD string, inline script string literals and CSS
+// content strings (style blocks and style attributes), entities decoded.
 export function scanText(html) {
-  const attrs = [...html.matchAll(/\s(?:content|alt|title|aria-label|placeholder|value|data-[\w-]+)\s*=\s*(?:"([^"]*)"|'([^']*)')/gi)].map((m) => decode(m[1] ?? m[2]));
+  // Every attribute value except URLs, quoted or not.
+  const attrs = [...html.matchAll(/\s([a-z][\w:-]*)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'>]+))/gi)]
+    .filter((m) => !/^(href|src|srcset|action|poster|xmlns|xmlns:\w+|data-src|integrity|class|id|rel|type|target|crossorigin|loading|width|height|viewbox|d|fill|stroke|stroke-width|stroke-linecap|stroke-linejoin|points|x\d?|y\d?|cx|cy|r|transform)$/i.test(m[1]))
+    .map((m) => (/^style$/i.test(m[1]) ? cssContent(decode(m[2] ?? m[3] ?? m[4])) : decode(m[2] ?? m[3] ?? m[4])));
   const ld = [];
-  for (const m of html.matchAll(/<script[^>]*application\/ld\+json[^>]*>([\s\S]*?)<\/script>/gi)) {
-    try { ld.push(...jsonStrings(JSON.parse(m[1]))); } catch { ld.push(m[1]); }
+  const scripts = [];
+  for (const m of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)) {
+    if (/ld\+json/i.test(decode(m[1]))) {
+      try { ld.push(...jsonStrings(JSON.parse(m[2]))); } catch { ld.push(m[2]); }
+    } else scripts.push(jsStrings(m[2]));
   }
-  return `${visibleText(html)} ${attrs.join(" ")} ${ld.map(decode).join(" ")}`.replace(/\s+/g, " ");
+  const styles = [...html.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/gi)].map((m) => cssContent(m[1]));
+  return `${visibleText(html)} . ${attrs.join(" . ")} . ${ld.map(decode).join(" . ")} . ${scripts.map((x) => visibleText(x)).join(" . ")} . ${styles.join(" . ")}`.replace(/\s+/g, " ");
+}
+
+
+// The first raw line where a rule matches, so a failure can name a line without printing page text.
+function lineOf(raw, re) {
+  const lines = raw.split("\n");
+  // re is a RegExp or a rule with a test function; both expose test(text).
+  const i = lines.findIndex((l) => re.test(visibleText(l)) || re.test(decode(l)));
+  return i >= 0 ? i + 1 : 0;
 }
 
 function metaContent(html, attr, name) {
@@ -276,8 +302,8 @@ export function run() {
       if (ROOT_EXEMPT.has(rel)) continue;
       for (const b of BANNED) {
         if (b.id === "comma-artifact" || b.id === "rounded-book-price") continue;
-        const m = text.match(b.re);
-        if (m) fails.push(`root/${rel}:${lineOf(raw, b.re)}: ${b.id}`);
+        if (b.siteOnly) continue;
+        if (ruleHit(b, text)) fails.push(`root/${rel}:${lineOf(raw, b.re || b)}: ${b.id}`);
       }
     }
   }
@@ -286,7 +312,7 @@ export function run() {
       if (!site.files.has(req)) fails.push(`${site.id}: missing ${req}`);
     }
     for (const rel of site.files) {
-      if (!/\.(html|txt|xml|json|css|js)$/.test(rel) || rel.startsWith("fonts/")) continue;
+      if (!/\.(html|txt|xml|json|css|js|svg|webmanifest)$/.test(rel) || rel.startsWith("fonts/")) continue;
       const raw = fs.readFileSync(path.join(site.dir, rel), "utf8");
       // The current terms are served verbatim (EB 2026-11-01); checkTerms proves that block equals the live
       // page, so copy rules apply to everything outside it. The block may appear only on /terms-of-service.
@@ -295,9 +321,9 @@ export function run() {
       const checked = hasVerbatim ? raw.slice(0, raw.indexOf(VERBATIM_START)) + raw.slice(raw.indexOf(VERBATIM_END) + VERBATIM_END.length) : raw;
       const text = rel.endsWith(".html") ? scanText(checked) : decode(checked);
       for (const b of BANNED) {
-        const m = text.match(b.re);
+        const m = ruleHit(b, text);
         // File, line and rule only: page text is never printed, so no name can reach a log.
-        if (m) fails.push(`${site.id}/${rel}:${lineOf(checked, b.re)}: ${b.id}`);
+        if (m) fails.push(`${site.id}/${rel}:${lineOf(checked, b.re || b)}: ${b.id}`);
       }
       if (!names.missing) {
         const found = findNames(raw, [`${site.id}/${rel}`], names);
@@ -313,7 +339,7 @@ export function run() {
       const canon = (raw.match(/<link rel="canonical" href="([^"]+)"/) || [])[1];
       if (!isParkedOr404) {
         if (!canon) fails.push(`${site.id}/${rel}: no canonical`);
-        else if (!canon.startsWith(`https://${HOST[site.id]}/`) && !canon.startsWith("https://registry.credtent.org/")) fails.push(`${site.id}/${rel}: canonical on wrong host ${canon}`);
+        else if (!canon.startsWith(`https://${HOST[site.id]}/`) && !canon.startsWith("https://registry.credtent.org/")) fails.push(`${site.id}/${rel}: canonical on the wrong host`);
         for (const og of ["og:title", "og:description", "og:url"]) if (!metaContent(raw, "property", og)) fails.push(`${site.id}/${rel}: no ${og}`);
         const ogImage = metaContent(raw, "property", "og:image");
         if (!ogImage) fails.push(`${site.id}/${rel}: no og:image`);
@@ -324,13 +350,13 @@ export function run() {
         const m = href.match(/^https:\/\/(credtent\.com|credtent\.org|www\.credtent\.(com|org))(\/[^"]*)?$/);
         if (m) {
           const target = m[1].endsWith("com") ? sites.com : sites.org;
-          if (m[1].startsWith("www.")) fails.push(`${site.id}/${rel}: www link ${href}`);
-          if (!resolves(target, m[3] || "/")) fails.push(`${site.id}/${rel}: cross-site link does not resolve: ${href}`);
-          if (/\.html(#|$)/.test(href)) fails.push(`${site.id}/${rel}: legacy .html link ${href}`);
+          if (m[1].startsWith("www.")) fails.push(`${site.id}/${rel}: www link`);
+          if (!resolves(target, m[3] || "/")) fails.push(`${site.id}/${rel}: cross-site link does not resolve`);
+          if (/\.html(#|$)/.test(href)) fails.push(`${site.id}/${rel}: legacy .html link`);
         }
-        if (/sign-up/i.test(href) && /registry\.credtent\.org/.test(href)) fails.push(`${site.id}/${rel}: held sign-up link ${href}`);
-        if (/tally\.so\/r\/2ExeBp/.test(href)) fails.push(`${site.id}/${rel}: investor link bypasses the D10 cutover ${href}`);
-        if (/^mailto:[^"]*@credtent\.com/i.test(href)) fails.push(`${site.id}/${rel}: contact address is not @credtent.org ${href}`);
+        if (/sign-up/i.test(href) && /registry\.credtent\.org/.test(href)) fails.push(`${site.id}/${rel}: held sign-up link`);
+        if (/tally\.so\/r\/2ExeBp/.test(href)) fails.push(`${site.id}/${rel}: investor link bypasses the D10 cutover`);
+        if (/^mailto:[^"]*@credtent\.com/i.test(href)) fails.push(`${site.id}/${rel}: contact address is not @credtent.org`);
       }
     }
   }

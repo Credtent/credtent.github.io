@@ -64,3 +64,17 @@ test("names hide in comments, scripts, data attributes, entities and split strin
     assert.equal(findNames(raw, ["org/a.html"], list).length, 1, raw);
   }
 });
+
+test("third round: 85% needs standard terms, audits are an enrollment, ported copy rules run decoded", async () => {
+  const { ruleHit } = await import("./check-launch.mjs");
+  const r = (id) => BANNED.find((b) => b.id === id);
+  assert.ok(ruleHit(r("85-without-standard-terms"), scanText("<p>Owners keep 85% of revenue.</p>")));
+  assert.ok(!ruleHit(r("85-without-standard-terms"), scanText("<p>Under standard terms, owners keep 85% of revenue.</p>")));
+  assert.ok(ruleHit(r("present-tense-audits"), scanText("<p>Credtent audits AI models periodically.</p>")));
+  assert.ok(ruleHit(r("product-name"), scanText("<p>Credtent&nbsp;Aegis</p>")));
+  assert.ok(ruleHit(r("round-the-clock"), scanText("<p>24&#47;7</p>")));
+  assert.ok(ruleHit(r("audience-word"), scanText("<p>For crea<b>tors</b></p>")));
+  assert.ok(!ruleHit(r("audience-word"), scanText("<p>protect creators of original works</p>")));
+  assert.ok(ruleHit(r("free-forever-promise"), scanText("<p>al<wbr>ways free</p>")));
+  assert.ok(ruleHit(r("free-forever-promise"), scanText("<style>.x::after{content:'always free'}</style>")));
+});

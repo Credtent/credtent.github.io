@@ -1,0 +1,45 @@
+name: Check new sites
+
+# Gates for the redesign (credtent.com and credtent.org on Vercel): copy, links, redirects, check-launch in
+# preview mode and the node tests. The names list is the CREDTENT_REVIEW_NAMES repository secret, one entry
+# per line; without it the gates fail closed. Each entry is masked before any step runs.
+on:
+  pull_request:
+    paths:
+      - "redesign-2026-10/**"
+      - ".github/workflows/check-new-sites.yml"
+  push:
+    branches: [main]
+    paths:
+      - "redesign-2026-10/**"
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: redesign-2026-10
+    steps:
+      - name: Mask each names-list entry
+        working-directory: .
+        env:
+          CREDTENT_REVIEW_NAMES: ${{ secrets.CREDTENT_REVIEW_NAMES }}
+        run: |
+          printf '%s\n' "$CREDTENT_REVIEW_NAMES" | tr '|' '\n' | while IFS= read -r line; do
+            entry="$(printf '%s' "$line" | sed -E 's/^(allow|drop|block|strip):[[:space:]]*//; s/^[^ ]+ //; s/^[[:space:]]+|[[:space:]]+$//g')"
+            [ -n "$line" ] && echo "::add-mask::$line"
+            [ -n "$entry" ] && echo "::add-mask::$entry"
+          done
+          true
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm ci
+      - name: Gates (preview mode)
+        env:
+          CREDTENT_REVIEW_NAMES: ${{ secrets.CREDTENT_REVIEW_NAMES }}
+        run: npm run check
