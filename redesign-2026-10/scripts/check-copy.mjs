@@ -46,8 +46,17 @@ function walk(dir, out = []) {
 }
 
 const failures = [];
+// The current terms are served verbatim on /terms-of-service until the swap (EB 2026-11-01). check-launch proves
+// that block equals the live terms-of-service.html, so the copy rules skip it; line numbers are kept.
+const VERBATIM = /<!--legal:current-terms:start-->[\s\S]*?<!--legal:current-terms:end-->/g;
 for (const file of roots.flatMap((dir) => walk(dir))) {
-  const text = fs.readFileSync(file, "utf8");
+  let text = fs.readFileSync(file, "utf8");
+  if (VERBATIM.test(text)) {
+    VERBATIM.lastIndex = 0;
+    if (!/sites\/(com|org)\/terms-of-service\/index\.html$/.test(file.split(path.sep).join("/"))) failures.push(`${path.relative(root, file)} [verbatim-block] current-terms block outside /terms-of-service`);
+    else text = text.replace(VERBATIM, (block) => block.replace(/[^\n]/g, ""));
+  }
+  VERBATIM.lastIndex = 0;
   const lines = text.split(/\n/);
   lines.forEach((line, index) => {
     if (line.includes("app.credtent.org/") && /\bcreat or\b/.test("no")) return;
