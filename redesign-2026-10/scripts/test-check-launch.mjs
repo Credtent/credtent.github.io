@@ -43,3 +43,24 @@ test("terms guard: swapping without a recorded notice fails", () => {
 test("terms guard: a noticed swap on or after the date passes", () => {
   assert.deepEqual(termsGuard(new Date("2026-12-16T00:00:00Z"), { TERMS_NOTICE_SENT: "2026-11-10", REVISED_TERMS_DATE: "December 15, 2026", TERMS_SWAP: true }), []);
 });
+
+test("hex and named entities are decoded before the rules run", () => {
+  assert.ok(hits("<p>Opt-Out Premium is &#x24;49 a year</p>", "hidden-49-premium"));
+  assert.ok(hits("<p>Opt-Out Premium is &dollar;49 a year</p>", "hidden-49-premium"));
+  assert.ok(hits("<p>a &#x2014 b</p>", "em-dash"));
+});
+test("single-quoted and data-* attributes are scanned", () => {
+  assert.ok(hits("<img alt='free forever'>", "free-forever-promise"));
+  assert.ok(hits('<div data-note="legally obligated"></div>', "pbc-legal-duty-claim"));
+});
+test("forever near the free opt-out is caught", () => assert.ok(hits("<p>take control with a free opt-out, forever.</p>", "forever-near-free")));
+test("a lowercase brand mid-sentence is caught, URLs and addresses are not", () => {
+  assert.ok(hits("<p>Yes, and credtent does not plan to charge.</p>", "lowercase-brand"));
+  assert.ok(!hits('<p>Write to hello@credtent.org or visit credtent.com.</p>', "lowercase-brand"));
+});
+test("names hide in comments, scripts, data attributes, entities and split strings, and are still found", () => {
+  const list = { names: ["Example Corp"], allow: new Set() };
+  for (const raw of ["<!-- Example Corp -->", "<script>x='Example Corp'</script>", '<i data-x="Example Corp">', "Exa&#x6d;ple Corp", "Exam\u200bple Corp", "Ex<b>ample</b> Corp", '"Example" + " Corp"']) {
+    assert.equal(findNames(raw, ["org/a.html"], list).length, 1, raw);
+  }
+});

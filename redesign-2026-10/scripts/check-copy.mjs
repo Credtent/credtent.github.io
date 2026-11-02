@@ -1,19 +1,15 @@
 import fs from "node:fs";
 import path from "node:path";
-import { loadPrivateNames, findNames, MISSING_MESSAGE } from "./private-names.mjs";
+import { loadPrivateNames, findNames, nameLines, MISSING_MESSAGE } from "./private-names.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const roots = [path.join(root, "src"), path.join(root, "sites")];
 const exts = new Set([".html", ".css", ".js", ".mjs", ".svg", ".txt", ".xml", ".json"]);
 
 const audience = "creat" + "ors?";
-const brand = "s" + "ony";
-const bodyName = "i" + "so";
 const specName = "c" + "2pa";
 const patterns = [
   { name: "audience-word", re: new RegExp("\\b" + audience + "\\b", "i") },
-  { name: "locked-brand", re: new RegExp("\\b" + brand + "\\b", "i") },
-  { name: "locked-body", re: new RegExp("\\b" + bodyName + "\\b", "i") },
   { name: "locked-spec", re: new RegExp("\\b" + specName + "\\b", "i") },
   { name: "retired-illustration", re: /bridge-illustration/i },
   { name: "removed-person", re: /Debor\s*ah Drake|Deborah Drake/i },
@@ -67,7 +63,8 @@ for (const file of roots.flatMap((dir) => walk(dir))) {
       const charterQuote = pattern.name === "audience-word" && line.replace(/creators of original works/g, "").search(pattern.re) === -1;
       const allowed = charterQuote || (pattern.name === "audience-word" && /app\.credtent\.org\/[^\s"']*creat/.test(line));
       if (allowed) continue;
-      failures.push(`${path.relative(root, file)}:${index + 1} [${pattern.name}] ${line.trim().slice(0, 180)}`);
+      // File, line and rule only: page text is never printed, so no name can reach a log.
+      failures.push(`${path.relative(root, file)}:${index + 1} [${pattern.name}]`);
     }
   });
 }
@@ -77,8 +74,9 @@ const privateNames = loadPrivateNames();
 if (privateNames.missing) failures.push(MISSING_MESSAGE);
 for (const file of walk(path.join(root, "sites")).concat(walk(path.join(root, "src")))) {
   const rel = path.relative(root, file).split(path.sep).join("/");
-  const where = rel.replace(/^sites\//, "");
-  if (findNames(fs.readFileSync(file, "utf8"), where, privateNames).length) failures.push(`${rel} [private-name] names an entry from the private list (withheld from the log)`);
+  const raw = fs.readFileSync(file, "utf8");
+  const found = privateNames.missing ? [] : findNames(raw, [rel.replace(/^sites\//, "")], privateNames);
+  for (const line of found.length ? nameLines(raw, privateNames, found) : []) failures.push(`${rel}:${line} [private-name]`);
 }
 
 for (const file of walk(path.join(root, "sites")).filter((item) => item.endsWith(".html"))) {
