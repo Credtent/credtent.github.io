@@ -169,7 +169,7 @@ export function comPages(images) {
         <p class="eyebrow">The economics</p>
         <h2>Under standard terms, 85% goes to the people whose work was licensed.</h2>
         <p>Under Credtent's standard terms, content partners keep 85% of each licensing deal: Credtent sends 85% of gross licensing revenue to the content owners, rights holders, and data providers who made it possible. The other 15% pays for the platform, legal work, compliance tools, and operations that make the whole system work.</p>
-        <p>Under the 85/15 split, revenue reaches rights holders every quarter.</p>
+        <p>Under the standard 85/15 split, revenue reaches rights holders every quarter.</p>
       </div></section>
       <section class="section section-white"><div class="wrap">
         <p class="eyebrow">What you get</p>
@@ -559,12 +559,12 @@ export function comPages(images) {
         <p class="lede">Every structural, legal, and financial decision traces back to that.</p>
         <div class="grid-3" style="margin-top:24px">
           <article class="card"><p class="kicker">01</p><h3>Structural neutrality</h3><p>We don't train models. We don't compete with AI companies. We don't publish content. Our only business is connecting both sides on fair terms.</p></article>
-          <article class="card"><p class="kicker">02</p><h3>Rights holders first</h3><p>The 85/15 split reflects our belief that the people who made the content that trains AI deserve most of the value it creates.</p></article>
+          <article class="card"><p class="kicker">02</p><h3>Rights holders first</h3><p>The standard 85/15 split reflects our belief that the people who made the content that trains AI deserve most of the value it creates.</p></article>
           <article class="card"><p class="kicker">03</p><h3>Ethical by design</h3><p>Opt-outs are free. Credtent does not plan to charge for the free opt-out. License terms include anti-plagiarism guardrails. Compliance documentation is standard, not optional.</p></article>
         </div>
         <div class="grid-3" style="margin-top:24px">
           <article class="card"><h3>Delaware Public Benefit Corporation</h3><p>Credtent's charter names two public benefits: to empower and protect creators of original works in the marketplace of artificial intelligence, and to promote the ethical and credible use and deployment of AI. As a Delaware Public Benefit Corporation, its directors must balance those benefits with stockholders' financial interests.</p></article>
-          <article class="card"><h3>85/15 revenue split</h3><p>Under Credtent's standard terms, 85% of licensing revenue goes to creatives, rights holders, and data providers.</p></article>
+          <article class="card"><h3>Standard 85/15 revenue split</h3><p>Under Credtent's standard terms, 85% of licensing revenue goes to creatives, rights holders, and data providers.</p></article>
           <article class="card"><h3>8+ years of research</h3><p>Research as a service, carried out with a rigorous scientific method.</p></article>
         </div>
       </div></section>
@@ -682,7 +682,7 @@ export function comPages(images) {
     {
       path: "/pricing",
       title: "Pricing | Credtent",
-      description: "Custom licensing for AI companies, 85/15 revenue terms for content partners, a free opt-out for creatives, and published plan prices.",
+      description: "Custom licensing for AI companies, standard 85/15 revenue terms for content partners, a free opt-out for creatives, and published plan prices.",
       eyebrow: "Pricing",
       h1: "Pricing that scales with you.",
       capsule: "AI companies license through custom agreements priced per deal. Under Credtent's standard terms, content partners keep 85% of each licensing deal Credtent closes, and a platform fee applies. Creatives can opt out for free, or license their work for US$49 a year, with periodic AI model audits included, under a promotion for individual creatives who sign up by December 31, 2026.",
@@ -712,7 +712,7 @@ export function comPages(images) {
         <p class="lede">The tier you choose sets the level of service and support. Partners earn when Credtent closes a deal.</p>
         <div class="grid-3" style="margin-top:24px">
           <article class="card"><p class="kicker">For individual rights holders</p><h3>Starter Partner</h3><p><span class="price">85/15</span></p><ul><li>Catalog registration and provenance certification</li><li>Matching with AI companies</li><li>Quarterly royalty payments</li><li>Standard usage reporting</li></ul><p><a href="https://app.credtent.org/inquiries/content-partner">Contact us</a></p></article>
-          <article class="card"><p class="kicker">For guilds, publishers, and studios</p><h3>Organization License</h3><p><span class="price">85/15</span> plus premium</p><ul><li>Everything in Starter Partner</li><li>Bulk catalog intake and metadata tools</li><li>Priority deal placement</li><li>A dedicated account manager</li><li>Audit-ready reporting on demand</li></ul><p><a href="https://app.credtent.org/inquiries/content-partner">Talk with us</a></p></article>
+          <article class="card"><p class="kicker">For guilds, publishers, and studios</p><h3>Organization License</h3><p>Standard <span class="price">85/15</span> plus premium</p><ul><li>Everything in Starter Partner</li><li>Bulk catalog intake and metadata tools</li><li>Priority deal placement</li><li>A dedicated account manager</li><li>Audit-ready reporting on demand</li></ul><p><a href="https://app.credtent.org/inquiries/content-partner">Talk with us</a></p></article>
           <article class="card"><p class="kicker">For large catalogs and data providers</p><h3>Enterprise</h3><p><span class="price">Custom</span></p><ul><li>Everything in Organization License</li><li>Custom API and data pipeline integration</li><li>Dedicated legal advice</li><li>Fully bespoke onboarding</li></ul><p><a href="https://app.credtent.org/inquiries/content-partner">Contact us</a></p></article>
         </div>
       </div></section>
