@@ -323,7 +323,7 @@ export function orgPages(images) {
       description: "Opt-Out Premium enrolls your works in Credtent's periodic AI model audits. Audit results are not proof of dataset inclusion.",
       eyebrow: "Auditing",
       h1: "What an audit can show.",
-      capsule: "With Opt-Out Premium, Credtent audits AI models periodically and records the results. Audit results are not proof of dataset inclusion or infringement.",
+      capsule: "Opt-Out Premium for Rights Holders enrolls their works in Credtent's periodic AI model audits, and Credtent records the results. Audit results are not proof of dataset inclusion or infringement.",
       crumbs: [{ name: "Resources", href: "https://credtent.org/resources" }, { name: "Auditing", href: "https://credtent.org/resources/auditing" }],
       faq: [
         { q: "Is an audit proof my work was in a training set?", a: "No. It is an observation of a model response, not a dataset inventory." },
@@ -566,7 +566,7 @@ export function orgPages(images) {
         <p>The neutral company map is on <a href="https://credtent.com/guides/ai-training-data-licensing-companies/">credtent.com</a>.</p>
         <h2>How are licenses priced?</h2>
         <p>Four structures are common: a flat fee for a defined collection, a per-work or per-unit rate, a revenue share between seller and rights holders, and usage-based fees tied to how often content is accessed. The price depends on exclusivity, quality, documentation, the rights layers involved, and the license term.</p>
-        <p>Credtent does not publish a rate card for AI companies. On the rights-holder side our structure is a revenue share: as of October 2026, Credtent routes 85% of gross revenue from each licensing deal to the rights holders and data providers whose content was licensed and keeps 15% for the platform, legal work, compliance tools, and operations, with royalties paid quarterly.</p>
+        <p>Credtent does not publish a rate card for AI companies. On the rights-holder side our structure is a revenue share: as of October 2026, under its standard terms, Credtent routes 85% of gross revenue from each licensing deal to the rights holders and data providers whose content was licensed and keeps 15% for the platform, legal work, compliance tools, and operations, with royalties paid quarterly.</p>
         <p>Usage-based pricing appears in access and grounding programs. Cloudflare's pay per crawl, which its own page describes as a private beta feature of AI Crawl Control, lets publishers charge AI crawlers for access.</p>
         <h2>What records do developers need?</h2>
         <p>Developers of general-purpose AI models in the EU must publish a sufficiently detailed summary of training content and keep a copyright policy that honors rights reservations, under Article 53 of the EU AI Act. Under Article 113, those obligations apply from 2 August 2025. California's AB 2013 (Chapter 817, approved September 28, 2024) requires developers to post training-data documentation, including the sources or owners of the datasets and whether they were purchased or licensed.</p>
