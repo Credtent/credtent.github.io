@@ -6,7 +6,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { CURRENT_TERMS_FILE, CURRENT_TERMS_EFFECTIVE, REVISED_TERMS_DATE, TERMS_SWAP, UPCOMING_TERMS_PATH, DATE_PLACEHOLDER, VERBATIM_START, VERBATIM_END, REVISED_CHANGES, termsText, reviseTerms, termsGuard, liveTermsParts } from "../src/lib/terms.mjs";
-import { loadPrivateNames, findNames, MISSING_MESSAGE } from "./private-names.mjs";
+import { loadPrivateNames, findNames, nameLines, decodeAll, MISSING_MESSAGE } from "./private-names.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const REPO = path.resolve(ROOT, "..");
@@ -46,7 +46,12 @@ export const BANNED = [
   { id: "pbc-legal-duty-claim", re: /legally (obligat|bound)\w*/i },
   // Review round 2026-11-01: 85/15 is Credtent's standard terms, not every deal; the WGA discount is screenplay-only.
   { id: "85-every-deal", re: /85\s?%\s+of\s+(every|all)\b|\bevery\s+(licensing\s+)?deal\s+(Credtent|we)\s+closes?\s+(sends|routes|pays)\s+85|85\s?%\s+of\s+gross\s+revenue\s+from\s+every\b/i },
-  { id: "wga-discount-widened", re: /WGA members receive a discount|discount on certification fees/i }
+  { id: "wga-discount-widened", re: /WGA members receive a discount|discount on certification fees/i },
+  // Review round 2026-11-01 (second pass).
+  { id: "every-contract-or-no-exceptions", re: /\bevery contract\b|\bNo exceptions\b|\breturns 85\s?%|\bevery deal\b[^.<]{0,60}\b85\s?%/i },
+  { id: "forever-near-free", re: /\b(free|opt-?out)\b[^.<]{0,30}\bforever\b|\bforever\b[^.<]{0,30}\b(free|opt-?out)\b/i },
+  { id: "premium-included-in-49", re: /Everything in Opt-Out Premium/i },
+  { id: "lowercase-brand", re: /(^|[\s(,;:])credtent(?![.\-@/\w])/, cs: true }
 ];
 // Served pages of the live site (GitHub Pages from main) are scanned too until the DNS cutover.
 // The current terms and privacy policy stay verbatim (EB 2026-11-01); the LWS pages are under legal hold item 11.
@@ -63,6 +68,8 @@ export function staysNoindex(rel) {
 export const PRECONDITIONS = [
   {
     env: "AUDITOR_RESUMED",
+    // The last scheduled audit before the pause ran 2026-10-05 (Dick's incident record); a resume date must follow it.
+    after: "2026-10-05",
     why: "EB 2026-11-01: launch waits until Credtent's Auditor is running again (Premium copy says works are enrolled in periodic AI model audits). Set AUDITOR_RESUMED=YYYY-MM-DD, the date the first post-pause audit completed."
   }
 ];
@@ -83,14 +90,14 @@ function walk(dir, out = []) {
   return out;
 }
 
-export function decode(s) {
-  return s
-    .replace(/&nbsp;|&#160;|&#xa0;/gi, " ")
-    .replace(/&mdash;|&#8212;|&#x2014;/gi, "\u2014")
-    .replace(/&ndash;|&#8211;|&#x2013;/gi, "\u2013")
-    .replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">")
-    .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
-    .replace(/&amp;/g, "&");
+// Named, decimal and hex entities (with or without the semicolon), zero-width characters and soft hyphens.
+export const decode = decodeAll;
+
+// The first raw line where a rule matches, so a failure can name a line without printing page text.
+function lineOf(raw, re) {
+  const lines = raw.split("\n");
+  const i = lines.findIndex((l) => re.test(decode(l.replace(/<[^>]*>/g, " "))));
+  return i >= 0 ? i + 1 : 0;
 }
 
 export function visibleText(html) {
@@ -113,7 +120,7 @@ function jsonStrings(value, out = []) {
 
 /** Visible text, every human-facing attribute value, and every JSON-LD string, entities decoded. */
 export function scanText(html) {
-  const attrs = [...html.matchAll(/\s(?:content|alt|title|aria-label|placeholder|value)="([^"]*)"/gi)].map((m) => decode(m[1]));
+  const attrs = [...html.matchAll(/\s(?:content|alt|title|aria-label|placeholder|value|data-[\w-]+)\s*=\s*(?:"([^"]*)"|'([^']*)')/gi)].map((m) => decode(m[1] ?? m[2]));
   const ld = [];
   for (const m of html.matchAll(/<script[^>]*application\/ld\+json[^>]*>([\s\S]*?)<\/script>/gi)) {
     try { ld.push(...jsonStrings(JSON.parse(m[1]))); } catch { ld.push(m[1]); }
@@ -157,7 +164,7 @@ export function checkTerms(sites, fails) {
   const forms = [UPCOMING_TERMS_PATH, `${UPCOMING_TERMS_PATH}/`, `${UPCOMING_TERMS_PATH}/index.html`];
   const sameLines = (got, want, label) => {
     const diff = got.findIndex((line, i) => line !== want[i]);
-    if (got.length !== want.length || diff >= 0) fails.push(`${label} at line ${diff >= 0 ? diff + 1 : Math.min(got.length, want.length) + 1}: "${(got[diff] || "").slice(0, 80)}"`);
+    if (got.length !== want.length || diff >= 0) fails.push(`${label} at text line ${diff >= 0 ? diff + 1 : Math.min(got.length, want.length) + 1}`);
   };
   const legalBlock = (html) => {
     const m = html.match(/<div class="wrap legacy">([\s\S]*?)<\/div><\/section>/);
@@ -179,7 +186,8 @@ export function checkTerms(sites, fails) {
       const intro = termsText(main.slice(0, main.indexOf(VERBATIM_START)));
       if (intro.filter((l) => l === live.eyebrow).length !== 1 || !intro.includes(live.capsule.replace(/&#39;/g, "'"))) fails.push(`${site.id}/terms-of-service: the live intro (eyebrow and summary) is not shown exactly once`);
       if (!mainText.includes(`Effective Date: ${CURRENT_TERMS_EFFECTIVE}`)) fails.push(`${site.id}/terms-of-service: does not show Effective Date: ${CURRENT_TERMS_EFFECTIVE}`);
-      for (const needle of [...revisedOnly, "EFFECTIVE-DATE-PENDING"]) if (mainText.includes(needle)) fails.push(`${site.id}/terms-of-service: revised-only text before the swap: "${needle.slice(0, 70)}"`);
+      revisedOnly.forEach((needle, i) => { if (mainText.includes(needle)) fails.push(`${site.id}/terms-of-service: revised-only change ${i + 1} shown before the swap`); });
+      if (mainText.includes("EFFECTIVE-DATE-PENDING")) fails.push(`${site.id}/terms-of-service: date placeholder shown before the swap`);
       if (!fs.existsSync(upcomingFile)) { fails.push(`${site.id}: ${UPCOMING_TERMS_PATH} is missing`); continue; }
       const up = fs.readFileSync(upcomingFile, "utf8");
       if (!/<meta name="robots" content="noindex/i.test(up)) fails.push(`${site.id}${UPCOMING_TERMS_PATH}: not noindex`);
@@ -261,12 +269,15 @@ export function run() {
     for (const rel of rootServed()) {
       const raw = fs.readFileSync(path.join(REPO, rel), "utf8");
       const text = rel.endsWith(".html") ? scanText(raw) : decode(raw);
-      if (!names.missing && findNames(text, `root/${rel}`, names).length) fails.push(`root/${rel}: names an entry from the private list (withheld from the log)`);
+      if (!names.missing) {
+        const found = findNames(raw, [`root/${rel}`, rel], names);
+        for (const line of found.length ? nameLines(raw, names, found) : []) fails.push(`root/${rel}:${line}: private-name`);
+      }
       if (ROOT_EXEMPT.has(rel)) continue;
       for (const b of BANNED) {
         if (b.id === "comma-artifact" || b.id === "rounded-book-price") continue;
         const m = text.match(b.re);
-        if (m) fails.push(`root/${rel}: ${b.id}: "${text.slice(Math.max(0, m.index - 50), m.index + 60).trim()}"`);
+        if (m) fails.push(`root/${rel}:${lineOf(raw, b.re)}: ${b.id}`);
       }
     }
   }
@@ -285,9 +296,13 @@ export function run() {
       const text = rel.endsWith(".html") ? scanText(checked) : decode(checked);
       for (const b of BANNED) {
         const m = text.match(b.re);
-        if (m) fails.push(`${site.id}/${rel}: ${b.id}: "${text.slice(Math.max(0, m.index - 50), m.index + 60).replace(/\s+/g, " ").trim()}"`);
+        // File, line and rule only: page text is never printed, so no name can reach a log.
+        if (m) fails.push(`${site.id}/${rel}:${lineOf(checked, b.re)}: ${b.id}`);
       }
-      if (!names.missing && findNames(rel.endsWith(".html") ? scanText(raw) : decode(raw), `${site.id}/${rel}`, names).length) fails.push(`${site.id}/${rel}: names an entry from the private list (withheld from the log)`);
+      if (!names.missing) {
+        const found = findNames(raw, [`${site.id}/${rel}`], names);
+        for (const line of found.length ? nameLines(raw, names, found) : []) fails.push(`${site.id}/${rel}:${line}: private-name`);
+      }
       if (!rel.endsWith(".html")) continue;
       const noindex = /<meta name="robots" content="noindex/i.test(raw);
       if (MODE === "preview" && !noindex) fails.push(`${site.id}/${rel}: preview page is missing its noindex meta`);
@@ -328,8 +343,9 @@ export function run() {
   for (const p of LEGACY_ORG_PATHS) if (!resolves(sites.org, p)) fails.push(`org: legacy URL no longer resolves: ${p}`);
   for (const pre of PRECONDITIONS) {
     const v = process.env[pre.env] || "";
-    const ok = /^\d{4}-\d{2}-\d{2}$/.test(v) && Date.parse(`${v}T00:00:00Z`) <= Date.now();
-    if (!ok) (MODE === "production" ? fails : warns).push(`precondition ${pre.env} not confirmed (a past YYYY-MM-DD date): ${pre.why}`);
+    const t = /^\d{4}-\d{2}-\d{2}$/.test(v) ? Date.parse(`${v}T00:00:00Z`) : NaN;
+    const ok = !Number.isNaN(t) && t <= Date.now() && (!pre.after || t > Date.parse(`${pre.after}T00:00:00Z`));
+    if (!ok) (MODE === "production" ? fails : warns).push(`precondition ${pre.env} not confirmed (a YYYY-MM-DD date after ${pre.after || "the pause"} and not in the future): ${pre.why}`);
   }
   return { fails, reviews, warns };
 }
