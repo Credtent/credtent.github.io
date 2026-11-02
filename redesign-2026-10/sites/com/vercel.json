@@ -66,6 +66,15 @@
           "value": "noindex, nofollow"
         }
       ]
+    },
+    {
+      "source": "/terms-of-service/upcoming/index.html",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
     }
   ],
   "redirects": [
