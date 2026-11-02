@@ -6,7 +6,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { CURRENT_TERMS_FILE, CURRENT_TERMS_EFFECTIVE, REVISED_TERMS_DATE, TERMS_SWAP, UPCOMING_TERMS_PATH, DATE_PLACEHOLDER, VERBATIM_START, VERBATIM_END, REVISED_CHANGES, termsText, reviseTerms, termsGuard, liveTermsParts } from "../src/lib/terms.mjs";
-import { loadPrivateNames, findNames, nameLines, decodeAll, MISSING_MESSAGE } from "./private-names.mjs";
+import { loadPrivateNames, findNames, nameLines, decodeAll, redactLine, MISSING_MESSAGE } from "./private-names.mjs";
+import { isBinary, readText, sha256, EM_DASH } from "./text-files.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const REPO = path.resolve(ROOT, "..");
@@ -20,7 +21,7 @@ const HOST = { com: "credtent.com", org: "credtent.org" };
 
 // Claims removed from the live site in #23 and #24, plus standing locks (LD-006, LD-049, accounts canonical).
 export const BANNED = [
-  { id: "em-dash", re: /\u2014/ },
+  { id: "em-dash", re: EM_DASH },
   { id: "spaced-en-dash", re: /\s\u2013\s/ },
   { id: "superseded-249", re: /(US)?\$\s?249\b|\b249\+/ },
   { id: "continuous-auditing", re: /continuous(ly)?\s+(audit|monitor)/i },
@@ -53,7 +54,12 @@ export const BANNED = [
   { id: "premium-included-in-49", re: /Everything in Opt-Out Premium/i },
   { id: "lowercase-brand", re: /(^|[\s(,;:])credtent(?![.\-@/\w])/, cs: true },
   // Third review round (2026-11-01).
-  { id: "85-without-standard-terms", test: (text) => text.split(/(?<=[.?!])\s+/).some((x) => /\b85\s?(%|percent)/i.test(x) && x.trim().split(/\s+/).length > 2 && !/standard terms/i.test(x)) },
+  // 85% needs "standard terms" in the same sentence and 85/15 needs "standard"; a bare figure or price label
+  // ("85%", "85/15 + premium") is not a statement, anything with two words is (same rule as the live-copy gate).
+  { id: "85-without-standard-terms", test: (text) => text.split(/(?<=[.?!])\s+/).some((x) => {
+    const words = x.split(/\s+/).filter((w) => /[a-z]/i.test(w)).length;
+    return words >= 2 && ((/\b85\s?(%|percent)/i.test(x) && !/standard terms/i.test(x)) || (/\b85\/15\b/.test(x) && !/\bstandard\b/i.test(x)));
+  }) },
   { id: "present-tense-audits", re: /\bCredtent (also )?audits AI models\b|\baudits AI models periodically\b/i },
   // Ported from check-copy so they also run on decoded text; new-site pages only (the live site still says "creators").
   { id: "product-name", re: /Credtent Aegis/i, siteOnly: true },
@@ -64,9 +70,17 @@ export const BANNED = [
 ];
 export const ruleHit = (r, text) => (r.test ? r.test(text) : r.re.test(text));
 // Served pages of the live site (GitHub Pages from main) are scanned too until the DNS cutover.
-// The current terms and privacy policy stay verbatim (EB 2026-11-01); the LWS pages are under legal hold item 11.
+// The current terms and privacy policy stay verbatim (EB 2026-11-01); lws.html is under legal hold item 11
+// (which covers credtent.org/lws and lws.html only; parking/lws.html is scanned). Each exempt page is pinned to
+// its sha256: a change fails until someone re-reviews it and updates the pin (the same pins as the live-copy gate).
 export const ROOT_SCAN = true;
-const ROOT_EXEMPT = new Set(["terms-of-service.html", "privacy-policy.html", "lws.html", "parking/lws.html"]);
+export const ROOT_EXEMPT = new Map([
+  ["terms-of-service.html", "2a43523f0631d87f383a10b992129b8b9db86e7801be6059e08fdb65e838e635"],
+  ["privacy-policy.html", "d3c53c6fc6b27bf011e5920dfda1742cf4674d37e10bb06fd8ca1b7e8fe84d07"],
+  ["lws.html", "315a2fd0423a37d47f5347899c71956c656d1430f6c8751fb0a6e5f66242324a"]
+]);
+// Root files the copy rules read (what Pages renders as text); every non-binary root file gets the names checks.
+const ROOT_RULE_FILES = /\.(html?|md|markdown|txt)$/i;
 const ROOT_SKIP_DIRS = new Set([".git", ".github", ".claude", "redesign-2026-10", "node_modules", ".worktrees"]);
 // Pages that stay noindex in production.
 export function staysNoindex(rel) {
@@ -83,6 +97,43 @@ export const PRECONDITIONS = [
     why: "EB 2026-11-01: launch waits until Credtent's Auditor is running again (Premium copy says works are enrolled in periodic AI model audits). Set AUDITOR_RESUMED=YYYY-MM-DD, the date the first post-pause audit completed."
   }
 ];
+// EB ruling relayed 2026-11-02 ("Keep the claim"): the new site keeps saying the $49 promo and Opt-Out Premium
+// include AI model audits, so launch waits until every Premium or promo signer is placed in an audit run. The audit
+// lane writes this attestation from Aegis; it is committed here before DNS (runbook) and holds counts only, because
+// this repo is public. It is enforced in production mode, which is what the cutover build runs
+// (npm run check:production); preview mode, the everyday CI run, only warns.
+export const AUDIT_COVERAGE_FILE = path.join(ROOT, "launch", "audit-coverage.json");
+export const AUDIT_COVERAGE_SCHEMA = "credtent-audit-coverage/1";
+export const AUDIT_COVERAGE_MAX_AGE_HOURS = 72;
+const COVERAGE_KEYS = ["schema", "generatedAt", "aegisCommit", "signersTotal", "placedInRun", "missing", "heldByRuling"];
+/** Problems with the audit-coverage attestation; an empty list means launch may proceed. Fails closed. */
+export function auditCoverageProblems(file = AUDIT_COVERAGE_FILE, now = new Date()) {
+  const rel = path.relative(ROOT, file).split(path.sep).join("/");
+  if (!fs.existsSync(file)) return [`${rel} is missing: run the Aegis audit-coverage script and commit its output (runbook, step before DNS)`];
+  let a;
+  try { a = JSON.parse(fs.readFileSync(file, "utf8")); } catch { return [`${rel} is not valid JSON`]; }
+  if (!a || typeof a !== "object" || Array.isArray(a)) return [`${rel} is not a JSON object`];
+  const out = [];
+  const extra = Object.keys(a).filter((k) => !COVERAGE_KEYS.includes(k));
+  // Counts only: any other field (a name, an id, an email) is refused in this public repo.
+  if (extra.length) out.push(`${rel} has fields outside the schema (${extra.length}); it may hold counts only`);
+  if (a.schema !== AUDIT_COVERAGE_SCHEMA) out.push(`${rel} schema is not ${AUDIT_COVERAGE_SCHEMA}`);
+  if (typeof a.aegisCommit !== "string" || !/^[0-9a-f]{7,40}$/i.test(a.aegisCommit)) out.push(`${rel} aegisCommit is not a commit sha`);
+  const counts = ["signersTotal", "placedInRun", "missing", "heldByRuling"];
+  const bad = counts.filter((k) => !Number.isInteger(a[k]) || a[k] < 0);
+  if (bad.length) out.push(`${rel} ${bad.join(", ")} must be whole numbers, zero or more`);
+  else {
+    if (a.signersTotal <= 0) out.push(`${rel} signersTotal is 0: there is no signer count to attest`);
+    if (a.placedInRun !== a.signersTotal) out.push(`${rel} placedInRun (${a.placedInRun}) is not signersTotal (${a.signersTotal})`);
+    if (a.missing !== 0) out.push(`${rel} missing is ${a.missing}, not 0`);
+    if (a.heldByRuling !== 0) out.push(`${rel} heldByRuling is ${a.heldByRuling}, not 0 (signers held off until EB rules, LD-067 ruling 6)`);
+  }
+  const t = typeof a.generatedAt === "string" && /^\d{4}-\d{2}-\d{2}T/.test(a.generatedAt) ? Date.parse(a.generatedAt) : NaN;
+  if (Number.isNaN(t)) out.push(`${rel} generatedAt is not a timestamp (YYYY-MM-DDTHH:MM:SSZ)`);
+  else if (t > now.getTime() + 5 * 60 * 1000) out.push(`${rel} generatedAt is in the future`);
+  else if (now.getTime() - t > AUDIT_COVERAGE_MAX_AGE_HOURS * 3600 * 1000) out.push(`${rel} is stale: generatedAt is more than ${AUDIT_COVERAGE_MAX_AGE_HOURS} hours old`);
+  return out;
+}
 // Old live URLs that must keep resolving on credtent.org after the DNS move (copied or 301'd).
 export const LEGACY_ORG_PATHS = [
   "/licensing", "/team/eric-burgess.jpg", "/images/credtent-logo-indigo.svg", "/images/b-corp-logo.svg",
@@ -208,7 +259,12 @@ export function checkTerms(sites, fails) {
     if (!TERMS_SWAP) {
       const a = main.indexOf(VERBATIM_START), b = main.indexOf(VERBATIM_END);
       if (a < 0 || b < a) fails.push(`${site.id}/terms-of-service: the current terms are not served verbatim (markers missing)`);
-      else sameLines(termsText(main.slice(a, b)), liveText, `${site.id}/terms-of-service: current terms differ from ${CURRENT_TERMS_FILE}`);
+      else {
+        sameLines(termsText(main.slice(a, b)), liveText, `${site.id}/terms-of-service: current terms differ from ${CURRENT_TERMS_FILE}`);
+        // The copy rules skip this block, so its raw markup must equal the live page's: only link targets may differ.
+        const hrefsAside = (h) => h.replace(/\bhref="[^"]*"/g, 'href=""');
+        if (hrefsAside(main.slice(a + VERBATIM_START.length, b)) !== hrefsAside(liveBody)) fails.push(`${site.id}/terms-of-service: the current terms block is not the live markup byte for byte (link targets aside)`);
+      }
       const intro = termsText(main.slice(0, main.indexOf(VERBATIM_START)));
       if (intro.filter((l) => l === live.eyebrow).length !== 1 || !intro.includes(live.capsule.replace(/&#39;/g, "'"))) fails.push(`${site.id}/terms-of-service: the live intro (eyebrow and summary) is not shown exactly once`);
       if (!mainText.includes(`Effective Date: ${CURRENT_TERMS_EFFECTIVE}`)) fails.push(`${site.id}/terms-of-service: does not show Effective Date: ${CURRENT_TERMS_EFFECTIVE}`);
@@ -278,7 +334,7 @@ function rootServed(dir = REPO, out = []) {
     const p = path.join(dir, e.name);
     const rel = path.relative(REPO, p).split(path.sep).join("/");
     if (e.isDirectory()) { if (!ROOT_SKIP_DIRS.has(e.name)) rootServed(p, out); }
-    else if (/\.html$/.test(e.name) || rel === "llms.txt") out.push(rel);
+    else out.push(rel);
   }
   return out;
 }
@@ -293,13 +349,21 @@ export function run() {
   for (const site of Object.values(sites)) checkMode(site, fails);
   if (ROOT_SCAN) {
     for (const rel of rootServed()) {
-      const raw = fs.readFileSync(path.join(REPO, rel), "utf8");
-      const text = rel.endsWith(".html") ? scanText(raw) : decode(raw);
+      if (!names.missing && findNames(rel, [`root/${rel}`, rel], names).length) fails.push(`root/${rel}:0: private-name-in-path`);
+      const buf = fs.readFileSync(path.join(REPO, rel));
+      if (isBinary(rel, buf)) continue;
+      const { text: raw, nul } = readText(buf);
+      if (nul) fails.push(`root/${rel}:0: nul-byte-in-text`);
+      const text = /\.html?$/i.test(rel) ? scanText(raw) : decode(raw);
       if (!names.missing) {
         const found = findNames(raw, [`root/${rel}`, rel], names);
         for (const line of found.length ? nameLines(raw, names, found) : []) fails.push(`root/${rel}:${line}: private-name`);
       }
-      if (ROOT_EXEMPT.has(rel)) continue;
+      if (ROOT_EXEMPT.has(rel)) {
+        if (sha256(buf) !== ROOT_EXEMPT.get(rel)) fails.push(`root/${rel}:0: exempt-page-changed (re-review it, then update its pin)`);
+        continue;
+      }
+      if (!ROOT_RULE_FILES.test(rel)) continue;
       for (const b of BANNED) {
         if (b.id === "comma-artifact" || b.id === "rounded-book-price") continue;
         if (b.siteOnly) continue;
@@ -312,14 +376,18 @@ export function run() {
       if (!site.files.has(req)) fails.push(`${site.id}: missing ${req}`);
     }
     for (const rel of site.files) {
-      if (!/\.(html|txt|xml|json|css|js|svg|webmanifest)$/.test(rel) || rel.startsWith("fonts/")) continue;
-      const raw = fs.readFileSync(path.join(site.dir, rel), "utf8");
+      // The path is the URL, so it is checked like text; then every non-binary file, whatever its extension.
+      if (!names.missing && findNames(rel, [`${site.id}/${rel}`], names).length) fails.push(`${site.id}/${rel}:0: private-name-in-path`);
+      const buf = fs.readFileSync(path.join(site.dir, rel));
+      if (isBinary(rel, buf)) continue;
+      const { text: raw, nul } = readText(buf);
+      if (nul) fails.push(`${site.id}/${rel}:0: nul-byte-in-text`);
       // The current terms are served verbatim (EB 2026-11-01); checkTerms proves that block equals the live
       // page, so copy rules apply to everything outside it. The block may appear only on /terms-of-service.
       const hasVerbatim = raw.includes(VERBATIM_START);
       if (hasVerbatim && rel !== "terms-of-service/index.html") fails.push(`${site.id}/${rel}: verbatim terms block outside /terms-of-service`);
       const checked = hasVerbatim ? raw.slice(0, raw.indexOf(VERBATIM_START)) + raw.slice(raw.indexOf(VERBATIM_END) + VERBATIM_END.length) : raw;
-      const text = rel.endsWith(".html") ? scanText(checked) : decode(checked);
+      const text = /\.html?$/i.test(rel) ? scanText(checked) : decode(checked);
       for (const b of BANNED) {
         const m = ruleHit(b, text);
         // File, line and rule only: page text is never printed, so no name can reach a log.
@@ -373,6 +441,7 @@ export function run() {
     const ok = !Number.isNaN(t) && t <= Date.now() && (!pre.after || t > Date.parse(`${pre.after}T00:00:00Z`));
     if (!ok) (MODE === "production" ? fails : warns).push(`precondition ${pre.env} not confirmed (a YYYY-MM-DD date after ${pre.after || "the pause"} and not in the future): ${pre.why}`);
   }
+  for (const problem of auditCoverageProblems()) (MODE === "production" ? fails : warns).push(`precondition audit coverage: ${problem}`);
   return { fails, reviews, warns };
 }
 
@@ -382,9 +451,11 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     process.exit(2);
   }
   const { fails, reviews, warns } = run();
-  for (const r of reviews) console.log(`REVIEW ${r}`);
-  for (const w of warns) console.log(`WARN ${w}`);
-  for (const f of fails) console.log(`FAIL ${f}`);
+  for (const r of reviews) console.log(redactLine(`REVIEW ${r}`, loadPrivateNames()));
+  for (const w of warns) console.log(redactLine(`WARN ${w}`, loadPrivateNames()));
+  // Never print a path, URL or token that names a listed entry: it becomes a short hash.
+  const names = loadPrivateNames();
+  for (const f of fails) console.log(redactLine(`FAIL ${f}`, names));
   console.log(`launch check: ${fails.length} fail, ${reviews.length} review, ${warns.length} warn`);
   process.exit(fails.length ? 1 : 0);
 }

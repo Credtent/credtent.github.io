@@ -1,6 +1,7 @@
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
+import { loadPrivateNames, redactLine } from "./private-names.mjs";
 import { TALLY_FORM_IDS } from "../src/lib/render.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
@@ -327,7 +328,9 @@ for (const file of Object.values(sites).flatMap((dir) => walk(dir)).filter((file
     if (text.includes(name)) kept.push(`${name} in ${path.relative(root, file)}`);
   }
 }
-console.log(kept.length ? `kept product names:\n${kept.join("\n")}` : "kept product names: none");
+const names = loadPrivateNames();
+// Never print a path or URL that names a listed entry: it becomes a short hash.
+console.log(kept.length ? `kept product names:\n${kept.map((k) => redactLine(k, names)).join("\n")}` : "kept product names: none");
 
 const home = fs.readFileSync(path.join(sites["https://credtent.com"], "index.html"), "utf8");
 if (!/src="\/media\/bridge-1600\.webp" width="1600"/.test(home)) fail("com home hero width is not 1600");
@@ -474,7 +477,7 @@ if (produced.status !== 0) {
 }
 
 if (failures.length) {
-  console.error(failures.join("\n"));
+  console.error(failures.map((f) => redactLine(f, names)).join("\n"));
   console.error(`\n${failures.length} redirect/sitemap check failure(s).`);
   process.exit(1);
 }

@@ -78,3 +78,64 @@ test("third round: 85% needs standard terms, audits are an enrollment, ported co
   assert.ok(ruleHit(r("free-forever-promise"), scanText("<p>al<wbr>ways free</p>")));
   assert.ok(ruleHit(r("free-forever-promise"), scanText("<style>.x::after{content:'always free'}</style>")));
 });
+
+// Audit-coverage attestation (EB ruling relayed 2026-11-02, "Keep the claim"): fails closed in every bad case.
+test("audit coverage: a complete, fresh attestation passes; every failure case, a stale, missing or malformed file fails", async () => {
+  const fs = await import("node:fs");
+  const os = await import("node:os");
+  const path = await import("node:path");
+  const { auditCoverageProblems } = await import("./check-launch.mjs");
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "coverage-"));
+  const now = new Date("2026-11-20T12:00:00Z");
+  const good = { schema: "credtent-audit-coverage/1", generatedAt: "2026-11-19T12:00:00Z", aegisCommit: "0123abcd", signersTotal: 12, placedInRun: 12, missing: 0, heldByRuling: 0 };
+  const check = (value, raw) => {
+    const file = path.join(dir, `c-${Math.random().toString(36).slice(2)}.json`);
+    fs.writeFileSync(file, raw ?? JSON.stringify(value));
+    return auditCoverageProblems(file, now);
+  };
+  assert.deepEqual(check(good), []);
+  const fails = (patch, re) => { const p = check({ ...good, ...patch }); assert.ok(p.some((x) => re.test(x)), `${JSON.stringify(patch)} -> ${p}`); };
+  fails({ schema: "credtent-audit-coverage/2" }, /schema/);
+  fails({ signersTotal: 0, placedInRun: 0 }, /signersTotal is 0/);
+  fails({ placedInRun: 11, missing: 1 }, /placedInRun/);
+  fails({ missing: 1 }, /missing is 1/);
+  fails({ heldByRuling: 2 }, /heldByRuling is 2/);
+  fails({ placedInRun: "12" }, /whole numbers/);
+  fails({ missing: -1 }, /whole numbers/);
+  fails({ aegisCommit: "main" }, /commit sha/);
+  fails({ generatedAt: "2026-11-17T11:59:00Z" }, /stale/);
+  fails({ generatedAt: "2026-11-21T12:00:00Z" }, /future/);
+  fails({ generatedAt: "yesterday" }, /not a timestamp/);
+  fails({ signers: ["a@example.com"] }, /counts only/);
+  assert.ok(auditCoverageProblems(path.join(dir, "absent.json"), now).some((x) => /missing/.test(x)));
+  assert.ok(check(null, "{not json").some((x) => /not valid JSON/.test(x)));
+  assert.ok(check(null, "[1,2]").some((x) => /not a JSON object/.test(x)));
+  // Exactly 72 hours old still passes; the limit is "no more than 72 hours".
+  assert.deepEqual(check({ ...good, generatedAt: "2026-11-17T12:00:00Z" }), []);
+});
+
+test("round four: paths, UTF-16, NUL bytes, the raw terms block and redaction, end to end", async () => {
+  const fs = await import("node:fs");
+  const os = await import("node:os");
+  const path = await import("node:path");
+  const { spawnSync } = await import("node:child_process");
+  const here = path.dirname(new URL(import.meta.url).pathname);
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "launch-"));
+  for (const id of ["com", "org"]) fs.cpSync(path.join(here, "..", "sites", id), path.join(tmp, id), { recursive: true });
+  const terms = path.join(tmp, "com", "terms-of-service", "index.html");
+  // Same visible text, different markup inside the verbatim block: the raw comparison must catch it.
+  fs.writeFileSync(terms, fs.readFileSync(terms, "utf8").replace("<!--legal:current-terms:start-->", "<!--legal:current-terms:start--><span data-x=\"free forever\"></span>"));
+  fs.mkdirSync(path.join(tmp, "com", "example-corp"));
+  fs.writeFileSync(path.join(tmp, "com", "example-corp", "x.txt"), "ok");
+  fs.writeFileSync(path.join(tmp, "org", "u16.html"), Buffer.concat([Buffer.from([0xff, 0xfe]), Buffer.from("<p>Example Corp</p>", "utf16le")]));
+  fs.writeFileSync(path.join(tmp, "org", "nul.data"), "a\0b Example Corp");
+  const list = ["Example Corp", "Filler One", "Filler Two", "Filler Three", "Filler Four", "Filler Five", "Filler Six", "Filler Seven", "Filler Eight", "Filler Nine"].join("\n");
+  const r = spawnSync(process.execPath, [path.join(here, "check-launch.mjs"), "preview", path.join(tmp, "com"), path.join(tmp, "org")], { env: { ...process.env, CREDTENT_REVIEW_NAMES: list, CI: "" }, encoding: "utf8" });
+  const out = r.stdout;
+  assert.match(out, /com\/terms-of-service: the current terms block is not the live markup/);
+  assert.match(out, /\[redacted:[0-9a-f]{12}\]:0: private-name-in-path/);
+  assert.match(out, /org\/u16\.html:1: private-name/);
+  assert.match(out, /org\/nul\.data:0: nul-byte-in-text/);
+  assert.match(out, /org\/nul\.data:1: private-name/);
+  assert.doesNotMatch(out, /example[\s-]?corp/i);
+});
