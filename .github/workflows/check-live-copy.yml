@@ -1,0 +1,24 @@
+name: Check live copy
+
+# Runs the copy gate for the pages GitHub Pages serves from main. The counterparty review list is a
+# repository secret (CREDTENT_REVIEW_NAMES), never a file in this public repo; without it the job fails.
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Live copy gate
+        env:
+          CREDTENT_REVIEW_NAMES: ${{ secrets.CREDTENT_REVIEW_NAMES }}
+        run: node .github/scripts/check-live-copy.mjs
+      - name: Gate tests
+        run: node --test .github/scripts/check-live-copy.test.mjs
