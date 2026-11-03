@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { loadPrivateNames, findNames, nameLines, decodeAll, redactLine, binaryText, MISSING_MESSAGE } from "./private-names.mjs";
 import { isBinary, readText, EM_DASH } from "./text-files.mjs";
+import { audienceWordOutsideCharter } from "./charter-quote.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const roots = [path.join(root, "src"), path.join(root, "sites")];
@@ -62,14 +63,11 @@ for (const [file, original] of texts) {
   VERBATIM.lastIndex = 0;
   const lines = text.split(/\n/);
   lines.forEach((line, index) => {
-    if (line.includes("app.credtent.org/") && /\bcreat or\b/.test("no")) return;
     const decoded = decodeAll(line);
     for (const pattern of patterns) {
       if (!pattern.re.test(line) && !pattern.re.test(decoded)) continue;
-      // "creators of original works" quotes the PBC charter's public benefit (Cherryh, EB-approved 2026-11-01).
-      const charterQuote = pattern.name === "audience-word" && line.replace(/creators of original works/g, "").search(pattern.re) === -1;
-      const allowed = charterQuote || (pattern.name === "audience-word" && /app\.credtent\.org\/[^\s"']*creat/.test(line));
-      if (allowed) continue;
+      // The only allowance is the exact charter phrase (charter-quote.mjs).
+      if (pattern.name === "audience-word" && !audienceWordOutsideCharter(line)) continue;
       // File, line and rule only: page text is never printed, so no name can reach a log.
       failures.push(`${path.relative(root, file)}:${index + 1} [${pattern.name}]`);
     }

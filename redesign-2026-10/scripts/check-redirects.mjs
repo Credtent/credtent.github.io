@@ -3,6 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { loadPrivateNames, redactLine } from "./private-names.mjs";
 import { TALLY_FORM_IDS } from "../src/lib/render.mjs";
+import { audienceWordOutsideCharter } from "./charter-quote.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const sites = {
@@ -319,11 +320,10 @@ for (const [origin, dir] of Object.entries(sites)) {
 }
 
 const kept = [];
-const audience = new RegExp("\\bcreat" + "ors?\\b", "i");
 for (const file of Object.values(sites).flatMap((dir) => walk(dir)).filter((file) => /\.(html|txt|json|xml)$/.test(file))) {
   const text = fs.readFileSync(file, "utf8");
-  // The charter's own wording, "creators of original works", is quoted on purpose (Cherryh, 2026-11-01).
-  if (audience.test(text.replace(/creators of original works/g, ""))) fail(`${path.relative(root, file)} still says creator/creators`);
+  // The only allowance is the exact charter phrase (charter-quote.mjs).
+  if (audienceWordOutsideCharter(text)) fail(`${path.relative(root, file)} still says creator/creators`);
   for (const name of ["Creator Licensing", "ICR Creator"]) {
     if (text.includes(name)) kept.push(`${name} in ${path.relative(root, file)}`);
   }
