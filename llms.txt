@@ -5,7 +5,7 @@ Credtent, Inc. is a Delaware Public Benefit Corporation. It connects AI companie
 
 True today: Licenses include the rights the contracting holders warranted, a named manifest, and a disclosure pack your counsel can use for EU AI Act Art. 53 and CA AB 2013 filings. Those statutes still bind the developer. Indemnity, if any, is only as written in the signed license.
 
-Past use: We can structure a going-forward license plus a covenant not to sue from the rights holders who sign, covering the named works. That is not a release from everyone else, and it is not a regulator cure.
+Past use: We can structure a going-forward license and a covenant not to sue over past use from the rights holders who sign, limited to the named works. Neither one binds a rights holder who did not sign, and neither one satisfies the developer's regulatory obligations.
 
 ## AI training data licensing
 - [Home](https://credtent.org/): what Credtent is, who it serves, and how licensing works in three steps
