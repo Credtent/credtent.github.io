@@ -233,3 +233,14 @@ test("check-launch's audience-word rule allows only the exact charter phrase", a
   assert.equal(ruleHit(rule, `see https://app.credtent.org/${w}`), true);
   assert.equal(ruleHit(rule, `protect ${w} of artistic, scholastic, scientific, journalistic, and other original works`), true);
 });
+test("a dropped name removes only its own paragraph, list item or table row", async () => {
+  const { dropBlocks } = await import("./scrub.mjs");
+  const html = `<p>Intro.</p><div class="a"><div><p>Zorblax Qentwell is listed.</p><p>Keep me.</p></div></div><ul><li>One</li><li>Zorblax Qentwell</li></ul><table><tr><td>A</td></tr><tr><td>Zorblax Qentwell</td></tr></table>`;
+  assert.equal(dropBlocks(html, ["Zorblax Qentwell"]), `<p>Intro.</p><div class="a"><div><p>Keep me.</p></div></div><ul><li>One</li></ul><table><tr><td>A</td></tr></table>`);
+});
+test("the charter phrase is erased only as whole words", async () => {
+  const { audienceWordOutsideCharter } = await import("./charter-quote.mjs");
+  const w = "creat" + "ors";
+  assert.equal(audienceWordOutsideCharter(`${w} of original worksheets`), true);
+  assert.equal(audienceWordOutsideCharter(`the ${w} of original works.`), false);
+});
