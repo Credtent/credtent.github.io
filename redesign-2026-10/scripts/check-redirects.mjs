@@ -470,7 +470,8 @@ const produced = spawnSync("node", ["src/build.mjs"], {
   encoding: "utf8"
 });
 if (produced.status !== 0) {
-  fail(`production build failed\n${produced.stdout || ""}\n${produced.stderr || ""}`);
+  // Exit status only: build output can carry page text, and the Vercel build log has no mask step.
+  fail(`production build failed (exit ${produced.status}); run SITE_ENV=production node src/build.mjs locally to see why`);
 } else {
   assertProduction(prodOut);
   console.log("production mode: robots.production.txt is served, indexable pages have no noindex meta or sitewide X-Robots-Tag");
