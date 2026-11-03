@@ -212,7 +212,8 @@ export function claimText(rel, raw) {
   if (/\.css$/i.test(rel)) return cssContent(raw);
   if (/\.(m?js|cjs)$/i.test(rel)) return scanText(jsStrings(raw));
   if (/\.(json|webmanifest)$/i.test(rel)) { try { return jsonStrings(JSON.parse(raw)).map(decode).join(" . "); } catch { /* fall through */ } }
-  return decode(unescapeText(raw));
+  // Line breaks in plain text do not end a sentence for a reader, so a wrapped claim is read as one line.
+  return decode(unescapeText(raw)).replace(/\s+/g, " ");
 }
 
 // Visible text, every attribute value except URLs, every JSON-LD string, inline script string literals and CSS
