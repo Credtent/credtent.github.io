@@ -181,3 +181,7 @@ test("a render-time file a person has reviewed is pinned by hash; any change fla
   assert.ok(!run({ env: { CREDTENT_REVIEW_NAMES: LIST }, localFile: null, root, reviewed: new Map([["c.js", pin]]) }).includes("c.js:0: render-time-text-needs-review"));
   assert.ok(run({ env: { CREDTENT_REVIEW_NAMES: LIST }, localFile: null, root, reviewed: new Map([["c.js", "0".repeat(64)]]) }).includes("c.js:0: render-time-text-needs-review"));
 });
+test("a claim soft-wrapped across a line break in a text file is still read", () => {
+  const root = tmp({ "llms.txt": "About\nCredtent\nAegis is here" });
+  assert.ok(run({ env: { CREDTENT_REVIEW_NAMES: LIST }, localFile: null, root }).some((f) => /^llms\.txt:\d+: product-name$/.test(f)));
+});
