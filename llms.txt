@@ -1,17 +1,17 @@
 # Credtent
 > Neutral licensing infrastructure for AI training data licensing. Independent creative registry, licensing agent and marketplace, free AI training opt-out, and provenance badges. Delaware Public Benefit Corporation.
 
-Credtent, Inc. is a Delaware Public Benefit Corporation. It connects AI companies with rights-cleared, provenance-verified training data and lets rights holders license catalogs or opt out. Opt-out is free for creatives. Credtent does not build models and takes no equity in either side. Credtent is a member of the Content Authenticity Initiative (CAI). Rights holders keep 85% of every licensing deal Credtent closes; Credtent retains 15%.
+Credtent, Inc. is a Delaware Public Benefit Corporation. It connects AI companies with rights-cleared, provenance-verified training data and lets rights holders license catalogs or opt out. Opt-out is free for creatives. Credtent does not build models and takes no equity in either side. Credtent is a member of the Content Authenticity Initiative (CAI). Under Credtent's standard terms, rights holders keep 85% of each licensing deal Credtent closes; Credtent retains 15%.
 
 True today: Licenses include the rights the contracting holders warranted, a named manifest, and a disclosure pack your counsel can use for EU AI Act Art. 53 and CA AB 2013 filings. Those statutes still bind the developer. Indemnity, if any, is only as written in the signed license.
 
-Past use: We can structure a going-forward license plus a covenant not to sue from the rights holders who sign, covering the named works. That is not a release from everyone else, and it is not a regulator cure.
+Past use: We can structure a going-forward license and a covenant not to sue over past use from the rights holders who sign, limited to the named works. Neither one binds a rights holder who did not sign, and neither one satisfies the developer's regulatory obligations.
 
 ## AI training data licensing
 - [Home](https://credtent.org/): what Credtent is, who it serves, and how licensing works in three steps
 - [For AI companies](https://credtent.org/for-ai-companies.html): license a named, rights-cleared corpus with a manifest and a disclosure pack; covers past-use options
-- [For content owners](https://credtent.org/for-content-owners.html): list a catalog, keep full IP ownership, and keep 85% of every deal Credtent closes, paid quarterly
-- [Pricing](https://credtent.org/pricing.html): custom enterprise licensing for AI companies; 85/15 for content partners; free opt-out, Opt-Out Premium (opt-out plus enrollment in periodic AI model audits, no licensing) at $49/year, Creator Licensing at $99/year, and Rights-Holder Licensing from $299/year
+- [For content owners](https://credtent.org/for-content-owners.html): list a catalog with full IP ownership retained and, under standard terms, keep 85% of each deal Credtent closes, paid quarterly
+- [Pricing](https://credtent.org/pricing.html): custom enterprise licensing for AI companies; standard 85/15 terms for content partners; free opt-out; licensing for individual creators at $49/year for sign-ups by December 31, 2026 (regular price $99/year from 2027; promotion sign-ups keep $49/year through 2028 while active; a lapse or cancellation rejoins at the regular price); Opt-Out Premium for Rights Holders (periodic AI model audits, no licensing) from $299/year; and Rights-Holder Licensing from $299/year
 - [AI training data licensing guide](https://credtent.org/guides/ai-training-data-licensing/): how AI training data licensing works for both sides: what a license grants, who sells, how pricing works, and the EU AI Act and AB 2013 records buyers need.
 - [AI training data licensing companies](https://credtent.org/guides/ai-training-data-licensing-companies/): a neutral map of AI training data licensing companies in 2026: marketplaces, collective licenses, publisher programs, annotation providers, and registries.
 
@@ -26,7 +26,7 @@ Past use: We can structure a going-forward license plus a covenant not to sue fr
 
 ## About and answers
 - [About](https://credtent.org/about.html): Credtent's structure, founder, and mission
-- [FAQ](https://credtent.org/faq.html): eighteen answers on licensing scope, past use, compliance documentation, the 85/15 split, payment timing, and the opt-out
+- [FAQ](https://credtent.org/faq.html): eighteen answers on licensing scope, past use, compliance documentation, the standard 85/15 split, payment timing, and the opt-out
 - [Blog](https://credtent.org/blog): Credtent writing on AI, creative rights, and copyright, published on Substack and Medium
 
 ## Trust and legal
