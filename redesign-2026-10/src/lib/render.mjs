@@ -24,7 +24,7 @@ export function organizationNode(site) {
     logo: "https://credtent.com/brand/shield.svg",
     email: site.email,
     foundingDate: "2023",
-    description: "Credtent, Inc. is a Delaware Public Benefit Corporation and a certified B Corp, a neutral marketplace connecting content owners and AI companies through consent, licensing, and compensation.",
+    description: "Credtent, Inc. is a Delaware Public Benefit Corporation and a Certified B Corp, a neutral marketplace connecting content owners and AI companies through consent, licensing, and compensation.",
     address: {
       "@type": "PostalAddress",
       streetAddress: "1822 E. Route 66, Suite A353",

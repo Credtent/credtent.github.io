@@ -216,3 +216,20 @@ test("a claim soft-wrapped across a line break in a text file is still read", as
   const { claimText, ruleHit } = await import("./check-launch.mjs");
   assert.ok(ruleHit(BANNED.find((b) => b.id === "product-name"), claimText("llms.txt", "About\nCredtent\nAegis is here")));
 });
+test("the audience-word allowance covers only the exact charter phrase", async () => {
+  const { audienceWordOutsideCharter } = await import("./charter-quote.mjs");
+  const w = "creat" + "ors";
+  assert.equal(audienceWordOutsideCharter(`to empower and protect ${w} of original works in the marketplace`), false);
+  assert.equal(audienceWordOutsideCharter(`protect ${w} of original works, and other ${w} too`), true);
+  assert.equal(audienceWordOutsideCharter(`<a href="https://app.credtent.org/${w}">For ${w}</a>`), true);
+  assert.equal(audienceWordOutsideCharter(`${w} of original works and creat&#111;rs`), true);
+  assert.equal(audienceWordOutsideCharter("For creatives"), false);
+});
+test("check-launch's audience-word rule allows only the exact charter phrase", async () => {
+  const { ruleHit } = await import("./check-launch.mjs");
+  const rule = BANNED.find((b) => b.id === "audience-word");
+  const w = "creat" + "ors";
+  assert.equal(ruleHit(rule, `protect ${w} of original works in the AI marketplace`), false);
+  assert.equal(ruleHit(rule, `see https://app.credtent.org/${w}`), true);
+  assert.equal(ruleHit(rule, `protect ${w} of artistic, scholastic, scientific, journalistic, and other original works`), true);
+});

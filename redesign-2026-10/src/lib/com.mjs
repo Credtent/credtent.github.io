@@ -15,12 +15,12 @@ function bookBand() {
       <div>
         <p class="eyebrow">The Collaborithmic Age</p>
         <h2>Understand how creativity and AI can work together.</h2>
-        <p class="lede">By E.R. Burgess, Credtent CEO and creative technologist. Drawing on years of content valuation and two and a half years developing full-cycle AI licensing, Burgess explores how to use AI, understand the value of your work, and keep your creative skills and judgment strong.</p>
+        <p class="lede">Written by E.R. Burgess, Credtent CEO and creative technologist, the book draws on his years of content valuation and two and a half years developing full-cycle AI licensing to explore how to use AI, understand the value of your work, and keep your creative skills and judgment strong.</p>
         <div class="btn-row"><a class="btn" href="${BOOK}">Explore the book</a></div>
         ${editions()}
       </div>
       <div>
-        <p>The book site is separate. These are the published collaborithmic.com prices.</p>
+        <p>These are the published prices on collaborithmic.com, the book's own site.</p>
       </div>
     </div>
   </section>`;
@@ -54,14 +54,14 @@ export function comPages(images) {
       actions: `<div class="btn-row"><a class="btn" href="${SIGN_UP}">Sign up</a><a class="btn btn-ghost" href="/contact">Contact us</a></div>`,
       media: hero("bridge", { priority: true, sizes: "(min-width: 1000px) 50vw, 100vw" }),
       disclosures: [
-        "Training and display permissions are agreed separately. Source visits are a goal, not a guarantee.",
-        "Illustrative inputs, not a formula. Evidence, assumptions, and intended use inform the assessment; the parties agree the final price."
+        "Training and display permissions are agreed separately, and source visits are not guaranteed.",
+        "The valuation inputs shown on this page are illustrative and are not a pricing formula. Evidence, assumptions, and intended use inform the assessment, and the parties agree the final price."
       ],
       preload: preload("bridge"),
       faq: [
         { q: "What is Credtent?", a: CAPSULE.comHome },
         { q: "Does a license replace a company's own legal duties?", a: LICENSE_SENTENCE },
-        { q: "Are source visits guaranteed?", a: "Source visits are a goal, not a guarantee. Training and display permissions are agreed separately." }
+        { q: "Are source visits guaranteed?", a: "No. Source visits are not guaranteed. Training and display permissions are agreed separately." }
       ],
       main: `
       <section class="section section-white">
@@ -74,8 +74,8 @@ export function comPages(images) {
             <article class="card">
               ${hero("editor", { sizes: "(min-width: 1000px) 480px, 100vw" }).replace('class="shot"', 'class="shot"')}
               <p class="kicker">Content Owners</p>
-              <h3>Choose what to license and what to protect.</h3>
-              <p>Credtent helps you protect your work and license your content for full cycle AI training.</p>
+              <h3>Choose what to license and what to withhold.</h3>
+              <p>Credtent helps you opt your work out of AI training or license it for full-cycle AI use.</p>
               <p>This works for:</p><ul class="audience-list"><li>Authors</li><li>Publishers</li><li>Studios</li><li>Archives</li><li>Data providers</li><li>Musicians</li><li>Filmmakers</li><li>Poets</li><li>Artists</li><li>Photographers</li></ul>
               <p><a href="/content-owners">Explore content-owner options</a></p>
             </article>
@@ -95,7 +95,7 @@ export function comPages(images) {
           <p class="eyebrow">Content valuation</p>
           <h2>Understand your content's value. Explore your licensing options.</h2>
           <p class="lede">Credtent assesses what content is worth for AI licensing, so that high-quality, credible work is licensed at an appropriate value.</p>
-          <p>A baseline valuation comes when you register on Credtent. Optional paid custom valuation goes deeper, into the catalog, its evidence, and its intended use.</p>
+          <p>A baseline valuation comes when you register on Credtent. An optional paid custom valuation goes deeper into the catalog, its evidence, and its intended use.</p>
           <h3 style="margin-top:28px">The Burgess-Buckwalter methodology, the Credtent Universal Content Valuation System</h3>
           ${diagramHtml()}
           <div class="btn-row"><a class="btn" href="/valuation">Request a valuation</a></div>
@@ -168,8 +168,7 @@ export function comPages(images) {
       <section class="section"><div class="wrap prose">
         <p class="eyebrow">The economics</p>
         <h2>Under standard terms, 85% goes to the people whose work was licensed.</h2>
-        <p>Under Credtent's standard terms, content partners keep 85% of each licensing deal: Credtent sends 85% of gross licensing revenue to the content owners, rights holders, and data providers who made it possible. The other 15% pays for the platform, legal work, compliance tools, and operations that make the whole system work.</p>
-        <p>Under the standard 85/15 split, revenue reaches rights holders every quarter.</p>
+        <p>Under those standard terms, Credtent pays the content owners, rights holders, and data providers in each licensing deal their 85% share of that deal's gross revenue every quarter. The other 15% pays for the platform, legal work, compliance tools, and operations.</p>
       </div></section>
       <section class="section section-white"><div class="wrap">
         <p class="eyebrow">What you get</p>
@@ -180,11 +179,11 @@ export function comPages(images) {
           <article class="card"><h3>Anti-plagiarism protection</h3><p>License terms include output guardrails so AI tools do not reproduce your protected work at scale.</p></article>
           <article class="card"><h3>Provenance certification</h3><p>Creative Origin certification adds a neutral, third-party record of where your work came from, which AI buyers increasingly ask for.</p></article>
           <article class="card"><h3>Usage tracking</h3><p>See how your catalog is used by every AI licensee, with audit-ready reporting on demand.</p></article>
-          <article class="card"><h3>Quarterly royalties</h3><p>Predictable payments every quarter, with 85% of revenue going to creatives, rights holders, and data providers under standard terms.</p></article>
-          <article class="card"><h3>Full ownership</h3><p>You keep your rights. Credtent works as your licensing agent, not as a publisher or owner of your content.</p></article>
+          <article class="card"><h3>Quarterly royalties</h3><p>Each quarterly payment comes with a usage report, so you can tie it to the deals that earned it.</p></article>
+          <article class="card"><h3>Full ownership</h3><p>You keep your rights, and Credtent acts as your licensing agent and owns none of the content it licenses.</p></article>
         </div>
         <div class="grid-3" style="margin-top:24px">
-          <article class="card"><h3>Valuation</h3><p>An informed starting point before a price conversation. No public score or guaranteed transaction price.</p><p><a href="/valuation">Explore content valuation</a></p></article>
+          <article class="card"><h3>Valuation</h3><p>A valuation gives you an informed starting point before a price conversation. It does not produce a public score or guarantee a transaction price.</p><p><a href="/valuation">Explore content valuation</a></p></article>
           <article class="card"><h3>Training licensing</h3><p>Define the corpus, the rights, and access to new work.</p><p><a href="/ai-training">Explore training licensing</a></p></article>
           <article class="card"><h3>Citation licensing</h3><p>Set excerpt limits, attribution, and compensation when work appears in AI answers.</p><p><a href="/citation-licensing">Explore citation licensing</a></p></article>
         </div>
@@ -223,7 +222,7 @@ export function comPages(images) {
       extraLd: [serviceNode("https://credtent.com/ai-companies#service", "Licensing for AI companies", CAPSULE.training)],
       faq: [
         { q: "What comes with a Credtent license?", a: "The rights the contracting rights holders warranted, a named manifest of the works, and a disclosure pack your counsel can use for EU AI Act Art. 53 and California AB 2013 filings. Those laws still apply to you as the developer, and any indemnity is only what the signed license says." },
-        { q: "Can you license content we already trained on?", a: "Yes, going forward. We can set up a license plus a promise not to sue from the rights holders who sign, covering the named works. It does not cover anyone who did not sign, and it does not settle anything with regulators." },
+        { q: "Can you license content we already trained on?", a: "We can structure a going-forward license and a covenant not to sue over past use from the rights holders who sign, limited to the named works. Neither one binds a rights holder who did not sign, and neither one satisfies the developer's regulatory obligations." },
         { q: "Does citation permission include training?", a: "No. Training and citation in AI answers are agreed separately. A source link on its own does not grant training permission." }
       ],
       main: `
@@ -238,11 +237,10 @@ export function comPages(images) {
             <li>A disclosure pack for EU AI Act Art. 53 and California AB 2013 filings</li>
             <li>One contract with access to many rights holders</li>
             <li>Guardrails against plagiarized output</li>
-            <li>Deals that close in weeks, not quarters</li>
           </ul>
           <div class="grid-3" style="margin-top:28px">
-            <article class="card"><h3>Neutral by design</h3><p>Credtent is a Delaware Public Benefit Corporation, and we don't build AI models.</p></article>
-            <article class="card"><h3>Every format</h3><p>Text, audio, video, images, and structured data.</p></article>
+            <article class="card"><h3>Neutral by design</h3><p>We own none of the content we license and train no AI models.</p></article>
+            <article class="card"><h3>Every format</h3><p>We license text, audio, video, images, and structured data.</p></article>
             <article class="card"><h3>Disclosure pack included</h3><p>Every license ships with a named manifest and a disclosure pack.</p></article>
           </div>
         </div>
@@ -251,7 +249,7 @@ export function comPages(images) {
         <div class="wrap">
           <p class="eyebrow">The corpus</p>
           <h2>Real content from people who opted in.</h2>
-          <p class="lede">Not scraped. Not synthetic. Our corpus is verified, rights-cleared content from publishers, studios, archives, and data providers who chose to license their work for AI under standardized terms. Everything is provenance-tagged and rights-cleared before we offer it.</p>
+          <p class="lede">Our corpus is verified, rights-cleared content from publishers, studios, archives, and data providers who chose to license their work for AI under standardized terms, and none of it is scraped or synthetic. Every work is provenance-tagged before we offer it.</p>
           <div class="grid-4" style="margin-top:28px">
             <article class="card"><p class="kicker">Growing</p><h3>Registered works</h3></article>
             <article class="card"><p class="kicker">800B+</p><h3>Structured sports tokens</h3></article>
@@ -265,12 +263,12 @@ export function comPages(images) {
           <p class="eyebrow">What you get</p>
           <h2>Licensing that works for your team.</h2>
           <div class="grid-3" style="margin-top:28px">
-            <article class="card"><h3>Peace of mind</h3><p>Pre-cleared chain of title and documented consent from the rights holders you contract with.</p></article>
-            <article class="card"><h3>Quality over quantity</h3><p>Curated, premium content from publishers, studios, and archives who own the IP. Not scraped, not synthetic.</p></article>
-            <article class="card"><h3>A neutral partner</h3><p>We don't build AI models, so we never compete with you. Both sides of the market trust Credtent because we sit on neither side.</p></article>
-            <article class="card"><h3>Provenance-tagged content</h3><p>Metadata and chain-of-custody records designed to reduce hallucinations and make your training verifiable.</p></article>
-            <article class="card"><h3>Disclosure pack</h3><p>A named manifest and a disclosure pack your counsel can use for EU AI Act Art. 53 and California AB 2013 filings.</p></article>
-            <article class="card"><h3>Fast deal cycles</h3><p>Standardized terms, neutral pricing, and pre-negotiated contracts. Weeks, not quarters.</p></article>
+            <article class="card"><h3>Peace of mind</h3><p>Each license comes with a pre-cleared chain of title and documented consent from the rights holders you contract with.</p></article>
+            <article class="card"><h3>Quality over quantity</h3><p>We offer curated, premium content from publishers, studios, and archives who own the IP.</p></article>
+            <article class="card"><h3>A neutral partner</h3><p>We don't build AI models, so we never compete with you. We also own none of the content we license.</p></article>
+            <article class="card"><h3>Provenance-tagged content</h3><p>Each work carries metadata and chain-of-custody records designed to reduce hallucinations and make your training verifiable.</p></article>
+            <article class="card"><h3>Disclosure pack</h3><p>Your counsel can use the named manifest and disclosure pack for EU AI Act Art. 53 and California AB 2013 filings.</p></article>
+            <article class="card"><h3>Fast deal cycles</h3><p>Standardized terms, neutral pricing, and pre-negotiated contracts cut the back-and-forth before signing.</p></article>
           </div>
         </div>
       </section>
@@ -278,12 +276,12 @@ export function comPages(images) {
         <div class="wrap">
           <p class="eyebrow">How it works</p>
           <h2>From first call to licensed content in weeks.</h2>
-          <p class="lede">We've standardized the process so you can move quickly without giving up the legal and compliance rigor your team needs. We find the right rights holders, shape the license around your corpus and use case, and deliver a named manifest and disclosure pack with the data.</p>
+          <p class="lede">We've standardized the process so you can move quickly without giving up the legal and compliance rigor your team needs. We find the right rights holders, fit the license to your corpus and use case, and deliver a named manifest and disclosure pack with the data.</p>
           <div class="steps" style="margin-top:28px">
-            <article class="step"><p class="kicker">01</p><h3>Scope the deal</h3><p>A 20-minute call about the content you need, your use case, and your compliance requirements.</p></article>
+            <article class="step"><p class="kicker">01</p><h3>Scope the deal</h3><p>We start with a 20-minute call about the content you need, your use case, and your compliance requirements.</p></article>
             <article class="step"><p class="kicker">02</p><h3>Get a proposal</h3><p>Within 5 business days you get a scoped proposal: corpus, terms, pricing, and disclosure pack.</p></article>
-            <article class="step"><p class="kicker">03</p><h3>Sign once</h3><p>One standardized contract with access to many rights holders. One signature, one NDA, one deal.</p></article>
-            <article class="step"><p class="kicker">04</p><h3>Receive your disclosure pack</h3><p>A named manifest and a disclosure pack your counsel can use for filings.</p></article>
+            <article class="step"><p class="kicker">03</p><h3>Sign once</h3><p>You sign one standardized contract and one NDA for access to many rights holders.</p></article>
+            <article class="step"><p class="kicker">04</p><h3>Receive your disclosure pack</h3><p>The pack arrives with a named manifest of the licensed works, which your counsel can use for filings.</p></article>
           </div>
         </div>
       </section>
@@ -297,13 +295,13 @@ export function comPages(images) {
         <div class="wrap prose">
           <p class="eyebrow">Content you already used</p>
           <h2>What about content a model already used?</h2>
-          <p>We can structure a going-forward license plus a covenant not to sue from the rights holders who sign, covering the named works. That is not a release from everyone else, and it is not a regulator cure. It is a clear, honest place to start.</p>
+          <p>We can structure a going-forward license and a covenant not to sue over past use from the rights holders who sign, limited to the named works. Neither one binds a rights holder who did not sign, and neither one satisfies the developer's regulatory obligations.</p>
         </div>
       </section>
       <section class="section section-tint">
         <div class="wrap">
           <p class="eyebrow">Start the conversation</p>
-          <h2>20 minutes. A scoped proposal back to you.</h2>
+          <h2>Book a 20-minute licensing call.</h2>
           <p class="lede">Tell us what you're building and which content categories you need. We'll come back with a proposal within 5 business days.</p>
           <div class="btn-row"><a class="btn" href="/contact">Talk to the team</a></div>
         </div>
@@ -322,10 +320,10 @@ export function comPages(images) {
         { q: "Where is auditing?", a: "Auditing of observable model responses is described on credtent.org and is not proof of dataset inclusion." }
       ],
       main: `<section class="section section-white"><div class="wrap grid-2">
-        <article class="card"><h3>Content valuation</h3><p>Qualitative context for a pricing conversation.</p><p><a href="/valuation">Explore content valuation</a></p></article>
+        <article class="card"><h3>Content valuation</h3><p>A valuation gives qualitative context for a pricing conversation.</p><p><a href="/valuation">Explore content valuation</a></p></article>
         <article class="card"><h3>AI training licensing</h3><p>License a defined corpus.</p><p><a href="/ai-training">Explore training licensing</a></p></article>
         <article class="card"><h3>Citation licensing</h3><p>License use in AI answers.</p><p><a href="/citation-licensing">Explore citation licensing</a></p></article>
-        <article class="card"><h3>Auditing</h3><p>Opt-Out Premium enrolls your works in Credtent's periodic AI model audits.</p><p><a href="https://credtent.org/resources/auditing">Read how auditing works</a></p></article>
+        <article class="card"><h3>Auditing</h3><p>Opt-Out Premium for rights holders and the promotional licensing plan for individual creatives enroll works in Credtent's periodic AI model audits.</p><p><a href="https://credtent.org/resources/auditing">Read how auditing works</a></p></article>
       </div></section>`
     },
     {
@@ -343,7 +341,7 @@ export function comPages(images) {
       extraLd: [serviceNode("https://credtent.com/citation-licensing#service", "Generative Results Referencing", CAPSULE.citation)],
       faq: [
         { q: "What is GRR?", a: CAPSULE.citation },
-        { q: "Are source visits promised?", a: "Traffic is a goal, not a promised outcome. Compensation and display limits depend on the agreement." },
+        { q: "Are source visits promised?", a: "No. Source visits are not guaranteed. Compensation and display limits depend on the agreement." },
         { q: "Does a citation license include training?", a: "No. Agree training scope explicitly. A source link alone does not establish permission." }
       ],
       main: `<section class="section section-white"><div class="wrap grid-3">
@@ -396,11 +394,11 @@ export function comPages(images) {
       lede: "Understand your content's value. Explore your licensing options.",
       actions: `<div class="btn-row"><a class="btn" href="/contact">Request a valuation</a></div>`,
       crumbs: [{ name: "Services", href: "https://credtent.com/services" }, { name: "Content valuation", href: "https://credtent.com/valuation" }],
-      disclosures: ["Illustrative inputs, not a formula. Evidence, assumptions, and intended use inform the assessment; the parties agree the final price."],
+      disclosures: ["The valuation inputs shown on this page are illustrative and are not a pricing formula. Evidence, assumptions, and intended use inform the assessment, and the parties agree the final price."],
       extraLd: [serviceNode("https://credtent.com/valuation#service", "Content valuation", CAPSULE.valuation)],
       faq: [
         { q: "Is a valuation a price?", a: "No. An estimate is not a guaranteed transaction price or an established industry standard. The parties agree the final price." },
-        { q: "What is the difference between baseline and custom?", a: "A baseline valuation comes when content is added. Optional paid custom valuation goes deeper into catalog, evidence, and intended use." },
+        { q: "What is the difference between baseline and custom?", a: "A baseline valuation comes when content is added. An optional paid custom valuation goes deeper into the catalog, its evidence, and its intended use." },
         { q: "Will I see a numeric score?", a: "No. The diagram shows qualitative inputs only. Credtent does not publish weights, scores, or valuation figures." }
       ],
       main: `<section class="section section-white"><div class="wrap grid-3">
@@ -549,32 +547,32 @@ export function comPages(images) {
         <p class="eyebrow">The origin</p>
         <h2>Why was Credtent founded?</h2>
         <p>Credtent exists because the AI economy is not a zero-sum game. Creatives and AI companies need each other, and they need a neutral place to do business together, ethically, legally, and profitably.</p>
-        <p>The problem Credtent solves was visible long before it became a headline. For more than eight years, our team researched creative IP, digital rights, and the coming collision between AI's demand for training data and intellectual property law. By the time AI content licensing reached the mainstream, Credtent already had a thesis, a model, and a growing set of partners. We weren't reacting to a crisis. We were preparing for one we could see coming.</p>
+        <p>The problem Credtent solves was visible long before it became a headline. For more than eight years, our team researched creative IP, digital rights, and the coming collision between AI's demand for training data and intellectual property law. By the time AI content licensing reached the mainstream, Credtent already had a thesis, a model, and a growing set of partners.</p>
         <h2>What is Credtent's mission?</h2>
-        <p>To bring AI and creativity together ethically, legally, and profitably. We hold every decision to that. If a deal does not work for the creative side, it does not get made. If a policy does not work for the AI side, we redesign it. The goal is not to referee a fight but to build the infrastructure that makes the fight unnecessary.</p>
+        <p>Credtent's mission is to bring AI and creativity together ethically, legally, and profitably, and we measure every decision against it. If a deal does not work for the creative side, it does not get made, and if a policy does not work for the AI side, we redesign it. We are building infrastructure that lets both sides do business without a fight.</p>
       </div></section>
       <section class="section section-white"><div class="wrap">
         <p class="eyebrow">What we stand for</p>
-        <h2>Credtent works only if both sides trust it completely.</h2>
-        <p class="lede">Every structural, legal, and financial decision traces back to that.</p>
+        <h2>Credtent works only if both sides trust it.</h2>
+        <p class="lede">We designed our structure, contracts, and finances to earn that trust.</p>
         <div class="grid-3" style="margin-top:24px">
-          <article class="card"><p class="kicker">01</p><h3>Structural neutrality</h3><p>We don't train models. We don't compete with AI companies. We don't publish content. Our only business is connecting both sides on fair terms.</p></article>
+          <article class="card"><p class="kicker">01</p><h3>Structural neutrality</h3><p>We train no AI models, compete with no AI company, and own none of the content we license. Our business is connecting both sides on fair terms.</p></article>
           <article class="card"><p class="kicker">02</p><h3>Rights holders first</h3><p>The standard 85/15 split reflects our belief that the people who made the content that trains AI deserve most of the value it creates.</p></article>
-          <article class="card"><p class="kicker">03</p><h3>Ethical by design</h3><p>Opt-outs are free. Credtent does not plan to charge for the free opt-out. License terms include anti-plagiarism guardrails. Compliance documentation is standard, not optional.</p></article>
+          <article class="card"><p class="kicker">03</p><h3>Ethical by design</h3><p>Registering a work for the opt-out costs nothing, and Credtent does not plan to charge for the free opt-out. License terms include anti-plagiarism guardrails, and every license comes with compliance documentation.</p></article>
         </div>
         <div class="grid-3" style="margin-top:24px">
-          <article class="card"><h3>Delaware Public Benefit Corporation</h3><p>Credtent's charter names two public benefits: to empower and protect creators of original works in the marketplace of artificial intelligence, and to promote the ethical and credible use and deployment of AI. As a Delaware Public Benefit Corporation, its directors must balance those benefits with stockholders' financial interests.</p></article>
+          <article class="card"><h3>Delaware Public Benefit Corporation</h3><p>Credtent's charter names two public benefits: to empower and protect creators of original works in the marketplace of artificial intelligence, and to promote the ethical and credible use and deployment of AI. The charter also requires Credtent to be managed in a manner that balances stockholders' financial interests, the best interests of those materially affected by its conduct, and those public benefits.</p></article>
           <article class="card"><h3>Standard 85/15 revenue split</h3><p>Under Credtent's standard terms, 85% of licensing revenue goes to creatives, rights holders, and data providers.</p></article>
-          <article class="card"><h3>8+ years of research</h3><p>Research as a service, carried out with a rigorous scientific method.</p></article>
+          <article class="card"><h3>8+ years of research</h3><p>Credtent offers research as a service, using the scientific method.</p></article>
         </div>
       </div></section>
       <section class="section section-white" id="who"><div class="wrap prose">
         <p class="eyebrow">Who Credtent is</p>
         <h2>E.R. Burgess and the company he founded.</h2>
         <p>Credtent connects AI companies and the creative industries through licensing, so AI solutions are ethical and commercially safe.</p>
-<p>E.R. Burgess founded Credtent after more than eight years of research into creative rights and data provenance, well before the public AI debate grew loud. The starting idea was simple: AI and human creativity can work together, ethically, legally, and profitably, when the people who make the work are paid and their consent is on record.</p>
+<p>E.R. Burgess founded Credtent after more than eight years of research into creative rights and data provenance, well before the public AI debate grew loud. He started from the idea that AI and human creativity can work together, ethically, legally, and profitably, when the people who make the work are paid and their consent is on record.</p>
 <p>E.R. Burgess brings over 30 years of industry experience. He is also a published tabletop game designer, with card, board, and role-playing games to his name. He leads Credtent as Founder and CEO, alongside Co-Founder and Chief Science Officer Dr. Galen Buckwalter.</p>
-<p>Our mission is to bring AI and creativity together ethically, legally, and profitably. Credtent, Inc. is a Delaware Public Benefit Corporation and a Certified B Corp. Its charter names protecting creators of original works in the AI marketplace as a public benefit.</p>
+<p>Credtent, Inc. is a Delaware Public Benefit Corporation and a Certified B Corp. Its charter names protecting creators of original works in the AI marketplace as a public benefit.</p>
       </div></section>
       <section class="section"><div class="wrap">
         <p class="eyebrow">The people behind the work</p>
@@ -596,7 +594,7 @@ export function comPages(images) {
       <section class="section section-white"><div class="wrap">
         <p class="eyebrow">Writing and ideas</p>
         <h2>Keep the conversation going.</h2>
-        <p class="lede">Explore writing on human creativity, judgment, and the choices that shape AI.</p>
+        <p class="lede">Explore writing on human creativity, judgment, and the choices that decide how AI is built and used.</p>
         <div class="grid-2" style="margin-top:20px">
           <article class="card"><p class="kicker">From the current writing index</p><h3>The Creative Fatalism Trap in the Age of AI</h3><p><a href="https://medium.com/credtent-on-content/the-creative-fatalism-trap-in-the-age-of-ai-e486ba739818">Read on Medium</a></p></article>
           <article class="card"><p class="kicker">From the current writing index</p><h3>Human-Composed: Why AI Creation and Human Creativity Remain Fundamentally Different</h3><p><a href="https://credtent.substack.com/p/human-composed-why-ai-creation-and">Read on Credtent's Substack</a></p></article>
@@ -618,12 +616,12 @@ export function comPages(images) {
           <div>
             <p class="eyebrow">The Collaborithmic Age</p>
             <h2>Understand how creativity and AI can work together.</h2>
-            <p class="lede">By E.R. Burgess, Credtent CEO and creative technologist. Drawing on years of content valuation and two and a half years developing full-cycle AI licensing, Burgess explores how to use AI, understand the value of your work, and keep your creative skills and judgment strong.</p>
+            <p class="lede">Written by E.R. Burgess, Credtent CEO and creative technologist, the book draws on his years of content valuation and two and a half years developing full-cycle AI licensing to explore how to use AI, understand the value of your work, and keep your creative skills and judgment strong.</p>
             <div class="btn-row"><a class="btn" href="https://collaborithmic.com/">Explore the book</a></div>
             ${editions()}
           </div>
           <div>
-            <p>The book site is separate. These are the published collaborithmic.com prices.</p>
+            <p>These are the published prices on collaborithmic.com, the book's own site.</p>
           </div>
         </div>
       </section>`
@@ -688,17 +686,17 @@ export function comPages(images) {
       capsule: "AI companies license through custom agreements priced per deal. Under Credtent's standard terms, content partners keep 85% of each licensing deal Credtent closes, and a platform fee applies. Creatives can opt out for free, or license their work for US$49 a year, with periodic AI model audits included, under a promotion for individual creatives who sign up by December 31, 2026.",
       crumbs: [{ name: "Pricing", href: "https://credtent.com/pricing" }],
       faq: [
-        { q: "How much does Credtent cost?", a: "It depends on which side of the market you are on. AI companies pay for custom licensing priced per deal. Under Credtent's standard terms, content partners keep 85% of each licensing deal Credtent closes, with Credtent keeping 15%, and a platform fee applies. Individual creatives can opt out for free, enroll their works in periodic AI model audits with Opt-Out Premium, or license their work with a licensing plan." },
+        { q: "How much does Credtent cost?", a: "It depends on which side of the market you are on. AI companies pay for custom licensing priced per deal. Under Credtent's standard terms, content partners keep 85% of each licensing deal Credtent closes, with Credtent keeping 15%, and a platform fee applies. Creatives can opt out for free. Individual creatives who sign up by December 31, 2026 can license their work at a promotional US$49 a year, which includes enrollment in Credtent's periodic AI model audits. From 2027, licensing for individual creatives is US$99 a year, and promotion sign-ups keep US$49 a year through 2028 while the subscription stays active. Rejoining after a lapse or cancellation is at the regular price. Opt-Out Premium for rights holders and Rights-Holder Licensing each start at US$299 a year." },
         { q: "How much does Credtent cost for AI companies?", a: "There is no fixed public price. Licenses are custom agreements scoped to the content, the license type, and the size of the organization, and each one includes a disclosure pack. Pricing is set in a scoping conversation, not from a rate card." },
-        { q: "How much does Credtent cost for content partners?", a: "A platform fee applies, and Credtent keeps 15% of each licensing deal it closes and sends the other 85% to the rights holder under Credtent's standard terms for Starter Partners. The Organization License keeps the same split and adds more services for larger catalogs, and Enterprise is priced to the catalog." },
+        { q: "How much does Credtent cost for content partners?", a: "A platform fee applies. Under Credtent's standard terms for Starter Partners, Credtent keeps 15% of each licensing deal it closes and sends the other 85% to the rights holder. The Organization License keeps the same split and adds more services for larger catalogs, and Enterprise is priced to the catalog." },
         { q: "What does Opt-Out Premium for rights holders cost?", a: "It starts at US$299 a year and scales with catalog size. It enrolls the works in periodic AI model audits and does not include licensing." },
-        { q: "What does licensing cost for individual creatives?", a: "US$49 a year for individual creatives who sign up by December 31, 2026, with licensing, the opt-out, and periodic AI model audits included. Creatives who sign up during the promotion keep US$49 a year through 2028 while the subscription stays active, then move to the regular price, which becomes US$99 in 2027. Rejoining after a lapse or cancellation is at the regular price. Rights holders who publish or represent many creatives use Rights-Holder Licensing, from US$299 a year." },
+        { q: "What does licensing cost for individual creatives?", a: "Licensing costs US$49 a year for individual creatives who sign up by December 31, 2026, and the plan includes the opt-out and enrolls their works in Credtent's periodic AI model audits. From 2027, new individual sign-ups pay US$99 a year, and creatives who sign up during the promotion keep US$49 a year through 2028 while the subscription stays active. After 2028, and for anyone who rejoins after a lapse or cancellation, the regular price applies. Rights holders who publish or represent many creatives use Rights-Holder Licensing, from US$299 a year." },
         { q: "What does the book cost?", a: "The published collaborithmic.com prices are $14.99 for the e-book, $24.99 for the paperback, and $49 for the living e-book." }
       ],
       main: `<section class="section section-white"><div class="wrap">
         <p class="eyebrow">AI companies</p>
         <h2>Licensing scoped to the deal.</h2>
-        <p class="lede">Licensing fees are scoped to each deal, based on how much content, the license type, and the size of your organization. There's no public price list because no two deals are the same. What we can promise: neutral terms and compliance documentation included.</p>
+        <p class="lede">Licensing fees are scoped to each deal, based on the volume of content, the license type, and the size of your organization. There is no public price list because no two deals are the same, but every license includes neutral terms and compliance documentation.</p>
         <div class="grid-3" style="margin-top:24px">
           <article class="card"><h3>Content scope</h3><p>Pricing follows the size and breadth of the collection, from a single subject area to full multi-format catalog access.</p></article>
           <article class="card"><h3>License type</h3><p>Each license is scoped to the named collection and use. A disclosure pack is included.</p></article>
@@ -719,11 +717,11 @@ export function comPages(images) {
       <section class="section section-white"><div class="wrap">
         <p class="eyebrow">Individual creatives</p>
         <h2>A free way to say no, and room to grow.</h2>
-        <p class="lede">Every creative gets a free path to opt out. Add Opt-Out Premium to enroll your works in periodic AI model audits, or choose a licensing plan to earn from AI licensing.</p>
+        <p class="lede">Every creative can opt out for free or choose a licensing plan to earn from the deals Credtent closes with AI companies. The promotional licensing plan enrolls individual creatives' works in periodic AI model audits, and Opt-Out Premium for rights holders enrolls works in the same audits without licensing.</p>
         <div class="grid-4" style="margin-top:24px">
           <article class="card"><p class="kicker">For every creative</p><h3>Opt-Out Free</h3><p><span class="price">$0</span></p><p class="small">Credtent does not plan to charge for the free opt-out.</p><ul><li>Add your name and works to the opt-out list</li><li>Include your website or specific pages</li><li>Each opt-out notice recorded with its delivery date</li></ul><p><a href="https://credtent.org/opt-out">Get started</a></p></article>
           <article class="card"><p class="kicker">For rights holders who want audits</p><h3>Opt-Out Premium for rights holders</h3><p>From <span class="price">US$299</span> a year, scaling with catalog size</p><ul><li>Everything in Opt-Out Free</li><li>Works enrolled in periodic AI model audits</li><li>Does not include licensing</li></ul><p><a href="https://credtent.org/premium">Read about Opt-Out Premium</a></p></article>
-          <article class="card"><p class="kicker">For individual creatives ready to license</p><h3>Licensing for individuals</h3><p><span class="price">US$49</span> a year, promotional price for sign-ups through December 31, 2026</p><p class="small">Creatives who sign up during the promotion keep US$49 a year through 2028 while the subscription stays active, then move to the regular price, which becomes US$99 in 2027. Rejoining after a lapse or cancellation is at the regular price.</p><ul><li>Everything in Opt-Out Free</li><li>Periodic AI model audits</li><li>Upload your content</li><li>Content valuation</li><li>Listing in the Credtent marketplace</li></ul><p><a href="https://app.credtent.org/">Get started</a></p></article>
+          <article class="card"><p class="kicker">For individual creatives ready to license</p><h3>Licensing for individuals</h3><p><span class="price">US$49</span> a year, promotional price for sign-ups through December 31, 2026</p><p class="small">From 2027, new individual sign-ups pay US$99 a year, and creatives who sign up during the promotion keep US$49 a year through 2028 while the subscription stays active. After 2028, and for anyone who rejoins after a lapse or cancellation, the regular price applies.</p><ul><li>Everything in Opt-Out Free</li><li>Works enrolled in periodic AI model audits</li><li>Upload your content</li><li>Content valuation</li><li>Listing in the Credtent marketplace</li></ul><p><a href="https://app.credtent.org/">Get started</a></p></article>
           <article class="card"><p class="kicker">For publishers and representatives</p><h3>Rights-Holder Licensing</h3><p>From <span class="price">$299</span> a year</p><ul><li>Everything in licensing for individuals</li><li>Bring in work by the creatives you publish or represent</li><li>Each creative is credited for their own work</li><li>Sales-assisted pricing for larger catalogs</li></ul><p><a href="https://app.credtent.org/">Get started</a></p></article>
         </div>
       </div></section>
@@ -750,9 +748,9 @@ export function comPages(images) {
       faq: [
         { q: "What is Credtent?", a: "Credtent connects AI companies and the creative industries through licensing, so AI solutions are ethical and commercially safe. Creatives and rights holders register their work for opt-out, licensing, or both. Credtent builds no AI models and takes no equity in either side." },
         { q: "What does a Credtent license cover?", a: LICENSE_SENTENCE },
-        { q: "What about content we already trained on?", a: "We can structure a going-forward license plus a covenant not to sue from the rights holders who sign, covering the named works. That is not a release from everyone else, and it is not a regulator cure." },
+        { q: "What about content we already trained on?", a: "We can structure a going-forward license and a covenant not to sue over past use from the rights holders who sign, limited to the named works. Neither one binds a rights holder who did not sign, and neither one satisfies the developer's regulatory obligations." },
         { q: "How long does a deal take?", a: "A 20-minute scoping call leads to a proposal within 5 business days. Most deals close in 2 to 6 weeks, depending on the content and how many rights holders are involved. Single-catalog deals close faster; larger, multi-format collections take longer." },
-        { q: "Why license instead of scraping public content?", a: "Because the legal risk is real and growing. Active court cases are testing the use of scraped training data, and new disclosure rules leave a paper trail that makes undocumented scraping visible. Ignoring a registered opt-out also becomes a documented record." },
+        { q: "Why license instead of scraping public content?", a: "Scraping carries a growing legal risk. Active court cases are testing the use of scraped training data, and new disclosure rules leave a paper trail that makes undocumented scraping visible. Ignoring a registered opt-out also becomes a documented record." },
         { q: "How should we read a valuation?", a: CAPSULE.valuation },
         { q: "Do I give up ownership of my content?", a: "No. Credtent acts as a licensing agent, not a publisher or co-owner. You keep full ownership of everything you list. Credtent holds only limited representation rights for AI licensing, and you can end that at any time. Listing does not transfer copyright, exclusivity, or any ownership to Credtent." },
         { q: "How does the revenue split work?", a: "Under Credtent's standard terms, content partners keep 85% of each licensing deal: Credtent sends 85% of gross revenue to the rights holders and data providers whose content was licensed. Credtent keeps 15% for its platform, legal work, compliance tools, and operations. The split is on gross revenue, not net." },
@@ -776,15 +774,15 @@ export function comPages(images) {
       crumbs: [{ name: "Creative Origin", href: "https://credtent.com/certified-publisher" }],
       faq: [
         { q: "Is Creative Origin an automated score?", a: "No. AI detectors score finished text for statistical signatures and can be fooled. Credtent reviews the editorial process behind the content: who wrote it, who edited it, what tools were used, and how oversight was kept at every stage. A self-declared badge from the badge builder is a disclosure, not this review." },
-        { q: "Does certification require that no AI was used?", a: "No. If AI tools were used anywhere in the process, they are identified and disclosed in the certification record. Transparency is required; absence of AI is not." },
+        { q: "Does certification require that no AI was used?", a: "No. If AI tools were used anywhere in the process, they are identified and disclosed in the certification record." },
         { q: "How long does certification take to start?", a: "Our reviewer team contacts you within five business days of receiving your process documentation, and comes back with a certification scope and fee estimate." },
         { q: "Where is the free badge?", a: "The free badge builder stays on credtent.org." }
       ],
       main: `<section class="section section-white"><div class="wrap split">
         <div class="prose">
           <p class="eyebrow">What the badge means</p>
-          <h2>A verified process, not just a score.</h2>
-          <p>The Creative Origin badge certifies that published content was conceived, written, and edited by human authors and editors. Credtent's independent reviewers verified the process behind it, not just the finished text. It is not an AI detector and not a checklist. It is a verified record of human craft.</p>
+          <h2>Each certified badge rests on a reviewed editorial process.</h2>
+          <p>The Creative Origin badge certifies that published content was conceived, written, and edited by human authors and editors. Credtent's independent reviewers check how the content was produced as well as the finished text.</p>
           <p>The review is about process and disclosure, not a promise that every future work is human-made, and it does not promise a legal outcome.</p>
         </div>
         <ul class="check-list">
@@ -792,7 +790,7 @@ export function comPages(images) {
           <li>Expert review at every editorial stage</li>
           <li>Clear disclosure of any AI tool use</li>
           <li>An audit-ready editorial chain of custody</li>
-          <li>A verified organizational process, not a single piece</li>
+          <li>Certification of the organization's process as a whole</li>
           <li>Annual renewal as standards change</li>
         </ul>
       </div></section>
@@ -802,14 +800,14 @@ export function comPages(images) {
           <article class="card"><h3>Human authorship</h3><p>Reviewers confirm the content was conceived and written by human authors. Author attestations are kept in the certification record.</p></article>
           <article class="card"><h3>Editorial process</h3><p>We review the full editorial workflow: assignment, drafting, editing, fact-checking, and publication.</p></article>
           <article class="card"><h3>AI use disclosed</h3><p>Any AI tools used in the process are identified and disclosed in the certification record.</p></article>
-          <article class="card"><h3>An independent reviewer</h3><p>Reviews are carried out by Credtent-trained practitioners from editorial, journalism, and media backgrounds. You get a named reviewer, not a queue.</p></article>
+          <article class="card"><h3>An independent reviewer</h3><p>Reviews are carried out by Credtent-trained practitioners from editorial, journalism, and media backgrounds. Each organization works with a named reviewer.</p></article>
           <article class="card"><h3>A public record</h3><p>Every badge links to a public certification record in the Credtent registry, so readers, buyers, and platforms can check it.</p></article>
           <article class="card"><h3>Annual renewal</h3><p>Renewal keeps the certification current and the badge valid across distribution partners and platforms.</p></article>
         </div>
       </div></section>
       <section class="section section-white"><div class="wrap">
         <h2>Who does Credtent certify?</h2>
-        <p class="lede">Any organization that publishes human-authored work, across media, journalism, trade publications, newsletters, and digital content.</p>
+        <p class="lede">Credtent certifies organizations that publish human-authored work across media, journalism, trade publications, newsletters, and digital content.</p>
         <div class="grid-3" style="margin-top:20px">
           <article class="card"><h3>Trade and specialty media</h3><p>Industry publications, trade magazines, and vertical outlets that publish expert editorial content.</p></article>
           <article class="card"><h3>News and journalism</h3><p>Digital newsrooms, regional papers, and independent journalism committed to human reporting and editorial accountability.</p></article>
@@ -827,13 +825,13 @@ export function comPages(images) {
       </div></section>
       <section class="section section-white"><div class="wrap prose">
         <h2>Why Credtent?</h2>
-        <p>Credtent is a Delaware Public Benefit Corporation. We don't publish, we don't train AI models, and we don't compete with any organization we certify, so we have no reason to pass or fail any applicant.</p>
+        <p>Credtent is a Delaware Public Benefit Corporation. We own none of the content we license, train no AI models, and compete with no organization we certify.</p>
         <p>The Writers Guild of America reviewed Credtent's screenplay certification process and accepted it.</p>
-        <p>Creative Origin is one of three Credtent badge systems. It answers one question: was this made by people? Creative Consent covers platforms, and Commercial Safety covers AI companies. See the <a href="https://credtent.org/badges/">badge systems overview</a>, or make a free self-declared disclosure badge with the <a href="https://credtent.org/badge-builder">badge builder</a>. Creative Origin also sits alongside <a href="https://credtent.org/creative-consent">Creative Consent</a> for platforms.</p>
+        <p>Creative Origin is one of three Credtent badge systems, and it shows the role of AI in how a work was made. <a href="https://credtent.org/creative-consent">Creative Consent</a> covers platforms, and Commercial Safety covers AI companies. See the <a href="https://credtent.org/badges/">badge systems overview</a>, or make a free self-declared disclosure badge with the <a href="https://credtent.org/badge-builder">badge builder</a>.</p>
         <h2>Tell us about your editorial process.</h2>
         <p>Describe your organization, content type, and editorial workflow. Our reviewers will come back with a certification scope and fee estimate within five business days, with no commitment.</p>
         <div class="btn-row"><a class="btn" href="/contact#other">Tell us about your editorial process</a></div>
-        <p class="small">Prefer email? Write to <a href="mailto:publishers@credtent.org">publishers@credtent.org</a>. Creative Origin for publishers lives on credtent.com. credtent.org/certified-publisher redirects here.</p>
+        <p class="small">Prefer email? Write to <a href="mailto:publishers@credtent.org">publishers@credtent.org</a>. Creative Origin for publishers lives on credtent.com. The former credtent.org/certified-publisher page redirects here.</p>
       </div></section>`
     }
   ];

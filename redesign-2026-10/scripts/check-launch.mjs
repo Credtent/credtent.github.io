@@ -8,6 +8,7 @@ import { fileURLToPath } from "node:url";
 import { CURRENT_TERMS_FILE, CURRENT_TERMS_EFFECTIVE, REVISED_TERMS_DATE, TERMS_SWAP, UPCOMING_TERMS_PATH, DATE_PLACEHOLDER, VERBATIM_START, VERBATIM_END, REVISED_CHANGES, termsText, reviseTerms, termsGuard, liveTermsParts } from "../src/lib/terms.mjs";
 import { loadPrivateNames, findNames, nameLines, decodeAll, redactLine, binaryText, MISSING_MESSAGE } from "./private-names.mjs";
 import { isBinary, readText, sha256, EM_DASH } from "./text-files.mjs";
+import { audienceWordOutsideCharter } from "./charter-quote.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const REPO = path.resolve(ROOT, "..");
@@ -73,7 +74,7 @@ export const BANNED = [
   { id: "product-name", re: /Credtent Aegis/i, siteOnly: true },
   { id: "round-the-clock", re: /24\/7|around-the-clock/i, siteOnly: true },
   { id: "advisory-council", re: /Advisory Council/i, siteOnly: true },
-  { id: "audience-word", test: (text) => /\bcreators?\b/i.test(text.replace(/creators of (artistic, scholastic, scientific, journalistic, and other )?original works/gi, "").replace(/app\.credtent\.org\/\S*/gi, "")), siteOnly: true },
+  { id: "audience-word", test: (text) => audienceWordOutsideCharter(text), siteOnly: true },
   { id: "locked-spec", re: /\bc2pa\b/i, siteOnly: true }
 ];
 export const ruleHit = (r, text) => (r.test ? r.test(text) : r.re.test(text));
