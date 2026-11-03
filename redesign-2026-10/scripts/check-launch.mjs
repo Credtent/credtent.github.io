@@ -108,10 +108,11 @@ export const PRECONDITIONS = [
     why: "EB 2026-11-01: launch waits until Credtent's Auditor is running again (Premium copy says works are enrolled in periodic AI model audits). Set AUDITOR_RESUMED=YYYY-MM-DD, the date the first post-pause audit completed."
   }
 ];
-// EB rulings relayed 2026-11-02 ("Keep the claim", then "Every paid tier"): the new site says every paid plan from
-// Opt-Out Premium up includes AI model audits, so launch waits until every signer on a catalog paid tier from
-// Opt-Out Premium up (optout_premium, optout_premium_rh, creator_licensing, rights_holder_licensing,
-// game_industry) is placed in an audit run. The audit
+// EB rulings relayed 2026-11-02 ("Keep the claim", "Every paid tier", then "Yes, included"): the new site says every
+// plan for creatives and content owners except the free opt-out includes AI model audits, so launch waits until
+// every such signer is placed in an audit run: every catalog paid tier from Opt-Out Premium up (optout_premium,
+// optout_premium_rh, creator_licensing, rights_holder_licensing, game_industry), every contracted content partner
+// (Starter Partner, Organization License, Enterprise) and every org on a paying audit-tier flag. The audit
 // lane writes this attestation from Aegis; it is committed here before DNS (runbook) and holds counts only, because
 // this repo is public. It is enforced in production mode, which is what the cutover build runs
 // (npm run check:production); preview mode, the everyday CI run, only warns.
