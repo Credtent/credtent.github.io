@@ -323,7 +323,7 @@ export function comPages(images) {
         <article class="card"><h3>Content valuation</h3><p>A valuation gives qualitative context for a pricing conversation.</p><p><a href="/valuation">Explore content valuation</a></p></article>
         <article class="card"><h3>AI training licensing</h3><p>License a defined corpus.</p><p><a href="/ai-training">Explore training licensing</a></p></article>
         <article class="card"><h3>Citation licensing</h3><p>License use in AI answers.</p><p><a href="/citation-licensing">Explore citation licensing</a></p></article>
-        <article class="card"><h3>Auditing</h3><p>Opt-Out Premium for rights holders and the promotional licensing plan for individual creatives enroll works in Credtent's periodic AI model audits.</p><p><a href="https://credtent.org/resources/auditing">Read how auditing works</a></p></article>
+        <article class="card"><h3>Auditing</h3><p>Every plan for creatives and content owners, except the free opt-out, enrolls their works in Credtent's periodic AI model audits.</p><p><a href="https://credtent.org/resources/auditing">Read how auditing works</a></p></article>
       </div></section>`
     },
     {
@@ -709,7 +709,7 @@ export function comPages(images) {
         <h2>Under standard terms, you keep 85% of each deal we close.</h2>
         <p class="lede">The tier you choose sets the level of service and support. Partners earn when Credtent closes a deal.</p>
         <div class="grid-3" style="margin-top:24px">
-          <article class="card"><p class="kicker">For individual rights holders</p><h3>Starter Partner</h3><p><span class="price">85/15</span></p><ul><li>Catalog registration and provenance certification</li><li>Matching with AI companies</li><li>Quarterly royalty payments</li><li>Standard usage reporting</li></ul><p><a href="https://app.credtent.org/inquiries/content-partner">Contact us</a></p></article>
+          <article class="card"><p class="kicker">For individual rights holders</p><h3>Starter Partner</h3><p><span class="price">85/15</span></p><ul><li>Catalog registration and provenance certification</li><li>Matching with AI companies</li><li>Quarterly royalty payments</li><li>Standard usage reporting</li><li>Works enrolled in periodic AI model audits</li></ul><p><a href="https://app.credtent.org/inquiries/content-partner">Contact us</a></p></article>
           <article class="card"><p class="kicker">For guilds, publishers, and studios</p><h3>Organization License</h3><p>Standard <span class="price">85/15</span> plus premium</p><ul><li>Everything in Starter Partner</li><li>Bulk catalog intake and metadata tools</li><li>Priority deal placement</li><li>A dedicated account manager</li><li>Audit-ready reporting on demand</li></ul><p><a href="https://app.credtent.org/inquiries/content-partner">Talk with us</a></p></article>
           <article class="card"><p class="kicker">For large catalogs and data providers</p><h3>Enterprise</h3><p><span class="price">Custom</span></p><ul><li>Everything in Organization License</li><li>Custom API and data pipeline integration</li><li>Dedicated legal advice</li><li>Fully bespoke onboarding</li></ul><p><a href="https://app.credtent.org/inquiries/content-partner">Contact us</a></p></article>
         </div>
