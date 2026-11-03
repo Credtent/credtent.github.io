@@ -1,5 +1,5 @@
 # Credtent
-> Delaware Public Benefit Corporation and a certified B Corp. Resources for creatives.
+> Delaware Public Benefit Corporation and a Certified B Corp. Resources for creatives.
 
 Credtent's free opt-out records your AI-training preferences and sends them to AI companies each quarter; it cannot guarantee every company acts on them.
 

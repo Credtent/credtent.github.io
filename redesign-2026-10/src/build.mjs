@@ -394,7 +394,7 @@ function writeSitemapXml(dir, site, pages) {
 function writeLlms(dir, site) {
   const body = site.id === "com"
     ? `# Credtent
-> Delaware Public Benefit Corporation and a certified B Corp. Corporate site for content owners and AI companies.
+> Delaware Public Benefit Corporation and a Certified B Corp. Corporate site for content owners and AI companies.
 
 ${LICENSE_SENTENCE}
 
@@ -408,7 +408,7 @@ ${LICENSE_SENTENCE}
 - [Company map](https://credtent.com/guides/ai-training-data-licensing-companies/): A neutral map of public licensing programs, marketplaces, and registries. It is not a list of Credtent customers.
 
 ## Company
-- [About](https://credtent.com/about): Credtent, Inc. is a Delaware Public Benefit Corporation and a certified B Corp, founded by E.R. Burgess and Dr. Galen Buckwalter.
+- [About](https://credtent.com/about): Credtent, Inc. is a Delaware Public Benefit Corporation and a Certified B Corp, founded by E.R. Burgess and Dr. Galen Buckwalter.
 - [FAQ](https://credtent.com/faq): Answers for AI companies and content owners on licensing scope, documentation, and valuation limits.
 - [Pricing](https://credtent.com/pricing): Licensing for individual creatives is US$49 a year for sign-ups through December 31, 2026, with audits included; Opt-Out Premium for rights holders starts at US$299 a year. The Collaborithmic Age lists its published book prices.
 - [Contact](https://credtent.com/contact): AI companies can use the licensing form. Content owners start an inquiry in the app. Other questions open an email.
@@ -416,7 +416,7 @@ ${LICENSE_SENTENCE}
 Opt-out and Creative Consent: see https://credtent.org/llms.txt
 `
     : `# Credtent
-> Delaware Public Benefit Corporation and a certified B Corp. Resources for creatives.
+> Delaware Public Benefit Corporation and a Certified B Corp. Resources for creatives.
 
 ${CAPSULE.orgHome}
 
