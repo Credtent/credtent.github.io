@@ -1,0 +1,65 @@
+name: Check new sites
+
+# Gates for the redesign (credtent.com and credtent.org on Vercel): copy, links, redirects, check-launch in
+# preview mode and the node tests. The names list is the CREDTENT_REVIEW_NAMES repository secret, one entry
+# per line; without it the gates fail closed. Each entry is masked before any step runs.
+on:
+  # Every pull request: check-launch also scans the live root pages, so a root-only change can break the
+  # Vercel production build and must show up here first.
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: redesign-2026-10
+    steps:
+      - name: Mask each names-list entry
+        working-directory: .
+        env:
+          CREDTENT_REVIEW_NAMES: ${{ secrets.CREDTENT_REVIEW_NAMES }}
+        run: |
+          # Mask the raw line and the bare name of every entry kind (plain, drop:, block:, strip:, and
+          # allow: <where> Name, prefixes in any case), plus its lowercase, upper-case, slug, no-space, hyphenated,
+          # &amp;, %20 and &nbsp; forms. Masks are exact substrings, so the gates also hash names in what they print.
+          printf '%s\n' "$CREDTENT_REVIEW_NAMES" | tr '|' '\n' | while IFS= read -r line; do
+            raw="$(printf '%s' "$line" | sed -E 's/^[[:space:]]+//; s/[[:space:]]+$//')"
+            if [ -z "$raw" ]; then continue; fi
+            echo "::add-mask::$raw"
+            entry="$(printf '%s' "$raw" | sed -E 's/^(drop|block|strip):[[:space:]]*//I; s/^allow:[[:space:]]*[^[:space:]]+[[:space:]]+//I; s/^[[:space:]]+//; s/[[:space:]]+$//')"
+            if [ -z "$entry" ]; then continue; fi
+            lower="$(printf '%s' "$entry" | tr '[:upper:]' '[:lower:]')"
+            slug="$(printf '%s' "$lower" | sed -E 's/[^a-z0-9]+/-/g; s/^-+//; s/-+$//')"
+            compact="$(printf '%s' "$lower" | sed -E 's/[^a-z0-9]+//g')"
+            upper="$(printf '%s' "$entry" | tr '[:lower:]' '[:upper:]')"
+            hyphen="$(printf '%s' "$entry" | sed -E 's/[[:space:]]+/-/g')"
+            nospace="$(printf '%s' "$entry" | sed -E 's/[[:space:]]+//g')"
+            amp="$(printf '%s' "$entry" | sed -E 's/&/\&amp;/g')"
+            pct="$(printf '%s' "$entry" | sed -E 's/[[:space:]]+/%20/g')"
+            nbsp="$(printf '%s' "$entry" | sed -E 's/[[:space:]]+/\&nbsp;/g')"
+            for v in "$entry" "$lower" "$upper" "$slug" "$compact" "$hyphen" "$nospace" "$amp" "$pct" "$nbsp"; do
+              if [ "${#v}" -ge 3 ]; then echo "::add-mask::$v"; fi
+            done
+          done
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      # No install scripts run: the gates need no native build, and a pull request cannot run code at install time.
+      - run: npm ci --ignore-scripts
+      # The tests run as their own step, before the gates, so a gate failure never hides a test result.
+      - name: Gate tests
+        env:
+          CREDTENT_REVIEW_NAMES: ${{ secrets.CREDTENT_REVIEW_NAMES }}
+        run: npm run test:gates
+      - name: Gates (preview mode)
+        if: ${{ !cancelled() }}
+        env:
+          CREDTENT_REVIEW_NAMES: ${{ secrets.CREDTENT_REVIEW_NAMES }}
+        run: npm run gates

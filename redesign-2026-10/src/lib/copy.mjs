@@ -7,7 +7,7 @@ export const CAPSULE = {
   valuation: "A baseline valuation comes when you add content; optional paid custom valuation goes deeper. It is an informed starting point, not a guaranteed price.",
   orgHome: "Credtent's free opt-out records your AI-training preferences and sends them to AI companies each quarter; it cannot guarantee every company acts on them.",
   consent: "Creative Consent rates how platforms handle AI training: Full, Optional or No Protection.",
-  about: "Credtent, Inc. is a Delaware Public Benefit Corporation founded by Eric R. Burgess (CEO) and Dr. Galen Buckwalter."
+  about: "Credtent, Inc. is a Delaware Public Benefit Corporation founded by E.R. Burgess (CEO) and Dr. Galen Buckwalter."
 };
 
 export const AEGIS = "https://app.credtent.org";
