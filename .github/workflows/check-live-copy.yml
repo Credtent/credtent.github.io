@@ -22,18 +22,25 @@ jobs:
           CREDTENT_REVIEW_NAMES: ${{ secrets.CREDTENT_REVIEW_NAMES }}
         run: |
           # Mask the raw line and the bare name of every entry kind (plain, drop:, block:, strip:, and
-          # allow: <where> Name), plus its lowercase, hyphen-slug and no-space forms.
+          # allow: <where> Name, prefixes in any case), plus its lowercase, upper-case, slug, no-space, hyphenated,
+          # &amp;, %20 and &nbsp; forms. Masks are exact substrings, so the gates also hash names in what they print.
           printf '%s\n' "$CREDTENT_REVIEW_NAMES" | tr '|' '\n' | while IFS= read -r line; do
             raw="$(printf '%s' "$line" | sed -E 's/^[[:space:]]+//; s/[[:space:]]+$//')"
             if [ -z "$raw" ]; then continue; fi
             echo "::add-mask::$raw"
-            entry="$(printf '%s' "$raw" | sed -E 's/^(drop|block|strip):[[:space:]]*//; s/^allow:[[:space:]]*[^[:space:]]+[[:space:]]+//; s/^[[:space:]]+//; s/[[:space:]]+$//')"
+            entry="$(printf '%s' "$raw" | sed -E 's/^(drop|block|strip):[[:space:]]*//I; s/^allow:[[:space:]]*[^[:space:]]+[[:space:]]+//I; s/^[[:space:]]+//; s/[[:space:]]+$//')"
             if [ -z "$entry" ]; then continue; fi
             lower="$(printf '%s' "$entry" | tr '[:upper:]' '[:lower:]')"
             slug="$(printf '%s' "$lower" | sed -E 's/[^a-z0-9]+/-/g; s/^-+//; s/-+$//')"
             compact="$(printf '%s' "$lower" | sed -E 's/[^a-z0-9]+//g')"
-            for v in "$entry" "$lower" "$slug" "$compact"; do
-              if [ "${#v}" -ge 4 ]; then echo "::add-mask::$v"; fi
+            upper="$(printf '%s' "$entry" | tr '[:lower:]' '[:upper:]')"
+            hyphen="$(printf '%s' "$entry" | sed -E 's/[[:space:]]+/-/g')"
+            nospace="$(printf '%s' "$entry" | sed -E 's/[[:space:]]+//g')"
+            amp="$(printf '%s' "$entry" | sed -E 's/&/\&amp;/g')"
+            pct="$(printf '%s' "$entry" | sed -E 's/[[:space:]]+/%20/g')"
+            nbsp="$(printf '%s' "$entry" | sed -E 's/[[:space:]]+/\&nbsp;/g')"
+            for v in "$entry" "$lower" "$upper" "$slug" "$compact" "$hyphen" "$nospace" "$amp" "$pct" "$nbsp"; do
+              if [ "${#v}" -ge 3 ]; then echo "::add-mask::$v"; fi
             done
           done
       - uses: actions/checkout@v4

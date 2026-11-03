@@ -43,7 +43,7 @@ export function loadPrivateNames(env = process.env, localFile = LOCAL_FILE) {
 }
 
 // HTML5 named entities that matter for text, including the legacy forms browsers accept without a semicolon.
-const NAMED = { amp: "&", nbsp: " ", quot: '"', apos: "'", lt: "<", gt: ">", mdash: "—", ndash: "–", shy: "", dollar: "$",
+const NAMED = { amp: "&", nbsp: " ", quot: '"', apos: "'", lt: "<", gt: ">", mdash: "\u2014", ndash: "\u2013", horbar: "\u2015", shy: "", dollar: "$",
   rsquo: "’", lsquo: "‘", rdquo: "”", ldquo: "“", hellip: "…", zwj: "", zwnj: "", copy: "©", reg: "®",
   trade: "™", ensp: " ", emsp: " ", thinsp: " ", hairsp: " ", numsp: " ", puncsp: " ", emsp13: " ", emsp14: " ", nbspace: " ",
   zerowidthspace: "", nobreak: "", invisibletimes: "", invisiblecomma: "", invisibleplus: "", applyfunction: "", lrm: "", rlm: "",
@@ -86,7 +86,7 @@ export function normalizeText(s) {
   out = out.normalize("NFKC").normalize("NFD").replace(/\p{M}/gu, "").normalize("NFC");
   out = out.replace(/\p{Cf}/gu, "");
   out = [...out].map((ch) => HOMOGLYPHS[ch] || ch).join("");
-  out = out.replace(/[‘’ʼ′`´]/g, "'").replace(/[‐-―−]/g, "-");
+  out = out.replace(/[‘’ʼ′`´]/g, "'").replace(/[\u2010-\u2015\u2212]/g, "-");
   return out.replace(/[\s\p{Zs}]+/gu, " ");
 }
 
@@ -117,22 +117,26 @@ export function nameViews(raw) {
 }
 
 /** Names found in raw file content that are not allowed at any of the given locations. Callers never print them. */
-export function findNames(raw, wheres, list) {
+export function findNames(raw, wheres, list, { compactMatch = true, minLength = 0 } = {}) {
   const keys = (Array.isArray(wheres) ? wheres : [wheres]).map((w) => w.toLowerCase());
   const views = nameViews(raw);
   const flat = compact(stripTags(joinLiterals(normalizeText(raw)), " "));
   const found = [];
   for (const name of list.names) {
+    if (compact(name).length < minLength) continue;
     const re = nameRegex(name);
     const c = compact(name);
     // The compact match (all separators removed) catches slugs and run-together forms; it is used only for
     // names long enough that a stray substring is unlikely.
-    if (!views.some((v) => re.test(v)) && !(c.length >= 7 && flat.includes(c))) continue;
+    if (!views.some((v) => re.test(v)) && !(compactMatch && c.length >= 7 && flat.includes(c))) continue;
     if (keys.some((k) => list.allow.has(`${k} ${name}`.toLowerCase().replace(/\s+/g, " ")))) continue;
     found.push(name);
   }
   return found;
 }
+
+/** Printable text runs in a binary file (PDF text, XMP and EXIF strings), one per line. */
+export const binaryText = (buf) => (Buffer.from(buf).toString("latin1").match(/[\x20-\x7e]{4,}/g) || []).join("\n");
 
 /** 1-based line numbers of the first hit for each found name, so callers can report a line without the name. */
 export function nameLines(raw, list, names) {
@@ -153,12 +157,38 @@ export function redact(text, list) {
   if (!list || list.missing || !findNames(String(text), [], { ...list, allow: new Set() }).length) return String(text);
   return `[redacted:${crypto.createHash("sha256").update(String(text)).digest("hex").slice(0, 12)}]`;
 }
-/** A failure line safe for a public log: any word that names a listed entry becomes a short hash. */
+/** A failure line safe for a public log. Each line of the text is handled on its own: a word that names a
+ * listed entry becomes a short hash; a name spread over several words (or split by extra spaces) is hashed as the
+ * smallest run of words that names it; if a name still shows, the whole line is hashed. */
 export function redactLine(line, list) {
-  // Keep a trailing ":<line>:" so the rule and line number stay readable after the path is hashed.
-  return String(line).split(/(\s+)/).map((part) => {
-    if (/\s/.test(part)) return part;
-    const m = part.match(/^(.*?)(:\d+:?)$/);
-    return m && m[1] ? redact(m[1], list) + m[2] : redact(part, list);
-  }).join("");
+  if (!list || list.missing) return String(line);
+  const open = { ...list, allow: new Set() };
+  const shows = (t) => findNames(t, [], open).length > 0;
+  const hash = (t) => `[redacted:${crypto.createHash("sha256").update(t).digest("hex").slice(0, 12)}]`;
+  return String(line).split("\n").map((one) => {
+    if (!shows(one)) return one;
+    // Keep a trailing ":<line>:" so the rule and line number stay readable after the path is hashed.
+    let parts = one.split(/(\s+)/).map((part) => {
+      if (/\s/.test(part) || !part) return part;
+      const m = part.match(/^(.*?)(:\d+:?)$/);
+      return m && m[1] ? redact(m[1], list) + m[2] : redact(part, list);
+    });
+    for (let guard = 0; guard < 50 && shows(parts.join("")); guard++) {
+      const words = parts.map((p, i) => [p, i]).filter(([p]) => p && !/^\s+$/.test(p)).map(([, i]) => i);
+      let done = false;
+      for (let size = 2; size <= Math.min(8, words.length) && !done; size++) {
+        for (let k = 0; k + size <= words.length; k++) {
+          const from = words[k], to = words[k + size - 1];
+          const text = parts.slice(from, to + 1).join("");
+          if (!shows(text)) continue;
+          parts = [...parts.slice(0, from), hash(text), ...parts.slice(to + 1)];
+          done = true;
+          break;
+        }
+      }
+      if (!done) break;
+    }
+    const out = parts.join("");
+    return shows(out) ? hash(one) : out;
+  }).join("\n");
 }

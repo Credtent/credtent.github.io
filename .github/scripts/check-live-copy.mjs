@@ -15,20 +15,24 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
 import crypto from "node:crypto";
-import { loadPrivateNames, findNames, nameLines, decodeAll, redactLine, LOCAL_FILE, MISSING_MESSAGE } from "./private-names.mjs";
+import { loadPrivateNames, findNames, nameLines, decodeAll, redactLine, binaryText, LOCAL_FILE, MISSING_MESSAGE } from "./private-names.mjs";
 
 // CHECK_ROOT lets CI run the gate scripts from main against a pull request's tree.
 export const ROOT = process.env.CHECK_ROOT ? path.resolve(process.env.CHECK_ROOT) : path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
-// The current terms and privacy policy stay verbatim until the revised terms take effect (EB 2026-11-01).
-// lws.html and parking/lws.html are under legal hold item 11 and are not edited until Cherryh clears it.
-// Exempt from the claim rules, each pinned to the sha256 of the version reviewed: the current terms and privacy
-// policy stay verbatim until the revised terms take effect (EB 2026-11-01), and lws.html is under Cherryh's
-// hold item 11 (that item covers credtent.org/lws only). Any change to a pinned file fails until the pin is
-// reviewed and updated.
+// Exempt from the claim rules, each pinned to the sha256 of the version on main: the current terms and privacy
+// policy stay verbatim until the revised terms take effect (EB 2026-11-01), and lws.html and parking/lws.html
+// stay untouched while Cherryh's legal hold item 11 is open (the 2026-11-01 capture covers both pages). Any
+// change to a pinned file fails until the pin is reviewed and updated.
 export const EXEMPT = new Map([
   ["terms-of-service.html", "2a43523f0631d87f383a10b992129b8b9db86e7801be6059e08fdb65e838e635"],
   ["privacy-policy.html", "d3c53c6fc6b27bf011e5920dfda1742cf4674d37e10bb06fd8ca1b7e8fe84d07"],
-  ["lws.html", "315a2fd0423a37d47f5347899c71956c656d1430f6c8751fb0a6e5f66242324a"]
+  ["lws.html", "315a2fd0423a37d47f5347899c71956c656d1430f6c8751fb0a6e5f66242324a"],
+  ["parking/lws.html", "485df8ee612ecdd82b77f366c72ae35336b598cc43dc66b2bcfc0494b611fac0"]
+]);
+// Files that assemble text at run time and that a person has read, pinned to the sha256 reviewed (Clarke,
+// 2026-11-02: components.js builds nav links from ${base} and literal labels, which the claim rules read).
+export const REVIEWED_RENDER_TIME = new Map([
+  ["components.js", "8370d89f4275032c4280513886d1cf0f0dd18e78d5dd7118cb834ff301ddd370"]
 ]);
 const CLAIMS = /\.(html?|txt|md|markdown|svg|css|scss|sass|js|mjs|xml|json|ya?ml|webmanifest)$/i;
 // Real binaries, by extension or magic bytes. Anything else is read as text.
@@ -51,7 +55,7 @@ export const RULES = [
   { id: "old-wga-price", re: /\$149\b|\$298\b/ },
   { id: "superseded-249", re: /\$\s?249\b/ },
   // 85/15 is Credtent's standard terms, not every deal; the WGA discount is screenplay-only and WGA West-only.
-  { id: "85-every-deal", re: /85\s?%\s+of\s+(every|all)\b|\bevery\s+(licensing\s+)?deal\s+(Credtent|we)\s+closes?\s+(sends|routes|pays|returns)\s+85|85\s?%\s+of\s+gross\s+revenue\s+from\s+every\b|85\s?%\s+on\s+every\b/i },
+  { id: "85-every-deal", re: /85\s?(%|percent)\s+of\s+(every|all)\b|\bevery\s+(licensing\s+)?deal\s+(Credtent|we)\s+closes?\s+(sends|routes|pays|returns)\s+85|85\s?%\s+of\s+gross\s+revenue\s+from\s+every\b|85\s?(%|percent)\s+on\s+every\b/i },
   // "Every deal" near 85% is a claim about every deal unless the sentence says standard terms
   // ("approve every deal ... receive 85% ... under standard terms" is not).
   { id: "every-contract-or-no-exceptions", test: (text) => /\bevery contract\b|\bNo exceptions\b|\breturns 85\s?%/i.test(text) ||
@@ -66,7 +70,7 @@ export const RULES = [
   { id: "85-without-standard-terms", test: (text) => text.split(/(?<=[.?!])\s+/).some((x) => {
     // A bare figure or price label ("85%", "85/15 + premium") is not a statement; anything with two words is.
     const words = x.split(/\s+/).filter((w) => /[a-z]/i.test(w)).length;
-    return words >= 2 && ((/\b85\s?(%|percent)/i.test(x) && !/standard terms/i.test(x)) || (/\b85\/15\b/.test(x) && !/\bstandard\b/i.test(x)));
+    return words >= 2 && ((/\b85\s?(%|percent)/i.test(x) && !/standard terms/i.test(x)) || (/\b85\s?[\/\-\u2013]\s?15\b/.test(x) && !/\bstandard\b/i.test(x)));
   }) },
   { id: "present-tense-audits", re: /\bCredtent (also )?audits AI models\b|\baudits AI models periodically\b/i },
   { id: "product-name", re: /Credtent Aegis/i },
@@ -121,17 +125,25 @@ export function scanText(html) {
 }
 
 function lineOf(raw, rule) {
-  const i = raw.split("\n").findIndex((l) => ruleHit(rule, visibleText(l)) || ruleHit(rule, decode(l)));
+  const i = raw.split("\n").findIndex((l) => ruleHit(rule, visibleText(l)) || ruleHit(rule, decode(l)) || ruleHit(rule, decode(unescapeText(l))) || ruleHit(rule, cssContent(l)));
   return i >= 0 ? i + 1 : 0;
 }
 
+// JS, JSON and CSS escapes, as a browser or a JSON parser would read them.
+export const unescapeText = (t) => String(t)
+  .replace(/\\u\{([0-9a-f]+)\}|\\u([0-9a-f]{4})|\\x([0-9a-f]{2})/gi, (_, a, b, c) => String.fromCodePoint(Math.min(parseInt(a || b || c, 16), 0x10ffff)))
+  .replace(/\\([0-9a-f]{1,6}) ?/gi, (_, h) => String.fromCodePoint(Math.min(parseInt(h, 16), 0x10ffff)));
+// Script forms that assemble text at run time: decoding, reversing, concatenation, array joins of string
+// literals, and template interpolation.
+const RENDER_TIME = /\batob\(|fromCodePoint\(|fromCharCode\(|\.split\([^)]*\)\.reverse\(\)|["'`]\.concat\(|["'`]\s*\]\s*\.join\(|`[^`]*\$\{/;
 // Text a claim rule should read, by file type.
 function claimText(rel, raw) {
   if (/\.html?$|\.svg$/i.test(rel)) return scanText(raw);
   if (/\.(md|markdown)$/i.test(rel)) return scanText(raw.replace(/^[#>*\-+\s]+/gm, " ").replace(/[*_`]/g, ""));
   if (/\.css$/i.test(rel)) return cssContent(raw);
   if (/\.m?js$/i.test(rel)) return scanText(jsStrings(raw));
-  return decode(raw);
+  if (/\.(json|webmanifest)$/i.test(rel)) { try { return jsonStrings(JSON.parse(raw)).map(decode).join(" . "); } catch { /* fall through */ } }
+  return decode(unescapeText(raw));
 }
 
 function configList(root, key) {
@@ -156,8 +168,12 @@ export const jekyllExcludes = (root = ROOT) => configList(root, "exclude");
 export function configDuplicates(root = ROOT) {
   const cfg = path.join(root, "_config.yml");
   if (!fs.existsSync(cfg)) return [];
-  const keys = fs.readFileSync(cfg, "utf8").split("\n").map((l) => (l.match(/^([A-Za-z_][\w-]*):/) || [])[1]).filter(Boolean);
-  return keys.filter((k, i) => keys.indexOf(k) !== i);
+  const lines = fs.readFileSync(cfg, "utf8").split("\n");
+  // A quoted key or a space before the colon is the same key to YAML; a second document is a second config.
+  const keys = lines.map((l) => (l.match(/^(["']?)([A-Za-z_][\w-]*)\1\s*:/) || [])[2]).filter(Boolean);
+  const dups = keys.filter((k, i) => keys.indexOf(k) !== i);
+  if (lines.slice(1).some((l) => /^(---|\.\.\.)\s*$/.test(l))) dups.push("second YAML document");
+  return [...new Set(dups)];
 }
 
 function tracked(root) {
@@ -174,7 +190,8 @@ function tracked(root) {
 // in deploy-main.yml publishes everything except .git/, .github/ and README.md, excluded files included, so the
 // name scan reads every tracked file; the claim rules follow the Pages view.
 export function served(root = ROOT, { forNames = false } = {}) {
-  const excludes = forNames ? [] : jekyllExcludes(root);
+  // With .nojekyll, Pages does not run Jekyll: the exclude list does not apply and everything is served.
+  const excludes = forNames || fs.existsSync(path.join(root, ".nojekyll")) ? [] : jekyllExcludes(root);
   const includes = configList(root, "include");
   const under = (rel, x) => rel === x || rel.startsWith(`${x}/`);
   return tracked(root).filter((rel) => {
@@ -187,22 +204,16 @@ export function served(root = ROOT, { forNames = false } = {}) {
 
 const MAGIC = [[0x89, 0x50, 0x4e, 0x47], [0xff, 0xd8, 0xff], [0x47, 0x49, 0x46, 0x38], [0x25, 0x50, 0x44, 0x46], [0x50, 0x4b, 0x03, 0x04], [0x52, 0x49, 0x46, 0x46], [0x00, 0x00, 0x00]];
 const isBinary = (rel, buf) => BINARY_EXT.test(rel) || (!TEXT_EXT.test(rel) && MAGIC.some((m) => m.every((b, i) => buf[i] === b)));
-// UTF-16 and UTF-32 with a byte-order mark are decoded as browsers do; otherwise UTF-8.
+// A UTF-16 byte-order mark is decoded as browsers do (the WHATWG Encoding standard has no UTF-32, so FF FE 00 00
+// is UTF-16LE); otherwise UTF-8.
 function readText(buf) {
-  if (buf[0] === 0xff && buf[1] === 0xfe && buf[2] === 0 && buf[3] === 0) return { text: decodeUtf32(buf.subarray(4), true), bom: true };
-  if (buf[0] === 0 && buf[1] === 0 && buf[2] === 0xfe && buf[3] === 0xff) return { text: decodeUtf32(buf.subarray(4), false), bom: true };
   if (buf[0] === 0xff && buf[1] === 0xfe) return { text: new TextDecoder("utf-16le").decode(buf.subarray(2)), bom: true };
   if (buf[0] === 0xfe && buf[1] === 0xff) return { text: new TextDecoder("utf-16be").decode(buf.subarray(2)), bom: true };
   return { text: new TextDecoder("utf-8").decode(buf), bom: false };
 }
-function decodeUtf32(b, le) {
-  let out = "";
-  for (let i = 0; i + 3 < b.length; i += 4) out += String.fromCodePoint(le ? b.readUInt32LE(i) : b.readUInt32BE(i));
-  return out;
-}
 const sha256 = (buf) => crypto.createHash("sha256").update(buf).digest("hex");
 
-export function run({ env = process.env, localFile = LOCAL_FILE, root = ROOT } = {}) {
+export function run({ env = process.env, localFile = LOCAL_FILE, root = ROOT, reviewed = REVIEWED_RENDER_TIME } = {}) {
   const fails = [];
   const names = loadPrivateNames(env, localFile);
   if (names.missing) fails.push(MISSING_MESSAGE);
@@ -211,7 +222,12 @@ export function run({ env = process.env, localFile = LOCAL_FILE, root = ROOT } =
   for (const rel of served(root, { forNames: true })) {
     if (!names.missing && findNames(rel, [rel, `root/${rel}`], names).length) fails.push(`${rel}:0: private-name-in-path`);
     const buf = fs.readFileSync(path.join(root, rel));
-    if (isBinary(rel, buf)) continue;
+    if (isBinary(rel, buf)) {
+      // Text runs inside a binary (PDF text, XMP and EXIF in images) are published too. Entries shorter than five
+      // letters are skipped here, because they turn up by chance in the printable runs of compressed image data.
+      if (!names.missing && findNames(binaryText(buf), [rel, `root/${rel}`], names, { compactMatch: false, minLength: 5 }).length) fails.push(`${rel}:0: private-name-in-binary`);
+      continue;
+    }
     let { text: raw, bom } = readText(buf);
     if (raw.includes("\0")) {
       // A NUL byte in a text file is not a reason to skip it: report it and scan the rest.
@@ -224,11 +240,11 @@ export function run({ env = process.env, localFile = LOCAL_FILE, root = ROOT } =
     }
     // Liquid renders in _layouts, _includes and _sass, and in Markdown and HTML with or without front matter.
     // Only Jekyll renders Liquid, so this applies to what Pages builds (the S3 copy serves the raw text, which the scans above read).
-    if (claimSet.has(rel) && (/^_(layouts|includes|sass)\//.test(rel) || /\.(md|markdown|html?)$/i.test(rel)) && /\{\{|\{%/.test(raw)) fails.push(`${rel}:0: liquid-needs-review`);
+    if (claimSet.has(rel) && (/^_(layouts|includes|sass)\//.test(rel) || /\.(md|markdown|html?)$/i.test(rel) || /^\uFEFF?---\s*\r?\n/.test(raw)) && /\{\{|\{%/.test(raw)) fails.push(`${rel}:0: liquid-needs-review`);
     // Text assembled by script at render time is beyond what this gate can evaluate; a person reviews it.
     // Pages-served html, js and mjs are checked; for files only the S3 sync publishes, html and js (a build script's
     // .mjs is not loaded by any page).
-    if ((claimSet.has(rel) ? /\.(html?|js|mjs)$/i : /\.(html?|js)$/i).test(rel) && /\batob\(|fromCodePoint\(|fromCharCode\(|\.split\([^)]*\)\.reverse\(\)|["'`]\.concat\(/.test(raw)) fails.push(`${rel}:0: render-time-text-needs-review`);
+    if ((claimSet.has(rel) ? /\.(html?|js|mjs)$/i : /\.(html?|js)$/i).test(rel) && RENDER_TIME.test(raw) && reviewed.get(rel) !== sha256(buf)) fails.push(`${rel}:0: render-time-text-needs-review`);
     if (EXEMPT.has(rel)) {
       if (sha256(buf) !== EXEMPT.get(rel)) fails.push(`${rel}:0: exempt-page-changed (re-review, then update its pin)`);
       continue;
