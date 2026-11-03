@@ -17,6 +17,19 @@ function replaceWord(input, from, to) {
   return input.replace(new RegExp("\\b" + from + "\\b", "gi"), (match) => applyCase(match, to));
 }
 
+// Each match is one element: it starts at the last opening tag before the name and never crosses that
+// element's closing tag, so a drop cannot swallow the markup between an earlier element and the name.
+export function dropBlocks(html, names) {
+  let out = String(html);
+  for (const name of names) {
+    for (const tag of ["p", "li", "tr"]) {
+      const re = new RegExp("<" + tag + "\\b[^>]*>(?:(?!<" + tag + "\\b|</" + tag + ">)[\\s\\S])*?\\b" + reName(name) + "\\b[\\s\\S]*?</" + tag + ">", "gi");
+      out = out.replace(re, "");
+    }
+  }
+  return out;
+}
+
 export function scrub(input, { code = false } = {}) {
   if (NAMES.missing) throw new Error(MISSING_MESSAGE);
   let out = String(input);
@@ -37,12 +50,7 @@ export function scrub(input, { code = false } = {}) {
     const parts = out.split(/(<!--[\s\S]*?-->)/g);
     out = parts.map((part, index) => (index % 2 === 1 ? part : part.replace(/!/g, "."))).join("");
   }
-  for (const name of NAMES.drop) {
-    const block = (tag) => new RegExp("<" + tag + "\\b[\\s\\S]*?\\b" + reName(name) + "\\b[\\s\\S]*?</" + tag + ">", "gi");
-    out = out.replace(block("p"), "");
-    out = out.replace(block("li"), "");
-    out = out.replace(block("tr"), "");
-  }
+  out = dropBlocks(out, NAMES.drop);
   for (const name of NAMES.strip) out = out.replace(new RegExp("\\b" + reName(name) + "\\b", "g"), "");
   out = out.replace(/bridge-illustration\.png/gi, "");
   const leftovers = [];

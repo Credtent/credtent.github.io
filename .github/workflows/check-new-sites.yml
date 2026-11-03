@@ -53,7 +53,13 @@ jobs:
           node-version: "22"
       # No install scripts run: the gates need no native build, and a pull request cannot run code at install time.
       - run: npm ci --ignore-scripts
-      - name: Gates (preview mode)
+      # The tests run as their own step, before the gates, so a gate failure never hides a test result.
+      - name: Gate tests
         env:
           CREDTENT_REVIEW_NAMES: ${{ secrets.CREDTENT_REVIEW_NAMES }}
-        run: npm run check
+        run: npm run test:gates
+      - name: Gates (preview mode)
+        if: ${{ !cancelled() }}
+        env:
+          CREDTENT_REVIEW_NAMES: ${{ secrets.CREDTENT_REVIEW_NAMES }}
+        run: npm run gates
