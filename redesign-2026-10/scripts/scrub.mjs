@@ -51,8 +51,8 @@ export function scrub(input, { code = false } = {}) {
     if (re.test(out)) leftovers.push(token);
   }
   if (leftovers.length) {
-    const hit = out.match(new RegExp(".{0,80}\\b(" + leftovers.join("|") + ")\\b.{0,80}", "i"));
-    throw new Error("Scrub left a blocked token near: " + (hit ? hit[0] : leftovers.join(",")));
+    // The token only, never the page text around it (which could carry a name into a build log).
+    throw new Error("Scrub left a blocked token: " + leftovers.join(","));
   }
   // A private-list name left after scrubbing stops the build; the message never names it.
   if ([...NAMES.drop, ...NAMES.block].some((n) => new RegExp("\\b" + reName(n) + "\\b", "i").test(out))) {

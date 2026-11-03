@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { loadPrivateNames, findNames, nameLines, decodeAll, redactLine, MISSING_MESSAGE } from "./private-names.mjs";
+import { loadPrivateNames, findNames, nameLines, decodeAll, redactLine, binaryText, MISSING_MESSAGE } from "./private-names.mjs";
 import { isBinary, readText, EM_DASH } from "./text-files.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
@@ -83,7 +83,11 @@ for (const file of roots.flatMap((dir) => walk(dir))) {
   const rel = path.relative(root, file).split(path.sep).join("/");
   // A file or folder name is published too (it is the URL).
   if (!privateNames.missing && findNames(rel, [rel.replace(/^sites\//, "")], privateNames).length) failures.push(`${rel}:0 [private-name-in-path]`);
-  if (!texts.has(file)) continue;
+  if (!texts.has(file)) {
+    // Text runs inside a binary (PDF text, XMP and EXIF strings); entries under five letters are skipped here.
+    if (!privateNames.missing && findNames(binaryText(fs.readFileSync(file)), [rel.replace(/^sites\//, "")], privateNames, { compactMatch: false, minLength: 5 }).length) failures.push(`${rel}:0 [private-name-in-binary]`);
+    continue;
+  }
   const raw = texts.get(file);
   const found = privateNames.missing ? [] : findNames(raw, [rel.replace(/^sites\//, "")], privateNames);
   for (const line of found.length ? nameLines(raw, privateNames, found) : []) failures.push(`${rel}:${line} [private-name]`);

@@ -105,7 +105,7 @@ test("audit coverage: a complete, fresh attestation passes; every failure case, 
   fails({ aegisCommit: "main" }, /commit sha/);
   fails({ generatedAt: "2026-11-17T11:59:00Z" }, /stale/);
   fails({ generatedAt: "2026-11-21T12:00:00Z" }, /future/);
-  fails({ generatedAt: "yesterday" }, /not a timestamp/);
+  fails({ generatedAt: "yesterday" }, /not a UTC timestamp/);
   fails({ signers: ["a@example.com"] }, /counts only/);
   assert.ok(auditCoverageProblems(path.join(dir, "absent.json"), now).some((x) => /missing/.test(x)));
   assert.ok(check(null, "{not json").some((x) => /not valid JSON/.test(x)));
@@ -145,4 +145,70 @@ test("every deal near 85% needs standard terms in the same sentence", async () =
   assert.ok(ruleHit(r, scanText("<p>Owners get every deal at 85% of revenue.</p>")));
   assert.ok(!ruleHit(r, scanText("<p>Owners approve every deal before it executes, receive 85% of gross licensing revenue under standard terms.</p>")));
   assert.ok(ruleHit(r, scanText("<p>No exceptions.</p>")));
+});
+
+// Round-four verify (2026-11-02), written before the fixes.
+test("non-HTML site files are read with CSS, JS and JSON escapes decoded (escaped em dash, escaped claim)", async () => {
+  const { claimText, ruleHit } = await import("./check-launch.mjs");
+  const r = (id) => BANNED.find((b) => b.id === id);
+  assert.ok(ruleHit(r("em-dash"), claimText("css/site.css", ".a::after{content:\"x \\2014  y\"}")));
+  assert.ok(ruleHit(r("em-dash"), claimText("app.js", "const t = 'a \\u2014 b';")));
+  assert.ok(ruleHit(r("em-dash"), claimText("site.webmanifest", '{"name":"Credtent \\u2014 x"}')));
+  assert.ok(ruleHit(r("product-name"), claimText("data.json", '{"t":"Credtent Ae\\u0067is"}')));
+  assert.ok(ruleHit(r("product-name"), claimText("app.js", "const t = 'Credtent ' + 'Aegis';")));
+  assert.ok(ruleHit(r("product-name"), claimText("css/site.css", ".a::after{content:\"Credtent \" \"Aegis\"}")));
+  assert.ok(ruleHit(r("em-dash"), scanText("<p>a &horbar; b</p>")));
+});
+test("the launch gate agrees with the live gate on every-deal and carries its live-only rules", async () => {
+  const { ruleHit } = await import("./check-launch.mjs");
+  const r = (id) => BANNED.find((b) => b.id === id);
+  assert.ok(ruleHit(r("85-every-deal"), scanText("<p>Under standard terms, owners get 85% on every deal.</p>")));
+  assert.ok(ruleHit(r("85-every-deal"), scanText("<p>Owners keep 85 percent of every deal.</p>")));
+  assert.ok(ruleHit(r("85-without-standard-terms"), scanText("<p>Payments follow the 85-15 split.</p>")));
+  for (const id of ["licensing-99-without-promo", "written-into", "pbc-as-cause-of-neutrality"]) assert.ok(r(id), id);
+});
+test("redactLine hides a two-word entry in a build error line", async () => {
+  const { loadPrivateNames, redactLine, findNames: fn } = await import("./private-names.mjs");
+  const list = loadPrivateNames({ CREDTENT_REVIEW_NAMES: ["Example Corp", "Filler One", "Filler Two", "Filler Three", "Filler Four", "Filler Five", "Filler Six", "Filler Seven", "Filler Eight", "Filler Nine"].join("\n") });
+  const out = redactLine("Error: leftover token near ...signed with Example Corp last year...", list);
+  assert.equal(fn(out, [], { ...list, allow: new Set() }).length, 0);
+  assert.match(out, /^Error: leftover token near .*\[redacted:[0-9a-f]{12}\]/);
+});
+test("audit coverage: duplicate keys, a time without Z and a placeholder sha fail", async () => {
+  const fs = await import("node:fs");
+  const os = await import("node:os");
+  const path = await import("node:path");
+  const { auditCoverageProblems } = await import("./check-launch.mjs");
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "coverage2-"));
+  const now = new Date("2026-11-20T12:00:00Z");
+  const write = (raw) => { const f = path.join(dir, `c-${Math.random().toString(36).slice(2)}.json`); fs.writeFileSync(f, raw); return auditCoverageProblems(f, now); };
+  const good = { schema: "credtent-audit-coverage/1", generatedAt: "2026-11-19T12:00:00Z", aegisCommit: "0123abcd", signersTotal: 12, placedInRun: 12, missing: 0, heldByRuling: 0 };
+  assert.deepEqual(write(JSON.stringify(good, null, 2) + "\n"), []);
+  assert.ok(write(JSON.stringify(good).replace('"missing":0', '"missing":3,"missing":0')).some((x) => /duplicate/.test(x)));
+  assert.ok(write(JSON.stringify(good).replace('"schema":"credtent-audit-coverage/1"', '"schema":"Example Corp","schema":"credtent-audit-coverage/1"')).some((x) => /duplicate/.test(x)));
+  assert.ok(write(JSON.stringify({ ...good, generatedAt: "2026-11-19T12:00:00" })).some((x) => /UTC/.test(x)));
+  assert.ok(write(JSON.stringify({ ...good, aegisCommit: "0000000" })).some((x) => /placeholder/.test(x)));
+});
+test("vercel.json may hold only headers, redirects and the URL settings; a build override fails", async () => {
+  const { vercelConfigProblems } = await import("./check-launch.mjs");
+  assert.deepEqual(vercelConfigProblems({ headers: [], redirects: [], cleanUrls: true, trailingSlash: false }), []);
+  for (const k of ["buildCommand", "ignoreCommand", "installCommand", "outputDirectory", "framework", "rewrites"]) assert.ok(vercelConfigProblems({ headers: [], [k]: "x" }).length, k);
+});
+test("render-time text, binary names and parking/lws pin, end to end", async () => {
+  const fs = await import("node:fs");
+  const os = await import("node:os");
+  const path = await import("node:path");
+  const { spawnSync } = await import("node:child_process");
+  const { ROOT_EXEMPT } = await import("./check-launch.mjs");
+  assert.ok(ROOT_EXEMPT.has("parking/lws.html"));
+  const here = path.dirname(new URL(import.meta.url).pathname);
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "launch2-"));
+  for (const id of ["com", "org"]) fs.cpSync(path.join(here, "..", "sites", id), path.join(tmp, id), { recursive: true });
+  fs.writeFileSync(path.join(tmp, "com", "r.js"), "x = atob('QQ==');");
+  fs.writeFileSync(path.join(tmp, "com", "deck.pdf"), Buffer.concat([Buffer.from("%PDF-1.4\n"), Buffer.from([0, 1, 2]), Buffer.from("(Example Corp) Tj")]));
+  const list = ["Example Corp", "Filler One", "Filler Two", "Filler Three", "Filler Four", "Filler Five", "Filler Six", "Filler Seven", "Filler Eight", "Filler Nine"].join("\n");
+  const out = spawnSync(process.execPath, [path.join(here, "check-launch.mjs"), "preview", path.join(tmp, "com"), path.join(tmp, "org")], { env: { ...process.env, CREDTENT_REVIEW_NAMES: list, CI: "" }, encoding: "utf8" }).stdout;
+  assert.match(out, /com\/r\.js:0: render-time-text-needs-review/);
+  assert.match(out, /com\/deck\.pdf:0: private-name-in-binary/);
+  assert.doesNotMatch(out, /example[\s-]?corp/i);
 });

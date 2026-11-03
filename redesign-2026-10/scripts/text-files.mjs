@@ -9,20 +9,14 @@ const MAGIC = [[0x89, 0x50, 0x4e, 0x47], [0xff, 0xd8, 0xff], [0x47, 0x49, 0x46, 
 /** True for a binary file: a binary extension, or no text extension and a known binary signature. */
 export const isBinary = (rel, buf) => BINARY_EXT.test(rel) || (!TEXT_EXT.test(rel) && MAGIC.some((m) => m.every((b, i) => buf[i] === b)));
 
-function decodeUtf32(b, le) {
-  let out = "";
-  for (let i = 0; i + 3 < b.length; i += 4) out += String.fromCodePoint(le ? b.readUInt32LE(i) : b.readUInt32BE(i));
-  return out;
-}
-/** UTF-16 and UTF-32 with a byte-order mark are decoded as browsers do; otherwise UTF-8. A NUL is reported, then removed. */
+/** A UTF-16 byte-order mark is decoded as browsers do (the WHATWG Encoding standard has no UTF-32, so FF FE 00 00
+ * is UTF-16LE); otherwise UTF-8. A NUL is reported, then removed. */
 export function readText(buf) {
   let text, bom = true;
-  if (buf[0] === 0xff && buf[1] === 0xfe && buf[2] === 0 && buf[3] === 0) text = decodeUtf32(buf.subarray(4), true);
-  else if (buf[0] === 0 && buf[1] === 0 && buf[2] === 0xfe && buf[3] === 0xff) text = decodeUtf32(buf.subarray(4), false);
-  else if (buf[0] === 0xff && buf[1] === 0xfe) text = new TextDecoder("utf-16le").decode(buf.subarray(2));
+  if (buf[0] === 0xff && buf[1] === 0xfe) text = new TextDecoder("utf-16le").decode(buf.subarray(2));
   else if (buf[0] === 0xfe && buf[1] === 0xff) text = new TextDecoder("utf-16be").decode(buf.subarray(2));
   else { text = new TextDecoder("utf-8").decode(buf); bom = false; }
-  const nul = !bom && text.includes("\0");
+  const nul = text.includes("\0");
   return { text: text.replace(/\0/g, ""), bom, nul };
 }
 

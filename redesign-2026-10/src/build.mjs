@@ -3,6 +3,7 @@ import path from "node:path";
 import sharp from "sharp";
 import { PHOTOS } from "../scripts/assets.mjs";
 import { scrub } from "../scripts/scrub.mjs";
+import { loadPrivateNames, redactLine } from "../scripts/private-names.mjs";
 import { comPages } from "./lib/com.mjs";
 import { ADDRESS_HTML, CAPSULE, LICENSE_SENTENCE } from "./lib/copy.mjs";
 import { orgPages } from "./lib/org.mjs";
@@ -727,6 +728,7 @@ async function main() {
 }
 
 main().catch((error) => {
-  console.error(error);
+  // Build errors can quote page text; any listed name in them is printed only as a short hash.
+  console.error(redactLine(String(error && error.stack ? error.stack : error), loadPrivateNames()));
   process.exit(1);
 });

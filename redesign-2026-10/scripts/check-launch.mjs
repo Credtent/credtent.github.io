@@ -6,7 +6,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { CURRENT_TERMS_FILE, CURRENT_TERMS_EFFECTIVE, REVISED_TERMS_DATE, TERMS_SWAP, UPCOMING_TERMS_PATH, DATE_PLACEHOLDER, VERBATIM_START, VERBATIM_END, REVISED_CHANGES, termsText, reviseTerms, termsGuard, liveTermsParts } from "../src/lib/terms.mjs";
-import { loadPrivateNames, findNames, nameLines, decodeAll, redactLine, MISSING_MESSAGE } from "./private-names.mjs";
+import { loadPrivateNames, findNames, nameLines, decodeAll, redactLine, binaryText, MISSING_MESSAGE } from "./private-names.mjs";
 import { isBinary, readText, sha256, EM_DASH } from "./text-files.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -46,7 +46,12 @@ export const BANNED = [
   { id: "free-forever-promise", re: /always free|free,? always|(will )?stays? free|always will be|free forever|\$0<\/span>\s*forever/i },
   { id: "pbc-legal-duty-claim", re: /legally (obligat|bound)\w*/i },
   // Review round 2026-11-01: 85/15 is Credtent's standard terms, not every deal; the WGA discount is screenplay-only.
-  { id: "85-every-deal", re: /85\s?%\s+of\s+(every|all)\b|\bevery\s+(licensing\s+)?deal\s+(Credtent|we)\s+closes?\s+(sends|routes|pays)\s+85|85\s?%\s+of\s+gross\s+revenue\s+from\s+every\b/i },
+  // Same rule as the live-copy gate.
+  { id: "85-every-deal", re: /85\s?(%|percent)\s+of\s+(every|all)\b|\bevery\s+(licensing\s+)?deal\s+(Credtent|we)\s+closes?\s+(sends|routes|pays|returns)\s+85|85\s?%\s+of\s+gross\s+revenue\s+from\s+every\b|85\s?(%|percent)\s+on\s+every\b/i },
+  // Ported from the live-copy gate so the two gates carry the same claim rules.
+  { id: "licensing-99-without-promo", re: /Creator Licensing[^.<]{0,40}\$\s?99/i },
+  { id: "written-into", re: /written into (every|its corporate|the company|our corporate)/i },
+  { id: "pbc-as-cause-of-neutrality", re: /(As a|as a) Delaware Public Benefit Corporation, Credtent (acts|is) (as )?a neutral|Public Benefit Corporation, structurally (neutral|independent)/ },
   { id: "wga-discount-widened", re: /WGA members receive a discount|discount on certification fees/i },
   // Review round 2026-11-01 (second pass).
   // "Every deal" near 85% is a claim about every deal unless the sentence says standard terms
@@ -61,7 +66,7 @@ export const BANNED = [
   // ("85%", "85/15 + premium") is not a statement, anything with two words is (same rule as the live-copy gate).
   { id: "85-without-standard-terms", test: (text) => text.split(/(?<=[.?!])\s+/).some((x) => {
     const words = x.split(/\s+/).filter((w) => /[a-z]/i.test(w)).length;
-    return words >= 2 && ((/\b85\s?(%|percent)/i.test(x) && !/standard terms/i.test(x)) || (/\b85\/15\b/.test(x) && !/\bstandard\b/i.test(x)));
+    return words >= 2 && ((/\b85\s?(%|percent)/i.test(x) && !/standard terms/i.test(x)) || (/\b85\s?[\/\-\u2013]\s?15\b/.test(x) && !/\bstandard\b/i.test(x)));
   }) },
   { id: "present-tense-audits", re: /\bCredtent (also )?audits AI models\b|\baudits AI models periodically\b/i },
   // Ported from check-copy so they also run on decoded text; new-site pages only (the live site still says "creators").
@@ -73,14 +78,16 @@ export const BANNED = [
 ];
 export const ruleHit = (r, text) => (r.test ? r.test(text) : r.re.test(text));
 // Served pages of the live site (GitHub Pages from main) are scanned too until the DNS cutover.
-// The current terms and privacy policy stay verbatim (EB 2026-11-01); lws.html is under legal hold item 11
-// (which covers credtent.org/lws and lws.html only; parking/lws.html is scanned). Each exempt page is pinned to
-// its sha256: a change fails until someone re-reviews it and updates the pin (the same pins as the live-copy gate).
+// The current terms and privacy policy stay verbatim (EB 2026-11-01); lws.html and parking/lws.html stay
+// untouched while Cherryh's legal hold item 11 is open (the 2026-11-01 capture covers both pages). Each exempt page
+// is pinned to its sha256 on main: a change fails until someone re-reviews it and updates the pin (the same pins
+// as the live-copy gate).
 export const ROOT_SCAN = true;
 export const ROOT_EXEMPT = new Map([
   ["terms-of-service.html", "2a43523f0631d87f383a10b992129b8b9db86e7801be6059e08fdb65e838e635"],
   ["privacy-policy.html", "d3c53c6fc6b27bf011e5920dfda1742cf4674d37e10bb06fd8ca1b7e8fe84d07"],
-  ["lws.html", "315a2fd0423a37d47f5347899c71956c656d1430f6c8751fb0a6e5f66242324a"]
+  ["lws.html", "315a2fd0423a37d47f5347899c71956c656d1430f6c8751fb0a6e5f66242324a"],
+  ["parking/lws.html", "485df8ee612ecdd82b77f366c72ae35336b598cc43dc66b2bcfc0494b611fac0"]
 ]);
 // Root files the copy rules read (what Pages renders as text); every non-binary root file gets the names checks.
 const ROOT_RULE_FILES = /\.(html?|md|markdown|txt)$/i;
@@ -114,7 +121,12 @@ export function auditCoverageProblems(file = AUDIT_COVERAGE_FILE, now = new Date
   const rel = path.relative(ROOT, file).split(path.sep).join("/");
   if (!fs.existsSync(file)) return [`${rel} is missing: run the Aegis audit-coverage script and commit its output (runbook, step before DNS)`];
   let a;
-  try { a = JSON.parse(fs.readFileSync(file, "utf8")); } catch { return [`${rel} is not valid JSON`]; }
+  const bytes = fs.readFileSync(file, "utf8");
+  try { a = JSON.parse(bytes); } catch { return [`${rel} is not valid JSON`]; }
+  // JSON.parse keeps the last of duplicated keys, so a reader and the gate could see different values.
+  const keyCounts = {};
+  for (const m of bytes.matchAll(/"((?:\\.|[^"\\])*)"\s*:/g)) keyCounts[m[1]] = (keyCounts[m[1]] || 0) + 1;
+  if (Object.values(keyCounts).some((n) => n > 1)) return [`${rel} has a duplicate key; each field must appear once`];
   if (!a || typeof a !== "object" || Array.isArray(a)) return [`${rel} is not a JSON object`];
   const out = [];
   const extra = Object.keys(a).filter((k) => !COVERAGE_KEYS.includes(k));
@@ -122,6 +134,7 @@ export function auditCoverageProblems(file = AUDIT_COVERAGE_FILE, now = new Date
   if (extra.length) out.push(`${rel} has fields outside the schema (${extra.length}); it may hold counts only`);
   if (a.schema !== AUDIT_COVERAGE_SCHEMA) out.push(`${rel} schema is not ${AUDIT_COVERAGE_SCHEMA}`);
   if (typeof a.aegisCommit !== "string" || !/^[0-9a-f]{7,40}$/i.test(a.aegisCommit)) out.push(`${rel} aegisCommit is not a commit sha`);
+  else if (/^(.)\1+$/.test(a.aegisCommit)) out.push(`${rel} aegisCommit is a placeholder, not a commit sha`);
   const counts = ["signersTotal", "placedInRun", "missing", "heldByRuling"];
   const bad = counts.filter((k) => !Number.isInteger(a[k]) || a[k] < 0);
   if (bad.length) out.push(`${rel} ${bad.join(", ")} must be whole numbers, zero or more`);
@@ -131,8 +144,9 @@ export function auditCoverageProblems(file = AUDIT_COVERAGE_FILE, now = new Date
     if (a.missing !== 0) out.push(`${rel} missing is ${a.missing}, not 0`);
     if (a.heldByRuling !== 0) out.push(`${rel} heldByRuling is ${a.heldByRuling}, not 0 (signers held off until EB rules, LD-067 ruling 6)`);
   }
-  const t = typeof a.generatedAt === "string" && /^\d{4}-\d{2}-\d{2}T/.test(a.generatedAt) ? Date.parse(a.generatedAt) : NaN;
-  if (Number.isNaN(t)) out.push(`${rel} generatedAt is not a timestamp (YYYY-MM-DDTHH:MM:SSZ)`);
+  // UTC only: a time without "Z" would be read in the local time zone, so the Mac and Vercel could disagree.
+  const t = typeof a.generatedAt === "string" && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2}(\.\d+)?)?Z$/.test(a.generatedAt) ? Date.parse(a.generatedAt) : NaN;
+  if (Number.isNaN(t)) out.push(`${rel} generatedAt is not a UTC timestamp (YYYY-MM-DDTHH:MM:SSZ)`);
   else if (t > now.getTime() + 5 * 60 * 1000) out.push(`${rel} generatedAt is in the future`);
   else if (now.getTime() - t > AUDIT_COVERAGE_MAX_AGE_HOURS * 3600 * 1000) out.push(`${rel} is stale: generatedAt is more than ${AUDIT_COVERAGE_MAX_AGE_HOURS} hours old`);
   return out;
@@ -176,10 +190,30 @@ function jsonStrings(value, out = []) {
   return out;
 }
 
-const cssContent = (css) => [...css.matchAll(/content\s*:\s*(["'])((?:\\.|(?!\1).)*)\1/g)]
-  .map((m) => decode(m[2].replace(/\\([0-9a-f]{1,6}) ?/gi, (_, h) => String.fromCodePoint(parseInt(h, 16))))).join(" . ");
-const jsStrings = (js) => [...js.matchAll(/`((?:\\.|[^`])*)`|"((?:\\.|[^"\n])*)"|'((?:\\.|[^'\n])*)'/g)]
+// Every string in every CSS content value (a value may hold several), escapes decoded. Same as the live gate.
+const cssContent = (css) => [...css.matchAll(/content\s*:\s*([^;}]*)/g)]
+  .map((m) => [...m[1].matchAll(/(["'])((?:\\.|(?!\1).)*)\1/g)].map((x) => x[2]).join(""))
+  .map((t) => decode(t.replace(/\\([0-9a-f]{1,6}) ?/gi, (_, h) => String.fromCodePoint(Math.min(parseInt(h, 16), 0x10ffff))))).join(" . ");
+// JS, JSON and CSS escapes, as a browser or a JSON parser would read them.
+export const unescapeText = (t) => String(t)
+  .replace(/\\u\{([0-9a-f]+)\}|\\u([0-9a-f]{4})|\\x([0-9a-f]{2})/gi, (_, a, b, c) => String.fromCodePoint(Math.min(parseInt(a || b || c, 16), 0x10ffff)))
+  .replace(/\\([0-9a-f]{1,6}) ?/gi, (_, h) => String.fromCodePoint(Math.min(parseInt(h, 16), 0x10ffff)));
+// Script forms that assemble text at run time: decoding, reversing, concatenation, array joins of string
+// literals, and template interpolation. A person reviews any file that uses them.
+export const RENDER_TIME = /\batob\(|fromCodePoint\(|fromCharCode\(|\.split\([^)]*\)\.reverse\(\)|["'`]\.concat\(|["'`]\s*\]\s*\.join\(|`[^`]*\$\{/;
+// String literals joined with + are read as one string.
+const jsStrings = (js) => [...js.replace(/["'`]\s*\+\s*["'`]/g, "").matchAll(/`((?:\\.|[^`])*)`|"((?:\\.|[^"\n])*)"|'((?:\\.|[^'\n])*)'/g)]
   .map((m) => (m[1] ?? m[2] ?? m[3]).replace(/\\u\{([0-9a-f]+)\}|\\u([0-9a-f]{4})|\\x([0-9a-f]{2})/gi, (_, a, b, c) => String.fromCodePoint(parseInt(a || b || c, 16)))).join(" . ");
+
+/** Text a claim rule reads, by file type: pages and SVG as rendered, CSS content strings, JS and JSON strings,
+ * and every other text file with JS and CSS escapes decoded. */
+export function claimText(rel, raw) {
+  if (/\.(html?|svg)$/i.test(rel)) return scanText(raw);
+  if (/\.css$/i.test(rel)) return cssContent(raw);
+  if (/\.(m?js|cjs)$/i.test(rel)) return scanText(jsStrings(raw));
+  if (/\.(json|webmanifest)$/i.test(rel)) { try { return jsonStrings(JSON.parse(raw)).map(decode).join(" . "); } catch { /* fall through */ } }
+  return decode(unescapeText(raw));
+}
 
 // Visible text, every attribute value except URLs, every JSON-LD string, inline script string literals and CSS
 // content strings (style blocks and style attributes), entities decoded.
@@ -204,7 +238,7 @@ export function scanText(html) {
 function lineOf(raw, re) {
   const lines = raw.split("\n");
   // re is a RegExp or a rule with a test function; both expose test(text).
-  const i = lines.findIndex((l) => re.test(visibleText(l)) || re.test(decode(l)));
+  const i = lines.findIndex((l) => re.test(visibleText(l)) || re.test(decode(l)) || re.test(decode(unescapeText(l))) || re.test(cssContent(l)));
   return i >= 0 ? i + 1 : 0;
 }
 
@@ -316,10 +350,16 @@ export function checkTerms(sites, fails) {
   }
 }
 
+// Vercel honors build settings in vercel.json (buildCommand, ignoreCommand and the rest), which would override
+// the dashboard Build Command that runs this gate. Only the routing keys the sites use are allowed.
+const VERCEL_KEYS = new Set(["$schema", "headers", "redirects", "cleanUrls", "trailingSlash"]);
+export const vercelConfigProblems = (config) => Object.keys(config || {}).filter((k) => !VERCEL_KEYS.has(k)).map((k) => `vercel.json key "${k}" is not allowed (it can change how Vercel builds or serves the site)`);
+
 function checkMode(site, fails) {
   const robots = fs.readFileSync(path.join(site.dir, "robots.txt"), "utf8");
   const ready = fs.readFileSync(path.join(site.dir, "robots.production.txt"), "utf8");
   const config = JSON.parse(fs.readFileSync(path.join(site.dir, "vercel.json"), "utf8"));
+  for (const problem of vercelConfigProblems(config)) fails.push(`${site.id}/${problem}`);
   const sitewide = (config.headers || []).filter((h) => h.source === "/(.*)" && !h.missing && (h.headers || []).some((x) => x.key === "X-Robots-Tag"));
   const hostGate = (config.headers || [])[0];
   if (!hostGate || !hostGate.missing || !(hostGate.headers || []).some((x) => x.key === "X-Robots-Tag" && /noindex/.test(x.value))) fails.push(`${site.id}/vercel.json: the first header rule is not the host-gated noindex`);
@@ -354,7 +394,10 @@ export function run() {
     for (const rel of rootServed()) {
       if (!names.missing && findNames(rel, [`root/${rel}`, rel], names).length) fails.push(`root/${rel}:0: private-name-in-path`);
       const buf = fs.readFileSync(path.join(REPO, rel));
-      if (isBinary(rel, buf)) continue;
+      if (isBinary(rel, buf)) {
+        if (!names.missing && findNames(binaryText(buf), [`root/${rel}`, rel], names, { compactMatch: false, minLength: 5 }).length) fails.push(`root/${rel}:0: private-name-in-binary`);
+        continue;
+      }
       const { text: raw, nul } = readText(buf);
       if (nul) fails.push(`root/${rel}:0: nul-byte-in-text`);
       const text = /\.html?$/i.test(rel) ? scanText(raw) : decode(raw);
@@ -382,7 +425,12 @@ export function run() {
       // The path is the URL, so it is checked like text; then every non-binary file, whatever its extension.
       if (!names.missing && findNames(rel, [`${site.id}/${rel}`], names).length) fails.push(`${site.id}/${rel}:0: private-name-in-path`);
       const buf = fs.readFileSync(path.join(site.dir, rel));
-      if (isBinary(rel, buf)) continue;
+      if (isBinary(rel, buf)) {
+        // Text runs inside a binary (PDF text, XMP and EXIF strings) are published too. Entries shorter than five
+        // letters are skipped here, because they turn up by chance in compressed image data.
+        if (!names.missing && findNames(binaryText(buf), [`${site.id}/${rel}`], names, { compactMatch: false, minLength: 5 }).length) fails.push(`${site.id}/${rel}:0: private-name-in-binary`);
+        continue;
+      }
       const { text: raw, nul } = readText(buf);
       if (nul) fails.push(`${site.id}/${rel}:0: nul-byte-in-text`);
       // The current terms are served verbatim (EB 2026-11-01); checkTerms proves that block equals the live
@@ -390,8 +438,12 @@ export function run() {
       const hasVerbatim = raw.includes(VERBATIM_START);
       if (hasVerbatim && rel !== "terms-of-service/index.html") fails.push(`${site.id}/${rel}: verbatim terms block outside /terms-of-service`);
       const checked = hasVerbatim ? raw.slice(0, raw.indexOf(VERBATIM_START)) + raw.slice(raw.indexOf(VERBATIM_END) + VERBATIM_END.length) : raw;
-      const text = /\.html?$/i.test(rel) ? scanText(checked) : decode(checked);
+      const text = claimText(rel, checked);
+      if (/\.(html?|m?js)$/i.test(rel) && RENDER_TIME.test(checked)) fails.push(`${site.id}/${rel}:0: render-time-text-needs-review`);
       for (const b of BANNED) {
+        // Script and JSON strings are fragments joined for scanning, so a space before a comma there is an
+        // artifact of the join, not of the page.
+        if (b.id === "comma-artifact" && /\.(m?js|cjs|json|webmanifest)$/i.test(rel)) continue;
         const m = ruleHit(b, text);
         // File, line and rule only: page text is never printed, so no name can reach a log.
         if (m) fails.push(`${site.id}/${rel}:${lineOf(checked, b.re || b)}: ${b.id}`);
