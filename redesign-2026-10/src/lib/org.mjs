@@ -44,7 +44,7 @@ export function orgPages(images) {
           <div class="facts">
             <article class="fact"><p class="kicker">Free</p><h3>Opt-out registration</h3><p>Tell AI companies not to train on the work you identify.</p></article>
             <article class="fact"><p class="kicker">Quarterly</p><h3>Opt-out list distribution</h3><p>Credtent sends the list on a quarterly cadence.</p></article>
-            <article class="fact"><p class="kicker">Optional</p><h3>Periodic AI model audits</h3><p>Audit enrollment comes with the licensing promotion or with Opt-Out Premium for rights holders.</p></article>
+            <article class="fact"><p class="kicker">Optional</p><h3>Periodic AI model audits</h3><p>Audit enrollment comes with every paid plan.</p></article>
           </div>
         </div>
       </section>
@@ -56,7 +56,7 @@ export function orgPages(images) {
           <div class="steps" style="margin-top:24px">
             <article class="step"><p class="kicker">01</p><h3>Register your preferences</h3><p>Identify the work you want included in your opt-out request.</p></article>
             <article class="step"><p class="kicker">02</p><h3>We send your request</h3><p>Credtent distributes the opt-out list to AI companies each quarter. Sent notices are distinct from confirmed receipt or action.</p></article>
-            <article class="step"><p class="kicker">03</p><h3>Choose additional support</h3><p>Add the promotional licensing plan for individual creatives, or Opt-Out Premium if you are a rights holder, and Credtent enrolls your works in its periodic AI model audits.</p></article>
+            <article class="step"><p class="kicker">03</p><h3>Choose additional support</h3><p>Add a paid plan, and Credtent enrolls your works in its periodic AI model audits.</p></article>
           </div>
           <p class="fine">Registration does not automatically remove work from datasets.</p>
         </div>
@@ -66,7 +66,7 @@ export function orgPages(images) {
           <div>
             <p class="eyebrow">Periodic AI model audits</p>
             <h2>Enroll your works in periodic AI model audits.</h2>
-            <p class="lede">Both plans priced here include that enrollment, and Credtent records the results. Audit results are not proof of dataset inclusion or infringement.</p>
+            <p class="lede">The two plans priced here, like every other paid plan, include that enrollment, and Credtent records the results. Audit results are not proof of dataset inclusion or infringement.</p>
             <div class="btn-row"><a class="btn" href="/resources/auditing">Understand auditing</a></div>
           </div>
           <div class="price-stack">
@@ -240,7 +240,7 @@ export function orgPages(images) {
       <section class="section"><div class="wrap prose">
         <h2>What you can count on</h2>
         <h3>It is free.</h3>
-        <p>Registering a work for the opt-out costs nothing, and the opt-out is not a trial. The promotional licensing plan for individual creatives and Opt-Out Premium for rights holders keep the same opt-out and add enrollment in periodic AI model audits. Credtent does not plan to charge for the free opt-out.</p>
+        <p>Registering a work for the opt-out costs nothing, and the opt-out is not a trial. Every paid plan keeps the same opt-out and adds enrollment in periodic AI model audits. Credtent does not plan to charge for the free opt-out.</p>
         <h3>You can change your mind.</h3>
         <p>You can update your preferences at any time to enable licensing, with no retroactive fees and no penalties. A work that is opted out today can be made licensable tomorrow, and a licensable work can go back to opt-out.</p>
         <h3>It is recorded and dated.</h3>
@@ -320,14 +320,14 @@ export function orgPages(images) {
     {
       path: "/resources/auditing",
       title: "How opt-out auditing works | Credtent",
-      description: "Opt-Out Premium for rights holders and the promotional licensing plan for individual creatives enroll works in Credtent's periodic AI model audits. Audit results are not proof of dataset inclusion.",
+      description: "Every paid plan enrolls works in Credtent's periodic AI model audits. Audit results are not proof of dataset inclusion.",
       eyebrow: "Auditing",
       h1: "What an audit can show.",
       capsule: "Opt-Out Premium for rights holders enrolls their works in Credtent's periodic AI model audits, and Credtent records the results. Audit results are not proof of dataset inclusion or infringement.",
       crumbs: [{ name: "Resources", href: "https://credtent.org/resources" }, { name: "Auditing", href: "https://credtent.org/resources/auditing" }],
       faq: [
         { q: "Is an audit proof my work was in a training set?", a: "No. It is an observation of a model response, not a dataset inventory." },
-        { q: "Who is it for?", a: "It is for individual creatives who sign up for the US$49 licensing promotion by December 31, 2026, and for rights holders on Opt-Out Premium, from US$299 a year." }
+        { q: "Who is it for?", a: "It comes with every paid plan, and the free opt-out does not include it." }
       ],
       main: `<section class="section"><div class="wrap prose"><p>Auditing is optional. The free opt-out still records preferences and notices without it. Read <a href="/premium">Opt-Out Premium</a>.</p><p>Opt-Out Premium for rights holders starts at ${price("US$299")} a year. Individual creatives get audits with licensing, at ${price("US$49")} a year for sign-ups through December 31, 2026.</p></div></section>`
     },

@@ -424,7 +424,7 @@ ${CAPSULE.orgHome}
 - [Home](https://credtent.org/): ${CAPSULE.orgHome}
 - [Free opt-out](https://credtent.org/opt-out): Register preferences once. Credtent records the reservation and sends notices to AI companies. Free, and not a guarantee.
 - [Creative Consent](https://credtent.org/creative-consent): Full Protection means consent comes first. See how Credtent describes Full, Optional, and No Protection.
-- [Auditing](https://credtent.org/resources/auditing): Opt-Out Premium for rights holders and the promotional licensing plan for individual creatives enroll works in periodic AI model audits. Audit results are not proof of dataset inclusion.
+- [Auditing](https://credtent.org/resources/auditing): Every paid plan enrolls works in periodic AI model audits. Audit results are not proof of dataset inclusion.
 - [Opt-out limitations](https://credtent.org/resources/opt-out-limitations): What Credtent's free opt-out does not do: it cannot force every company to act, and it does not erase datasets.
 - [Licensing guide](https://credtent.org/guides/ai-training-data-licensing/): What a training license grants, what it does not grant, and how rights holders keep the choice to opt out.
 - [Premium](https://credtent.org/premium): Opt-Out Premium for rights holders (opt-out plus enrollment in periodic AI model audits, no licensing), from US$299 a year.
