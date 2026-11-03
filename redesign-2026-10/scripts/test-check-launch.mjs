@@ -212,3 +212,7 @@ test("render-time text, binary names and parking/lws pin, end to end", async () 
   assert.match(out, /com\/deck\.pdf:0: private-name-in-binary/);
   assert.doesNotMatch(out, /example[\s-]?corp/i);
 });
+test("a claim soft-wrapped across a line break in a text file is still read", async () => {
+  const { claimText, ruleHit } = await import("./check-launch.mjs");
+  assert.ok(ruleHit(BANNED.find((b) => b.id === "product-name"), claimText("llms.txt", "About\nCredtent\nAegis is here")));
+});
