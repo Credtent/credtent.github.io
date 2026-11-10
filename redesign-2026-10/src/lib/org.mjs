@@ -3,9 +3,9 @@ import { ORG_ID, TALLY_FORM_IDS, bcorpBadge, figure, formSlot, picture } from ".
 
 function editions() {
   return `<ul class="editions">
-    <li><p class="kicker">Standard e-book</p><p>${price("$14.99")}</p><p>A standalone digital edition.</p></li>
-    <li><p class="kicker">Paperback</p><p>${price("$24.99")}</p><p>A standalone printed edition.</p></li>
-    <li><p class="kicker">Living e-book</p><p>${price("$49")}</p><p>Quarterly updates included.</p></li>
+    <li><p class="kicker">E-book</p><p>${price("$9.99")}</p><p>Launch pricing through 2026 (regular $14.99). A standalone digital edition.</p></li>
+    <li><p class="kicker">Paperback</p><p>${price("$19.99")}</p><p>Preorder, launch pricing through 2026 (regular $24.99). A standalone printed edition.</p></li>
+    <li><p class="kicker">Living Book</p><p>${price("$49")}</p><p>The digital book with updates each quarter through 2027 and 2028.</p></li>
   </ul>`;
 }
 
@@ -103,7 +103,7 @@ export function orgPages(images) {
           </div>
         </div>
       </section>
-      <section class="book-banner" aria-label="New book"><div class="wrap"><p><a href="https://credtent.com/about#collaborithmic-age">Now available: <cite>The Collaborithmic Age</cite>, written by Credtent CEO E.R. Burgess.</a></p></div></section>
+      <section class="book-banner" aria-label="New book"><div class="wrap"><p><a href="https://credtent.com/about#collaborithmic-age">Now available as an e-book: <cite>The Collaborithmic Age</cite>, written by Credtent CEO E.R. Burgess.</a></p></div></section>
       <section class="section section-white" id="who">
         <div class="wrap">
           <p class="eyebrow">Who Credtent is</p>

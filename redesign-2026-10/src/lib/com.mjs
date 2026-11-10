@@ -3,9 +3,9 @@ import { ORG_ID, diagramHtml, figure, inquiryForm, picture, tallyEmbed } from ".
 
 function editions() {
   return `<ul class="editions">
-    <li><p class="kicker">Standard e-book</p><p>${price("$14.99")}</p><p>A standalone digital edition. Quarterly updates are not included.</p></li>
-    <li><p class="kicker">Paperback</p><p>${price("$24.99")}</p><p>A standalone printed edition. Quarterly updates are not included.</p></li>
-    <li><p class="kicker">Living e-book</p><p>${price("$49")}</p><p>The digital book with quarterly updates included.</p></li>
+    <li><p class="kicker">E-book</p><p>${price("$9.99")}</p><p>Launch pricing through 2026 (regular $14.99). A standalone digital edition.</p></li>
+    <li><p class="kicker">Paperback</p><p>${price("$19.99")}</p><p>Preorder, launch pricing through 2026 (regular $24.99). A standalone printed edition.</p></li>
+    <li><p class="kicker">Living Book</p><p>${price("$49")}</p><p>The digital book with updates each quarter through 2027 and 2028.</p></li>
   </ul>`;
 }
 
@@ -20,7 +20,7 @@ function bookBand() {
         ${editions()}
       </div>
       <div>
-        <p>These are the published prices on collaborithmic.com, the book's own site.</p>
+        <p>Prices are from collaborithmic.com as of November 10, 2026.</p>
       </div>
     </div>
   </section>`;
@@ -129,7 +129,7 @@ export function comPages(images) {
         </div>
         <div class="wrap media-wide">${hero("podcast", { sizes: "(min-width: 1120px) 1064px, 100vw" })}</div>
       </section>
-      <section class="book-banner" aria-label="New book"><div class="wrap"><p><a href="/about#collaborithmic-age">Now available: <cite>The Collaborithmic Age</cite>, written by Credtent CEO E.R. Burgess.</a></p></div></section>`
+      <section class="book-banner" aria-label="New book"><div class="wrap"><p><a href="/about#collaborithmic-age">Now available as an e-book: <cite>The Collaborithmic Age</cite>, written by Credtent CEO E.R. Burgess.</a></p></div></section>`
     },
     {
       path: "/content-owners",
@@ -619,7 +619,7 @@ export function comPages(images) {
             ${editions()}
           </div>
           <div>
-            <p>These are the published prices on collaborithmic.com, the book's own site.</p>
+            <p>Prices are from collaborithmic.com as of November 10, 2026.</p>
           </div>
         </div>
       </section>`
@@ -689,7 +689,7 @@ export function comPages(images) {
         { q: "How much does Credtent cost for content partners?", a: "A platform fee applies. Under Credtent's standard terms for Starter Partners, Credtent keeps 15% of each licensing deal it closes and sends the other 85% to the rights holder. The Organization License keeps the same split and adds more services for larger catalogs, and Enterprise is priced to the catalog." },
         { q: "What does Opt-Out Premium for rights holders cost?", a: "It starts at US$299 a year and scales with catalog size. It enrolls the works in periodic AI model audits and does not include licensing." },
         { q: "What does licensing cost for individual creatives?", a: "Licensing costs US$49 a year for individual creatives who sign up by December 31, 2026, and the plan includes the opt-out and enrolls their works in Credtent's periodic AI model audits. From 2027, new individual sign-ups pay US$99 a year, and creatives who sign up during the promotion keep US$49 a year through 2028 while the subscription stays active. After 2028, and for anyone who rejoins after a lapse or cancellation, the regular price applies. Rights holders who publish or represent many creatives use Rights-Holder Licensing, from US$299 a year." },
-        { q: "What does the book cost?", a: "The published collaborithmic.com prices are $14.99 for the e-book, $24.99 for the paperback, and $49 for the living e-book." }
+        { q: "What does the book cost?", a: "On collaborithmic.com the e-book is $9.99 and the paperback preorder is $19.99, both launch pricing through 2026, and the Living Book is $49." }
       ],
       main: `<section class="section section-white"><div class="wrap">
         <p class="eyebrow">AI companies</p>
@@ -726,9 +726,9 @@ export function comPages(images) {
       <section class="section"><div class="wrap">
         <div class="grid-2">
           <article class="card"><h3>The Collaborithmic Age</h3><ul class="editions">
-    <li><p class="kicker">Standard e-book</p><p><span class="price">$14.99</span></p><p>A standalone digital edition. Quarterly updates are not included.</p></li>
-    <li><p class="kicker">Paperback</p><p><span class="price">$24.99</span></p><p>A standalone printed edition. Quarterly updates are not included.</p></li>
-    <li><p class="kicker">Living e-book</p><p><span class="price">$49</span></p><p>The digital book with quarterly updates included.</p></li>
+    <li><p class="kicker">E-book</p><p><span class="price">$9.99</span></p><p>Launch pricing through 2026 (regular $14.99). A standalone digital edition.</p></li>
+    <li><p class="kicker">Paperback</p><p><span class="price">$19.99</span></p><p>Preorder, launch pricing through 2026 (regular $24.99). A standalone printed edition.</p></li>
+    <li><p class="kicker">Living Book</p><p><span class="price">$49</span></p><p>The digital book with updates each quarter through 2027 and 2028.</p></li>
   </ul><p><a href="https://collaborithmic.com/">Explore the book</a></p></article>
           <article class="card"><h3>Need something different?</h3><p>Whether you're an AI company with unusual content needs or a content partner with a complex catalog, let's figure it out together.</p><div class="btn-row"><a class="btn" href="/contact#ai-licensing">AI companies</a><a class="btn btn-ghost" href="https://app.credtent.org/inquiries/content-partner">Content partners</a></div></article>
         </div>
