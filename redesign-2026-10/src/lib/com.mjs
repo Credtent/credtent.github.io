@@ -202,7 +202,7 @@ export function comPages(images) {
       <section class="section section-white"><div class="wrap prose">
         <p class="eyebrow">Talk to the team</p>
         <h2>Tell us about your content.</h2>
-        <p>Describe your catalog: format, volume, subject areas, and who owns the rights. We'll come back with an onboarding plan and a projected deal pipeline within 5 business days.</p>
+        <p>Describe your catalog: format, volume, subject areas, and who owns the rights. We'll come back with an onboarding plan within 5 business days.</p>
         <div class="btn-row"><a class="btn" href="${CONTENT_PARTNER_INQUIRY}">Talk with us</a></div>
         <p class="small">Prefer email? Write to <a href="mailto:partners@credtent.org">partners@credtent.org</a>.</p>
       </div></section>`
@@ -247,13 +247,11 @@ export function comPages(images) {
       </section>
       <section class="section">
         <div class="wrap">
-          <p class="eyebrow">The corpus</p>
-          <h2>Real content from people who opted in.</h2>
-          <p class="lede">Our corpus is verified, rights-cleared content from publishers, studios, archives, and data providers who chose to license their work for AI under standardized terms, and none of it is scraped or synthetic. Every work is provenance-tagged before we offer it.</p>
-          <div class="grid-4" style="margin-top:28px">
+          <p class="eyebrow">The registry</p>
+          <h2>Work that rights holders chose to offer.</h2>
+          <p class="lede">Credtent's registry lists works that publishers, studios, archives, and data providers have chosen to offer for AI licensing under standard terms. Credtent holds the record of each work and its rights, and the rights holder delivers the content under the license on a dated delivery plan.</p>
+          <div class="grid-2" style="margin-top:28px">
             <article class="card"><p class="kicker">Growing</p><h3>Registered works</h3></article>
-            <article class="card"><p class="kicker">800B+</p><h3>Structured sports tokens</h3></article>
-            <article class="card"><p class="kicker">135K+</p><h3>Healthcare articles</h3></article>
             <article class="card"><p class="kicker">5</p><h3>Content verticals</h3><p>Education, healthcare, sports, entertainment, and media.</p></article>
           </div>
         </div>
@@ -268,15 +266,15 @@ export function comPages(images) {
             <article class="card"><h3>A neutral partner</h3><p>We don't build AI models, so we never compete with you. We also own none of the content we license.</p></article>
             <article class="card"><h3>Provenance-tagged content</h3><p>Each work carries metadata and chain-of-custody records designed to reduce hallucinations and make your training verifiable.</p></article>
             <article class="card"><h3>Disclosure pack</h3><p>Your counsel can use the named manifest and disclosure pack for EU AI Act Art. 53 and California AB 2013 filings.</p></article>
-            <article class="card"><h3>Fast deal cycles</h3><p>Standardized terms, neutral pricing, and pre-negotiated contracts cut the back-and-forth before signing.</p></article>
+            <article class="card"><h3>Standard terms</h3><p>One standard contract and standard deal terms reduce the back-and-forth before signing.</p></article>
           </div>
         </div>
       </section>
       <section class="section" id="how-it-works">
         <div class="wrap">
           <p class="eyebrow">How it works</p>
-          <h2>From first call to licensed content in weeks.</h2>
-          <p class="lede">We've standardized the process so you can move quickly without giving up the legal and compliance rigor your team needs. We find the right rights holders, fit the license to your corpus and use case, and deliver a named manifest and disclosure pack with the data.</p>
+          <h2>From first call to a scoped proposal in days.</h2>
+          <p class="lede">We've standardized the process so you can move quickly without giving up the legal and compliance rigor your team needs. We find the right rights holders, fit the license to your corpus and use case, and deliver a named manifest and disclosure pack with the license.</p>
           <div class="steps" style="margin-top:28px">
             <article class="step"><p class="kicker">01</p><h3>Scope the deal</h3><p>We start with a 20-minute call about the content you need, your use case, and your compliance requirements.</p></article>
             <article class="step"><p class="kicker">02</p><h3>Get a proposal</h3><p>Within 5 business days you get a scoped proposal: corpus, terms, pricing, and disclosure pack.</p></article>
@@ -711,7 +709,7 @@ export function comPages(images) {
         <div class="grid-3" style="margin-top:24px">
           <article class="card"><p class="kicker">For individual rights holders</p><h3>Starter Partner</h3><p><span class="price">85/15</span></p><ul><li>Catalog registration and provenance certification</li><li>Matching with AI companies</li><li>Quarterly royalty payments</li><li>Standard usage reporting</li><li>Works enrolled in periodic AI model audits</li></ul><p><a href="https://app.credtent.org/inquiries/content-partner">Contact us</a></p></article>
           <article class="card"><p class="kicker">For guilds, publishers, and studios</p><h3>Organization License</h3><p>Standard <span class="price">85/15</span> plus premium</p><ul><li>Everything in Starter Partner</li><li>Bulk catalog intake and metadata tools</li><li>Priority deal placement</li><li>A dedicated account manager</li><li>Audit-ready reporting on demand</li></ul><p><a href="https://app.credtent.org/inquiries/content-partner">Talk with us</a></p></article>
-          <article class="card"><p class="kicker">For large catalogs and data providers</p><h3>Enterprise</h3><p><span class="price">Custom</span></p><ul><li>Everything in Organization License</li><li>Custom API and data pipeline integration</li><li>Dedicated legal advice</li><li>Fully bespoke onboarding</li></ul><p><a href="https://app.credtent.org/inquiries/content-partner">Contact us</a></p></article>
+          <article class="card"><p class="kicker">For large catalogs and data providers</p><h3>Enterprise</h3><p><span class="price">Custom</span></p><ul><li>Everything in Organization License</li><li>Custom delivery planning with your team</li><li>Dedicated legal advice</li><li>Fully bespoke onboarding</li></ul><p><a href="https://app.credtent.org/inquiries/content-partner">Contact us</a></p></article>
         </div>
       </div></section>
       <section class="section section-white"><div class="wrap">
@@ -749,7 +747,7 @@ export function comPages(images) {
         { q: "What is Credtent?", a: "Credtent connects AI companies and the creative industries through licensing, so AI solutions are ethical and commercially safe. Creatives and rights holders register their work for opt-out, licensing, or both. Credtent builds no AI models and takes no equity in either side." },
         { q: "What does a Credtent license cover?", a: LICENSE_SENTENCE },
         { q: "What about content we already trained on?", a: "We can structure a going-forward license and a covenant not to sue over past use from the rights holders who sign, limited to the named works. Neither one binds a rights holder who did not sign, and neither one satisfies the developer's regulatory obligations." },
-        { q: "How long does a deal take?", a: "A 20-minute scoping call leads to a proposal within 5 business days. Most deals close in 2 to 6 weeks, depending on the content and how many rights holders are involved. Single-catalog deals close faster; larger, multi-format collections take longer." },
+        { q: "How long does a deal take?", a: "A 20-minute scoping call comes first, and we aim to send a proposal within 5 business days. Timing after that depends on the content and on how many rights holders are involved." },
         { q: "Why license instead of scraping public content?", a: "Scraping carries a growing legal risk. Active court cases are testing the use of scraped training data, and new disclosure rules leave a paper trail that makes undocumented scraping visible. Ignoring a registered opt-out also becomes a documented record." },
         { q: "How should we read a valuation?", a: CAPSULE.valuation },
         { q: "Do I give up ownership of my content?", a: "No. Credtent acts as a licensing agent, not a publisher or co-owner. You keep full ownership of everything you list. Credtent holds only limited representation rights for AI licensing, and you can end that at any time. Listing does not transfer copyright, exclusivity, or any ownership to Credtent." },
