@@ -28,6 +28,17 @@ const patterns = [
   { name: "product-name", re: /Credtent Aegis/i }
 ];
 
+// Claims removed on Vonnegut's 2026-11-10 review (EB card "Apply", 2026-11-10). They are checked on the built
+// sites only: build.mjs keeps the exact old sentences in its page-edit table so it can fail loudly when a legacy
+// page changes, and that table is not served.
+const retiredClaims = [
+  { name: "retired-sports-tokens", re: /800B\+|Structured sports tokens/i },
+  { name: "retired-healthcare-count", re: /135K\+|Healthcare articles/i },
+  { name: "retired-deal-speed", re: /most deals close/i },
+  { name: "retired-founding-date", re: /foundingDate/ },
+  { name: "retired-ag-alignment", re: /aligning with the Authors Guild|converged on the same definitional ground/i }
+];
+
 function walk(dir, out = []) {
   if (!fs.existsSync(dir)) return out;
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -70,6 +81,10 @@ for (const [file, original] of texts) {
       if (pattern.name === "audience-word" && !audienceWordOutsideCharter(line)) continue;
       // File, line and rule only: page text is never printed, so no name can reach a log.
       failures.push(`${path.relative(root, file)}:${index + 1} [${pattern.name}]`);
+    }
+    if (!/^sites\//.test(path.relative(root, file).split(path.sep).join("/"))) return;
+    for (const claim of retiredClaims) {
+      if (claim.re.test(line) || claim.re.test(decoded)) failures.push(`${path.relative(root, file)}:${index + 1} [${claim.name}]`);
     }
   });
 }
