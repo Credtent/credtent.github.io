@@ -23,7 +23,6 @@ export function organizationNode(site) {
     url: "https://credtent.com/",
     logo: "https://credtent.com/brand/shield.svg",
     email: site.email,
-    foundingDate: "2023",
     description: "Credtent, Inc. is a Delaware Public Benefit Corporation and a Certified B Corp, a neutral marketplace connecting content owners and AI companies through consent, licensing, and compensation.",
     address: {
       "@type": "PostalAddress",
@@ -164,7 +163,7 @@ function footer(site, cookieSettings, disclosures = "") {
     <div class="wrap footer-grid">
       <div>
         <img class="word" src="/brand/wordmark-white.svg" width="160" height="30" alt="Credtent">
-        <p>Credtent helps creatives and AI companies navigate consent, credit, and compensation.</p>
+        <p>Credtent helps creatives and AI companies agree on consent, credit, and compensation.</p>
         <p>Certified B Corp</p>
         ${bcorpBadge()}
         <p><a href="mailto:${esc(site.email)}">${esc(site.email)}</a></p>
