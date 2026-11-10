@@ -402,7 +402,7 @@ ${LICENSE_SENTENCE}
 
 ## Licensing
 - [Home](https://credtent.com/): ${CAPSULE.comHome}
-- [AI companies](https://credtent.com/ai-companies): License a defined corpus with a named manifest and a disclosure pack. The statutes still bind the developer.
+- [AI companies](https://credtent.com/ai-companies): License named works for AI training and AI citation rights under one standard contract, with a named manifest and a disclosure pack. The statutes still bind the developer.
 - [Content owners](https://credtent.com/content-owners): Choose what to license, agree terms, and get paid. Valuation can stand on its own.
 - [AI training](https://credtent.com/ai-training): License content from creatives and subject-matter experts, with a named list of works and separate training and display rights.
 - [Citation licensing](https://credtent.com/citation-licensing): Set excerpt limits, support visits to the source, and agree compensation for licensed appearances in AI answers.
