@@ -9,6 +9,7 @@ import { CURRENT_TERMS_FILE, CURRENT_TERMS_EFFECTIVE, REVISED_TERMS_DATE, TERMS_
 import { loadPrivateNames, findNames, nameLines, decodeAll, redactLine, binaryText, MISSING_MESSAGE } from "./private-names.mjs";
 import { isBinary, readText, sha256, EM_DASH } from "./text-files.mjs";
 import { audienceWordOutsideCharter } from "./charter-quote.mjs";
+import { PRIVACY_DATE_PLACEHOLDER } from "../src/lib/privacy.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const REPO = path.resolve(ROOT, "..");
@@ -94,8 +95,13 @@ export const ROOT_EXEMPT = new Map([
 const ROOT_RULE_FILES = /\.(html?|md|markdown|txt)$/i;
 const ROOT_SKIP_DIRS = new Set([".git", ".github", ".claude", "redesign-2026-10", "node_modules", ".worktrees"]);
 // Pages that stay noindex in production.
+// The privacy policy's "Last Updated" is the launch date (Cherryh 2026-11-10, section 7); the placeholder must not ship.
+export function privacyDateProblem(html) {
+  return html.includes(PRIVACY_DATE_PLACEHOLDER);
+}
 export function staysNoindex(rel) {
-  return rel === "404.html" || rel.startsWith("parking/") || rel === "lws/index.html" || rel.startsWith("terms-of-service/upcoming/") ||
+  // standards/index.html: held out of the index until Vonnegut B9 to B12 are resolved (Niven 2026-11-10, drop-in 4).
+  return rel === "404.html" || rel.startsWith("parking/") || rel === "lws/index.html" || rel === "standards/index.html" || rel.startsWith("terms-of-service/upcoming/") ||
     /^resources\/(what-an-opt-out-can-do|how-to-read-platform-terms|use-ai-without-giving-up-judgment)\/index\.html$/.test(rel) ||
     /^creative-consent(\/(platforms|guide))?\/index\.html$/.test(rel);
 }
@@ -489,6 +495,10 @@ export function run() {
     }
   }
   checkTerms(sites, fails);
+  for (const site of Object.values(sites)) {
+    const privacy = fs.readFileSync(path.join(site.dir, "privacy-policy", "index.html"), "utf8");
+    if (privacyDateProblem(privacy)) (MODE === "production" ? fails : warns).push(`${site.id}/privacy-policy: "Last Updated" still shows ${PRIVACY_DATE_PLACEHOLDER}; set PRIVACY_LAST_UPDATED in src/lib/privacy.mjs to the launch date`);
+  }
   // Review round 2026-11-01: the .org home never shows US$49 as an Opt-Out Premium price.
   const orgHome = fs.readFileSync(path.join(sites.org.dir, "index.html"), "utf8");
   const premium = (orgHome.match(/<section[^>]*id="premium"[\s\S]*?<\/section>/) || [""])[0];

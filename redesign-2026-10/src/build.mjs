@@ -8,6 +8,7 @@ import { comPages } from "./lib/com.mjs";
 import { ADDRESS_HTML, CAPSULE, LICENSE_SENTENCE } from "./lib/copy.mjs";
 import { orgPages } from "./lib/org.mjs";
 import { applyPageEdits } from "./lib/page-edits.mjs";
+import { privacyDate } from "./lib/privacy.mjs";
 import { ORG_ID, creditLine, renderPage } from "./lib/render.mjs";
 import { securityHeaders } from "./lib/security-headers.mjs";
 import { TERMS_SWAP, UPCOMING_TERMS_PATH, VERBATIM_START, VERBATIM_END, reviseTerms, termsGuard, liveTermsParts } from "./lib/terms.mjs";
@@ -259,7 +260,7 @@ function rewriteLinks(html, origin) {
 
 function legacyPage(site, file, pagePath, opts = {}) {
   const extracted = extractLegacy(path.join(REPO, file));
-  let body = applyPageEdits(pagePath, scrub(rewriteLinks(extracted.body, site.origin)));
+  let body = applyPageEdits(pagePath, scrub(rewriteLinks(extracted.body, site.origin)), site.id);
   if (pagePath === "/parking/lws") {
     // No permanent free promise on any page (Cherryh, EB-approved 2026-11-01); the live parking/lws.html is untouched.
     body = body.replace("Basic protection is always free, no credit card required.", "Basic protection is free, with no credit card required. Credtent does not plan to charge for the free opt-out.");
@@ -429,7 +430,6 @@ ${CAPSULE.orgHome}
 - [Opt-out limitations](https://credtent.org/resources/opt-out-limitations): What Credtent's free opt-out does not do: it cannot force every company to act, and it does not erase datasets.
 - [Licensing guide](https://credtent.org/guides/ai-training-data-licensing/): What a training license grants, what it does not grant, and how rights holders keep the choice to opt out.
 - [Premium](https://credtent.org/premium): Opt-Out Premium for rights holders (opt-out plus enrollment in periodic AI model audits, no licensing), from US$299 a year.
-- [Standards](https://credtent.org/standards): A working catalog of AI disclosure standards: badges, registries, watermarks, and protocols maintained by Credtent.
 - [Blog](https://credtent.org/blog): Writing on AI, creative rights, and copyright, published on Substack and Medium.
 - [Contact](https://credtent.org/contact): Contact Credtent about opt-out, Creative Consent, and resources.
 
@@ -493,6 +493,8 @@ function vercel(site, pages) {
   if (site.id === "org") {
     for (const source of [
       "/parking/(.*)",
+      "/standards",
+      "/standards/",
       "/resources/what-an-opt-out-can-do",
       "/resources/what-an-opt-out-can-do/",
       "/resources/how-to-read-platform-terms",
@@ -584,7 +586,7 @@ async function main() {
       eyebrow: "Legal",
       capsule: "How Credtent collects, uses, and protects information.",
       crumb: "Privacy Policy",
-      intro: `<p>Last updated April 9, 2025. Privacy questions go to <a href="mailto:hello@credtent.org">hello@credtent.org</a>.</p>${ADDRESS_HTML}`
+      intro: `<p>Last updated ${privacyDate()}. Privacy questions go to <a href="mailto:hello@credtent.org">hello@credtent.org</a>.</p>${ADDRESS_HTML}`
     }),
     legacyPage(SITES.com, "terms-of-service.html", "/terms-of-service", {
       terms: TERMS_SWAP ? "revised" : "current",
@@ -618,6 +620,8 @@ async function main() {
   const org = [
     ...orgPages(imagesFor.org),
     legacyPage(SITES.org, "standards.html", "/standards", {
+      // Noindex and out of the sitemap and llms.txt until Vonnegut B9 to B12 are resolved (Niven 2026-11-10, drop-in 4).
+      noindex: true,
       title: "AI disclosure standards | Credtent",
       description: "A working catalog of AI disclosure standards: badges, registries, watermarks, and protocols maintained by Credtent.",
       h1: "A working catalog of AI disclosure standards",

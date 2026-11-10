@@ -244,3 +244,13 @@ test("the charter phrase is erased only as whole words", async () => {
   assert.equal(audienceWordOutsideCharter(`${w} of original worksheets`), true);
   assert.equal(audienceWordOutsideCharter(`the ${w} of original works.`), false);
 });
+
+// Round 2026-11-10 (Cherryh section 7, Niven drop-in 4).
+test("the privacy launch-date placeholder is caught on a privacy page and nowhere else matters", async () => {
+  const { privacyDateProblem } = await import("./check-launch.mjs");
+  assert.ok(privacyDateProblem("<p>Last Updated: LAUNCH-DATE-PENDING</p>"));
+  assert.equal(privacyDateProblem("<p>Last Updated: December 7, 2026</p>"), false);
+});
+test("org/standards stays noindex in production until Vonnegut B9 to B12 clear", () => {
+  assert.ok(staysNoindex("standards/index.html"));
+});

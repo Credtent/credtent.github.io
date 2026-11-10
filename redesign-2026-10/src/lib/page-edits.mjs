@@ -4,6 +4,18 @@
 // ones to Cherryh" (2026-11-10). Each `from` must appear exactly `count` times (default 1) or the build fails, so
 // a change to the legacy page cannot silently skip an edit.
 
+import { SERVICE_PROVIDERS, privacyDate } from "./privacy.mjs";
+
+const PRIVACY_PROVIDERS_LIVE = "We use trusted third-party service providers to operate our platform, including Google Analytics for usage analytics. These providers access your information only to perform services on our behalf.";
+
+// Privacy policy launch edits (Cherryh 2026-11-10, section 7). Keyed by site, since only .com has a live Tally form.
+function privacyEdits(siteId) {
+  return [
+    ["Last Updated: April 9, 2025", `Last Updated: ${privacyDate()}`],
+    [PRIVACY_PROVIDERS_LIVE, SERVICE_PROVIDERS[siteId]]
+  ];
+}
+
 export const PAGE_EDITS = {
   "/standards": [
     // B9: no Authors Guild alignment claim (messaging spec 8.1).
@@ -47,9 +59,10 @@ export const PAGE_EDITS = {
   ]
 };
 
-export function applyPageEdits(pagePath, body) {
+export function applyPageEdits(pagePath, body, siteId) {
   let out = body;
-  for (const [from, to, count = 1] of PAGE_EDITS[pagePath] || []) {
+  const edits = [...(PAGE_EDITS[pagePath] || []), ...(pagePath === "/privacy-policy" ? privacyEdits(siteId) : [])];
+  for (const [from, to, count = 1] of edits) {
     const found = out.split(from).length - 1;
     if (found !== count) throw new Error(`page edit for ${pagePath} expected ${count} match(es), found ${found}: ${from.slice(0, 60)}`);
     out = out.split(from).join(to);
