@@ -59,6 +59,24 @@
       ]
     },
     {
+      "source": "/standards",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/standards/",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
       "source": "/resources/what-an-opt-out-can-do",
       "headers": [
         {
@@ -195,6 +213,17 @@
     }
   ],
   "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.credtent.org"
+        }
+      ],
+      "destination": "https://credtent.org/$1",
+      "statusCode": 301
+    },
     {
       "source": "/for-ai-companies",
       "destination": "https://credtent.com/ai-companies",

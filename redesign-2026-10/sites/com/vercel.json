@@ -79,6 +79,17 @@
   ],
   "redirects": [
     {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.credtent.com"
+        }
+      ],
+      "destination": "https://credtent.com/$1",
+      "statusCode": 301
+    },
+    {
       "source": "/content-owners/",
       "destination": "https://credtent.com/content-owners",
       "statusCode": 301
