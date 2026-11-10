@@ -134,7 +134,7 @@ export function orgPages(images) {
       faq: [
         { q: "What does Creative Consent rate?", a: CAPSULE.consent },
         { q: "Does a submission change an assessment immediately?", a: "No. Submissions are reviewed. They do not automatically change an assessment." },
-        { q: "Do I need an account to read the guide?", a: "No. The guide and platform list are meant to stay open, with or without an email subscription." }
+        { q: "Where are the guide and the platform list?", a: "The platform list and the guide are in preparation. Subscribe to Creative Consent updates to hear when they are published." }
       ],
       main: `<section class="section section-tint"><div class="wrap grid-3">
         <article class="card"><img src="/brand/consent-full.svg" width="96" height="96" alt=""><h3>Full Protection</h3><p>Protected by default. AI training requires explicit opt-in. Creatives can still choose to participate.</p></article>
@@ -152,9 +152,7 @@ export function orgPages(images) {
         </div>
       </div></section>
       <section class="section" id="guide-preview"><div class="wrap prose">
-        <h2>View the platform list. Download the current guide.</h2>
-        <p>Publicly available without an email address or account.</p>
-        <div class="btn-row"><a class="btn" href="/creative-consent/platforms">View the platform list</a><a class="btn btn-ghost" href="/creative-consent/guide">Download the guide</a></div>
+        <p>The platform list and the guide are in preparation. Subscribe below to hear when they are published.</p>
         <p>Creative Consent describes platform policies. Creative Origin describes a work's disclosed origin.</p>
       </div></section>
       <section class="section section-white"><div class="wrap">
@@ -181,7 +179,7 @@ export function orgPages(images) {
           subject: "Creative Consent updates",
           submitLabel: "Subscribe to updates",
           style: "margin-top:18px",
-          note: "The guide and platform list remain open whether or not you subscribe. Sending opens an email to hello@credtent.org.",
+          note: "Sending opens an email to hello@credtent.org.",
           fields: `<label>Email address <input name="email" type="email" autocomplete="email" required></label>
           <label><span><input name="consent" type="checkbox"> Yes, send me Creative Consent updates.</span></label>`
         })}
@@ -231,7 +229,7 @@ export function orgPages(images) {
         <h2>One registration, one notice to the industry.</h2>
         <p class="lede">When you register works with Credtent and choose opt-out, Credtent records your reservation of rights and delivers the notice to AI companies, with a dated record of when it went out. Instead of relying on each platform's separate setting, you set your preference once.</p>
         <div class="steps" style="margin-top:24px">
-          <article class="step"><p class="kicker">01</p><h3>Create a free account</h3><p>Sign up for the Independent Creative Registry.</p></article>
+          <article class="step"><p class="kicker">01</p><h3>Create a free account</h3><p>Create a free Credtent account.</p></article>
           <article class="step"><p class="kicker">02</p><h3>Register your works</h3><p>Add text, audio, video, image, or data to the registry and mark them opted out. One registration covers every AI company Credtent notifies.</p></article>
           <article class="step"><p class="kicker">03</p><h3>Credtent sends the notice</h3><p>Credtent records your reservation and delivers the notice to AI companies, with a dated record of each delivery.</p></article>
         </div>
@@ -242,7 +240,7 @@ export function orgPages(images) {
         <h3>It is free.</h3>
         <p>Registering a work for the opt-out costs nothing, and the opt-out is not a trial. Every paid plan keeps the same opt-out and adds enrollment in periodic AI model audits. Credtent does not plan to charge for the free opt-out.</p>
         <h3>You can change your mind.</h3>
-        <p>You can update your preferences at any time to enable licensing, with no retroactive fees and no penalties. A work that is opted out today can be made licensable tomorrow, and a licensable work can go back to opt-out.</p>
+        <p>You can update your preferences at any time to enable licensing, with no retroactive fees and no penalties. A work that is opted out can be made licensable later, and a licensable work can go back to opt-out.</p>
         <h3>It is recorded and dated.</h3>
         <p>Credtent keeps a dated record of when each notice went out. If your work is used anyway, you can point to that record as evidence that the notice was sent, though it does not confirm that a company received the notice or acted on it.</p>
         <h3>It can become an income stream.</h3>
@@ -354,7 +352,7 @@ export function orgPages(images) {
       description: "Creative Origin, Creative Consent, and Commercial Safety. Certification is about works and processes.",
       eyebrow: "Badges",
       h1: "The badge systems",
-      capsule: "Three badge systems, one for each side of the rights economy. Certification looks at works and organizational processes.",
+      capsule: "Three badge systems: one for creative work, one for platforms, and one for AI companies. Certification looks at works and organizational processes.",
       crumbs: [{ name: "Badges", href: "https://credtent.org/badges/" }],
       faq: [],
       main: `<section class="section section-white"><div class="wrap">
@@ -380,9 +378,9 @@ export function orgPages(images) {
         <h2>Creative Consent</h2>
         <p>Creative Consent rates how a platform treats creatives' data, content, and metadata, and whether it respects their choices about AI training.</p>
         <ul>
-          <li><strong>Full Protection:</strong> the platform does not use members' content for AI training, does not use it internally for generative AI, and does not share it with third parties for AI training.</li>
-          <li><strong>Optional Protection:</strong> the platform gives users a choice about AI training, with a clear, free, and simple opt-out.</li>
-          <li><strong>No Protection:</strong> the platform uses members' content for AI training without consent or compensation and offers no opt-out.</li>
+          <li><strong>Full Protection:</strong> protected by default. AI training requires explicit opt-in. Creatives can still choose to participate.</li>
+          <li><strong>Optional Protection:</strong> protection depends on using an available, effective opt-out.</li>
+          <li><strong>No Protection:</strong> the assessed policy offers no effective choice to prevent that use.</li>
         </ul>
         <p><a href="/creative-consent">Read Creative Consent</a></p>
         <p class="eyebrow" style="margin-top:36px">For AI companies</p>
