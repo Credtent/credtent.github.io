@@ -555,7 +555,10 @@ function vercel(site, pages) {
   const termsSwap = TERMS_SWAP ? [UPCOMING_TERMS_PATH, `${UPCOMING_TERMS_PATH}/`, `${UPCOMING_TERMS_PATH}/index.html`].map((source) => redirectRule(source, `${site.origin}/terms-of-service`, 301)) : [];
   const partners = [...holdPartners(), ...termsSwap];
   const reserved = new Set([...specific, ...partners].map((rule) => rule.source));
-  const redirects = [...specific, ...slashRedirects(site, pages, reserved), ...partners];
+  // www to the apex first, one hop for every path (Niven 2026-11-10, launch-blocking item 5); DNS for www is a cutover step.
+  const apex = new URL(site.origin).host;
+  const www = { source: "/(.*)", has: [{ type: "host", value: `www.${apex}` }], destination: `https://${apex}/$1`, statusCode: 301 };
+  const redirects = [www, ...specific, ...slashRedirects(site, pages, reserved), ...partners];
   fs.writeFileSync(path.join(site.dir, "vercel.json"), JSON.stringify({ headers, redirects }, null, 2) + "\n");
 }
 

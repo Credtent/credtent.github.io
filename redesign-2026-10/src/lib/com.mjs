@@ -43,7 +43,7 @@ export function comPages(images) {
   return [
     {
       path: "/",
-      title: "Credtent | A neutral marketplace for content owners and AI companies",
+      title: "Credtent: Neutral AI Content Licensing Marketplace",
       description: "Credtent bridges content owners and AI companies through consent, licensing, and compensation.",
       eyebrow: "Connecting creativity and AI",
       h1: "Creative work.<br>Clear AI permissions.<br>Value for both.",

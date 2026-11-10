@@ -116,9 +116,19 @@ const moved = [
 const orgConfig = JSON.parse(fs.readFileSync(path.join(sites["https://credtent.org"], "vercel.json"), "utf8"));
 const comConfig = JSON.parse(fs.readFileSync(path.join(sites["https://credtent.com"], "vercel.json"), "utf8"));
 
+// The one allowed patterned redirect: www to the apex, host-scoped (Niven 2026-11-10, launch-blocking item 5).
+function isWwwRule(rule, apex) {
+  return rule.source === "/(.*)" && rule.statusCode === 301 && rule.destination === `https://${apex}/$1` &&
+    Array.isArray(rule.has) && rule.has.length === 1 && rule.has[0].type === "host" && rule.has[0].value === `www.${apex}`;
+}
+for (const [apex, config] of [["credtent.com", comConfig], ["credtent.org", orgConfig]]) {
+  const first = (config.redirects || [])[0];
+  if (!first || !isWwwRule(first, apex)) fail(`${apex} vercel.json: the first redirect must 301 www.${apex} to https://${apex}/$1`);
+}
+
 function indexRules(config) {
   const map = new Map();
-  for (const rule of config.redirects || []) {
+  for (const rule of (config.redirects || []).filter((r) => !isWwwRule(r, "credtent.com") && !isWwwRule(r, "credtent.org"))) {
     if (map.has(rule.source)) fail(`duplicate redirect ${rule.source}`);
     map.set(rule.source, rule);
     if (rule.source === "/(.*)" || rule.source.includes("*") || rule.source.includes(":")) {
@@ -180,7 +190,7 @@ for (const [label, rules] of [["com", comRules], ["org", orgRules]]) {
 
 for (const [origin, dir] of Object.entries(sites)) {
   const config = origin.endsWith(".com") ? comConfig : orgConfig;
-  for (const rule of config.redirects) {
+  for (const rule of config.redirects.filter((r) => !isWwwRule(r, new URL(origin).host))) {
     const destination = rule.destination.startsWith("http") ? rule.destination : origin + (rule.destination.startsWith("/") ? rule.destination : `/${rule.destination}`);
     const url = new URL(destination);
     const local = sites[url.origin];
@@ -227,9 +237,10 @@ for (const [origin, dir] of Object.entries(sites)) {
         fail(`${origin} sitemap lists withheld URL ${hidden}`);
       }
     }
-    // 20: /lws is noindex until Cherryh clears the member page (2026-11-01 review finding).
-    if (locs.length !== 20 || locs.some((loc) => loc.endsWith("/lws"))) {
-      fail(`${origin} sitemap has ${locs.length} URLs, expected 20 after dropping parked, coming-soon, Creative Consent draft, and /lws pages`);
+    // 19: /lws is noindex until Cherryh clears the member page (2026-11-01 review finding), and /standards until
+    // Vonnegut B9 to B12 are resolved (Niven 2026-11-10, drop-in 4).
+    if (locs.length !== 19 || locs.some((loc) => loc.endsWith("/lws") || loc.endsWith("/standards"))) {
+      fail(`${origin} sitemap has ${locs.length} URLs, expected 19 after dropping parked, coming-soon, Creative Consent draft, /lws and /standards pages`);
     }
   }
   for (const loc of locs) {
