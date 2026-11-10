@@ -376,13 +376,33 @@
       "statusCode": 301
     },
     {
+      "source": "/parking/badges",
+      "destination": "https://credtent.org/badges/",
+      "statusCode": 301
+    },
+    {
+      "source": "/parking/badges/",
+      "destination": "https://credtent.org/badges/",
+      "statusCode": 301
+    },
+    {
       "source": "/parking/badges.html",
-      "destination": "https://credtent.org/parking/badges",
+      "destination": "https://credtent.org/badges/",
+      "statusCode": 301
+    },
+    {
+      "source": "/parking/blog",
+      "destination": "https://credtent.org/blog",
+      "statusCode": 301
+    },
+    {
+      "source": "/parking/blog/",
+      "destination": "https://credtent.org/blog",
       "statusCode": 301
     },
     {
       "source": "/parking/blog.html",
-      "destination": "https://credtent.org/parking/blog",
+      "destination": "https://credtent.org/blog",
       "statusCode": 301
     },
     {
@@ -593,16 +613,6 @@
     {
       "source": "/post/unfair-use-denormalizing-ai-theft/",
       "destination": "https://credtent.org/post/unfair-use-denormalizing-ai-theft",
-      "statusCode": 301
-    },
-    {
-      "source": "/parking/badges/",
-      "destination": "https://credtent.org/parking/badges",
-      "statusCode": 301
-    },
-    {
-      "source": "/parking/blog/",
-      "destination": "https://credtent.org/parking/blog",
       "statusCode": 301
     },
     {
