@@ -14,9 +14,9 @@ export const PAGE_EDITS = {
     ["We work the same way with the Tabletop Game Designers Guild, co-defining the Human Composed, AI-Assisted, and AI-Generated tiers for game design with designers Elizabeth Hargrave and Matt Leacock, and we are in conversation with the Creative Coalition on AI (where Ted Tremper is the executive responsible) and with music industry organizations to ensure the standards reflect the realities of each medium.",
       "We are developing medium-specific versions of the tiers with working practitioners in game design, film, and music, so the standard reflects how each medium is made."],
     [" We work with the Creative Coalition on AI, the Tabletop Game Designers Guild, music industry organizations, and others to make sure the standards we publish reflect the realities of each medium.", ""],
-    // B11 (first line only; the registry, Klay, mid-2026, and page-stamp lines wait for a primary-source pass).
-    ["By August 2, 2026, both California and the European Union will require some form of AI disclosure for covered providers.",
-      "Since August 2, 2026, California's SB 942 and the EU AI Act's Article 50 transparency obligations have applied to covered providers."],
+    // B11: the future-tense sentence is cut (Cherryh 2026-11-10, section 6: Article 50's date is unconfirmed, and
+    // Asimov re-pulls SB 942 and Article 53 from primary sources before any replacement is published).
+    [" By August 2, 2026, both California and the European Union will require some form of AI disclosure for covered providers.", ""],
     // V26: no clipped punch lines.
     ["We give them away. ", ""],
     [" That is not how trust gets built.", ""],

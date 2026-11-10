@@ -249,8 +249,8 @@ export function orgPages(images) {
       </div></section>
       <section class="section section-white"><div class="wrap prose">
         <p class="eyebrow">For AI companies</p>
-        <h2>Honoring opt-outs is a compliance asset.</h2>
-        <p>Credtent keeps opt-out records that show good-faith compliance, alongside chain-of-title records and disclosure records that support EU AI Act and California AB 2013 filings. Ignoring a registered opt-out becomes a documented record; honoring one becomes part of a position you can defend.</p>
+        <h2>For AI companies: honoring opt-outs.</h2>
+        <p>Credtent keeps a dated record of each opt-out notice it sends, and companies that honor those notices can show that they did.</p>
         <p><a href="https://credtent.com/ai-companies">How AI companies work with Credtent</a></p>
       </div></section>`
     },
@@ -465,48 +465,47 @@ export function orgPages(images) {
     },
     {
       path: "/wga",
-      title: "Writers Guild of America and Credtent",
+      title: "Screenplay certification and the WGA West member offer",
       description: "Credtent's screenplay certification process was reviewed by the Writers Guild of America and accepted. Certification is US$300 per screenplay, with 50% off for WGA West members who register through the WGA.",
       eyebrow: "Writers Guild of America",
       h1: "Certified Human Composed for screenwriters.",
       capsule: "The Writers Guild of America reviewed Credtent's screenplay certification process and accepted it. The badge is a record of review, not a promise about copyright registration.",
       crumbs: [{ name: "WGA", href: "https://credtent.org/wga" }],
       faq: [
-        { q: "Is this called a partnership?", a: "No. The accurate public line is that the Guild reviewed the process and accepted it." },
-        { q: "What does it cost?", a: "Certification is US$300 per screenplay, and members of the Writers Guild of America West who register through the WGA currently receive 50% off. Each certification includes expert validation, end-credits documentation, and free Creative Origin badge access." },
-        { q: "Is my screenplay used for AI training?", a: "No. Analysis runs in a closed environment and your work is never used for training." }
+        { q: "What is Credtent's relationship with the WGA?", a: "The WGA reviewed Credtent's screenplay certification process and it has been accepted. Members of the Writers Guild of America West who register through the WGA currently receive 50% off." },
+        { q: "What does it cost?", a: "Certification is US$300 per screenplay, and members of the Writers Guild of America West who register through the WGA currently receive 50% off. Each certification includes review by a professional auditor, a badge and credit line you may ask a production to include, and free Creative Origin badge access." },
+        { q: "Is my screenplay used for AI training?", a: "No. Credtent does not use your screenplay to train AI models." }
       ],
       main: `<section class="section section-white"><div class="wrap split">
         <div class="prose">
           <img src="/badges/human-composed-creation-badge.svg" width="160" height="160" alt="Certified Human Composed badge">
           <h2>A certification service for screenwriters.</h2>
-          <p>Credtent's certification process validates that your work is human-authored, which strengthens your copyright position and your credibility as AI reshapes the business. Production companies and studios need assurance that screenplays are human-authored to avoid copyright and IP risk.</p>
+          <p>Credtent's certification process reviews your authorship record and issues a Certified Human Composed badge when the work meets the Human Composed standard. It gives you a documented record of how the work was made, and it does not change your legal rights. Production companies and studios need assurance that screenplays are human-authored to avoid copyright and IP risk.</p>
           <p class="price-stack"><span class="price">US$300</span> <span class="price-meta">per screenplay, with 50% off for WGA West members who register through the WGA.</span></p>
         </div>
         <ul class="check-list">
-          <li>Third-party attestation that improves your chances of getting a copyright registration</li>
+          <li>A time-stamped record of your drafts, process, and Credtent's review, which you can keep with your files and give to counsel. It does not guarantee a copyright registration or any legal outcome.</li>
           <li>Industry credibility as AI-authored work spreads</li>
-          <li>End-credits recognition for certified human authorship</li>
           <li>Free access to the Creative Origin badge system</li>
-          <li>Independent expert validation</li>
-          <li>Your work is never used for AI training</li>
+          <li>Review by a professional auditor</li>
+          <li>Credtent does not use your screenplay to train AI models.</li>
         </ul>
       </div></section>
       <section class="section"><div class="wrap">
         <h2>How does certification work?</h2>
-        <p class="lede">Three steps lead to a verified human-authorship badge, and the process is built to stand up to studio, legal, and audience scrutiny and to fit a screenwriter's schedule.</p>
+        <p class="lede">Three steps lead to a Certified Human Composed badge, and the process is built to fit a screenwriter's schedule.</p>
         <div class="steps" style="margin-top:20px">
           <article class="step"><p class="kicker">01</p><h3>Submit and survey</h3><p>Upload your screenplay and complete a short authorship survey covering your process, drafts, and tools.</p></article>
-          <article class="step"><p class="kicker">02</p><h3>Secure analysis</h3><p>AI-detection analysis runs in a closed environment. Your work is never used for training.</p></article>
+          <article class="step"><p class="kicker">02</p><h3>Secure analysis</h3><p>An AI-detection analysis informs the review. A professional auditor makes the decision. Credtent does not use your screenplay to train AI models.</p></article>
           <article class="step"><p class="kicker">03</p><h3>Expert validation</h3><p>A professional auditor reviews the analysis and authorship record, then issues your Certified Human Composed badge.</p></article>
         </div>
       </div></section>
       <section class="section section-white"><div class="wrap">
-        <h2>Make human-authored the preferred pile.</h2>
-        <p class="lede">Studios, producers, and audiences are starting to ask which scripts were written by people. The certified badge makes the answer clear, and pairs it with end-credits recognition and copyright-ready documentation.</p>
+        <h2>Show that your script was written by a person.</h2>
+        <p class="lede">Studios, producers, and audiences are starting to ask which scripts were written by people. The certified badge makes the answer clear, and pairs it with a badge and credit line you may ask a production to include, and an authorship record.</p>
         <div class="grid-2" style="margin-top:20px">
-          <article class="card"><h3>End-credits recognition</h3><p>Production-ready credit treatment that signals certified human authorship to studios, talent, and audiences.</p></article>
-          <article class="card"><h3>Copyright registration</h3><p>Independent, time-stamped, third-party attestation improves your chances of getting a copyright registration. It does not guarantee one.</p></article>
+          <article class="card"><h3>Credit line</h3><p>A badge and credit line you may ask a production to include.</p></article>
+          <article class="card"><h3>Copyright registration</h3><p>A time-stamped record of your drafts, process, and Credtent's review, which you can keep with your files and give to counsel. It does not guarantee a copyright registration or any legal outcome.</p></article>
           <article class="card"><h3>Creative Origin badge</h3><p>Free access to Credtent's badge system, which travels with your work across the web.</p></article>
           <article class="card"><h3>An audit-ready record</h3><p>Every certification produces a documentation packet you can hand to studios, agents, or counsel.</p></article>
         </div>
@@ -515,7 +514,7 @@ export function orgPages(images) {
         <h2>WGA West member offer: 50% off.</h2>
         <p>The Writers Guild of America reviewed Credtent's screenplay certification process and accepted it. Certification is US$300 per screenplay, and members of the Writers Guild of America West who register through the WGA currently receive 50% off.</p>
         <div class="btn-row"><a class="btn" href="https://registry.credtent.org/auth/sign-in?next=/script-ai-analyzer">Continue to the registry</a></div>
-        <p class="small">Questions? Write to <a href="mailto:partners@credtent.org">partners@credtent.org</a>.</p>
+        <p class="small">Questions? Write to <a href="mailto:hello@credtent.org">hello@credtent.org</a>.</p>
       </div></section>`
     },
     {
@@ -564,7 +563,7 @@ export function orgPages(images) {
         <p>The neutral company map is on <a href="https://credtent.com/guides/ai-training-data-licensing-companies/">credtent.com</a>.</p>
         <h2>How are licenses priced?</h2>
         <p>Four structures are common: a flat fee for a defined collection, a per-work or per-unit rate, a revenue share between seller and rights holders, and usage-based fees tied to how often content is accessed. The price depends on exclusivity, quality, documentation, the rights layers involved, and the license term.</p>
-        <p>Credtent does not publish a rate card for AI companies. On the rights-holder side our structure is a revenue share: as of October 2026, under its standard terms, Credtent routes 85% of gross revenue from each licensing deal to the rights holders and data providers whose content was licensed and keeps 15% for the platform, legal work, compliance tools, and operations, with royalties paid quarterly.</p>
+        <p>Credtent does not publish a rate card for AI companies. On the rights-holder side our structure is a revenue share: under its standard terms, Credtent routes 85% of each licensing deal to the rights holders and data providers whose content was licensed and keeps 15% for the platform, legal work, compliance tools, and operations. The Terms of Service list the costs and taxes deducted before payment.</p>
         <p>Usage-based pricing appears in access and grounding programs. Cloudflare's pay per crawl, which its own page describes as a private beta feature of AI Crawl Control, lets publishers charge AI crawlers for access.</p>
         <h2>What records do developers need?</h2>
         <p>Developers of general-purpose AI models in the EU must publish a sufficiently detailed summary of training content and keep a copyright policy that honors rights reservations, under Article 53 of the EU AI Act. Under Article 113, those obligations apply from 2 August 2025. California's AB 2013 (Chapter 817, approved September 28, 2024) requires developers to post training-data documentation, including the sources or owners of the datasets and whether they were purchased or licensed.</p>
@@ -572,7 +571,7 @@ export function orgPages(images) {
         <h2>Can a license cover content a model already trained on?</h2>
         <p>A deal can address past training only for the rights holders who sign it. Credtent states the limit in these words: "We can structure a going-forward license and a covenant not to sue over past use from the rights holders who sign, limited to the named works. Neither one binds a rights holder who did not sign, and neither one satisfies the developer's regulatory obligations." Rights holders who did not sign keep every claim they had.</p>
         <h2>How can a rights holder participate?</h2>
-        <p>Document ownership, list the works, set which uses and buyers you will accept, and approve each agreement. With Credtent, you submit catalog metadata, ownership documentation, and your licensing terms; we verify ownership and tag the content so AI buyers can find it; we bring licensing terms to you for approval before any contract is signed; and royalties are paid quarterly with usage reports. Listing transfers no copyright and no exclusivity, and you can end our representation at any time. Details are on <a href="https://credtent.com/content-owners">credtent.com/content-owners</a>.</p>
+        <p>Document ownership, list the works, set which uses and buyers you will accept, and set the terms Credtent licenses within. With Credtent, you submit catalog metadata, ownership documentation, and your licensing terms; we verify ownership and tag the content so AI buyers can find it; and royalties are paid quarterly with usage reports. Listing transfers no copyright, and the license you grant Credtent is non-exclusive unless you agree otherwise in writing. You can end our representation at any time. Details are on <a href="https://credtent.com/content-owners">credtent.com/content-owners</a>.</p>
         <p>You can also choose the <a href="/opt-out">free opt-out</a> instead. Opt-Out Premium for rights holders, from <span class="price">US$299</span> a year, enrolls their works in Credtent's periodic AI model audits and does not include licensing. Licensing for individual creatives is US$49 a year for sign-ups through December 31, 2026, and it includes the same audit enrollment. From 2027, new individual sign-ups pay US$99 a year, and creatives who sign up during the promotion keep US$49 a year through 2028 while the subscription stays active. After 2028, and for anyone who rejoins after a lapse or cancellation, the regular price applies. Rights-Holder Licensing, for publishers and others who represent many creatives, starts at $299 a year. Full terms are on the <a href="https://credtent.com/pricing">pricing page</a>.</p>
         <p>Opting out and licensing are not permanent choices. A work registered for opt-out can be made licensable later, and a licensable work can be withdrawn to opt-out, with no retroactive fees.</p>
       </div></section>`

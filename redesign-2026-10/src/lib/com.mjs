@@ -144,8 +144,8 @@ export function comPages(images) {
       media: hero("editor", { priority: true }),
       preload: preload("editor"),
       faq: [
-        { q: "What do I keep when I list my catalog with Credtent?", a: "You keep full ownership of everything you list. Credtent acts as your licensing agent, not a publisher or co-owner, and holds only limited representation rights for AI licensing that you can end at any time. Listing transfers no copyright and no exclusivity, and every deal needs your approval before it goes ahead." },
-        { q: "How does the revenue split work?", a: "Under Credtent's standard terms, content partners keep 85% of each licensing deal: Credtent sends 85% of gross revenue to the rights holders and data providers whose content was licensed, and keeps 15% for the platform, legal work, compliance tools, and operations. The split applies to gross revenue." },
+        { q: "What do I keep when I list my catalog with Credtent?", a: "You keep full ownership of everything you list. Credtent acts as your licensing agent, not a publisher or co-owner, and holds only limited representation rights for AI licensing that you can end at any time. Listing transfers no copyright, and the license you grant Credtent is non-exclusive unless you agree otherwise in writing. You set limits by vertical, use case, and type of application, and Credtent licenses within those limits." },
+        { q: "How does the revenue split work?", a: "Under Credtent's standard terms, content partners receive 85% of each licensing deal, and the Terms of Service list the costs and taxes deducted before payment. Credtent keeps a 15% platform fee." },
         { q: "When do Credtent partners get paid?", a: "Royalties are paid quarterly. Each payment comes with a usage report showing which licensees used your catalog and how much, so you can tie each payment to specific deals." },
         { q: "Can I get a valuation without a licensing mandate?", a: "Yes. Obtain a valuation independently, then decide whether you want help finding licensing partners." },
         { q: "Where do individual creatives opt out?", a: "Free opt-out for creatives lives on credtent.org and does not require a licensing agreement." }
@@ -154,7 +154,7 @@ export function comPages(images) {
         <div class="prose">
           <p class="eyebrow">What you keep</p>
           <h2>Your catalog stays yours.</h2>
-          <p>You keep full ownership of everything you list with Credtent. We act as your licensing agent, not a publisher or co-owner, and hold only limited representation rights for AI licensing, which you can end at any time. Listing transfers no copyright and no exclusivity. You also decide which AI companies and uses your content is licensed for, because every deal needs your approval before it goes ahead.</p>
+          <p>You keep full ownership of everything you list with Credtent. We act as your licensing agent, not a publisher or co-owner, and hold only limited representation rights for AI licensing, which you can end at any time. Listing transfers no copyright, and the license you grant Credtent is non-exclusive unless you agree otherwise in writing. You set limits by vertical, use case, and type of application, and Credtent licenses within those limits.</p>
         </div>
         <ul class="check-list">
           <li>Full ownership of your work</li>
@@ -168,7 +168,7 @@ export function comPages(images) {
       <section class="section"><div class="wrap prose">
         <p class="eyebrow">The economics</p>
         <h2>Under standard terms, 85% goes to the people whose work was licensed.</h2>
-        <p>Under those standard terms, Credtent pays the content owners, rights holders, and data providers in each licensing deal their 85% share of that deal's gross revenue every quarter. The other 15% pays for the platform, legal work, compliance tools, and operations.</p>
+        <p>Under Credtent's standard terms, content partners receive 85% of each licensing deal, and the Terms of Service list the costs and taxes deducted before payment. Credtent keeps a 15% platform fee.</p>
       </div></section>
       <section class="section section-white"><div class="wrap">
         <p class="eyebrow">What you get</p>
@@ -195,7 +195,7 @@ export function comPages(images) {
         <div class="steps" style="margin-top:24px">
           <article class="step"><p class="kicker">01</p><h3>Submit your catalog</h3><p>Share catalog metadata, proof of ownership, and your licensing terms. Bulk intake is available.</p></article>
           <article class="step"><p class="kicker">02</p><h3>Provenance certification</h3><p>Credtent verifies ownership, adds Creative Origin certification, and tags your content so AI buyers can find it.</p></article>
-          <article class="step"><p class="kicker">03</p><h3>Deals close</h3><p>We bring your content to AI companies. You review and approve the terms, and we sign the contract.</p></article>
+          <article class="step"><p class="kicker">03</p><h3>Deals close</h3><p>We bring your content to AI companies. You set limits by vertical, use case, and type of application, and Credtent licenses within those limits.</p></article>
           <article class="step"><p class="kicker">04</p><h3>Royalties are paid</h3><p>Usage is tracked and revenue is paid quarterly, with audit-ready reporting any time.</p></article>
         </div>
       </div></section>
@@ -680,12 +680,12 @@ export function comPages(images) {
       description: "Custom licensing for AI companies, standard 85/15 revenue terms for content partners, a free opt-out for creatives, and published plan prices.",
       eyebrow: "Pricing",
       h1: "Pricing that scales with you.",
-      capsule: "AI companies license through custom agreements priced per deal. Under Credtent's standard terms, content partners keep 85% of each licensing deal Credtent closes, and a platform fee applies. Creatives can opt out for free, or license their work for US$49 a year, with periodic AI model audits included, under a promotion for individual creatives who sign up by December 31, 2026.",
+      capsule: "AI companies license through custom agreements priced per deal. Under Credtent's standard terms, content partners receive 85% of each licensing deal Credtent closes, and the other 15% is Credtent's platform fee. The Terms of Service list the costs and taxes deducted before payment. Creatives can opt out for free, or license their work for US$49 a year, with periodic AI model audits included, under a promotion for individual creatives who sign up by December 31, 2026.",
       crumbs: [{ name: "Pricing", href: "https://credtent.com/pricing" }],
       faq: [
-        { q: "How much does Credtent cost?", a: "It depends on which side of the market you are on. AI companies pay for custom licensing priced per deal. Under Credtent's standard terms, content partners keep 85% of each licensing deal Credtent closes, with Credtent keeping 15%, and a platform fee applies. Creatives can opt out for free. Individual creatives who sign up by December 31, 2026 can license their work at a promotional US$49 a year, which includes enrollment in Credtent's periodic AI model audits. From 2027, licensing for individual creatives is US$99 a year, and promotion sign-ups keep US$49 a year through 2028 while the subscription stays active. Rejoining after a lapse or cancellation is at the regular price. Opt-Out Premium for rights holders and Rights-Holder Licensing each start at US$299 a year." },
+        { q: "How much does Credtent cost?", a: "It depends on which side of the market you are on. AI companies pay for custom licensing priced per deal. Under Credtent's standard terms, content partners receive 85% of each licensing deal Credtent closes, with Credtent keeping 15%. Creatives can opt out for free. Individual creatives who sign up by December 31, 2026 can license their work at a promotional US$49 a year, which includes enrollment in Credtent's periodic AI model audits. From 2027, licensing for individual creatives is US$99 a year, and promotion sign-ups keep US$49 a year through 2028 while the subscription stays active. Rejoining after a lapse or cancellation is at the regular price. Opt-Out Premium for rights holders and Rights-Holder Licensing each start at US$299 a year." },
         { q: "How much does Credtent cost for AI companies?", a: "There is no fixed public price. Licenses are custom agreements scoped to the content, the license type, and the size of the organization, and each one includes a disclosure pack. Pricing is set in a scoping conversation, not from a rate card." },
-        { q: "How much does Credtent cost for content partners?", a: "A platform fee applies. Under Credtent's standard terms for Starter Partners, Credtent keeps 15% of each licensing deal it closes and sends the other 85% to the rights holder. The Organization License keeps the same split and adds more services for larger catalogs, and Enterprise is priced to the catalog." },
+        { q: "How much does Credtent cost for content partners?", a: "Credtent's platform fee is 15% of each licensing deal it closes under standard terms. Under Credtent's standard terms for Starter Partners, Credtent keeps 15% of each licensing deal it closes and sends the other 85% to the rights holder. The Organization License keeps the same split and adds more services for larger catalogs, and Enterprise is priced to the catalog." },
         { q: "What does Opt-Out Premium for rights holders cost?", a: "It starts at US$299 a year and scales with catalog size. It enrolls the works in periodic AI model audits and does not include licensing." },
         { q: "What does licensing cost for individual creatives?", a: "Licensing costs US$49 a year for individual creatives who sign up by December 31, 2026, and the plan includes the opt-out and enrolls their works in Credtent's periodic AI model audits. From 2027, new individual sign-ups pay US$99 a year, and creatives who sign up during the promotion keep US$49 a year through 2028 while the subscription stays active. After 2028, and for anyone who rejoins after a lapse or cancellation, the regular price applies. Rights holders who publish or represent many creatives use Rights-Holder Licensing, from US$299 a year." },
         { q: "What does the book cost?", a: "On collaborithmic.com the e-book is $9.99 and the paperback preorder is $19.99, both launch pricing through 2026, and the Living Book is $49." }
@@ -703,12 +703,12 @@ export function comPages(images) {
       </div></section>
       <section class="section"><div class="wrap">
         <p class="eyebrow">Content partners</p>
-        <h2>Under standard terms, you keep 85% of each deal we close.</h2>
-        <p class="lede">The tier you choose sets the level of service and support. Partners earn when Credtent closes a deal.</p>
+        <h2>Under standard terms, you receive 85% of each deal we close.</h2>
+        <p class="lede">The Terms of Service list the costs and taxes deducted before payment. The tier you choose sets the level of service and support. Partners earn when Credtent closes a deal.</p>
         <div class="grid-3" style="margin-top:24px">
           <article class="card"><p class="kicker">For individual rights holders</p><h3>Starter Partner</h3><p><span class="price">85/15</span></p><ul><li>Catalog registration and provenance certification</li><li>Matching with AI companies</li><li>Quarterly royalty payments</li><li>Standard usage reporting</li><li>Works enrolled in periodic AI model audits</li></ul><p><a href="https://app.credtent.org/inquiries/content-partner">Contact us</a></p></article>
           <article class="card"><p class="kicker">For guilds, publishers, and studios</p><h3>Organization License</h3><p>Standard <span class="price">85/15</span> plus premium</p><ul><li>Everything in Starter Partner</li><li>Bulk catalog intake and metadata tools</li><li>Priority deal placement</li><li>A dedicated account manager</li><li>Audit-ready reporting on demand</li></ul><p><a href="https://app.credtent.org/inquiries/content-partner">Talk with us</a></p></article>
-          <article class="card"><p class="kicker">For large catalogs and data providers</p><h3>Enterprise</h3><p><span class="price">Custom</span></p><ul><li>Everything in Organization License</li><li>Custom delivery planning with your team</li><li>Dedicated legal advice</li><li>Fully bespoke onboarding</li></ul><p><a href="https://app.credtent.org/inquiries/content-partner">Contact us</a></p></article>
+          <article class="card"><p class="kicker">For large catalogs and data providers</p><h3>Enterprise</h3><p><span class="price">Custom</span></p><ul><li>Everything in Organization License</li><li>Custom delivery planning with your team</li><li>Fully bespoke onboarding</li></ul><p><a href="https://app.credtent.org/inquiries/content-partner">Contact us</a></p></article>
         </div>
       </div></section>
       <section class="section section-white"><div class="wrap">
@@ -749,10 +749,10 @@ export function comPages(images) {
         { q: "How long does a deal take?", a: "A 20-minute scoping call comes first, and we aim to send a proposal within 5 business days. Timing after that depends on the content and on how many rights holders are involved." },
         { q: "Why license instead of scraping public content?", a: "Courts are still deciding how the law treats scraped training data, and the new disclosure rules ask developers to document their sources. A license gives you that documentation." },
         { q: "How should we read a valuation?", a: CAPSULE.valuation },
-        { q: "Do I give up ownership of my content?", a: "No. Credtent acts as a licensing agent, not a publisher or co-owner. You keep full ownership of everything you list. Credtent holds only limited representation rights for AI licensing, and you can end that at any time. Listing does not transfer copyright, exclusivity, or any ownership to Credtent." },
-        { q: "How does the revenue split work?", a: "Under Credtent's standard terms, content partners keep 85% of each licensing deal: Credtent sends 85% of gross revenue to the rights holders and data providers whose content was licensed. Credtent keeps 15% for its platform, legal work, compliance tools, and operations. The split is on gross revenue, not net." },
+        { q: "Do I give up ownership of my content?", a: "No. Credtent acts as a licensing agent, not a publisher or co-owner. You keep full ownership of everything you list. Credtent holds only limited representation rights for AI licensing, and you can end that at any time. Listing does not transfer copyright or ownership to Credtent, and the license you grant is non-exclusive unless you agree otherwise in writing." },
+        { q: "How does the revenue split work?", a: "Under Credtent's standard terms, content partners receive 85% of each licensing deal, and the Terms of Service list the costs and taxes deducted before payment. Credtent keeps a 15% platform fee." },
         { q: "When do I get paid?", a: "Credtent pays royalties quarterly. Each payment comes with a usage report showing which licensees used your catalog and how much, so you can see which deals earned your share." },
-        { q: "Can I choose which AI companies license my content?", a: "Yes. When you register your catalog, you set limits by vertical, use case, and type of application. You can exclude specific licensees or whole categories, and every deal needs your approval before it goes ahead." },
+        { q: "Can I choose which AI companies license my content?", a: "Yes. When you register your catalog, you can exclude specific licensees or whole categories. You set limits by vertical, use case, and type of application, and Credtent licenses within those limits." },
         { q: "What kinds of content can I list?", a: "Text, audio, video, images, and structured data, across education, healthcare, sports, entertainment, and media. You can register a mixed-format catalog in one place." },
         { q: "Is Credtent tied to any AI company or big-tech platform?", a: "No. Credtent does not build models, take equity positions, or share data outside of licensed transactions." },
         { q: "Where is Credtent incorporated?", a: "Credtent, Inc. is a Delaware Public Benefit Corporation. Its charter names two public benefits: to empower and protect creators of original works in the marketplace of artificial intelligence, and to promote the ethical and credible use and deployment of AI." },
@@ -823,7 +823,6 @@ export function comPages(images) {
       <section class="section section-white"><div class="wrap prose">
         <h2>Why Credtent?</h2>
         <p>Credtent is a Delaware Public Benefit Corporation. We own none of the content we license, train no AI models, and compete with no organization we certify.</p>
-        <p>The Writers Guild of America reviewed Credtent's screenplay certification process and accepted it.</p>
         <p>Creative Origin is one of three Credtent badge systems, and it shows the role of AI in how a work was made. <a href="https://credtent.org/creative-consent">Creative Consent</a> covers platforms, and Commercial Safety covers AI companies. See the <a href="https://credtent.org/badges/">badge systems overview</a>, or make a free self-declared disclosure badge with the <a href="https://credtent.org/badge-builder">badge builder</a>.</p>
         <h2>Tell us about your editorial process.</h2>
         <p>Describe your organization, content type, and editorial workflow. Our reviewers will come back with a certification scope and fee estimate within five business days, with no commitment.</p>
