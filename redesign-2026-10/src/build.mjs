@@ -7,6 +7,7 @@ import { loadPrivateNames, redactLine } from "../scripts/private-names.mjs";
 import { comPages } from "./lib/com.mjs";
 import { ADDRESS_HTML, CAPSULE, LICENSE_SENTENCE } from "./lib/copy.mjs";
 import { orgPages } from "./lib/org.mjs";
+import { applyPageEdits } from "./lib/page-edits.mjs";
 import { ORG_ID, creditLine, renderPage } from "./lib/render.mjs";
 import { securityHeaders } from "./lib/security-headers.mjs";
 import { TERMS_SWAP, UPCOMING_TERMS_PATH, VERBATIM_START, VERBATIM_END, reviseTerms, termsGuard, liveTermsParts } from "./lib/terms.mjs";
@@ -258,7 +259,7 @@ function rewriteLinks(html, origin) {
 
 function legacyPage(site, file, pagePath, opts = {}) {
   const extracted = extractLegacy(path.join(REPO, file));
-  let body = scrub(rewriteLinks(extracted.body, site.origin));
+  let body = applyPageEdits(pagePath, scrub(rewriteLinks(extracted.body, site.origin)));
   if (pagePath === "/parking/lws") {
     // No permanent free promise on any page (Cherryh, EB-approved 2026-11-01); the live parking/lws.html is untouched.
     body = body.replace("Basic protection is always free, no credit card required.", "Basic protection is free, with no credit card required. Credtent does not plan to charge for the free opt-out.");
