@@ -536,8 +536,8 @@ function vercel(site, pages) {
     redirectRule("/badges/index.html", "https://credtent.org/badges/", 301),
     redirectRule("/creative-origin/index.html", "https://credtent.org/creative-origin", 301),
     redirectRule("/post/unfair-use-denormalizing-ai-theft.html", "https://credtent.org/post/unfair-use-denormalizing-ai-theft", 301),
-    redirectRule("/parking/badges.html", "https://credtent.org/parking/badges", 301),
-    redirectRule("/parking/blog.html", "https://credtent.org/parking/blog", 301),
+    ...crossHostVariants("/parking/badges", "https://credtent.org/badges/"),
+    ...crossHostVariants("/parking/blog", "https://credtent.org/blog"),
     redirectRule("/parking/blog/disneys-ai-gambit-how-a-billion-dollar.html", "https://credtent.org/parking/blog/disneys-ai-gambit-how-a-billion-dollar", 301),
     redirectRule("/parking/lws.html", "https://credtent.org/parking/lws", 301),
     redirectRule("/licensing", "https://credtent.com/ai-companies", 301),
@@ -663,20 +663,7 @@ async function main() {
       capsule: "An archived Credtent essay. The canonical copy is also on Substack.",
       crumb: "Unfair Use"
     }),
-    legacyPage(SITES.org, "parking/badges.html", "/parking/badges", {
-      title: "Parked badge page | Credtent",
-      h1: "Parked badge page",
-      eyebrow: "Parked",
-      capsule: "This URL is retained from the previous site and is excluded from the production crawl.",
-      crumb: "Parked badges"
-    }),
-    legacyPage(SITES.org, "parking/blog.html", "/parking/blog", {
-      title: "Parked blog | Credtent",
-      h1: "Parked blog",
-      eyebrow: "Parked",
-      capsule: "Older blog index retained so the previous URL still resolves.",
-      crumb: "Parked blog"
-    }),
+    // parking/badges and parking/blog serve no copy: they 301 to /badges/ and /blog (Vonnegut B15, B16, 2026-11-10).
     legacyPage(SITES.org, "parking/blog/disneys-ai-gambit-how-a-billion-dollar.html", "/parking/blog/disneys-ai-gambit-how-a-billion-dollar", {
       title: "Archived essay | Credtent",
       h1: "Archived essay",

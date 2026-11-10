@@ -107,7 +107,10 @@ const moved = [
   ["/pricing", "https://credtent.com/pricing"],
   ["/about", "https://credtent.com/about"],
   ["/faq", "https://credtent.com/faq"],
-  ["/certified-publisher", "https://credtent.com/certified-publisher"]
+  ["/certified-publisher", "https://credtent.com/certified-publisher"],
+  // Parked pages with no copy left to serve 301 to their current pages (Vonnegut B15, B16; EB card 2026-11-10).
+  ["/parking/blog", "https://credtent.org/blog"],
+  ["/parking/badges", "https://credtent.org/badges/"]
 ];
 
 const orgConfig = JSON.parse(fs.readFileSync(path.join(sites["https://credtent.org"], "vercel.json"), "utf8"));
@@ -445,7 +448,7 @@ function assertProduction(outDir) {
     if (/rel="canonical"/.test(missing)) fail(`${origin} production 404 still has a canonical`);
     if (!/name="robots" content="noindex, nofollow"/.test(missing)) fail(`${origin} production 404 is missing noindex`);
   }
-  const parked = fs.readFileSync(path.join(outDir, "org/parking/badges/index.html"), "utf8");
+  const parked = fs.readFileSync(path.join(outDir, "org/parking/lws/index.html"), "utf8");
   if (!/name="robots" content="noindex, nofollow"/.test(parked)) fail("production parking page is missing noindex");
   const stub = fs.readFileSync(path.join(outDir, "org/resources/how-to-read-platform-terms/index.html"), "utf8");
   if (!/name="robots" content="noindex, nofollow"/.test(stub)) fail("production coming-soon page is missing noindex");
