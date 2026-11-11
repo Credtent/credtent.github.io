@@ -36,7 +36,11 @@ const retiredClaims = [
   { name: "retired-healthcare-count", re: /135K\+|Healthcare articles/i },
   { name: "retired-deal-speed", re: /most deals close/i },
   { name: "retired-founding-date", re: /foundingDate/ },
-  { name: "retired-ag-alignment", re: /aligning with the Authors Guild|converged on the same definitional ground/i }
+  { name: "retired-ag-alignment", re: /aligning with the Authors Guild|converged on the same definitional ground/i },
+  // Copy rewrite, 2026-11-10 (Cherryh Amendment 2 items 1, 3, 4).
+  { name: "retired-rights-cleared", re: /rights-cleared|pre-cleared/i },
+  { name: "retired-independent-reviewers", re: /independent reviewers?\b/i },
+  { name: "retired-human-only-claim", re: /conceived, written, and edited by human|human-authored and human-edited|confirm the content was conceived and written by human/i }
 ];
 
 function walk(dir, out = []) {
