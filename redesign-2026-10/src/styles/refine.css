@@ -476,3 +476,13 @@ svg.draw { overflow: visible; pointer-events: none; }
   .marq { animation: none; }
   .consent-badges .card:hover img { animation: none; }
 }
+
+/* ===================== Round four: the corner-sliver fix, both sites (Brackett r4 design.md) ===================== */
+/* =========================================================================
+   FIX (both sites): the orange sliver at the rounded panel corners on inner pages.
+   Cause: the opening band's 100vmax orange base edge (main > .wrap.section-tight:first-child::after) sits on the band's bottom 3px; the next
+   panel overlaps the band by 22 px with rounded top corners, so at the corners the orange edge showed through.
+   Fix: remove that edge, and draw the orange rule on the panel itself where it follows the curve.
+   ========================================================================= */
+main > .wrap.section-tight:first-child::after { display: none; }
+main > .wrap:first-child + section { border-top: 3px solid var(--accent); }
