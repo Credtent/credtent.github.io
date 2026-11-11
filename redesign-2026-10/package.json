@@ -8,7 +8,8 @@
     "check:org-dns": "node scripts/check-org-dns-ready.mjs",
     "gates": "node scripts/check-copy.mjs && node scripts/check-links.mjs && node scripts/check-redirects.mjs && node scripts/check-launch.mjs preview",
     "check": "npm run test:gates && npm run gates",
-    "check:production": "npm run test:gates && node scripts/check-org-dns-ready.mjs && node scripts/check-copy.mjs && node scripts/check-links.mjs && SITE_ENV=production node scripts/check-redirects.mjs && node scripts/check-launch.mjs production",
+    "check:production": "npm run test:gates && node scripts/check-copy.mjs && node scripts/check-links.mjs && SITE_ENV=production node scripts/check-redirects.mjs && node scripts/check-launch.mjs production",
+    "check:production:org": "npm run check:production && node scripts/check-org-dns-ready.mjs --build",
     "check:html": "node scripts/check-html.mjs"
   },
   "dependencies": {
