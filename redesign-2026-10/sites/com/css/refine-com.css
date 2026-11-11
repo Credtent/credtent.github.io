@@ -1,0 +1,170 @@
+/* Ported by Clarke on EB's card "Yes, port it" (2026-11-10). Linked on credtent.com pages only, after refine.css.
+   Source: agents/brackett/2026-11-10-site-refinement/r4/css/refine4.css in the Claudia repo. */
+/* Credtent .com, Brackett round four, 2026-11-10: "a bit richer feeling ... a little too bootstrap" (EB).
+   Loads AFTER site.css and the ported refine.css. credtent.com only (every rule is scoped to .site-com), except the corner-sliver fix, which Clarke moved to the end of
+   refine.css so it reaches both sites.
+   Method: tonal layering (navy and indigo grounds with light glows, not flat fills), one signature tab on every card, editorial type contrast,
+   an audience-specific treatment of the two-sided idea, trust elements given weight. Orange #EC5A00 stays an accent (tabs, rules, dots,
+   the connector): never body text on a light ground. No parallax; all motion stops under prefers-reduced-motion. */
+
+/* ---------- Tokens ---------- */
+.site-com {
+  --navy-0: #0D1529; --navy-1: #152153; --indigo: #290099; --cool: #F4F5FB; --cool-2: #ECEFF9;
+  --on-dark: #E4E7F5; --on-dark-2: #C8CADE; --peach-text: #FFB27A;
+  --tab: linear-gradient(90deg, #290099, #EC5A00);
+  --card-fill: linear-gradient(180deg, #FFFFFF 0%, #FAFBFE 100%);
+}
+@keyframes orb { from { transform: translate3d(0, 0, 0) scale(1); } to { transform: translate3d(-6%, 5%, 0) scale(1.12); } }
+
+/* ---------- Ground: the page is a cool paper with sheets stacked on it ---------- */
+body.site-com { background: linear-gradient(180deg, var(--cool) 0%, var(--cool-2) 100%); }
+.site-com main > section { background: var(--cool); }
+.site-com main > section.section-white { background: #fff; box-shadow: 0 -26px 44px -30px rgba(21, 33, 83, 0.35); }
+
+/* ---------- Type: editorial contrast ---------- */
+.site-com main h2 { font-size: clamp(34px, 3.8vw, 52px); line-height: 1.05; letter-spacing: -0.03em; }
+.site-com .lede { font-size: 20px; line-height: 1.6; }
+.site-com h3 { letter-spacing: -0.015em; }
+.site-com .eyebrow { letter-spacing: 0.12em; }
+
+/* ---------- Home hero: a deep indigo stage with light glows and a dot grid ---------- */
+.site-com .hero-com {
+  background:
+    radial-gradient(62% 90% at 88% 6%, rgba(70, 30, 210, 0.62), rgba(70, 30, 210, 0) 62%),
+    radial-gradient(46% 70% at 4% 102%, rgba(236, 90, 0, 0.17), rgba(236, 90, 0, 0) 64%),
+    linear-gradient(160deg, #0D1529 0%, #152153 52%, #1C1A6E 100%);
+  border-radius: 0 0 48px 48px;
+}
+.site-com .hero-com::before { /* a slow warm orb behind the frames */
+  content: ""; position: absolute; right: 6%; top: 10%; width: 36%; aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(236, 90, 0, 0.26), rgba(236, 90, 0, 0) 70%);
+  animation: orb 26s ease-in-out infinite alternate; pointer-events: none;
+}
+.site-com .hero-com::after { /* dot grid fading out from the frames */
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.16) 1px, transparent 1.3px); background-size: 24px 24px;
+  -webkit-mask-image: radial-gradient(55% 80% at 78% 42%, #000, transparent 75%); mask-image: radial-gradient(55% 80% at 78% 42%, #000, transparent 75%);
+}
+.site-com .hero-com h1 { color: #fff; }
+.site-com .hero-com .eyebrow, .site-com .hero-com .lede { color: var(--on-dark); }
+.site-com .hero-com .eyebrow { color: var(--on-dark-2); }
+.site-com .hero-com .btn:not(.btn-ghost) { background: #fff !important; color: var(--ink) !important; }
+.site-com .hero-com .btn:not(.btn-ghost):hover { background: #EEF0FA !important; }
+.site-com .hero-com .btn-ghost { color: #fff !important; border-color: rgba(255, 255, 255, 0.8) !important; }
+.site-com .hero-com .btn-ghost:hover { background: #fff !important; color: var(--ink) !important; }
+.site-com .hero-com :focus-visible { box-shadow: 0 0 0 6px rgba(13, 21, 41, 0.9); }
+.site-com .hero-com .duo .a { box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2), 0 34px 60px -24px rgba(0, 0, 0, 0.6); }
+.site-com .hero-com .duo .b { border-color: rgba(255, 255, 255, 0.96); box-shadow: 0 30px 50px -22px rgba(0, 0, 0, 0.65); }
+.site-com .hero-com .duo .node { border-color: #fff; }
+
+/* ---------- Opening band on inner pages (about, pricing, content-owners): same stage, quieter ---------- */
+.site-com main > .wrap:first-child:is(.section-tight, :has(> .hero)) {
+  background: var(--navy-1); box-shadow: 0 0 0 100vmax var(--navy-1); color: #fff; position: relative; padding-top: 56px; padding-bottom: 64px;
+  /* Port fix (Clarke): clip the 100vmax shadow to the band's own height. Round one clipped only the .section-tight band; on pages whose
+     first block is a hero (content-owners, ai-companies, ai-training, citation-licensing) the navy shadow spread down over the next
+     sections and hid their dark text. */
+  clip-path: inset(0 -100vmax);
+}
+.site-com main > .wrap:first-child:is(.section-tight, :has(> .hero))::before {
+  content: ""; position: absolute; top: 0; bottom: 0; left: -100vmax; right: -100vmax; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(50% 130% at 86% 0%, rgba(70, 30, 210, 0.6), rgba(70, 30, 210, 0) 60%),
+    radial-gradient(40% 110% at 0% 100%, rgba(236, 90, 0, 0.15), rgba(236, 90, 0, 0) 62%),
+    linear-gradient(160deg, #0D1529, #152153 60%, #1C1A6E);
+}
+.site-com main > .wrap:first-child:is(.section-tight, :has(> .hero)) > * { position: relative; z-index: 1; }
+.site-com main > .wrap:first-child h1 { color: #fff; }
+.site-com main > .wrap:first-child .crumbs, .site-com main > .wrap:first-child .eyebrow { color: var(--on-dark-2); }
+.site-com main > .wrap:first-child .crumbs a { color: #fff; }
+.site-com main > .wrap:first-child .lede { color: var(--on-dark); }
+.site-com main > .wrap:first-child .capsule { background: rgba(255, 255, 255, 0.08); color: #fff; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14); }
+.site-com main > .wrap:first-child .btn:not(.btn-ghost) { background: #fff !important; color: var(--ink) !important; }
+.site-com main > .wrap:first-child .btn-ghost { color: #fff !important; border-color: rgba(255, 255, 255, 0.8) !important; }
+.site-com main > .wrap:first-child .btn-ghost:hover { background: #fff !important; color: var(--ink) !important; }
+.site-com main > .wrap:first-child :focus-visible { box-shadow: 0 0 0 6px rgba(13, 21, 41, 0.9); }
+/* Port fix (Clarke): the photo credit under a hero figure (content-owners, ai-companies, ai-training, citation-licensing) sits on the navy band. */
+.site-com main > .wrap:first-child figcaption.credit, .site-com main > .wrap:first-child figcaption.credit a { color: var(--on-dark-2); }
+
+/* the brand shield as a quiet watermark on the right of the inner-page band (an existing brand asset, not new imagery) */
+.site-com main > .wrap:first-child:is(.section-tight, :has(> .hero))::after {
+  display: block; content: ""; position: absolute; right: 24px; top: 50%; width: 270px; height: 304px; margin-top: -152px; z-index: 0; pointer-events: none;
+  background: url("/brand/shield.svg") center / contain no-repeat; opacity: 0.22;
+}
+@media (max-width: 999px) { .site-com main > .wrap:first-child:is(.section-tight, :has(> .hero))::after { display: none; } }
+
+/* ---------- Cards: top-lit surface with one signature tab (indigo to orange) ---------- */
+.site-com .card, .site-com .step, .site-com .fact, .site-com .person { background: var(--card-fill); position: relative; }
+.site-com .card::before, .site-com .step::before, .site-com .fact::before {
+  content: ""; position: absolute; top: 0; left: 24px; width: 46px; height: 4px; border-radius: 0 0 4px 4px; background: var(--tab); z-index: 1;
+}
+.site-com .step { border-top: 0; border-radius: var(--radius-card); }
+.site-com .step .kicker { font-family: var(--font-display); font-size: 46px; line-height: 1; letter-spacing: -0.02em; font-weight: 700; color: var(--indigo); margin: 8px 0 12px; text-transform: none; }
+.site-com .person img { border-radius: 14px; }
+.site-com .card:hover, .site-com .step:hover { box-shadow: var(--ring), 0 2px 4px rgba(21, 33, 83, 0.08), 0 24px 44px -20px rgba(41, 0, 153, 0.35); }
+
+/* ---------- Two audiences, two characters (home: content owners vs AI companies) ---------- */
+.site-com .card:has(.audience-list) { background: linear-gradient(180deg, #FFFFFF 0%, #F5F2FF 100%); }
+.site-com .card:has(.audience-list)::before { width: 64px; }
+.site-com .card:has(.audience-list) + .card {
+  background: radial-gradient(90% 60% at 100% 0%, rgba(70, 30, 210, 0.45), rgba(70, 30, 210, 0) 60%), linear-gradient(165deg, #0F1A44, #152153 62%, #1C1A6E);
+  color: var(--on-dark); box-shadow: 0 2px 6px rgba(13, 21, 41, 0.3), 0 30px 54px -26px rgba(13, 21, 41, 0.7);
+}
+.site-com .card:has(.audience-list) + .card h3 { color: #fff; }
+.site-com .card:has(.audience-list) + .card .kicker { color: var(--peach-text); }
+.site-com .card:has(.audience-list) + .card p { color: var(--on-dark); }
+.site-com .card:has(.audience-list) + .card a { color: #fff; text-decoration-color: var(--accent); text-decoration-thickness: 2px; }
+.site-com .card:has(.audience-list) + .card figcaption.credit, .site-com .card:has(.audience-list) + .card figcaption.credit a { color: var(--on-dark-2); }
+.site-com .card:has(.audience-list) + .card:hover { box-shadow: 0 2px 6px rgba(13, 21, 41, 0.3), 0 36px 60px -24px rgba(41, 0, 153, 0.6); }
+
+/* ---------- Valuation: a navy sheet; the diagram becomes light-on-dark ---------- */
+.site-com main > section.section-warm { background: radial-gradient(70% 90% at 100% 0%, rgba(70, 30, 210, 0.5), rgba(70, 30, 210, 0) 60%), linear-gradient(170deg, #0F1A44, #152153 60%, #1C1A6E); border-top: 0; color: var(--on-dark); }
+.site-com .section-warm h2, .site-com .section-warm h3 { color: #fff; }
+.site-com .section-warm .eyebrow { color: var(--on-dark-2); }
+.site-com .section-warm .lede, .site-com .section-warm p { color: var(--on-dark); }
+.site-com .section-warm .diagram-inputs li { background: rgba(255, 255, 255, 0.07); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14); border-top: 0; position: relative; }
+.site-com .section-warm .diagram-inputs li::before { content: ""; position: absolute; top: 0; left: 18px; width: 34px; height: 4px; border-radius: 0 0 4px 4px; background: var(--tab); }
+.site-com .section-warm .diagram-inputs h3 { color: #fff; }
+.site-com .section-warm .diagram-inputs p { color: var(--on-dark-2); }
+.site-com .section-warm .diagram-icon { color: var(--peach-text); }
+.site-com .section-warm .diagram-lines line { stroke: rgba(255, 255, 255, 0.4); }
+.site-com .section-warm .diagram-hub { background: #fff; border-bottom: 4px solid var(--accent); box-shadow: 0 24px 44px -20px rgba(0, 0, 0, 0.55); }
+.site-com .section-warm .diagram-hub h3 { color: var(--ink); }
+.site-com .section-warm .diagram-hub p { color: var(--text); }
+.site-com .section-warm .diagram-note { color: var(--on-dark-2); }
+.site-com .section-warm .btn:not(.btn-ghost) { background: #fff !important; color: var(--ink) !important; }
+
+/* ---------- Trust: the Public Benefit Corporation and revenue-split cards become plaques (about) ---------- */
+.site-com .grid-3 + .grid-3 > .card {
+  background: radial-gradient(80% 70% at 100% 0%, rgba(70, 30, 210, 0.4), rgba(70, 30, 210, 0) 60%), linear-gradient(165deg, #0F1A44, #152153 62%, #1C1A6E);
+  color: var(--on-dark); box-shadow: 0 30px 54px -26px rgba(13, 21, 41, 0.7);
+}
+.site-com .grid-3 + .grid-3 > .card h3 { color: #fff; }
+.site-com .grid-3 + .grid-3 > .card p { color: var(--on-dark); }
+/* Port fix (Clarke): the same plaque rule also matches the second card row on content-owners, whose cards carry links. */
+.site-com .grid-3 + .grid-3 > .card a { color: #fff; text-decoration-color: var(--accent); text-decoration-thickness: 2px; }
+.site-com .bcorp-badge { transition: rotate 0.3s var(--ease-out); }
+.site-com .bcorp-badge:hover { rotate: -2deg; }
+
+/* ---------- Details ---------- */
+.site-com .media-wide img { border-radius: 28px; box-shadow: 0 2px 6px rgba(21, 33, 83, 0.1), 0 34px 60px -30px rgba(21, 33, 83, 0.5); }
+.site-com .book-banner { background: linear-gradient(90deg, #152153, #290099); border: 0; padding: 20px 0; }
+.site-com .book-banner p, .site-com .book-banner a, .site-com .book-banner cite { color: #fff; }
+.site-com .book-banner p > a { display: inline; min-height: 0; padding-block: 12px; }
+.site-com .book-banner a { text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 5px; }
+.site-com .site-footer { background: radial-gradient(60% 130% at 92% 0%, rgba(70, 30, 210, 0.4), rgba(70, 30, 210, 0) 60%), var(--navy-0); }
+.site-com .faq-list details { background: var(--card-fill); }
+.site-com .price { color: var(--indigo); }
+.site-com .check-list li::before { color: var(--indigo); }
+.site-com .partner-strip a.name { border-bottom: 2px solid var(--accent); }
+
+@media (min-width: 1000px) { .site-com .steps:has(> .step:nth-child(4)) { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 999px) {
+  .site-com .hero-com { border-radius: 0 0 32px 32px; }
+  .site-com main h2 { font-size: clamp(30px, 8.4vw, 40px); }
+  .site-com .lede { font-size: 18px; }
+  .site-com main > .wrap:first-child:is(.section-tight, :has(> .hero)) { padding-top: 36px; padding-bottom: 44px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-com .hero-com::before { animation: none; }
+  .site-com .bcorp-badge:hover { rotate: 0deg; }
+}
