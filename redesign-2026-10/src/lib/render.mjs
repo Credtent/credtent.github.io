@@ -217,7 +217,7 @@ function faqHtml(faq) {
   </details>`).join("");
   return `<section class="section section-tight" id="faq">
     <div class="wrap">
-      <h2>Frequently Asked Questions</h2>
+      <h2>Frequently asked questions</h2>
       <div class="faq-list">${items}</div>
     </div>
   </section>`;
@@ -350,9 +350,11 @@ export function renderPage(site, page) {
   const eyebrow = page.eyebrow ? `<p class="eyebrow">${esc(page.eyebrow)}</p>` : "";
   const h1 = `<h1>${page.h1}</h1>`;
   const capsule = page.capsule && !page.capsuleOutsideHero ? `<p class="capsule">${esc(page.capsule)}</p>` : "";
+  // Copy rewrite 2026-11-10 (Vonnegut rule 13): a legal sentence that qualifies the answer line sits in a note directly under it.
+  const capsuleNote = page.capsuleNote ? `<p class="note">${esc(page.capsuleNote)}</p>` : "";
   const lede = page.lede ? `<p class="lede">${page.lede}</p>` : "";
   const actions = page.actions || "";
-  const intro = `${crumbBlock}${eyebrow}${h1}${capsule}${lede}${actions}`;
+  const intro = `${crumbBlock}${eyebrow}${h1}${capsule}${capsuleNote}${lede}${actions}`;
   const top = page.heroHtml
     ? page.heroHtml
     : page.media && page.heroBand
@@ -513,7 +515,7 @@ export function tallyEmbed({ id, title, minHeight }) {
           <iframe data-tally-src="${embed}" loading="lazy" width="640" height="${height}" style="min-height:${height}px" title="${esc(title)}"></iframe>
           ${TALLY_LOADER}
           <noscript><p class="small"><a href="${fallback}">${fallback}</a></p></noscript>
-          <p class="small">Prefer email? <a href="mailto:${SALES_EMAIL}">${SALES_EMAIL}</a></p>
+          <p class="small"><a href="mailto:${SALES_EMAIL}">Email us</a></p>
         </div>`;
 }
 
@@ -530,7 +532,7 @@ export function inquiryForm({ subject, fields, submitLabel, note, style, todo })
   return `${todoHtml}<form class="form" action="${mailto}" method="post" enctype="text/plain" data-subject="${esc(subject)}"${styleAttr}>
           ${fields}
           <button class="btn" type="submit">${submitLabel}</button>${noteHtml}
-          <noscript><p class="small"><a href="${mailto}">Email ${SALES_EMAIL}</a></p></noscript>
+          <noscript><p class="small"><a href="${mailto}">Email us</a></p></noscript>
           <script>
           (function () {
             var form = document.currentScript.parentElement;
