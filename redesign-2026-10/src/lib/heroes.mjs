@@ -36,9 +36,9 @@ export function orgHero(images, { eyebrow, capsule, lede, actions }) {
   const h1 = `<h1>${lines(["Your work.", "Your choices."], 1)} <span class="ln u lift" style="--n:3"><span>Your terms.</span>${BRUSH}</span></h1>`;
   const strip = `<div class="marquee" aria-hidden="true"><ul class="marq">${CREATIVE_KINDS.map((k) => `<li>${k}</li>`).join("")}</ul></div>`;
   return `<div class="hero-l hero-org hero-org3"><div class="hero-l-inner">
-<div class="hero-l-copy">${lift(0, "eyebrow", esc(eyebrow))}${h1}${lift(4, "capsule", esc(capsule))}${lift(5, "lede", lede)}<div class="btn-row lift" style="--n:6">${actions}${CTA_ARROW}</div></div>
+<div class="hero-l-copy">${lift(0, "eyebrow", esc(eyebrow))}${h1}${lift(4, "lede", lede)}${lift(5, "capsule", esc(capsule))}<div class="btn-row lift" style="--n:6">${actions}${CTA_ARROW}</div></div>
 <div class="collage3"><i class="blob" aria-hidden="true"></i>${cards}
-<div class="keep"><strong>Keep creating.</strong><span>We'll help you navigate AI.</span></div>${SPARK}</div>
+<div class="keep"><strong>Keep creating.</strong><span>We'll help with the AI questions.</span></div>${SPARK}</div>
 </div></div>
 ${strip}`;
 }

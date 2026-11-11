@@ -23,13 +23,13 @@ export function orgPages(images) {
       h1: "Your work.<br>Your choices.<br>Your terms.",
       capsule: CAPSULE.orgHome,
       heroBand: true,
-      lede: "Tell AI companies not to train on your work. Understand how platforms use your content and make informed choices about your work.",
+      lede: "Tell AI companies not to train on your work.",
       actions: `<div class="btn-row"><a class="btn" href="${OPT_OUT_FLOW}">Get free opt-out</a><a class="btn btn-ghost" href="/opt-out">See how it works</a></div>`,
       // Brackett round three: the tilted-card collage hero and the creative strip (src/lib/heroes.mjs).
       heroHtml: orgHero(images, {
         eyebrow: "For creatives in the age of AI",
         capsule: CAPSULE.orgHome,
-        lede: "Tell AI companies not to train on your work. Understand how platforms use your content and make informed choices about your work.",
+        lede: "Tell AI companies not to train on your work.",
         actions: `<a class="btn" href="${OPT_OUT_FLOW}">Get free opt-out</a><a class="btn btn-ghost" href="/opt-out">See how it works</a>`
       }),
       preload: preload("editor", ORG_HERO_SIZES),
@@ -43,7 +43,7 @@ export function orgPages(images) {
           <p class="eyebrow">For the work you make</p>
           <h2>Whatever you create, your choices matter.</h2>
           <p>${CREATIVE_SENTENCE}</p>
-          <p class="lede">Practical tools and resources to help you protect your creative work and understand your choices in the age of AI.</p>
+          <p class="lede">You can record your AI-training preferences, see how the platforms you use treat your work, and learn your options.</p>
           <div class="photo-band">
             <figure>${shot("writer", { sizes: "(min-width: 1000px) 50vw, 100vw" }).replace(/^<figure class="shot">|<\/figure>/g, "")}<figcaption>For the words you write.</figcaption></figure>
             <figure>${shot("filmmaker", { sizes: "(min-width: 1000px) 50vw, 100vw" }).replace(/^<figure class="shot">|<\/figure>/g, "")}<figcaption>For the stories you bring to life.</figcaption></figure>
@@ -51,8 +51,8 @@ export function orgPages(images) {
           <hr class="rule">
           <div class="facts">
             <article class="fact"><p class="kicker">Free</p><h3>Opt-out registration</h3><p>Tell AI companies not to train on the work you identify.</p></article>
-            <article class="fact"><p class="kicker">Quarterly</p><h3>Opt-out list distribution</h3><p>Credtent sends the list on a quarterly cadence.</p></article>
-            <article class="fact"><p class="kicker">Optional</p><h3>Periodic AI model audits</h3><p>Audit enrollment comes with every paid plan.</p></article>
+            <article class="fact"><p class="kicker">Quarterly</p><h3>Opt-out list distribution</h3><p>Credtent sends the opt-out list to AI companies each quarter.</p></article>
+            <article class="fact"><p class="kicker">Optional</p><h3>Periodic AI model audits</h3><p>Every paid plan enrolls your works in periodic AI model audits.</p></article>
           </div>
         </div>
       </section>
@@ -60,13 +60,13 @@ export function orgPages(images) {
         <div class="wrap">
           <p class="eyebrow">A documented history</p>
           <h2>How your opt-out works</h2>
-          <p class="lede">Credtent records your opt-out preferences and the notices we send to AI companies, building a documented history over time. We cannot guarantee that every company will act on your request.</p>
+          <p class="lede">Credtent keeps a dated record of your preferences and of each notice it sends.</p>
           <div class="steps" style="margin-top:24px">${STEP_ARROWS}
-            <article class="step"><p class="kicker">01</p><h3>Register your preferences</h3><p>Identify the work you want included in your opt-out request.</p></article>
-            <article class="step"><p class="kicker">02</p><h3>We send your request</h3><p>Credtent distributes the opt-out list to AI companies each quarter. Sent notices are distinct from confirmed receipt or action.</p></article>
-            <article class="step"><p class="kicker">03</p><h3>Choose additional support</h3><p>Add a paid plan, and Credtent enrolls your works in its periodic AI model audits.</p></article>
+            <article class="step"><p class="kicker">01</p><h3>Register your preferences</h3><p>Tell us which works you want included.</p></article>
+            <article class="step"><p class="kicker">02</p><h3>We send your request</h3><p>Credtent sends the opt-out list to AI companies each quarter.</p></article>
+            <article class="step"><p class="kicker">03</p><h3>Add audits if you want them</h3><p>A paid plan enrolls your works in Credtent's periodic AI model audits.</p></article>
           </div>
-          <p class="fine">Registration does not automatically remove work from datasets.</p>
+          <div class="note-block"><p class="note">We cannot guarantee that every company will act on your request.</p><p class="note">Sent notices are distinct from confirmed receipt or action.</p><p class="note">Registration does not automatically remove work from datasets.</p></div>
         </div>
       </section>
       <section class="section" id="premium">
@@ -74,13 +74,14 @@ export function orgPages(images) {
           <div>
             <p class="eyebrow">Periodic AI model audits</p>
             <h2>Enroll your works in periodic AI model audits.</h2>
-            <p class="lede">The two plans priced here, like every other paid plan, include that enrollment, and Credtent records the results. Audit results are not proof of dataset inclusion or infringement.</p>
+            <p class="lede">Every paid plan includes audit enrollment, and Credtent records the results.</p>
+            <p class="note">Audit results are not proof of dataset inclusion or infringement.</p>
             <div class="btn-row"><a class="btn" href="/resources/auditing">Understand auditing</a></div>
           </div>
           <div class="price-stack">
             <p class="price-meta">Licensing for individuals</p>
-            <p>${price("US$49")} (promo)</p>
-            <span class="price-meta">a year, with licensing, for sign-ups through December 31, 2026</span>
+            <p>${price("US$49")} a year</p>
+            <span class="price-meta">Promotional price for sign-ups through December 31, 2026.</span>
             <p class="price-meta">Opt-Out Premium for rights holders</p>
             <p>from ${price("US$299")}</p>
             <span class="price-meta">a year, scaling with catalog size</span>
@@ -91,11 +92,11 @@ export function orgPages(images) {
         <div class="wrap">
           <p class="eyebrow">Creative Consent</p>
           <h2>Know the terms. Keep the choice.</h2>
-          <p class="lede">Understand how the platforms where you publish handle AI training, and what controls you have.</p>
+          <p class="lede">See how the platforms where you publish handle AI training, and what choices they give you.</p>
           <div class="consent-badges" style="margin-top:24px">
-            <article class="card"><img src="/brand/consent-full.svg" width="96" height="96" alt=""><h3>Full Protection</h3><p>Protected by default. AI training requires explicit opt-in. Creatives can still choose to participate.</p></article>
-            <article class="card"><img src="/brand/consent-optional.svg" width="96" height="96" alt=""><h3>Optional Protection</h3><p>Protection depends on using an available, effective opt-out.</p></article>
-            <article class="card"><img src="/brand/consent-none.svg" width="96" height="96" alt=""><h3>No Protection</h3><p>The assessed policy offers no effective choice to prevent that use.</p></article>
+            <article class="card"><img src="/brand/consent-full.svg" width="96" height="96" alt=""><h3>Full Protection</h3><p>Your work is protected by default, and AI training happens only if you opt in.</p></article>
+            <article class="card"><img src="/brand/consent-optional.svg" width="96" height="96" alt=""><h3>Optional Protection</h3><p>Your work is protected only if you use the platform's opt-out and the opt-out is effective.</p></article>
+            <article class="card"><img src="/brand/consent-none.svg" width="96" height="96" alt=""><h3>No Protection</h3><p>The platform's policy gives you no effective way to prevent AI training.</p></article>
           </div>
           <div class="btn-row"><a class="btn" href="/creative-consent">Explore Creative Consent</a></div>
         </div>
@@ -105,9 +106,9 @@ export function orgPages(images) {
           <p class="eyebrow">Creative resources</p>
           <h2>Understand more. Decide for yourself.</h2>
           <div class="grid-3" style="margin-top:24px">
-            <article class="card resource-card">${shot("resourceOptout", { sizes: "(min-width: 1000px) 340px, 100vw" })}<div><h3>What an opt-out request can do.</h3></div></article>
-            <article class="card resource-card">${shot("resourceTerms", { sizes: "(min-width: 1000px) 340px, 100vw" })}<div><h3>How to read a platform's AI terms.</h3></div></article>
-            <article class="card resource-card">${shot("resourceJudgment", { sizes: "(min-width: 1000px) 340px, 100vw" })}<div><h3>Use AI without giving up your judgment.</h3></div></article>
+            <article class="card resource-card">${shot("resourceOptout", { sizes: "(min-width: 1000px) 340px, 100vw" })}<div><h3><a href="/resources/opt-out-limitations">What the opt-out cannot do</a></h3></div></article>
+            <article class="card resource-card">${shot("resourceTerms", { sizes: "(min-width: 1000px) 340px, 100vw" })}<div><h3><a href="/resources/auditing">How audits work</a></h3></div></article>
+            <article class="card resource-card">${shot("resourceJudgment", { sizes: "(min-width: 1000px) 340px, 100vw" })}<div><h3><a href="/guides/ai-training-data-licensing/">How AI training licensing works</a></h3></div></article>
           </div>
         </div>
       </section>
@@ -137,7 +138,6 @@ export function orgPages(images) {
       eyebrow: "Resources / Creative Consent",
       h1: "Full Protection means consent comes first.",
       capsule: CAPSULE.consent,
-      lede: "Protected by default. AI training is allowed only when the creative explicitly chooses to permit it.",
       crumbs: [{ name: "Resources", href: "https://credtent.org/resources" }, { name: "Creative Consent", href: "https://credtent.org/creative-consent" }],
       faq: [
         { q: "What does Creative Consent rate?", a: CAPSULE.consent },
@@ -145,17 +145,17 @@ export function orgPages(images) {
         { q: "Where are the guide and the platform list?", a: "The platform list and the guide are in preparation. Subscribe to Creative Consent updates to hear when they are published." }
       ],
       main: `<section class="section section-tint"><div class="wrap grid-3">
-        <article class="card"><img src="/brand/consent-full.svg" width="96" height="96" alt=""><h3>Full Protection</h3><p>Protected by default. AI training requires explicit opt-in. Creatives can still choose to participate.</p></article>
-        <article class="card"><img src="/brand/consent-optional.svg" width="96" height="96" alt=""><h3>Optional Protection</h3><p>Protection depends on using an available, effective opt-out.</p></article>
-        <article class="card"><img src="/brand/consent-none.svg" width="96" height="96" alt=""><h3>No Protection</h3><p>The assessed policy offers no effective choice to prevent that use.</p></article>
+        <article class="card"><img src="/brand/consent-full.svg" width="96" height="96" alt=""><h3>Full Protection</h3><p>Your work is protected by default, and AI training happens only if you opt in.</p></article>
+        <article class="card"><img src="/brand/consent-optional.svg" width="96" height="96" alt=""><h3>Optional Protection</h3><p>Your work is protected only if you use the platform's opt-out and the opt-out is effective.</p></article>
+        <article class="card"><img src="/brand/consent-none.svg" width="96" height="96" alt=""><h3>No Protection</h3><p>The platform's policy gives you no effective way to prevent AI training.</p></article>
       </div></section>
       <section class="section section-white"><div class="wrap">
         <p class="eyebrow">An assessment you can inspect</p>
         <h2>See the reason. See the source.</h2>
-        <p class="lede">Each assessment makes the relevant terms, available choices, and scope easy to understand.</p>
+        <p class="lede">Each assessment shows the terms we read, the choices the platform offers, and who is covered.</p>
         <div class="steps" style="margin-top:22px">
-          <article class="step"><p class="kicker">01</p><h3>Policy and version</h3><p>Original terms, policy links, review date, affected region, and account scope.</p></article>
-          <article class="step"><p class="kicker">02</p><h3>Available choices</h3><p>Training defaults, opt-in, opt-out, and differences between account types.</p></article>
+          <article class="step"><p class="kicker">01</p><h3>Policy and version</h3><p>We record the original terms, policy links, review date, region, and account scope.</p></article>
+          <article class="step"><p class="kicker">02</p><h3>Available choices</h3><p>We note the training default, the opt-in and opt-out choices, and differences between account types.</p></article>
           <article class="step"><p class="kicker">03</p><h3>Clarifications</h3><p>Company responses and published policy changes are reviewed before an assessment is updated.</p></article>
         </div>
       </div></section>
@@ -165,14 +165,14 @@ export function orgPages(images) {
       </div></section>
       <section class="section section-white"><div class="wrap">
         <h2>Represent a platform?</h2>
-        <p class="lede">Help keep the record accurate. Submit a clarification, correction, or updated policy for review.</p>
+        <p class="lede">You can submit a clarification, a correction, or an updated policy for review.</p>
         ${formSlot({
           id: TALLY_FORM_IDS.consentClarification,
           title: "Creative Consent platform clarification",
           subject: "Creative Consent platform clarification",
           submitLabel: "Submit for review",
           style: "margin-top:18px",
-          note: "Submissions are reviewed. They do not automatically change an assessment. Sending opens an email to hello@credtent.org.",
+          note: "Submissions are reviewed and do not automatically change an assessment. Sending opens your email app.",
           fields: `<label>Platform / organization <input name="platform" type="text" required></label>
           <label>Supporting policy URL <input name="policy" type="url" required></label>
           <label>Scope and requested correction <textarea name="scope" required></textarea></label>`
@@ -187,7 +187,7 @@ export function orgPages(images) {
           subject: "Creative Consent updates",
           submitLabel: "Subscribe to updates",
           style: "margin-top:18px",
-          note: "Sending opens an email to hello@credtent.org.",
+          note: "Sending opens your email app.",
           fields: `<label>Email address <input name="email" type="email" autocomplete="email" required></label>
           <label><span><input name="consent" type="checkbox"> Yes, send me Creative Consent updates.</span></label>`
         })}
@@ -224,7 +224,7 @@ export function orgPages(images) {
       eyebrow: "Opt-out",
       h1: "Opt out of AI training. Free.",
       capsule: CAPSULE.orgHome,
-      lede: "Register your work once. Credtent records your reservation and delivers the notice to AI companies. No fee to decline AI use of your work.",
+      lede: "There is no fee to decline AI use of your work.",
       actions: `<div class="btn-row"><a class="btn" href="${OPT_OUT_FLOW}">Start your free opt-out</a></div>`,
       crumbs: [{ name: "Opt-out", href: "https://credtent.org/opt-out" }],
       faq: [
@@ -235,28 +235,26 @@ export function orgPages(images) {
       main: `<section class="section section-white"><div class="wrap">
         <p class="eyebrow">What the opt-out is</p>
         <h2>One registration, one notice to the industry.</h2>
-        <p class="lede">When you register works with Credtent and choose opt-out, Credtent records your reservation of rights and delivers the notice to AI companies, with a dated record of when it went out. Instead of relying on each platform's separate setting, you set your preference once.</p>
+        <p class="lede">You set your preference once with Credtent, so you do not have to rely on each platform's separate setting.</p>
         <div class="steps" style="margin-top:24px">
-          <article class="step"><p class="kicker">01</p><h3>Create a free account</h3><p>Create a free Credtent account.</p></article>
-          <article class="step"><p class="kicker">02</p><h3>Register your works</h3><p>Add text, audio, video, image, or data to the registry and mark them opted out. One registration covers every AI company Credtent notifies.</p></article>
-          <article class="step"><p class="kicker">03</p><h3>Credtent sends the notice</h3><p>Credtent records your reservation and delivers the notice to AI companies, with a dated record of each delivery.</p></article>
+          <article class="step"><p class="kicker">01</p><h3>Create a free account</h3><p>Sign up with Credtent at no cost.</p></article>
+          <article class="step"><p class="kicker">02</p><h3>Register your works</h3><p>Add your text, audio, video, images, or data, and mark them opted out.</p></article>
+          <article class="step"><p class="kicker">03</p><h3>Credtent sends the notice</h3><p>Credtent delivers the notice to AI companies each quarter and keeps a dated record of each delivery.</p></article>
         </div>
         <div class="btn-row"><a class="btn" href="${OPT_OUT_FLOW}">Start your free opt-out</a></div>
       </div></section>
-      <section class="section"><div class="wrap prose">
+      <section class="section"><div class="wrap">
         <h2>What you can count on</h2>
-        <h3>It is free.</h3>
-        <p>Registering a work for the opt-out costs nothing, and the opt-out is not a trial. Every paid plan keeps the same opt-out and adds enrollment in periodic AI model audits. Credtent does not plan to charge for the free opt-out.</p>
-        <h3>You can change your mind.</h3>
-        <p>You can update your preferences at any time to enable licensing, with no retroactive fees and no penalties. A work that is opted out can be made licensable later, and a licensable work can go back to opt-out.</p>
-        <h3>It is recorded and dated.</h3>
-        <p>Credtent keeps a dated record of when each notice went out. If your work is used anyway, you can point to that record as evidence that the notice was sent, though it does not confirm that a company received the notice or acted on it.</p>
-        <h3>It can become an income stream.</h3>
-        <p>The same registry that records your opt-out can license your work on your terms if you ever choose to opt in.</p>
-        <p>Questions about limits live in the <a href="/resources/opt-out-limitations">opt-out limitations FAQ</a>.</p>
+        <div class="grid-4" style="margin-top:24px">
+          <article class="card"><h3>It is free.</h3><p>Registering a work for the opt-out costs nothing, and the opt-out is not a trial.</p><p class="note">Credtent does not plan to charge for the free opt-out.</p></article>
+          <article class="card"><h3>You can change your mind.</h3><p>You can move a work between opt-out and licensing at any time, with no retroactive fees and no penalties.</p></article>
+          <article class="card"><h3>It is recorded and dated.</h3><p>Credtent keeps a dated record of each notice it sends. You can point to that record as evidence that the notice was sent.</p><p class="note">The record does not confirm that a company received the notice or acted on it.</p></article>
+          <article class="card"><h3>You can license later.</h3><p>The same account that records your opt-out can license your work on your terms, if you choose to opt in.</p></article>
+        </div>
+        <p>Every paid plan keeps the same opt-out and adds enrollment in periodic AI model audits.</p>
+        <p><a href="/resources/opt-out-limitations">What the opt-out cannot do</a></p>
       </div></section>
       <section class="section section-white"><div class="wrap prose">
-        <p class="eyebrow">For AI companies</p>
         <h2>For AI companies: honoring opt-outs.</h2>
         <p>Credtent keeps a dated record of each opt-out notice it sends, and companies that honor those notices can show that they did.</p>
         <p><a href="https://credtent.com/ai-companies">How AI companies work with Credtent</a></p>
@@ -268,7 +266,8 @@ export function orgPages(images) {
       description: "Opt-Out Premium for rights holders enrolls their works in Credtent's periodic AI model audits, from US$299 a year.",
       eyebrow: "Opt-Out Premium",
       h1: "Enroll your works in periodic AI model audits.",
-      capsule: "Opt-Out Premium for rights holders, from US$299 a year, enrolls their works in Credtent's periodic AI model audits but does not include licensing. Audit results are not proof of dataset inclusion or infringement.",
+      capsule: "Opt-Out Premium is for rights holders. From US$299 a year, it enrolls their works in Credtent's periodic AI model audits and does not include licensing.",
+      capsuleNote: "Audit results are not proof of dataset inclusion or infringement.",
       actions: `<div class="btn-row"><a class="btn" href="/resources/auditing">Understand auditing</a></div>`,
       crumbs: [{ name: "Opt-Out Premium", href: "https://credtent.org/premium" }],
       extraLd: [{
@@ -300,7 +299,11 @@ export function orgPages(images) {
         { q: "Can individual creatives get audits?", a: "Yes. Licensing for individual creatives is US$49 a year for sign-ups through December 31, 2026, and it includes the opt-out and enrolls their works in Credtent's periodic AI model audits." }
       ],
       main: `<section class="section"><div class="wrap premium">
-        <div><p>Opt-Out Premium is for rights holders. Individual creatives get audit enrollment with licensing, at US$49 a year for sign-ups through December 31, 2026; see the <a href="https://credtent.com/pricing">pricing page</a>. The free opt-out remains available without either.</p><p><a href="${OPT_OUT_FLOW}">Get the free opt-out</a></p></div>
+        <div><h2>Which plan fits you</h2><ul>
+          <li>Rights holders: Opt-Out Premium, from US$299 a year, scaling with catalog size.</li>
+          <li>Individual creatives: licensing with audit enrollment, US$49 a year for sign-ups through December 31, 2026.</li>
+          <li>Everyone: the free opt-out, which does not include audits.</li>
+        </ul><div class="btn-row"><a class="btn" href="https://credtent.com/pricing">See all pricing</a><a class="btn btn-ghost" href="${OPT_OUT_FLOW}">Get the free opt-out</a></div></div>
         <div class="price-stack"><p>${price("US$299+")}</p><span class="price-meta">annually for rights holders, scaling with catalog size</span></div>
       </div></section>`
     },
@@ -310,13 +313,13 @@ export function orgPages(images) {
       description: "Guides for creatives on opt-out limits, platform terms, and keeping judgment when using AI.",
       eyebrow: "Resources",
       h1: "Understand more. Decide for yourself.",
-      capsule: "These resources explain what an opt-out can do, how to read a platform's AI terms, and how to use AI without handing over judgment.",
+      capsule: "Start here to learn what the opt-out can and cannot do, how audits work, and how AI training licensing works.",
       crumbs: [{ name: "Resources", href: "https://credtent.org/resources" }],
       faq: [],
       main: `<section class="section section-white"><div class="wrap grid-3">
-        <article class="card"><h3>Auditing</h3><p><a href="/resources/auditing">Read: how auditing works</a></p></article>
-        <article class="card"><h3>Opt-out limitations</h3><p><a href="/resources/opt-out-limitations">Read: opt-out limitations</a></p></article>
-        <article class="card"><h3>Guides</h3><p><a href="/guides/">Read: AI training data licensing for creatives</a></p></article>
+        <article class="card"><h3><a href="/resources/opt-out-limitations">Opt-out limits</a></h3><p>What the free opt-out does and does not do.</p></article>
+        <article class="card"><h3><a href="/resources/auditing">Auditing</a></h3><p>What a periodic AI model audit can show.</p></article>
+        <article class="card"><h3><a href="/guides/ai-training-data-licensing/">Licensing guide</a></h3><p>How AI training data licensing works, for rights holders.</p></article>
       </div>
       </section>`
     },
@@ -329,13 +332,18 @@ export function orgPages(images) {
       description: "Every paid plan enrolls works in Credtent's periodic AI model audits. Audit results are not proof of dataset inclusion.",
       eyebrow: "Auditing",
       h1: "What an audit can show.",
-      capsule: "Opt-Out Premium for rights holders enrolls their works in Credtent's periodic AI model audits, and Credtent records the results. Audit results are not proof of dataset inclusion or infringement.",
+      capsule: "A periodic AI model audit records how AI models respond, and Credtent keeps the results.",
+      capsuleNote: "Audit results are not proof of dataset inclusion or infringement.",
       crumbs: [{ name: "Resources", href: "https://credtent.org/resources" }, { name: "Auditing", href: "https://credtent.org/resources/auditing" }],
       faq: [
         { q: "Is an audit proof my work was in a training set?", a: "No. It is an observation of a model response, not a dataset inventory." },
         { q: "Who is it for?", a: "It comes with every paid plan, and the free opt-out does not include it." }
       ],
-      main: `<section class="section"><div class="wrap prose"><p>Auditing is optional. The free opt-out still records preferences and notices without it. Read <a href="/premium">Opt-Out Premium</a>.</p><p>Opt-Out Premium for rights holders starts at ${price("US$299")} a year. Individual creatives get audits with licensing, at ${price("US$49")} a year for sign-ups through December 31, 2026.</p></div></section>`
+      main: `<section class="section"><div class="wrap prose"><p>Auditing is optional, and the free opt-out records your preferences and notices without it.</p>
+        <h2>Who gets audits</h2><ul>
+          <li>Rights holders: Opt-Out Premium, from US$299 a year.</li>
+          <li>Individual creatives: licensing, US$49 a year for sign-ups through December 31, 2026.</li>
+        </ul><p><a href="/premium">See Opt-Out Premium</a></p></div></section>`
     },
     {
       path: "/resources/opt-out-limitations",
@@ -351,7 +359,7 @@ export function orgPages(images) {
         { q: "Are notices the same as confirmation?", a: "No. Sent notices are distinct from confirmed receipt or action." },
         { q: "Does Premium prove infringement?", a: "No. Audit results are not proof of dataset inclusion or infringement." }
       ],
-      main: `<section class="section"><div class="wrap prose"><p>Corporate licensing questions are answered on <a href="https://credtent.com/faq">credtent.com/faq</a>.</p></div></section>`
+      main: `<section class="section"><div class="wrap prose"><p><a href="https://credtent.com/faq">Licensing questions for companies</a></p></div></section>`
     },
     {
       path: "/badges/",
@@ -360,13 +368,13 @@ export function orgPages(images) {
       description: "Creative Origin, Creative Consent, and Commercial Safety. Certification is about works and processes.",
       eyebrow: "Badges",
       h1: "The badge systems",
-      capsule: "Three badge systems: one for creative work, one for platforms, and one for AI companies. Certification looks at works and organizational processes.",
+      capsule: "Credtent has three badge systems: one for creative work, one for platforms, and one for AI companies.",
       crumbs: [{ name: "Badges", href: "https://credtent.org/badges/" }],
       faq: [],
       main: `<section class="section section-white"><div class="wrap">
         <p class="eyebrow">For creatives and publishers</p>
         <h2>Creative Origin</h2>
-        <p class="lede">Creative Origin signals the role of AI in a specific creative work, for creatives and publishers who want the audience to know how a work was made, from a fully human-composed novel to an AI-generated image, with the middle ground disclosed honestly.</p>
+        <p class="lede">Creative Origin tells your audience what role AI played in a specific work.</p>
         <div class="grid-3" style="margin-top:16px">
           <figure class="card badge-card badge-hc"><span class="certified-ribbon">Certified</span><img src="/brand/badges/creative-origin-human-composed.png" width="512" height="512" alt="Human Composed badge, HC"><figcaption><span class="badge-label">Human Composed</span><span class="badge-code">HC</span></figcaption></figure>
           <figure class="card badge-card badge-aa"><span class="certified-ribbon">Certified</span><img src="/brand/badges/creative-origin-ai-assisted.png" width="512" height="512" alt="AI-Assisted badge, AA"><figcaption><span class="badge-label">AI-Assisted</span><span class="badge-code">AA</span></figcaption></figure>
@@ -379,22 +387,28 @@ export function orgPages(images) {
           <li><strong>Legacy Creation:</strong> the work was made before November 2022, predating generative AI tools.</li>
         </ul>
         <p class="fine">Only Human Composed and AI-Assisted are offered as certified, with a corner ribbon. AI-Generated is not a certified tier.</p>
-        <p>There are two ways to display it: a free self-declared disclosure badge you make yourself, or a paid, expert-reviewed certified badge with a registry record. A free badge is a disclosure, not a certification.</p>
+        <h3>Two ways to display it</h3>
+        <ul>
+          <li>Free: a self-declared disclosure badge you make yourself.</li>
+          <li>Certified: a paid, expert-reviewed badge with a registry record.</li>
+        </ul>
+        <p class="note">A free badge is a disclosure, not a certification.</p>
         <div class="btn-row"><a class="btn" href="/badge-builder">Build your free badge</a><a class="btn btn-ghost" href="https://credtent.com/certified-publisher">Get the certified seal</a></div>
-        <p class="small">Working in more than one format? The <a href="/creative-origin">multi-format Creative Origin composer</a> builds a combined origin bar for works that mix text, art, music, code, video, and voices. It is an earlier generation of the badge tool and shows the earlier badge designs.</p>
+        <p class="small">If your work mixes formats, the <a href="/creative-origin">multi-format composer</a> builds one origin bar for text, art, music, code, video, and voices. It shows the earlier badge designs.</p>
         <p class="eyebrow" style="margin-top:36px">For platforms</p>
         <h2>Creative Consent</h2>
-        <p>Creative Consent rates how a platform treats creatives' data, content, and metadata, and whether it respects their choices about AI training.</p>
+        <p>Creative Consent rates how a platform handles AI training on the work you publish there.</p>
         <ul>
-          <li><strong>Full Protection:</strong> protected by default. AI training requires explicit opt-in. Creatives can still choose to participate.</li>
-          <li><strong>Optional Protection:</strong> protection depends on using an available, effective opt-out.</li>
-          <li><strong>No Protection:</strong> the assessed policy offers no effective choice to prevent that use.</li>
+          <li><strong>Full Protection:</strong> Your work is protected by default, and AI training happens only if you opt in.</li>
+          <li><strong>Optional Protection:</strong> Your work is protected only if you use the platform's opt-out and the opt-out is effective.</li>
+          <li><strong>No Protection:</strong> The platform's policy gives you no effective way to prevent AI training.</li>
         </ul>
         <p><a href="/creative-consent">Read Creative Consent</a></p>
         <p class="eyebrow" style="margin-top:36px">For AI companies</p>
         <h2>Commercial Safety</h2>
-        <p>A badge for AI companies, with Full, Guardrail, and Provisional levels. Inquiry: <a href="https://credtent.com/contact#other">contact Credtent</a>.</p>
-        <p class="fine">Disclosure badges are free to use. Expert-led certification is paid because expert review is real labor.</p>
+        <p>Commercial Safety is a badge for AI companies, with Full, Guardrail, and Provisional levels.</p>
+        <div class="btn-row"><a class="btn btn-ghost" href="https://credtent.com/contact#other">Ask about Commercial Safety</a></div>
+        <p class="note">Disclosure badges are free to use. Certification is paid because experts carry out each review.</p>
       </div></section>`
     },
     {
@@ -403,7 +417,8 @@ export function orgPages(images) {
       description: "Make a self-declared Creative Origin badge in about a minute. It is a disclosure, not a certification.",
       eyebrow: "Free badge builder",
       h1: "Make your badge in about a minute.",
-      capsule: "Pick a label, generate the badge, and download it. You do not need an account. The result is a self-declared disclosure, not a Credtent certification.",
+      capsule: "Pick a label, generate your badge, and download it. You do not need an account.",
+      capsuleNote: "The result is a self-declared disclosure, not a Credtent certification.",
       crumbs: [{ name: "Badge builder", href: "https://credtent.org/badge-builder" }],
       faq: [],
       main: `<section class="section"><div class="wrap">
@@ -413,7 +428,7 @@ export function orgPages(images) {
             <h2>Choose how your work was made</h2>
             <div class="tier-group" id="tier-group" role="radiogroup" aria-label="Choose how your work was made">
               <button class="tier-row is-selected" type="button" role="radio" aria-checked="true" data-tier="hcc"><span><span class="tier-name">Human Composed</span><span class="tier-blurb">Made by a person, without generative AI composing the work.</span></span></button>
-              <button class="tier-row" type="button" role="radio" aria-checked="false" data-tier="aac"><span><span class="tier-name">AI-assisted</span><span class="tier-blurb">A person made it with help from AI tools.</span></span></button>
+              <button class="tier-row" type="button" role="radio" aria-checked="false" data-tier="aac"><span><span class="tier-name">AI-Assisted</span><span class="tier-blurb">A person made it with help from AI tools.</span></span></button>
               <button class="tier-row" type="button" role="radio" aria-checked="false" data-tier="acc"><span><span class="tier-name">AI-Generated</span><span class="tier-blurb">Generated by AI.</span></span></button>
             </div>
           </div>
@@ -421,7 +436,7 @@ export function orgPages(images) {
             <p class="kicker">Step 2</p>
             <h2>Generate your badge</h2>
             <button class="generate-btn" id="generate-btn" type="button">Generate badge</button>
-            <p class="small">The free path is self declared. No sign-in, no cost.</p>
+            <p class="small">The free badge is self-declared, with no sign-in and no cost.</p>
           </div>
           <div id="result-step" hidden>
             <p class="kicker">Step 3</p>
@@ -439,7 +454,7 @@ export function orgPages(images) {
             </div>
           </div>
         </div>
-        <p class="fine">The badge builder produces a free disclosure badge. It is not a Credtent certification. <a href="https://credtent.com/certified-publisher">Learn about certification</a>. Works in more than one format can use the <a href="https://registry.credtent.org/creative-origin">multi-format Creative Origin composer</a>.</p>
+        <p class="fine"><a href="https://credtent.com/certified-publisher">Learn about certification</a> · <a href="https://registry.credtent.org/creative-origin">Open the multi-format composer</a></p>
         <div class="gate-overlay" id="email-gate" role="dialog" aria-modal="true" aria-labelledby="email-gate-title">
           <div class="gate-card">
             <h2 id="email-gate-title">Before you download</h2>
@@ -450,8 +465,7 @@ export function orgPages(images) {
         </div>
       </div></section>
       <script src="/badge-builder.js" defer></script>
-      <script src="/badge-builder-ui.js" defer></script>
-      <section class="section section-tight"><div class="wrap prose"><p class="fine">This badge is a self-declared disclosure, not a certification. Certified review is a separate process described on the Creative Origin page.</p></div></section>`
+      <script src="/badge-builder-ui.js" defer></script>`
     },
     {
       path: "/blog",
@@ -459,7 +473,7 @@ export function orgPages(images) {
       description: "Writing on AI, creative rights, and copyright, published on Substack and Medium.",
       eyebrow: "Blog",
       h1: "The Credtent blog",
-      capsule: "Credtent publishes on Medium and Substack. This page points at those pieces. It does not republish them.",
+      capsule: "Credtent publishes on Medium and Substack, and this page links to those pieces.",
       crumbs: [{ name: "Blog", href: "https://credtent.org/blog" }],
       faq: [],
       main: `<section class="section"><div class="wrap blog-list">
@@ -475,7 +489,7 @@ export function orgPages(images) {
       path: "/wga",
       title: "Screenplay certification and the WGA West member offer",
       description: "Credtent's screenplay certification process was reviewed by the Writers Guild of America and accepted. Certification is US$300 per screenplay, with 50% off for WGA West members who register through the WGA.",
-      eyebrow: "Writers Guild of America",
+      eyebrow: "Screenplay certification",
       h1: "Certified Human Composed for screenwriters.",
       capsule: "The Writers Guild of America reviewed Credtent's screenplay certification process and accepted it. The badge is a record of review, not a promise about copyright registration.",
       crumbs: [{ name: "WGA", href: "https://credtent.org/wga" }],
@@ -488,41 +502,40 @@ export function orgPages(images) {
         <div class="prose">
           <img src="/badges/human-composed-creation-badge.svg" width="160" height="160" alt="Certified Human Composed badge">
           <h2>A certification service for screenwriters.</h2>
-          <p>Credtent's certification process reviews your authorship record and issues a Certified Human Composed badge when the work meets the Human Composed standard. It gives you a documented record of how the work was made, and it does not change your legal rights. Production companies and studios need assurance that screenplays are human-authored to avoid copyright and IP risk.</p>
+          <p>Credtent's certification process reviews your authorship record and issues a Certified Human Composed badge when the work meets the Human Composed standard.</p>
+          <p>It gives you a documented record of how the work was made, and it does not change your legal rights.</p>
           <p class="price-stack"><span class="price">US$300</span> <span class="price-meta">per screenplay, with 50% off for WGA West members who register through the WGA.</span></p>
         </div>
         <ul class="check-list">
-          <li>A time-stamped record of your drafts, process, and Credtent's review, which you can keep with your files and give to counsel. It does not guarantee a copyright registration or any legal outcome.</li>
-          <li>Industry credibility as AI-authored work spreads</li>
-          <li>Free access to the Creative Origin badge system</li>
+          <li>An authorship record (described below)</li>
           <li>Review by a professional auditor</li>
+          <li>Free access to the Creative Origin badge system</li>
           <li>Credtent does not use your screenplay to train AI models.</li>
         </ul>
       </div></section>
       <section class="section"><div class="wrap">
         <h2>How does certification work?</h2>
-        <p class="lede">Three steps lead to a Certified Human Composed badge, and the process is built to fit a screenwriter's schedule.</p>
+        <p class="lede">Three steps lead to a Certified Human Composed badge.</p>
         <div class="steps" style="margin-top:20px">
           <article class="step"><p class="kicker">01</p><h3>Submit and survey</h3><p>Upload your screenplay and complete a short authorship survey covering your process, drafts, and tools.</p></article>
-          <article class="step"><p class="kicker">02</p><h3>Secure analysis</h3><p>An AI-detection analysis informs the review. A professional auditor makes the decision. Credtent does not use your screenplay to train AI models.</p></article>
+          <article class="step"><p class="kicker">02</p><h3>Analysis</h3><p>An AI-detection analysis informs the review. A professional auditor makes the decision. Credtent does not use your screenplay to train AI models.</p></article>
           <article class="step"><p class="kicker">03</p><h3>Expert review</h3><p>A professional auditor reviews the analysis and authorship record, then issues your Certified Human Composed badge.</p></article>
         </div>
       </div></section>
       <section class="section section-white"><div class="wrap">
         <h2>Show that your script was written by a person.</h2>
-        <p class="lede">Studios, producers, and audiences are starting to ask which scripts were written by people. The certified badge makes the answer clear, and pairs it with a badge and credit line you may ask a production to include, and an authorship record.</p>
-        <div class="grid-2" style="margin-top:20px">
+        <p class="lede">Certification gives you a credit line, an authorship record, and a Creative Origin badge to show studios and producers.</p>
+        <div class="grid-3" style="margin-top:20px">
           <article class="card"><h3>Credit line</h3><p>A badge and credit line you may ask a production to include.</p></article>
           <article class="card"><h3>Authorship record</h3><p>A time-stamped record of your drafts, process, and Credtent's review, which you can keep with your files and give to counsel. It does not guarantee a copyright registration or any legal outcome.</p></article>
-          <article class="card"><h3>Creative Origin badge</h3><p>Free access to Credtent's badge system, which travels with your work across the web.</p></article>
-          <article class="card"><h3>An audit-ready record</h3><p>Every certification produces a documentation packet you can hand to studios, agents, or counsel.</p></article>
+          <article class="card"><h3>Creative Origin badge</h3><p>Free access to Credtent's Creative Origin badge system.</p></article>
         </div>
       </div></section>
       <section class="section"><div class="wrap prose">
         <h2>WGA West member offer: 50% off.</h2>
         <p>The Writers Guild of America reviewed Credtent's screenplay certification process and accepted it. Certification is US$300 per screenplay, and members of the Writers Guild of America West who register through the WGA currently receive 50% off.</p>
         <div class="btn-row"><a class="btn" href="https://registry.credtent.org/auth/sign-in?next=/script-ai-analyzer">Continue to the registry</a></div>
-        <p class="small">Questions? Write to <a href="mailto:hello@credtent.org">hello@credtent.org</a>.</p>
+        <p><a href="/contact">Ask a question</a></p>
       </div></section>`
     },
     {
@@ -532,12 +545,12 @@ export function orgPages(images) {
       description: "Creative education on AI training data licensing, plus a pointer to the company map on credtent.com.",
       eyebrow: "Guides",
       h1: "Guides",
-      capsule: "The creative guide explains how AI training data licensing works. The company map now lives on the corporate site.",
+      capsule: "Two guides explain how AI training data licensing works and which companies offer it.",
       crumbs: [{ name: "Guides", href: "https://credtent.org/guides/" }],
       faq: [],
-      main: `<section class="section"><div class="wrap prose">
-        <p><a href="/guides/ai-training-data-licensing/">Read: how AI training data licensing works</a></p>
-        <p><a href="https://credtent.com/guides/ai-training-data-licensing-companies/">Read: the company map on credtent.com</a></p>
+      main: `<section class="section"><div class="wrap grid-2">
+        <article class="card"><h3><a href="/guides/ai-training-data-licensing/">How AI training data licensing works</a></h3><p>A guide for rights holders.</p></article>
+        <article class="card"><h3><a href="https://credtent.com/guides/ai-training-data-licensing-companies/">Who licenses AI training data</a></h3><p>A map of the companies, on credtent.com.</p></article>
       </div></section>`
     },
     {
@@ -554,34 +567,68 @@ export function orgPages(images) {
         { q: "Can a license fix past training for everyone?", a: "No. We can structure a going-forward license and a covenant not to sue over past use from the rights holders who sign, limited to the named works. Neither one binds a rights holder who did not sign, and neither one satisfies the developer's regulatory obligations." }
       ],
       main: `<section class="section"><div class="wrap prose">
-        <p>Updated October 2026. Published by Credtent, a Delaware Public Benefit Corporation.</p>
-        <p>Questions about AI training data licensing reach us from both sides of the table: creatives and rights holders register their works with us for opt-out, licensing, or both, and AI companies come to us to license named collections of that work. This guide answers the questions rights holders bring to us.</p>
+        <p class="lede">This guide answers the questions rights holders ask us about licensing their work for AI training.</p>
+        <p class="fine">Updated November 2026. Published by Credtent, a Delaware Public Benefit Corporation.</p>
         <h2>What is AI training data licensing?</h2>
-        <p>It is a written agreement in which the owner of text, images, audio, video, or data grants an AI developer permission to use specific works to train a model, in exchange for payment and on defined terms. The license names the works, the permitted uses, the duration, and the documentation the developer receives.</p>
-        <p>Every training license has two parties with different worries. The developer wants to know that the people granting permission had the right to grant it, and that the paperwork will hold up when a regulator or a court asks where the training data came from. The rights holder wants to know what the work will be used for, who else can use it, and how payment reaches the people who made it.</p>
-        <p>In the European Union, the text and data mining exception in Article 4 of Directive (EU) 2019/790 applies only where rights holders have not expressly reserved their rights, and for content published online that reservation can be made by machine-readable means. Once a rights holder has reserved those rights, a developer who still wants the work needs permission, and a license is how permission is given.</p>
+        <p>It is a written agreement in which the owner of text, images, audio, video, or data grants an AI developer permission to use specific works to train a model, in exchange for payment and on defined terms.</p>
+        <p>A license names:</p>
+        <ul><li>the works</li><li>the permitted uses</li><li>the duration</li><li>the documentation the developer receives</li></ul>
+        <p>Each side has its own question:</p>
+        <ul><li>The developer wants to know that the people granting permission had the right to grant it.</li><li>The rights holder wants to know what the work will be used for, who else can use it, and how payment reaches the people who made it.</li></ul>
+        <div class="callout"><h3>In the European Union</h3><p>In the European Union, the text and data mining exception in Article 4 of Directive (EU) 2019/790 applies only where rights holders have not expressly reserved their rights, and for content published online that reservation can be made by machine-readable means. Once a rights holder has reserved those rights, a developer who still wants the work needs permission, and a license is how permission is given.</p></div>
         <h2>What rights does a training license grant?</h2>
-        <p>A training license grants permission to use named works to train or fine-tune a model, within the scope the contract states. It does not automatically cover inference or grounding, where content is retrieved to answer a user's question, and it does not transfer copyright. Those uses, and any indemnity, need their own written terms.</p>
-        <p>The difference matters because some programs now license them separately. Microsoft's Publisher Content Marketplace, announced on February 3, 2026, is built for grounding: in Microsoft's description, publishers set licensing and usage terms while AI builders license content for specific grounding scenarios. A training license and a grounding license can cover the same article and still be two different contracts.</p>
-        <p>A license also conveys only the rights its signatories hold. A book can carry rights held by an author, a publisher, an illustrator, and a translator, and a license signed by one of them does not bind the others. That is why a careful license comes with a manifest, a list of exactly which works are covered, and with records showing who warranted which rights.</p>
-        <p>Our corporate page states the boundary in these words: "Licenses include the rights the contracting holders warranted, a named manifest, and a disclosure pack your counsel can use for EU AI Act Art. 53 and CA AB 2013 filings. Those statutes still bind the developer. Indemnity, if any, is only as written in the signed license."</p>
+        <p>A training license lets a developer use named works to train or fine-tune a model, within the scope the contract states.</p>
+        <p>It does not automatically cover:</p>
+        <ul><li>inference or grounding, where content is retrieved to answer a question</li><li>a transfer of copyright</li><li>any indemnity</li></ul>
+        <p>Some programs license grounding separately. Microsoft's Publisher Content Marketplace, announced on February 3, 2026, is built for grounding.</p>
+        <p>A license conveys only the rights its signers hold, so a careful license comes with a manifest of the works covered and a record of who warranted which rights.</p>
+        <div class="callout"><p>Licenses include the rights the contracting holders warranted, a named manifest, and a disclosure pack your counsel can use for EU AI Act Art. 53 and CA AB 2013 filings. Those statutes still bind the developer. Indemnity, if any, is only as written in the signed license.</p></div>
         <h2>Who can offer a license?</h2>
-        <p>Licenses come from four kinds of sellers: individual creatives, publishers and other rights holders who own catalogs, aggregators and marketplaces that gather content from many owners, and collective or platform-run programs that offer one set of terms to many participants. They differ in scale, documentation, and how payment reaches the people who made the work.</p>
-        <p>Individual creatives can license their own work directly or reach AI buyers through an agent, a marketplace, or a collective program. Publishers, studios, labels, archives, and data providers can license a catalog directly; their main questions are which rights they hold for each work and how much control they keep after signing. Aggregators and marketplaces either take a license from each owner and resell it, or act as an agent and route payment back to the owners. Collective programs offer standard terms to many participants at once: Copyright Clearance Center, for example, offers an AI Systems Training License to organizations training AI systems for external uses.</p>
-        <p>The neutral company map is on <a href="https://credtent.com/guides/ai-training-data-licensing-companies/">credtent.com</a>.</p>
+        <p>Licenses come from four kinds of sellers:</p>
+        <ul>
+          <li>Individual creatives, directly or through an agent, a marketplace, or a collective program.</li>
+          <li>Publishers, studios, labels, archives, and data providers that own catalogs.</li>
+          <li>Aggregators and marketplaces, which resell licenses or act as an agent and route payment back to owners.</li>
+          <li>Collective programs that offer one set of terms to many participants, such as Copyright Clearance Center's AI Systems Training License.</li>
+        </ul>
+        <p><a href="https://credtent.com/guides/ai-training-data-licensing-companies/">See the company map on credtent.com</a></p>
         <h2>How are licenses priced?</h2>
-        <p>Four structures are common: a flat fee for a defined collection, a per-work or per-unit rate, a revenue share between seller and rights holders, and usage-based fees tied to how often content is accessed. The price depends on exclusivity, quality, documentation, the rights layers involved, and the license term.</p>
-        <p>Credtent does not publish a rate card for AI companies. On the rights-holder side our structure is a revenue share: under its standard terms, Credtent routes 85% of each licensing deal to the rights holders and data providers whose content was licensed and keeps 15% for the platform, legal work, compliance tools, and operations. The Terms of Service list the costs and taxes deducted before payment.</p>
+        <p>Four structures are common:</p>
+        <ul><li>a flat fee for a defined collection</li><li>a per-work or per-unit rate</li><li>a revenue share between seller and rights holders</li><li>usage-based fees tied to how often content is accessed</li></ul>
+        <p>The price depends on exclusivity, quality, documentation, the rights layers involved, and the license term.</p>
+        <p>Credtent does not publish a rate card for AI companies.</p>
+        <p class="note">Under its standard terms, Credtent routes 85% of each licensing deal to the rights holders and data providers whose content was licensed and keeps 15% for the platform, legal work, compliance tools, and operations. The Terms of Service list the costs and taxes deducted before payment.</p>
         <p>Usage-based pricing appears in access and grounding programs. Cloudflare's pay per crawl, which its own page describes as a private beta feature of AI Crawl Control, lets publishers charge AI crawlers for access.</p>
         <h2>What records do developers need?</h2>
-        <p>Developers of general-purpose AI models in the EU must publish a sufficiently detailed summary of training content and keep a copyright policy that honors rights reservations, under Article 53 of the EU AI Act. Under Article 113, those obligations apply from 2 August 2025. California's AB 2013 (Chapter 817, approved September 28, 2024) requires developers to post training-data documentation, including the sources or owners of the datasets and whether they were purchased or licensed.</p>
-        <p>A developer's filings remain the developer's responsibility. A good license improves the evidence available to the people who write them: a manifest of named works, a record of who warranted which rights, and dates for when the content was delivered.</p>
+        <ul>
+          <li><strong>European Union:</strong> Developers of general-purpose AI models in the EU must publish a sufficiently detailed summary of training content and keep a copyright policy that honors rights reservations, under Article 53 of the EU AI Act. Under Article 113, those obligations apply from 2 August 2025.</li>
+          <li><strong>California:</strong> California's AB 2013 (Chapter 817, approved September 28, 2024) requires developers to post training-data documentation, including the sources or owners of the datasets and whether they were purchased or licensed.</li>
+        </ul>
+        <p>A developer's filings remain the developer's responsibility. A good license gives the people who write them a manifest of named works, a record of who warranted which rights, and delivery dates.</p>
         <h2>Can a license cover content a model already trained on?</h2>
-        <p>A deal can address past training only for the rights holders who sign it. Credtent states the limit in these words: "We can structure a going-forward license and a covenant not to sue over past use from the rights holders who sign, limited to the named works. Neither one binds a rights holder who did not sign, and neither one satisfies the developer's regulatory obligations." Rights holders who did not sign keep every claim they had.</p>
+        <p>A deal can address past training only for the rights holders who sign it.</p>
+        <div class="callout"><p>We can structure a going-forward license and a covenant not to sue over past use from the rights holders who sign, limited to the named works. Neither one binds a rights holder who did not sign, and neither one satisfies the developer's regulatory obligations.</p></div>
+        <p>Rights holders who did not sign keep every claim they had.</p>
         <h2>How can a rights holder participate?</h2>
-        <p>Document ownership, list the works, set which uses and buyers you will accept, and set the terms Credtent licenses within. With Credtent, you submit catalog metadata, ownership documentation, and your licensing terms; we verify ownership and tag the content so AI buyers can find it; and royalties are paid quarterly with usage reports. Listing transfers no copyright, and the license you grant Credtent is non-exclusive unless you agree otherwise in writing. You can end our representation at any time. Details are on <a href="https://credtent.com/content-owners">credtent.com/content-owners</a>.</p>
-        <p>You can also choose the <a href="/opt-out">free opt-out</a> instead. Opt-Out Premium for rights holders, from <span class="price">US$299</span> a year, enrolls their works in Credtent's periodic AI model audits and does not include licensing. Licensing for individual creatives is US$49 a year for sign-ups through December 31, 2026, and it includes the same audit enrollment. From 2027, new individual sign-ups pay US$99 a year, and creatives who sign up during the promotion keep US$49 a year through 2028 while the subscription stays active. After 2028, and for anyone who rejoins after a lapse or cancellation, the regular price applies. Rights-Holder Licensing, for publishers and others who represent many creatives, starts at $299 a year. Full terms are on the <a href="https://credtent.com/pricing">pricing page</a>.</p>
-        <p>Opting out and licensing are not permanent choices. A work registered for opt-out can be made licensable later, and a licensable work can be withdrawn to opt-out, with no retroactive fees.</p>
+        <ol>
+          <li>Document ownership and list your works.</li>
+          <li>Set which uses and buyers you will accept, and the terms Credtent licenses within.</li>
+          <li>Credtent verifies ownership and tags the content so AI buyers can find it.</li>
+          <li>Credtent pays royalties quarterly, with usage reports.</li>
+        </ol>
+        <p class="note">Listing transfers no copyright, and the license you grant Credtent is non-exclusive unless you agree otherwise in writing.</p>
+        <p>You can end our representation at any time.</p>
+        <div class="btn-row"><a class="btn btn-ghost" href="https://credtent.com/content-owners">Details for content owners</a></div>
+        <h3>Your options and what they cost</h3>
+        <ul>
+          <li>Free opt-out: no charge.</li>
+          <li>Opt-Out Premium for rights holders: from US$299 a year. It enrolls works in periodic AI model audits and does not include licensing.</li>
+          <li>Licensing for individuals: US$49 a year for sign-ups through December 31, 2026, with the same audit enrollment.</li>
+          <li>Rights-Holder Licensing, for publishers and others who represent many creatives: from US$299 a year.</li>
+        </ul>
+        <p class="note">From 2027, new individual sign-ups pay US$99 a year, and creatives who sign up during the promotion keep US$49 a year through 2028 while the subscription stays active. After 2028, and for anyone who rejoins after a lapse or cancellation, the regular price applies.</p>
+        <div class="btn-row"><a class="btn btn-ghost" href="https://credtent.com/pricing">See full pricing</a></div>
+        <p>You can move a work between opt-out and licensing later, with no retroactive fees.</p>
       </div></section>`
     },
     {
@@ -644,11 +691,11 @@ export function orgPages(images) {
       description: "The multi-format Creative Origin composer lives on the Credtent registry.",
       eyebrow: "Creative Origin",
       h1: "The composer lives on the registry.",
-      capsule: "The multi-format Creative Origin tool is on the registry.",
+      capsule: "The multi-format Creative Origin composer builds one origin bar for works that mix text, art, music, code, video, and voices.",
       crumbs: [{ name: "Creative Origin", href: "https://credtent.org/creative-origin" }],
       faq: [],
-      main: `<section class="section"><div class="wrap prose"><p><a href="https://registry.credtent.org/creative-origin">Continue to registry.credtent.org/creative-origin</a></p></div></section>
-      <section class="section section-tight"><div class="wrap prose"><p class="fine">This is not the free badge builder. The free one-label builder is on this site; the multi-format composer is on the registry.</p></div></section>`
+      main: `<section class="section"><div class="wrap prose"><div class="btn-row"><a class="btn" href="https://registry.credtent.org/creative-origin">Open the composer</a></div>
+        <p>For the free one-label badge, use the <a href="/badge-builder">badge builder</a>.</p></div></section>`
     },
     {
       path: "/contact",
@@ -656,7 +703,7 @@ export function orgPages(images) {
       description: "Contact Credtent about opt-out, Creative Consent, and resources.",
       eyebrow: "Contact",
       h1: "Contact Credtent.",
-      capsule: "Creatives can write to hello@credtent.org, and this form opens an email to that address.",
+      capsule: "Send us a question about the opt-out, Creative Consent, or anything else on this site.",
       crumbs: [{ name: "Contact", href: "https://credtent.org/contact" }],
       faq: [],
       main: `<section class="section"><div class="wrap grid-2">
@@ -665,15 +712,17 @@ export function orgPages(images) {
           title: "Credtent.org Contact",
           subject: "Credtent inquiry",
           submitLabel: "Send",
-          note: "Sending opens an email to hello@credtent.org.",
+          note: "Sending opens your email app.",
           fields: `<label>Name <input name="name" type="text" autocomplete="name" required></label>
           <label>Email <input name="email" type="email" autocomplete="email" required></label>
           <label>Message <textarea name="message" required></textarea></label>`
         })}
-        <div>
-          <p><a href="mailto:hello@credtent.org">hello@credtent.org</a></p>
-          ${ADDRESS_HTML}
-        </div>
+        <dl class="contact-panel">
+          <dt>Email</dt>
+          <dd><a href="mailto:hello@credtent.org">hello@credtent.org</a></dd>
+          <dt>Mail</dt>
+          <dd>${ADDRESS_HTML}</dd>
+        </dl>
       </div></section>`
     }
   ];
