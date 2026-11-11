@@ -588,6 +588,8 @@ async function main() {
   for (const site of Object.values(SITES)) {
     reset(site.dir);
     copyShared(site.dir);
+    // Brackett round four (EB card "Yes, port it", 2026-11-10): the richer .com layer, credtent.com only.
+    if (site.id === "com") fs.copyFileSync(path.join(ROOT, "src/styles/refine-com.css"), path.join(site.dir, "css", "refine-com.css"));
     imagesFor[site.id] = await buildImages(site.dir);
   }
   copyBadges(SITES.org.dir);
