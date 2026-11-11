@@ -518,3 +518,165 @@ main > .wrap:first-child + section { border-top: 3px solid var(--accent); }
    (seen from 1000 px up to about 1180 px). Restore the .wrap gutter: 28 px, and 16 px at 999 px and below as site.css does. */
 .wrap.section-tight { padding-inline: 28px; }
 @media (max-width: 999px) { .wrap.section-tight { padding-inline: 16px; } }
+
+/* ===================== Round five (Brackett, 2026-11-10, r5/css/refine5.css): layout repairs after the shorter copy. Ported by Clarke onto 95fe3ed. ===================== */
+/* Credtent sites, Brackett round five, 2026-11-10: layout repairs after the shorter copy. Loads AFTER refine.css (and refine-com.css on .com).
+   Applies to both sites unless a selector starts with .site-com or .site-org. CSS only; one small optional script (js/embed-fallback.js) for the
+   contact embed. No copy, markup, or structured data changed. Orange stays an accent; no orange text on a light ground. */
+
+/* =========================================================================
+   1. Orphans and ragged lines (all pages)
+   ========================================================================= */
+h1, h2, h3 { text-wrap: balance; }
+p, li, summary, .lede, .capsule, .note, .stat-caption { text-wrap: pretty; }
+
+/* 2. Header band side padding: not ported; Clarke's 76b9549 (end of the copy-rewrite layer above) already restores it. */
+
+/* Inner-page titles: the 16ch cap stacked short titles on three lines ("The composer / lives on / the registry.") */
+main > .wrap:first-child h1 { max-width: 22ch; }
+@media (max-width: 999px) { main > .wrap:first-child h1 { max-width: none; } }
+
+/* =========================================================================
+   3. Text columns align to the same left grid line as every other section (they were centred at 760 px, leaving a ragged left edge)
+   ========================================================================= */
+.wrap.prose { max-width: var(--wrap); }
+.wrap.prose > * { max-width: 760px; }
+.wrap.prose > .table-wrap, .wrap.prose > .guide-table-wrap, .wrap.prose > .btn-row, .wrap.prose > .faq-list { max-width: none; }
+.prose .price-stack { text-align: left; } /* the WGA price sat right-aligned inside a left column */
+/* A section that holds a single short paragraph (the FAQ intro) does not need a full section of padding */
+main > section.section:has(> .wrap.prose > p:only-child) { padding-top: 28px; padding-bottom: 8px; }
+
+/* =========================================================================
+   4. Cards: equal rows without empty bottoms. Cards are columns; the trailing link, button row, or legal note pins to the bottom edge.
+   ========================================================================= */
+.grid-2 > .card, .grid-3 > .card, .grid-4 > .card { display: flex; flex-direction: column; }
+.grid-2 > .card > .btn-row:last-child, .grid-3 > .card > .btn-row:last-child, .grid-4 > .card > .btn-row:last-child,
+.grid-2 > .card > p:last-child:has(> a:only-child), .grid-3 > .card > p:last-child:has(> a:only-child), .grid-4 > .card > p:last-child:has(> a:only-child) { margin-top: auto; padding-top: 14px; }
+.grid-2 > .card > .note:last-child, .grid-3 > .card > .note:last-child, .grid-4 > .card > .note:last-child { margin-top: auto; padding-top: 12px; }
+.grid-2 + p, .grid-3 + p, .grid-4 + p { margin-top: 24px; }
+
+/* Four-up grids become 2 by 2: four 250 px columns made tall narrow cards with empty bottoms (pricing plans, "what you can count on") */
+@media (min-width: 600px) { .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1000px) { .grid-4 { gap: 24px; } }
+
+/* =========================================================================
+   5. Pricing: the book card (three editions were clipped inside half a card) and the plan cards
+   ========================================================================= */
+@media (min-width: 1000px) { .site-com .grid-2:has(.editions) { grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); } }
+.editions { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.editions li { min-width: 0; padding: 14px 14px 16px; overflow-wrap: anywhere; }
+.editions .price { font-size: clamp(22px, 2.2vw, 30px); }
+@media (max-width: 999px) { .editions { grid-template-columns: 1fr; } }
+@media (min-width: 600px) and (max-width: 999px) { .editions { grid-template-columns: repeat(3, minmax(0, 1fr)); } .editions .price { font-size: 22px; } }
+
+/* =========================================================================
+   6. About: the book block was a two-column split with a one-line right column (a blank half page).
+   One column: text, button, editions across the full width, the price note under them.
+   ========================================================================= */
+#collaborithmic-age .split { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+#collaborithmic-age .split > div:last-child p { font-size: 15px; line-height: 1.5; color: #3B4261; margin: 0; }
+
+/* =========================================================================
+   7. Contact (.com): two real panels, a designed fallback if the form embed is slow or blocked, a contact plaque
+   ========================================================================= */
+.site-com #ai-licensing, .site-com #content-partners {
+  position: relative; background: linear-gradient(180deg, #fff, #FAFBFE); border-radius: 18px; padding: 34px 30px 30px;
+  box-shadow: 0 0 0 1px rgba(21, 33, 83, 0.07), 0 1px 2px rgba(21, 33, 83, 0.06), 0 12px 30px -16px rgba(21, 33, 83, 0.18);
+}
+.site-com #ai-licensing::before, .site-com #content-partners::before { content: ""; position: absolute; top: 0; left: 28px; width: 56px; height: 4px; border-radius: 0 0 4px 4px; background: linear-gradient(90deg, #290099, #EC5A00); }
+.site-com #content-partners { display: flex; flex-direction: column; align-self: start; }
+.site-com #content-partners .btn-row { margin-top: 22px; }
+.site-com .grid-2:has(#ai-licensing) h2 { font-size: clamp(28px, 3vw, 38px); margin-bottom: 8px; }
+.tally-embed { margin-top: 18px; position: relative; }
+.tally-embed iframe { border-radius: 12px; }
+/* Port change (Clarke): the panel never shows an empty hole. embed-fallback.js sets one state on the box.
+   - embed-pending: the form is loading. A 120 px loading line shows; the frame sits invisibly under it at the same size, so Tally's
+     lazy loader still sees it and sets its src.
+   - embed-ready: Tally has messaged from its own frame. The form shows at Tally's own height (480 px minimum).
+   - embed-failed: no message after 4 s. The frame is hidden and "Email us" becomes a full-width button.
+   Without JavaScript the frame never gets a src, so it is hidden and only the email link and the noscript link show. */
+.tally-embed:not(.embed-pending):not(.embed-ready):not(.embed-failed) iframe:not([src]) { display: none; }
+/* The loading line is generated content on the pending box, so no paragraph sits hidden in the page when the form is not loading. */
+.tally-embed.embed-pending::before { content: "Loading the form."; display: flex; align-items: center; min-height: 120px; padding: 0 22px 0 44px; border-radius: 12px; color: #3B4261; font-size: 16px;
+  background: radial-gradient(circle at 24px 50%, var(--accent) 0 5px, transparent 6px), #F4F5FB; }
+.tally-embed.embed-pending iframe { height: 120px !important; min-height: 0 !important; width: 100%; opacity: 0; position: absolute; left: 0; top: 0; pointer-events: none; }
+.tally-embed.embed-ready iframe { min-height: 480px !important; }
+.tally-embed.embed-failed iframe { display: none; }
+.tally-embed.embed-failed > p.small { margin: 0; }
+.tally-embed.embed-failed > p.small a, .site-com .tally-embed > p.small a { display: flex; align-items: center; justify-content: center; min-height: 48px; padding: 10px 20px; border: 2px solid var(--ink); border-radius: var(--radius-button); color: var(--ink); font-size: 17px; font-weight: 700; text-decoration: none; }
+.tally-embed > p.small a:hover { background: var(--ink); color: #fff; }
+.tally-embed:not(.embed-failed) > p.small { margin-top: 14px; }
+.tally-embed:not(.embed-failed) > p.small a { min-height: 44px; display: inline-flex; border-width: 0; padding: 0; justify-content: flex-start; font-size: 16px; font-weight: 600; text-decoration: underline; border-radius: 0; }
+.tally-embed:not(.embed-failed) > p.small a:hover { background: none; color: var(--purple); }
+
+/* contact plaque: both sites */
+.contact-panel {
+  position: relative; align-self: start; margin: 0; padding: 30px 30px 28px; border-radius: 18px; background: #fff;
+  box-shadow: 0 0 0 1px rgba(21, 33, 83, 0.07), 0 1px 2px rgba(21, 33, 83, 0.06), 0 12px 30px -16px rgba(21, 33, 83, 0.18);
+}
+.contact-panel::before { content: ""; position: absolute; top: 0; left: 28px; width: 56px; height: 4px; border-radius: 0 0 4px 4px; background: linear-gradient(90deg, #290099, #EC5A00); }
+.contact-panel dt { font-size: 12px; letter-spacing: 0.12em; margin-top: 22px; }
+.contact-panel dt:first-child { margin-top: 0; }
+.contact-panel dd { font-size: 19px; line-height: 1.5; margin-top: 6px; }
+.contact-panel dd a { font-weight: 600; }
+.site-com .contact-panel {
+  background: radial-gradient(80% 70% at 100% 0%, rgba(70, 30, 210, 0.4), rgba(70, 30, 210, 0) 60%), linear-gradient(165deg, #0F1A44, #152153 62%, #1C1A6E);
+  color: var(--on-dark); box-shadow: 0 30px 54px -26px rgba(13, 21, 41, 0.7);
+}
+.site-com .contact-panel dt { color: var(--on-dark-2); }
+.site-com .contact-panel dd, .site-com .contact-panel address { color: #fff; }
+.site-com .contact-panel dd a { color: #fff; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.site-com #other h2 { font-size: clamp(26px, 2.6vw, 34px); margin-bottom: 18px; }
+.site-com #other .form { max-width: none; }
+
+/* =========================================================================
+   8. org home: the founder block, still long. Text left, the two people right (desktop); the people sit in two columns on phones.
+   ========================================================================= */
+@media (min-width: 1000px) {
+  #who > .wrap:has(> .team) { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); column-gap: 56px; align-items: start; }
+  #who > .wrap:has(> .team) > * { grid-column: 1; }
+  #who > .wrap:has(> .team) > .team { grid-column: 2; grid-row: 1 / span 6; margin-top: 0 !important; align-self: center; }
+}
+#who .bcorp-badge { justify-self: start; }
+#who .team { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+#who .person { padding: 16px; }
+#who .person img { aspect-ratio: 1; }
+#who .btn-row { margin-top: 20px; }
+
+/* =========================================================================
+   9. Short pages that looked sparse once the copy got shorter
+   ========================================================================= */
+/* hub cards whose whole title is a link (org resources): large, one click target, an arrow */
+.card:has(> h3 > a:only-child) { padding: 34px 28px 64px; min-height: 190px; }
+.card:has(> h3 > a:only-child) h3 { font-size: 28px; }
+.card:has(> h3 > a:only-child) h3 a { text-decoration: none; color: var(--ink); }
+.card:has(> h3 > a:only-child) h3 a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.card:has(> h3 > a:only-child)::after { content: "\2192" / ""; position: absolute; right: 24px; bottom: 16px; font-size: 30px; line-height: 1; color: var(--ink); transition: translate 0.2s var(--ease-out); }
+.card:has(> h3 > a:only-child):hover::after { translate: 6px 0; }
+.card:has(> h3 > a:only-child):focus-within { outline: 3px solid var(--accent); outline-offset: 3px; }
+/* a section that is only a button and a line (org creative-origin): one wide call-to-action panel */
+.wrap.prose:has(> .btn-row:first-child) {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 18px 32px; padding: 40px 34px; max-width: var(--wrap);
+  background: #fff; border-radius: 22px; box-shadow: 0 0 0 1px rgba(21, 33, 83, 0.07), 0 1px 2px rgba(21, 33, 83, 0.06), 0 16px 36px -18px rgba(21, 33, 83, 0.22);
+}
+.wrap.prose:has(> .btn-row:first-child) > * { margin: 0; max-width: none; }
+.wrap.prose:has(> .btn-row:first-child) .btn { font-size: 19px; min-height: 56px; }
+main > section:has(> .wrap.prose > .btn-row:first-child) { padding-top: 44px; padding-bottom: 44px; }
+
+/* =========================================================================
+   10. The 85% figure and the two-item fact row (Clarke's new components, finished)
+   ========================================================================= */
+@media (min-width: 800px) {
+  .wrap.prose:has(> .stat-figure) { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 44px; align-items: center; max-width: var(--wrap); }
+  .wrap.prose:has(> .stat-figure) > .eyebrow, .wrap.prose:has(> .stat-figure) > h2 { grid-column: 1 / -1; max-width: 760px; }
+  .wrap.prose:has(> .stat-figure) > .stat-figure { grid-column: 1; margin: 6px 0 0; padding: 18px 34px 22px; border-radius: 22px; background: #fff; box-shadow: 0 0 0 1px rgba(21, 33, 83, 0.07), 0 16px 36px -18px rgba(21, 33, 83, 0.25); }
+  .wrap.prose:has(> .stat-figure) > .stat-caption { grid-column: 2; margin-top: 6px; max-width: 40rem; }
+}
+@media (min-width: 600px) { .fact-row { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: none; } }
+.fact-row li { background: #fff; border-radius: 14px; padding: 14px 18px; border-left: 3px solid var(--accent); box-shadow: 0 0 0 1px rgba(21, 33, 83, 0.07), 0 8px 20px -14px rgba(21, 33, 83, 0.2); }
+
+/* 44 px targets for title links and the contact email (measured 36, 38 and 23 px before) */
+main h3 > a:only-child { display: inline-flex; align-items: center; min-height: 44px; }
+.contact-panel dd a { display: inline-flex; align-items: center; min-height: 44px; }
+
+@media (prefers-reduced-motion: reduce) { .card:has(> h3 > a:only-child)::after { transition: none; } }

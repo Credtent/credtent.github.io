@@ -440,7 +440,8 @@ export function renderPage(site, page) {
   ${footer(site, consent.footerItem, page.disclosures?.length ? `<div class="wrap footer-disclosures" aria-label="Disclosures">${page.disclosures.map((d) => `<p>${d}</p>`).join("")}</div>` : "")}
   ${consent.banner}
 ${frozen ? "" : `  <script src="/js/motion.js" defer></script>
-`}</body>
+`}${(page.main || "").includes('class="tally-embed"') ? `  <script src="/js/embed-fallback.js" defer></script>
+` : ""}</body>
 </html>
 `;
 }

@@ -107,6 +107,7 @@ function copyShared(dir) {
   const js = path.join(dir, "js");
   fs.mkdirSync(js, { recursive: true });
   fs.copyFileSync(path.join(ROOT, "src/js/motion.js"), path.join(js, "motion.js"));
+  fs.copyFileSync(path.join(ROOT, "src/js/embed-fallback.js"), path.join(js, "embed-fallback.js"));
   const fonts = path.join(dir, "fonts");
   fs.mkdirSync(fonts, { recursive: true });
   for (const file of fs.readdirSync(path.join(ROOT, "src/fonts"))) {
