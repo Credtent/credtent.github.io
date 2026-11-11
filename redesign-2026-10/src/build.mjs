@@ -102,6 +102,11 @@ function copyShared(dir) {
   fs.mkdirSync(css, { recursive: true });
   fs.copyFileSync(path.join(ROOT, "src/styles/tokens.css"), path.join(css, "tokens.css"));
   fs.copyFileSync(path.join(ROOT, "src/styles/site.css"), path.join(css, "site.css"));
+  // Brackett's design layers (rounds one to three) and the deferred same-origin motion script (EB card "Yes, port this").
+  fs.copyFileSync(path.join(ROOT, "src/styles/refine.css"), path.join(css, "refine.css"));
+  const js = path.join(dir, "js");
+  fs.mkdirSync(js, { recursive: true });
+  fs.copyFileSync(path.join(ROOT, "src/js/motion.js"), path.join(js, "motion.js"));
   const fonts = path.join(dir, "fonts");
   fs.mkdirSync(fonts, { recursive: true });
   for (const file of fs.readdirSync(path.join(ROOT, "src/fonts"))) {
@@ -562,6 +567,14 @@ function vercel(site, pages) {
   fs.writeFileSync(path.join(site.dir, "vercel.json"), JSON.stringify({ headers, redirects }, null, 2) + "\n");
 }
 
+// Photos credited on each site's /credits page and credits.json. Brackett's round-two and round-three heroes add
+// filmmaker, writer, resourceJudgment and training on .com, and editor and podcast on .org (r2 and r3 design.md).
+// check-launch-style test: scripts/test-credits.mjs fails if a built page shows a /media photo not listed here.
+const CREDIT_KEYS = {
+  com: ["bridge", "editor", "aiTeam", "podcast", "citation", "training", "filmmaker", "writer", "resourceJudgment", "galen", "eric", "abigail", "carmen", "freddy", "michael", "raymond", "jim", "colin"],
+  org: ["creative", "editor", "podcast", "writer", "filmmaker", "resourceOptout", "resourceTerms", "resourceJudgment", "eric", "galen"]
+};
+
 function reset(dir) {
   fs.rmSync(dir, { recursive: true, force: true });
   fs.mkdirSync(dir, { recursive: true });
@@ -696,8 +709,8 @@ async function main() {
       ...pages,
       sitemapPage(site, pages),
       creditsPage(site, imagesFor[site.id], site.id === "com"
-        ? ["bridge", "editor", "aiTeam", "podcast", "citation", "training", "galen", "eric", "carmen", "freddy", "michael", "raymond", "jim", "colin"]
-        : ["creative", "writer", "filmmaker", "resourceOptout", "resourceTerms", "resourceJudgment", "eric", "galen"])
+        ? CREDIT_KEYS.com
+        : CREDIT_KEYS.org)
     ];
     for (const page of withMeta) writePage(site.dir, site, page);
     writePage(site.dir, site, notFound(site));
@@ -711,8 +724,8 @@ async function main() {
       generatedFrom: "build manifest",
       note: "Filmmaker credit uses an ID-only photo URL.",
       photos: (site.id === "com"
-        ? ["bridge", "editor", "aiTeam", "podcast", "citation", "training", "galen", "eric", "carmen", "freddy", "michael", "raymond", "jim", "colin"]
-        : ["creative", "writer", "filmmaker", "resourceOptout", "resourceTerms", "resourceJudgment", "eric", "galen"]
+        ? CREDIT_KEYS.com
+        : CREDIT_KEYS.org
       ).map((key) => {
         const img = imagesFor[site.id][key];
         return { alt: img.alt, credit: img.credit, creditHref: img.creditHref || null, license: img.license, licenseHref: img.licenseHref || null };

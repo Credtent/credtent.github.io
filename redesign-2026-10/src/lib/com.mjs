@@ -1,5 +1,6 @@
 import { ADDRESS_HTML, BOOK, CAPSULE, CONTENT_PARTNER_INQUIRY, LICENSE_SENTENCE, OPT_OUT_FLOW, SIGN_UP, price } from "./copy.mjs";
 import { ORG_ID, diagramHtml, figure, inquiryForm, picture, tallyEmbed } from "./render.mjs";
+import { COM_HERO_SIZES, comHero } from "./heroes.mjs";
 
 function editions() {
   return `<ul class="editions">
@@ -52,12 +53,17 @@ export function comPages(images) {
       heroBand: true,
       lede: "We help content owners and AI companies define permitted uses, assess value, and agree on terms for mutual prosperity and commercial safety.",
       actions: `<div class="btn-row"><a class="btn" href="${SIGN_UP}">Sign up</a><a class="btn btn-ghost" href="/contact">Contact us</a></div>`,
-      media: hero("bridge", { priority: true, sizes: "(min-width: 1000px) 50vw, 100vw" }),
+      // Brackett round three: the two-sided hero, creative frame meets AI-team frame (src/lib/heroes.mjs).
+      heroHtml: comHero(images, {
+        eyebrow: "Connecting creativity and AI",
+        lede: "We help content owners and AI companies define permitted uses, assess value, and agree on terms for mutual prosperity and commercial safety.",
+        actions: `<a class="btn" href="${SIGN_UP}">Sign up</a><a class="btn btn-ghost" href="/contact">Contact us</a>`
+      }),
       disclosures: [
         "Training and display permissions are agreed separately, and source visits are not guaranteed.",
         "The valuation inputs shown on this page are illustrative and are not a pricing formula. Evidence, assumptions, and intended use inform the assessment, and the parties agree the final price."
       ],
-      preload: preload("bridge"),
+      preload: preload("filmmaker").replace("(min-width: 1000px) 50vw, 100vw", COM_HERO_SIZES),
       faq: [
         { q: "What is Credtent?", a: CAPSULE.comHome },
         { q: "Does a license replace a company's own legal duties?", a: LICENSE_SENTENCE },

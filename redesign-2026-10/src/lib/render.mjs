@@ -85,14 +85,15 @@ function crumbNode(site, crumbs, pageUrl) {
   };
 }
 
-export function picture(img, { sizes = "100vw", priority = false, className = "" } = {}) {
+export function picture(img, { sizes = "100vw", priority = false, eager = false, className = "" } = {}) {
   const avif = img.widths.map((w) => `${img.base}-${w}.avif ${w}w`).join(", ");
   const webp = img.widths.map((w) => `${img.base}-${w}.webp ${w}w`).join(", ");
   const displayWidth = img.widths[img.widths.length - 1];
   const displayHeight = Math.round(img.height * (displayWidth / img.width));
   const src = `${img.base}-${displayWidth}.webp`;
   const fp = priority ? ' fetchpriority="high"' : "";
-  const loading = priority ? "eager" : "lazy";
+  // eager without priority: hero images after the first (Brackett r3: no pop-in at the first crossfade).
+  const loading = priority || eager ? "eager" : "lazy";
   const cls = className ? ` class="${className}"` : "";
   return `<picture>
     <source type="image/avif" srcset="${avif}" sizes="${sizes}">
@@ -352,7 +353,9 @@ export function renderPage(site, page) {
   const lede = page.lede ? `<p class="lede">${page.lede}</p>` : "";
   const actions = page.actions || "";
   const intro = `${crumbBlock}${eyebrow}${h1}${capsule}${lede}${actions}`;
-  const top = page.media && page.heroBand
+  const top = page.heroHtml
+    ? page.heroHtml
+    : page.media && page.heroBand
     ? `<div class="hero-band"><div class="hero hero-home"><div class="hero-copy">${intro}</div>${page.media}</div></div>`
     : page.media
     ? `<div class="wrap"><div class="hero"><div>${intro}</div>${page.media}</div></div>`
@@ -413,13 +416,14 @@ export function renderPage(site, page) {
   ${preload}
   <link rel="stylesheet" href="/css/tokens.css">
   <link rel="stylesheet" href="/css/site.css">
+  <link rel="stylesheet" href="/css/refine.css">
   <link rel="icon" href="/favicon/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
   <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png">
   <script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": graph })}</script>
   ${consent.head}
 </head>
-<body>
+<body class="site-${site.id}">
   <a class="skip-link" href="#content">Skip to content</a>
   ${previewBar}
   ${nav(site, path)}
@@ -430,6 +434,7 @@ export function renderPage(site, page) {
   </main>
   ${footer(site, consent.footerItem, page.disclosures?.length ? `<div class="wrap footer-disclosures" aria-label="Disclosures">${page.disclosures.map((d) => `<p>${d}</p>`).join("")}</div>` : "")}
   ${consent.banner}
+  <script src="/js/motion.js" defer></script>
 </body>
 </html>
 `;

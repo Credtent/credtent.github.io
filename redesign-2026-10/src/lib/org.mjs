@@ -1,5 +1,6 @@
 import { ADDRESS_HTML, BOOK, CAPSULE, OPT_OUT_FLOW, SIGN_IN, price } from "./copy.mjs";
 import { ORG_ID, TALLY_FORM_IDS, bcorpBadge, figure, formSlot, picture } from "./render.mjs";
+import { CREATIVE_SENTENCE, ORG_HERO_SIZES, STEP_ARROWS, orgHero } from "./heroes.mjs";
 
 function editions() {
   return `<ul class="editions">
@@ -24,8 +25,14 @@ export function orgPages(images) {
       heroBand: true,
       lede: "Tell AI companies not to train on your work. Understand how platforms use your content and make informed choices about your work.",
       actions: `<div class="btn-row"><a class="btn" href="${OPT_OUT_FLOW}">Get free opt-out</a><a class="btn btn-ghost" href="/opt-out">See how it works</a></div>`,
-      media: `<figure class="hero-media">${shot("creative", { priority: true, sizes: "(min-width: 1000px) 50vw, 100vw" }).replace(/^<figure class="shot">/, "").replace(/<\/figure>$/, "")}<div class="caption-panel"><strong>Keep creating.</strong><span>We'll help you navigate AI.</span></div></figure>`,
-      preload: preload("creative", "(min-width: 1000px) 50vw, 100vw"),
+      // Brackett round three: the tilted-card collage hero and the creative strip (src/lib/heroes.mjs).
+      heroHtml: orgHero(images, {
+        eyebrow: "For creatives in the age of AI",
+        capsule: CAPSULE.orgHome,
+        lede: "Tell AI companies not to train on your work. Understand how platforms use your content and make informed choices about your work.",
+        actions: `<a class="btn" href="${OPT_OUT_FLOW}">Get free opt-out</a><a class="btn btn-ghost" href="/opt-out">See how it works</a>`
+      }),
+      preload: preload("editor", ORG_HERO_SIZES),
       faq: [
         { q: "What does the free opt-out do?", a: CAPSULE.orgHome },
         { q: "Does registration remove work from datasets?", a: "No. Registration does not automatically remove work from datasets. Credtent records preferences and the notices it sends." },
@@ -35,6 +42,7 @@ export function orgPages(images) {
         <div class="wrap">
           <p class="eyebrow">For the work you make</p>
           <h2>Whatever you create, your choices matter.</h2>
+          <p>${CREATIVE_SENTENCE}</p>
           <p class="lede">Practical tools and resources to help you protect your creative work and understand your choices in the age of AI.</p>
           <div class="photo-band">
             <figure>${shot("writer", { sizes: "(min-width: 1000px) 50vw, 100vw" }).replace(/^<figure class="shot">|<\/figure>/g, "")}<figcaption>For the words you write.</figcaption></figure>
@@ -53,7 +61,7 @@ export function orgPages(images) {
           <p class="eyebrow">A documented history</p>
           <h2>How your opt-out works</h2>
           <p class="lede">Credtent records your opt-out preferences and the notices we send to AI companies, building a documented history over time. We cannot guarantee that every company will act on your request.</p>
-          <div class="steps" style="margin-top:24px">
+          <div class="steps" style="margin-top:24px">${STEP_ARROWS}
             <article class="step"><p class="kicker">01</p><h3>Register your preferences</h3><p>Identify the work you want included in your opt-out request.</p></article>
             <article class="step"><p class="kicker">02</p><h3>We send your request</h3><p>Credtent distributes the opt-out list to AI companies each quarter. Sent notices are distinct from confirmed receipt or action.</p></article>
             <article class="step"><p class="kicker">03</p><h3>Choose additional support</h3><p>Add a paid plan, and Credtent enrolls your works in its periodic AI model audits.</p></article>
