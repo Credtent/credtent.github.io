@@ -270,3 +270,11 @@ test("the built privacy pages carry PRIVACY_LAST_UPDATED (or its placeholder) fr
   const comIntro = fs.readFileSync(path.join(root, "sites/com/privacy-policy/index.html"), "utf8");
   assert.ok(comIntro.includes(`Last updated ${privacyDate()}.`), "com privacy intro does not use privacyDate()");
 });
+test("the built /parking/lws page stays byte-identical while legal hold item 11 is open (Cherryh 2026-11-10)", async () => {
+  const fs = await import("node:fs");
+  const path = await import("node:path");
+  const crypto = await import("node:crypto");
+  const file = path.join(path.resolve(import.meta.dirname, ".."), "sites/org/parking/lws/index.html");
+  // git blob b1ae85fc; change this pin only after Cherryh's written clearance of item 11.
+  assert.equal(crypto.createHash("sha256").update(fs.readFileSync(file)).digest("hex"), "c10e7a097f16ab796066c5b3640ecca3f0c40322193248c58d98ebfd5f0dfb36");
+});

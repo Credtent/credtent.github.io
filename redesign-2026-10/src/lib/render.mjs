@@ -393,6 +393,8 @@ export function renderPage(site, page) {
     ? ""
     : `<p class="preview-bar"><strong>Preview.</strong> This build is noindex until Eric publishes.</p>`;
   const consent = consentUi(site);
+  // Legal hold item 11: the built /parking/lws page stays byte-identical until Cherryh clears it, so it gets no design layer.
+  const frozen = Boolean(page.designFrozen);
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -415,15 +417,15 @@ export function renderPage(site, page) {
   <link rel="preload" href="/fonts/source-serif-4-latin-700.woff2" as="font" type="font/woff2" crossorigin>
   ${preload}
   <link rel="stylesheet" href="/css/tokens.css">
-  <link rel="stylesheet" href="/css/site.css">
-  <link rel="stylesheet" href="/css/refine.css">
+  <link rel="stylesheet" href="/css/site.css">${frozen ? "" : `
+  <link rel="stylesheet" href="/css/refine.css">`}
   <link rel="icon" href="/favicon/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
   <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png">
   <script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": graph })}</script>
   ${consent.head}
 </head>
-<body class="site-${site.id}">
+<body${frozen ? "" : ` class="site-${site.id}"`}>
   <a class="skip-link" href="#content">Skip to content</a>
   ${previewBar}
   ${nav(site, path)}
@@ -434,8 +436,8 @@ export function renderPage(site, page) {
   </main>
   ${footer(site, consent.footerItem, page.disclosures?.length ? `<div class="wrap footer-disclosures" aria-label="Disclosures">${page.disclosures.map((d) => `<p>${d}</p>`).join("")}</div>` : "")}
   ${consent.banner}
-  <script src="/js/motion.js" defer></script>
-</body>
+${frozen ? "" : `  <script src="/js/motion.js" defer></script>
+`}</body>
 </html>
 `;
 }

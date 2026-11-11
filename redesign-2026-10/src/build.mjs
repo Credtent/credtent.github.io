@@ -298,6 +298,7 @@ function legacyPage(site, file, pagePath, opts = {}) {
     h1: opts.h1 || opts.title || "Credtent",
     capsule: opts.terms === "current" ? termsParts.capsule.replace(/&#39;/g, "'") : opts.capsule || description || "Ported page.",
     noindex: Boolean(opts.noindex) || pagePath.startsWith("/parking"),
+    designFrozen: Boolean(opts.designFrozen),
     crumbs: [{ name: opts.crumb || "Page", href: site.origin + pagePath }],
     faq: opts.faq || [],
     main: `<section class="section"><div class="wrap legacy">${opts.intro || ""}${body}</div></section>`
@@ -696,7 +697,8 @@ async function main() {
       h1: "Parked member page",
       eyebrow: "Parked",
       capsule: "Older member page retained at its previous URL.",
-      crumb: "Parked member page"
+      crumb: "Parked member page",
+      designFrozen: true
     })
     // parking/services was removed from the live site on 2026-10-31 (PR #24): its round-the-clock
     // monitoring copy contradicts relay-and-record. Its old URLs 301 to the current services page.
