@@ -512,3 +512,9 @@ main > .wrap:first-child + section { border-top: 3px solid var(--accent); }
 .callout p:last-child { margin-bottom: 0; }
 .promo-terms { padding-left: 18px; margin: 8px 0; }
 .promo-terms li { margin: 2px 0; }
+
+/* Port fix (Clarke, 2026-11-10): site.css's ".section-tight { padding: ... 0 }" zeroes the side gutter of every .wrap.section-tight above
+   the phone breakpoint, so inner-page header bands sat flush against the viewport edge between the phone breakpoint and the 1120 px wrap
+   (seen from 1000 px up to about 1180 px). Restore the .wrap gutter: 28 px, and 16 px at 999 px and below as site.css does. */
+.wrap.section-tight { padding-inline: 28px; }
+@media (max-width: 999px) { .wrap.section-tight { padding-inline: 16px; } }
