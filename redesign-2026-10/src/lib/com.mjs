@@ -16,7 +16,7 @@ function bookBand() {
       <div>
         <p class="eyebrow">The Collaborithmic Age</p>
         <h2>Understand how creativity and AI can work together.</h2>
-        <p class="lede">Written by E.R. Burgess, Credtent CEO and creative technologist, the book draws on his years of content valuation and two and a half years developing full-cycle AI licensing to explore how to use AI, understand the value of your work, and keep your creative skills and judgment strong.</p>
+        <p class="lede">Written by Credtent CEO E.R. Burgess, the book draws on his years of content valuation and two and a half years developing full-cycle AI licensing to explore how to use AI, how to understand the value of your work, and how to keep your creative skills and judgment strong.</p>
         <div class="btn-row"><a class="btn" href="${BOOK}">Explore the book</a></div>
         ${editions()}
       </div>
@@ -99,8 +99,8 @@ export function comPages(images) {
         <div class="wrap">
           <p class="eyebrow">Content valuation</p>
           <h2>Understand your content's value. Explore your licensing options.</h2>
-          <p class="lede">Credtent assesses what content is worth for AI licensing, so that high-quality, credible work is licensed at an appropriate value.</p>
-          <p>A baseline valuation comes when you register on Credtent. An optional paid custom valuation goes deeper into the catalog, its evidence, and its intended use.</p>
+          <p class="lede">Credtent assesses what your content is worth for AI licensing, so you start a price conversation with evidence.</p>
+          <p>A baseline valuation comes when you register on Credtent. An optional paid custom valuation goes deeper into your catalog, its evidence, and its intended use.</p>
           <h3 style="margin-top:28px">The Burgess-Buckwalter methodology, the Credtent Universal Content Valuation System</h3>
           ${diagramHtml()}
           <div class="btn-row"><a class="btn" href="/valuation">Request a valuation</a></div>
@@ -395,7 +395,7 @@ export function comPages(images) {
         <article class="card"><h3>Explore more options.</h3><p>Evaluate additional licensing possibilities and how they fit your existing agreements.</p></article>
       </div></section>
       <section class="section"><div class="wrap grid-2">
-        <article class="card"><h3>Baseline valuation</h3><p>Credtent provides a baseline valuation when content is added. It gives the licensing conversation an informed starting point.</p></article>
+        <article class="card"><h3>Baseline valuation</h3><p>Credtent provides a baseline valuation when content is added.</p></article>
         <article class="card"><h3>Paid custom valuation</h3><p>This optional assessment goes deeper into your catalog, its evidence, its intended AI use, and the questions you need answered.</p><p><a href="/contact#other">Discuss a custom assessment</a></p></article>
       </div></section>
       <section class="section section-white"><div class="wrap">
@@ -533,7 +533,7 @@ export function comPages(images) {
         <p class="eyebrow">The origin</p>
         <h2>Why was Credtent founded?</h2>
         <p>Credtent exists because the AI economy is not a zero-sum game. Creatives and AI companies need each other, and they need a neutral place to do business together, ethically, legally, and profitably.</p>
-        <p>The problem Credtent solves was visible long before it became a headline. For more than eight years, our team researched creative IP, digital rights, and the coming collision between AI's demand for training data and intellectual property law. When AI content licensing reached the mainstream, we had spent years on the problem and had a model ready to test.</p>
+        <p>For more than eight years, our team has researched creative IP, digital rights, and the collision between AI's demand for training data and intellectual property law. When AI content licensing reached the mainstream, we had a model ready to test.</p>
         <h2>What is Credtent's mission?</h2>
         <p class="lede">Credtent's mission is to bring AI and creativity together ethically, legally, and profitably.</p>
         <p>We measure our decisions against that mission. We try to make every deal work for the creative side, and when a policy does not work for the AI side, we revise it.</p>
@@ -554,10 +554,13 @@ export function comPages(images) {
       <section class="section section-white" id="who"><div class="wrap prose">
         <p class="eyebrow">Who Credtent is</p>
         <h2>E.R. Burgess and the company he founded.</h2>
-        <p>Credtent connects AI companies and the creative industries through licensing, so AI solutions are ethical and commercially safe.</p>
-<p>E.R. Burgess founded Credtent after more than eight years of research into creative rights and data provenance, well before the public AI debate grew loud. He started from the idea that AI and human creativity can work together, ethically, legally, and profitably, when the people who make the work are paid and their consent is on record.</p>
-<p>E.R. Burgess brings over 30 years of industry experience. He is also a published tabletop game designer, with card, board, and role-playing games to his name. He leads Credtent as Founder and CEO, alongside Co-Founder and Chief Science Officer Dr. Galen Buckwalter.</p>
-<p>Credtent, Inc. is a Delaware Public Benefit Corporation and a Certified B Corp. Its charter names protecting creators of original works in the AI marketplace as a public benefit.</p>
+        <p class="lede">E.R. Burgess founded Credtent and leads it as Founder and CEO, with Co-Founder and Chief Science Officer Dr. Galen Buckwalter.</p>
+        <ul>
+          <li>He brings over 30 years of industry experience.</li>
+          <li>He spent more than eight years researching creative rights and data provenance before founding Credtent.</li>
+          <li>He is a published designer of card, board, and role-playing games.</li>
+        </ul>
+        <p>He started from the idea that AI and human creativity can work together, ethically, legally, and profitably, when the people who make the work are paid and their consent is on record.</p>
       </div></section>
       <section class="section"><div class="wrap">
         <p class="eyebrow">The people behind the work</p>
@@ -597,7 +600,7 @@ export function comPages(images) {
           <div>
             <p class="eyebrow">The Collaborithmic Age</p>
             <h2>Understand how creativity and AI can work together.</h2>
-            <p class="lede">Written by E.R. Burgess, Credtent CEO and creative technologist, the book draws on his years of content valuation and two and a half years developing full-cycle AI licensing to explore how to use AI, understand the value of your work, and keep your creative skills and judgment strong.</p>
+            <p class="lede">Written by Credtent CEO E.R. Burgess, the book draws on his years of content valuation and two and a half years developing full-cycle AI licensing to explore how to use AI, how to understand the value of your work, and how to keep your creative skills and judgment strong.</p>
             <div class="btn-row"><a class="btn" href="https://collaborithmic.com/">Explore the book</a></div>
             ${editions()}
           </div>
@@ -811,7 +814,7 @@ export function comPages(images) {
         <p>Credtent is a Delaware Public Benefit Corporation. We own none of the content we license, train no AI models, and compete with no organization we certify.</p>
         <p>Creative Origin is one of three Credtent badge systems, and it shows the role of AI in how a work was made. <a href="https://credtent.org/creative-consent">Creative Consent</a> covers platforms, and Commercial Safety covers AI companies. See the <a href="https://credtent.org/badges/">badge systems overview</a>, or make a free self-declared disclosure badge with the <a href="https://credtent.org/badge-builder">badge builder</a>.</p>
         <h2>Tell us about your editorial process.</h2>
-        <p>Describe your organization, content type, and editorial workflow. Our reviewers will come back with a certification scope and fee estimate within five business days, with no commitment.</p>
+        <p>Describe your organization, content type, and editorial workflow. We aim to send a certification scope and fee estimate within five business days, with no commitment.</p>
         <div class="btn-row"><a class="btn" href="/contact#other">Describe your process</a><a class="btn btn-ghost" href="mailto:hello@credtent.org">Email us</a></div>
       </div></section>`
     }
