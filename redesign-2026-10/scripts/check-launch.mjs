@@ -503,7 +503,8 @@ export function run() {
   const orgHome = fs.readFileSync(path.join(sites.org.dir, "index.html"), "utf8");
   const premium = (orgHome.match(/<section[^>]*id="premium"[\s\S]*?<\/section>/) || [""])[0];
   const premiumText = visibleText(premium).replace(/\s+/g, " ");
-  if (!/Licensing for individuals \. US\$49 \(promo\)/.test(premiumText) || !/Opt-Out Premium for rights holders \. from US\$299/.test(premiumText)) fails.push("org/index.html: the #premium prices are not labeled \"Licensing for individuals US$49 (promo)\" and \"Opt-Out Premium for rights holders from US$299\"");
+  // Copy rewrite 2026-11-10 (Vonnegut H6): the promo label may read "(promo)" or "a year" with "Promotional price" on the next line.
+  if (!/Licensing for individuals \. US\$49 (\(promo\)|a year[ .]*Promotional price)/.test(premiumText) || !/Opt-Out Premium for rights holders \. from US\$299/.test(premiumText)) fails.push("org/index.html: the #premium prices are not labeled \"Licensing for individuals US$49 (promo)\" and \"Opt-Out Premium for rights holders from US$299\"");
   for (const p of LEGACY_ORG_PATHS) if (!resolves(sites.org, p)) fails.push(`org: legacy URL no longer resolves: ${p}`);
   for (const pre of PRECONDITIONS) {
     const v = process.env[pre.env] || "";

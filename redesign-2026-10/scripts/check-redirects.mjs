@@ -371,8 +371,9 @@ if (!contact.includes("https://tally.so/r/BzbXK7")) fail("com contact is missing
 if (!contact.includes('href="https://app.credtent.org/inquiries/content-partner"')) {
   fail("com contact is missing the content partner inquiry link");
 }
-if (!contact.includes("Prefer email? <a href=\"mailto:hello@credtent.org\">hello@credtent.org</a>")) {
-  fail("com contact is missing the hello@ email line");
+// Copy rewrite 2026-11-10 (shared rule 10): the address sits in the labeled contact panel, not in a sentence.
+if (!/<dt>Email<\/dt>\s*<dd><a href="mailto:hello@credtent.org">hello@credtent.org<\/a><\/dd>/.test(contact)) {
+  fail("com contact is missing the labeled Email row for hello@");
 }
 if (!contact.includes('action="mailto:hello@credtent.org"')) fail("com contact is missing the remaining mailto form");
 const owners = fs.readFileSync(path.join(sites["https://credtent.com"], "content-owners/index.html"), "utf8");
