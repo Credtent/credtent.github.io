@@ -17,6 +17,11 @@ function privacyEdits(siteId) {
 }
 
 export const PAGE_EDITS = {
+  // Copy rewrite 2026-11-10 (Vonnegut AR1): the pointer page links the essay with a button.
+  "/post/unfair-use-denormalizing-ai-theft": [
+    ["<p>\n    This post now lives on Credtent's Substack:\n    <a href=\"https://credtent.substack.com/p/unfair-use-denormalizing-ai-theft\">Unfair Use: Denormalizing AI Theft</a>.\n  </p>",
+      '<div class="btn-row"><a class="btn" href="https://credtent.substack.com/p/unfair-use-denormalizing-ai-theft">Unfair Use: Denormalizing AI Theft</a></div>']
+  ],
   "/standards": [
     // B9: no Authors Guild alignment claim (messaging spec 8.1).
     ['The Authors Guild\'s "Human Authored" certification converged on the same definitional ground our standard already occupied (the de minimis exception, the editor-test framing, the requirement for written agreements with ghostwriters and developmental editors), and our v3.1 standard (May 2026) makes that common ground explicit.',
@@ -58,7 +63,12 @@ export const PAGE_EDITS = {
     ["We would rather you read ours than take our word for it.", "Please read ours before you decide."],
     // Cherryh 2026-11-10 implementation check, item B: per-deal approval is not in every agreement (EB).
     ["Creatives and rights holders register works for a free opt-out, licensing, or both, and approve every deal before it executes.",
-      "Creatives and rights holders register works for a free opt-out, licensing, or both, and set the limits Credtent licenses within."]
+      "Creatives and rights holders register works for a free opt-out, licensing, or both, and set the limits Credtent licenses within."],
+    // Copy rewrite 2026-11-10 (Tanith 13.2, 13.3, 15.17): no address inside a sentence; breadcrumb matches the h1; no "cleared" or "corpus".
+    ["To request a correction or an addition, write to hello@credtent.org with a link to the page we should read.",
+      'To request a correction or an addition, <a href="mailto:hello@credtent.org">email us</a> a link to the page we should read.'],
+    ["<span>AI Training Data Licensing Companies: Who Does What in 2026</span>", "<span>Who licenses AI training data</span>"],
+    ["because a developer looking for a cleared book corpus,", "because an AI company looking for a licensed set of books,"]
   ]
 };
 

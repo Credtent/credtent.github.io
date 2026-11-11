@@ -2,10 +2,10 @@ export const LICENSE_SENTENCE = "Licenses include the rights the contracting hol
 
 export const CAPSULE = {
   comHome: "Credtent is a neutral marketplace that helps content owners and AI companies agree permitted AI uses, value content, and license it for training and for use in AI answers.",
-  training: "Credtent licenses a defined corpus with documented origins and quality criteria for AI training, with scope, compensation and access to new work agreed in the license.",
+  training: "Credtent licenses a defined set of works with documented origins for AI training, with scope, compensation, and access to new work agreed in the license.",
   citation: "Generative Results Referencing (GRR) is Credtent's licensing for use in AI answers: excerpt limits, attribution, source links and compensation, including appearances without a click.",
-  valuation: "A baseline valuation comes when you add content; optional paid custom valuation goes deeper. It is an informed starting point, not a guaranteed price.",
-  orgHome: "Credtent's free opt-out records your AI-training preferences and sends them to AI companies each quarter; it cannot guarantee every company acts on them.",
+  valuation: "A baseline valuation comes when you add content, and an optional paid custom valuation goes deeper. Either one is an informed starting point for a price conversation.",
+  orgHome: "Credtent's free opt-out records your AI-training preferences and sends them to AI companies each quarter. It cannot guarantee every company acts on them.",
   consent: "Creative Consent rates how platforms handle AI training: Full, Optional or No Protection.",
   about: "Credtent, Inc. is a Delaware Public Benefit Corporation founded by E.R. Burgess (CEO) and Dr. Galen Buckwalter."
 };

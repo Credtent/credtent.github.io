@@ -164,7 +164,9 @@ function sitemapPage(site, pages) {
     .filter((page) => !page.file && !page.noindex)
     .map((page) => {
       const href = site.origin + (page.path === "/" ? "/" : page.path);
-      return `<li><a href="${href}">${page.title}</a></li>`;
+      // Copy rewrite 2026-11-10 (Tanith 14.2): credtent.com lists plain page names, not title tags.
+      const name = site.id === "com" ? ((page.crumbs || []).at(-1)?.name || page.title.replace(/\s*\|.*$/, "").replace(/^Credtent: .*$/, "Home")) : page.title;
+      return `<li><a href="${href}">${name}</a></li>`;
     })
     .join("");
   return {
@@ -207,7 +209,8 @@ function notFound(site) {
     description: "That page could not be found.",
     eyebrow: "404",
     h1: "Page not found.",
-    capsule: "The link may have moved. Use the sitemap to continue.",
+    // Copy rewrite 2026-11-10: Tanith 14.1 for credtent.com; credtent.org keeps the built line (Vonnegut left it).
+    capsule: site.id === "com" ? "The link may have moved. The sitemap lists every page on credtent.com." : "The link may have moved. Use the sitemap to continue.",
     faq: [],
     main: `<section class="section"><div class="wrap"><a class="btn" href="/">Back home</a></div></section>`
   };
@@ -633,7 +636,7 @@ async function main() {
       eyebrow: "Guide",
       capsule: "A neutral map of public licensing programs, marketplaces, and registries. It is not a list of Credtent customers.",
       crumb: "Company map",
-      intro: `<p class="fine">Not every company here is a Credtent partner. This is a map of the public market, described from each company's own pages.</p>`
+      intro: `<p class="fine">This is a map of the public market, and each company is described from its own pages.</p>`
     })
   ];
   const org = [
@@ -683,7 +686,7 @@ async function main() {
       description: "An archived Credtent essay titled Unfair Use, kept at its previous address. The canonical copy is the version published on Credtent's Substack.",
       h1: "Unfair Use",
       eyebrow: "Archive",
-      capsule: "An archived Credtent essay. The canonical copy is also on Substack.",
+      capsule: "This essay now lives on Credtent's Substack.",
       crumb: "Unfair Use"
     }),
     // parking/badges and parking/blog serve no copy: they 301 to /badges/ and /blog (Vonnegut B15, B16, 2026-11-10).
