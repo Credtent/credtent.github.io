@@ -386,7 +386,7 @@ export function orgPages(images) {
         <p class="eyebrow" style="margin-top:36px">For AI companies</p>
         <h2>Commercial Safety</h2>
         <p>A badge for AI companies, with Full, Guardrail, and Provisional levels. Inquiry: <a href="https://credtent.com/contact#other">contact Credtent</a>.</p>
-        <p class="fine">Disclosure badges are free to use. Expert-led certification is paid because expert review is real labor. <a href="/standards">Browse the AI disclosure standards catalog</a>.</p>
+        <p class="fine">Disclosure badges are free to use. Expert-led certification is paid because expert review is real labor.</p>
       </div></section>`
     },
     {
@@ -497,7 +497,7 @@ export function orgPages(images) {
         <div class="steps" style="margin-top:20px">
           <article class="step"><p class="kicker">01</p><h3>Submit and survey</h3><p>Upload your screenplay and complete a short authorship survey covering your process, drafts, and tools.</p></article>
           <article class="step"><p class="kicker">02</p><h3>Secure analysis</h3><p>An AI-detection analysis informs the review. A professional auditor makes the decision. Credtent does not use your screenplay to train AI models.</p></article>
-          <article class="step"><p class="kicker">03</p><h3>Expert validation</h3><p>A professional auditor reviews the analysis and authorship record, then issues your Certified Human Composed badge.</p></article>
+          <article class="step"><p class="kicker">03</p><h3>Expert review</h3><p>A professional auditor reviews the analysis and authorship record, then issues your Certified Human Composed badge.</p></article>
         </div>
       </div></section>
       <section class="section section-white"><div class="wrap">
@@ -505,7 +505,7 @@ export function orgPages(images) {
         <p class="lede">Studios, producers, and audiences are starting to ask which scripts were written by people. The certified badge makes the answer clear, and pairs it with a badge and credit line you may ask a production to include, and an authorship record.</p>
         <div class="grid-2" style="margin-top:20px">
           <article class="card"><h3>Credit line</h3><p>A badge and credit line you may ask a production to include.</p></article>
-          <article class="card"><h3>Copyright registration</h3><p>A time-stamped record of your drafts, process, and Credtent's review, which you can keep with your files and give to counsel. It does not guarantee a copyright registration or any legal outcome.</p></article>
+          <article class="card"><h3>Authorship record</h3><p>A time-stamped record of your drafts, process, and Credtent's review, which you can keep with your files and give to counsel. It does not guarantee a copyright registration or any legal outcome.</p></article>
           <article class="card"><h3>Creative Origin badge</h3><p>Free access to Credtent's badge system, which travels with your work across the web.</p></article>
           <article class="card"><h3>An audit-ready record</h3><p>Every certification produces a documentation packet you can hand to studios, agents, or counsel.</p></article>
         </div>
@@ -597,7 +597,7 @@ export function orgPages(images) {
         </div>
         <ul class="check-list">
           <li>Two years of a paid registry account for the price of one, renewable</li>
-          <li>Copyright-ready certification at LWS member rates</li>
+          <li>Certification at LWS member rates</li>
           <li>A free opt-out account, with no charge to decline AI use</li>
           <li>Revenue share on certification services</li>
           <li>Priority support from the Credtent partnerships team</li>
@@ -608,7 +608,7 @@ export function orgPages(images) {
         <p class="lede">Register a free opt-out account any time, with no obligation.</p>
         <div class="grid-3" style="margin-top:20px">
           <article class="card"><p class="kicker">01</p><h3>Two years for the price of one</h3><p>Buy-one-get-one pricing on paid registry accounts, renewable for the life of your LWS membership.</p></article>
-          <article class="card"><p class="kicker">02</p><h3>Certification</h3><p>Copyright-ready certification at LWS member pricing, with revenue share on every deal.</p></article>
+          <article class="card"><p class="kicker">02</p><h3>Certification</h3><p>Certification at LWS member pricing, with revenue share on every deal.</p></article>
           <article class="card"><p class="kicker">03</p><h3>Free opt-out</h3><p>Don't want to license to AI? Register a free opt-out account and record your reservation of rights.</p></article>
         </div>
       </div></section>

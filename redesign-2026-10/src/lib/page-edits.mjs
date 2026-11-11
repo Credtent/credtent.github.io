@@ -55,7 +55,10 @@ export const PAGE_EDITS = {
     // V15: the dangling clause the scrub left.
     ["with a manifest and a disclosure pack; under its standard terms. It also certifies", "with a manifest and a disclosure pack. It also certifies"],
     // V16.
-    ["We would rather you read ours than take our word for it.", "Please read ours before you decide."]
+    ["We would rather you read ours than take our word for it.", "Please read ours before you decide."],
+    // Cherryh 2026-11-10 implementation check, item B: per-deal approval is not in every agreement (EB).
+    ["Creatives and rights holders register works for a free opt-out, licensing, or both, and approve every deal before it executes.",
+      "Creatives and rights holders register works for a free opt-out, licensing, or both, and set the limits Credtent licenses within."]
   ]
 };
 
