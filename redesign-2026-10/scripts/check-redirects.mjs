@@ -347,7 +347,15 @@ const names = loadPrivateNames();
 console.log(kept.length ? `kept product names:\n${kept.map((k) => redactLine(k, names)).join("\n")}` : "kept product names: none");
 
 const home = fs.readFileSync(path.join(sites["https://credtent.com"], "index.html"), "utf8");
-if (!/src="\/media\/bridge-1600\.webp" width="1600"/.test(home)) fail("com home hero width is not 1600");
+// Brackett round three heroes: the first hero image is the one LCP image (fetchpriority high), and every image on
+// the two home pages carries width and height so late media cannot shift the layout (Niven section 6, points 5, 6).
+if (!/src="\/media\/filmmaker-1280\.webp" width="1280" height="\d+"[^>]*fetchpriority="high"/.test(home)) fail("com home hero LCP image is not filmmaker-1280 with fetchpriority high");
+const orgHome = fs.readFileSync(path.join(sites["https://credtent.org"], "index.html"), "utf8");
+if (!/src="\/media\/editor-1200\.webp" width="1200" height="\d+"[^>]*fetchpriority="high"/.test(orgHome)) fail("org home hero LCP image is not editor-1200 with fetchpriority high");
+for (const [label, html] of [["com", home], ["org", orgHome]]) {
+  if ((html.match(/fetchpriority="high"/g) || []).length !== 2) fail(`${label} home must have exactly one fetchpriority=high image plus its preload`);
+  for (const img of html.match(/<img\b[^>]*>/g) || []) if (!/\swidth="\d+"/.test(img) || !/\sheight="\d+"/.test(img)) fail(`${label} home image without width and height: ${img.slice(0, 80)}`);
+}
 const premium = fs.readFileSync(path.join(sites["https://credtent.org"], "premium/index.html"), "utf8");
 // EB 2026-10-31 "Hide Premium": the US$49 individual Premium is off public pages until 2026-12-31.
 if (!premium.includes('"@type":"Offer"') || premium.includes('"price":"49"') || !premium.includes('"minPrice":"299"')) {

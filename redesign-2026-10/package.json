@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "node src/build.mjs",
-    "test:gates": "node --test scripts/test-ga-and-headers.mjs scripts/test-phone.mjs scripts/test-check-launch.mjs scripts/test-org-dns-ready.mjs scripts/test-redirect-loops.mjs",
+    "test:gates": "node --test scripts/test-ga-and-headers.mjs scripts/test-phone.mjs scripts/test-check-launch.mjs scripts/test-org-dns-ready.mjs scripts/test-redirect-loops.mjs scripts/test-text-visible.mjs scripts/test-credits.mjs",
     "check:org-dns": "node scripts/check-org-dns-ready.mjs",
     "gates": "node scripts/check-copy.mjs && node scripts/check-links.mjs && node scripts/check-redirects.mjs && node scripts/check-launch.mjs preview",
     "check": "npm run test:gates && npm run gates",
