@@ -10,7 +10,15 @@ import { fileURLToPath } from "node:url";
 export const DEFAULT_CHERRYH_DIR = "/Users/ericburgess/claudia/agents/cherryh";
 // The LWS capture is dated 2026-11-01; a clearance cannot predate it.
 const EARLIEST = "2026-11-01";
-const NAME = /^(\d{4}-\d{2}-\d{2})-.*item-?11.*clear.*\.md$/i;
+// Exact contract (Cherryh 2026-11-10 implementation check, item F): this name, these lines at line start, and
+// neither "NOT CLEARED" nor "Status: HELD" anywhere.
+const NAME = /^(\d{4}-\d{2}-\d{2})-lws-item-11-cleared\.md$/;
+export const REQUIRED_LINES = [
+  "Status: CLEARED",
+  "Scope: item 11 only",
+  "Bucket: credtent-legal-hold-registry-20260926",
+  "Listing verified: 11 of 11 hashes equal MANIFEST.txt"
+];
 
 export function clearanceNote(dir = DEFAULT_CHERRYH_DIR, now = new Date()) {
   if (!fs.existsSync(dir)) return { ok: false, reason: `${dir} not found` };
@@ -21,10 +29,12 @@ export function clearanceNote(dir = DEFAULT_CHERRYH_DIR, now = new Date()) {
     const date = match[1];
     if (date < EARLIEST || date > today) continue;
     const text = fs.readFileSync(path.join(dir, name), "utf8");
-    if (!/item\s*11/i.test(text) || !/\bcleared\b/i.test(text) || /\bnot\s+cleared\b/i.test(text)) continue;
+    const lines = text.split(/\r?\n/);
+    if (!REQUIRED_LINES.every((req) => lines.some((line) => line.startsWith(req)))) continue;
+    if (/NOT CLEARED|Status: HELD/.test(text)) continue;
     return { ok: true, note: name, date };
   }
-  return { ok: false, reason: `no dated item-11 clearance note (YYYY-MM-DD-...item-11...clear....md, dated ${EARLIEST} to today) in ${dir}` };
+  return { ok: false, reason: `no YYYY-MM-DD-lws-item-11-cleared.md dated ${EARLIEST} to today, with ${REQUIRED_LINES.map((l) => `"${l}"`).join(", ")}, in ${dir}` };
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

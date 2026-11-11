@@ -254,3 +254,19 @@ test("the privacy launch-date placeholder is caught on a privacy page and nowher
 test("org/standards stays noindex in production until Vonnegut B9 to B12 clear", () => {
   assert.ok(staysNoindex("standards/index.html"));
 });
+test("the built privacy pages carry PRIVACY_LAST_UPDATED (or its placeholder) from src/lib/privacy.mjs", async () => {
+  // The production build differs from preview only in robots and headers (src/build.mjs PRODUCTION); the privacy
+  // text comes from the same privacyDate() call in both, so the built pages prove the wiring.
+  const fs = await import("node:fs");
+  const path = await import("node:path");
+  const { privacyDate } = await import("../src/lib/privacy.mjs");
+  const root = path.resolve(import.meta.dirname, "..");
+  const build = fs.readFileSync(path.join(root, "src/build.mjs"), "utf8");
+  assert.ok(!/PRODUCTION[^\n]*privacy|privacy[^\n]*PRODUCTION/i.test(build), "privacy text must not branch on SITE_ENV");
+  for (const id of ["com", "org"]) {
+    const html = fs.readFileSync(path.join(root, "sites", id, "privacy-policy", "index.html"), "utf8");
+    assert.ok(html.includes(`Last Updated: ${privacyDate()}`), `${id} privacy page does not show Last Updated: ${privacyDate()}`);
+  }
+  const comIntro = fs.readFileSync(path.join(root, "sites/com/privacy-policy/index.html"), "utf8");
+  assert.ok(comIntro.includes(`Last updated ${privacyDate()}.`), "com privacy intro does not use privacyDate()");
+});
