@@ -168,3 +168,7 @@ body.site-com { background: linear-gradient(180deg, var(--cool) 0%, var(--cool-2
   .site-com .hero-com::before { animation: none; }
   .site-com .bcorp-badge:hover { rotate: 0deg; }
 }
+
+/* ---------- Copy rewrite (Clarke, 2026-11-10): the answer line on the navy band is plain text too ---------- */
+.site-com main > .wrap:first-child .capsule { background: none; box-shadow: none; padding: 0; border-radius: 0; }
+.site-com main > .wrap:first-child .note { color: var(--on-dark); }

@@ -1,10 +1,10 @@
 # Credtent
 > Delaware Public Benefit Corporation and a Certified B Corp. Resources for creatives.
 
-Credtent's free opt-out records your AI-training preferences and sends them to AI companies each quarter; it cannot guarantee every company acts on them.
+Credtent's free opt-out records your AI-training preferences and sends them to AI companies each quarter. It cannot guarantee every company acts on them.
 
 ## For creatives
-- [Home](https://credtent.org/): Credtent's free opt-out records your AI-training preferences and sends them to AI companies each quarter; it cannot guarantee every company acts on them.
+- [Home](https://credtent.org/): Credtent's free opt-out records your AI-training preferences and sends them to AI companies each quarter. It cannot guarantee every company acts on them.
 - [Free opt-out](https://credtent.org/opt-out): Register preferences once. Credtent records the reservation and sends notices to AI companies. Free, and not a guarantee.
 - [Creative Consent](https://credtent.org/creative-consent): Full Protection means consent comes first. See how Credtent describes Full, Optional, and No Protection.
 - [Auditing](https://credtent.org/resources/auditing): Every paid plan enrolls works in periodic AI model audits. Audit results are not proof of dataset inclusion.

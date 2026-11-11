@@ -486,3 +486,29 @@ svg.draw { overflow: visible; pointer-events: none; }
    ========================================================================= */
 main > .wrap.section-tight:first-child::after { display: none; }
 main > .wrap:first-child + section { border-top: 3px solid var(--accent); }
+
+/* ===================== Copy rewrite (Clarke, 2026-11-10): minimal styles for the rewritten blocks; Brackett to review ===================== */
+/* Answer lines are plain text, not boxed (Vonnegut shared rule 1). Doubled class to outrank the boxed rules above. */
+.capsule.capsule { background: none; border: 0; box-shadow: none; padding: 0; border-radius: 0; font-size: 19px; line-height: 1.55; color: var(--ink); max-width: 46rem; margin-top: 18px; }
+/* Legal notes: always visible, 15 px, AA contrast, on their own line directly under the block they qualify (Cherryh Amendment 2, condition 1). */
+.note { font-size: 15px; line-height: 1.5; color: #3B4261; margin: 10px 0 0; max-width: 46rem; }
+.note-block { margin-top: 18px; display: grid; gap: 4px; }
+.note-block .note { margin: 0; }
+.card .note { margin-top: 12px; }
+/* The 85% figure with Cherryh's sentence as its caption (Tanith 2.4, condition 2). */
+.stat-figure { font-family: var(--font-display); font-weight: 700; font-size: clamp(64px, 8vw, 104px); line-height: 1; letter-spacing: -0.03em; color: #290099; margin: 18px 0 8px; }
+.stat-caption { font-size: 17px; line-height: 1.55; color: var(--ink); max-width: 40rem; margin: 0; }
+/* Two-item fact row (Tanith 3.5). */
+.fact-row { list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 10px; max-width: 46rem; }
+/* Labeled contact panel (shared rule 10): Email, Mail. */
+.contact-panel { margin: 0; }
+.contact-panel dt { font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #3B4261; margin-top: 18px; }
+.contact-panel dt:first-child { margin-top: 0; }
+.contact-panel dd { margin: 6px 0 0; }
+.contact-panel address { font-style: normal; }
+/* Quoted legal text and the EU block in the guide. */
+.callout { border-left: 3px solid var(--accent); background: rgba(41, 0, 153, 0.04); padding: 14px 18px; border-radius: 4px 12px 12px 4px; margin: 20px 0; }
+.callout h3 { margin-top: 0; }
+.callout p:last-child { margin-bottom: 0; }
+.promo-terms { padding-left: 18px; margin: 8px 0; }
+.promo-terms li { margin: 2px 0; }
