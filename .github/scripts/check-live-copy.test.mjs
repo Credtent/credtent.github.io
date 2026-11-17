@@ -185,3 +185,26 @@ test("a claim soft-wrapped across a line break in a text file is still read", ()
   const root = tmp({ "llms.txt": "About\nCredtent\nAegis is here" });
   assert.ok(run({ env: { CREDTENT_REVIEW_NAMES: LIST }, localFile: null, root }).some((f) => /^llms\.txt:\d+: product-name$/.test(f)));
 });
+
+// LD-072 dated obligation (Clarke 2026-11-17): from 2027-01-01 00:00 Pacific a
+// "by December 31, 2026" style deadline on a served page is stale copy.
+test("stale-2026-deadline: passes before 2027-01-01 Pacific, fails from then", () => {
+  const page = "<p>Start paying for auditing by December 31, 2026.</p>";
+  const at = (iso) => { process.env.CHECK_NOW = iso; try { return hit(page, "stale-2026-deadline"); } finally { delete process.env.CHECK_NOW; } };
+  assert.equal(at("2026-12-31T23:59:59-08:00"), false);
+  assert.equal(at("2027-01-01T00:00:00-08:00"), true);
+});
+
+test("stale-2026-deadline: catches the date forms the pages use, including JSON-LD", () => {
+  process.env.CHECK_NOW = "2027-01-02T00:00:00Z";
+  try {
+    for (const html of [
+      "<p>for sign-ups by Dec 31, 2026</p>",
+      "<p>through December 31 2026</p>",
+      '<script type="application/ld+json">{"priceValidUntil":"2026-12-31"}</script>',
+    ]) assert.equal(hit(html, "stale-2026-deadline"), true, html);
+    assert.equal(hit("<p>December 31, 2027</p>", "stale-2026-deadline"), false);
+  } finally {
+    delete process.env.CHECK_NOW;
+  }
+});

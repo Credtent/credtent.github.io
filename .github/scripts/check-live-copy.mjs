@@ -39,6 +39,10 @@ const CLAIMS = /\.(html?|txt|md|markdown|svg|css|scss|sass|js|mjs|xml|json|ya?ml
 const BINARY_EXT = /\.(png|jpe?g|gif|webp|avif|ico|bmp|tiff?|woff2?|ttf|otf|eot|pdf|mp4|mov|webm|mp3|wav|zip|gz|tgz|br)$/i;
 const TEXT_EXT = /\.(html?|svg|css|scss|sass|js|mjs|md|markdown|txt|xml|json|ya?ml|webmanifest|csv)$/i;
 
+// LD-072 dated obligation: 2027-01-01 00:00 America/Los_Angeles.
+export const STALE_FROM_2027 = new Date("2027-01-01T08:00:00.000Z");
+const checkNow = () => (process.env.CHECK_NOW ? new Date(process.env.CHECK_NOW) : new Date());
+
 export const RULES = [
   { id: "em-dash", re: /[\u2014\u2015\u2e3a\u2e3b]/ },
   { id: "spaced-en-dash", re: /\s\u2013\s/ },
@@ -74,7 +78,11 @@ export const RULES = [
   }) },
   { id: "present-tense-audits", re: /\bCredtent (also )?audits AI models\b|\baudits AI models periodically\b/i },
   { id: "product-name", re: /Credtent Aegis/i },
-  { id: "round-the-clock", re: /24\/7|around-the-clock/i }
+  { id: "round-the-clock", re: /24\/7|around-the-clock/i },
+  // LD-072 dated obligation (Clarke 2026-11-17): copy that names the 2026-12-31 deadline ("start paying for auditing
+  // by December 31, 2026", "priceValidUntil 2026-12-31") is stale from 2027-01-01 00:00 Pacific. Passes until then;
+  // fails from then until the line is rewritten. CHECK_NOW (ISO) overrides the clock for tests.
+  { id: "stale-2026-deadline", test: (text) => checkNow() >= STALE_FROM_2027 && /\b(December|Dec\.?)\s+31,?\s+2026\b|\b2026-12-31\b/i.test(text) }
 ];
 const ruleHit = (r, text) => (r.test ? r.test(text) : r.re.test(text));
 
