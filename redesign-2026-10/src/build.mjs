@@ -422,7 +422,7 @@ ${LICENSE_SENTENCE}
 ## Company
 - [About](https://credtent.com/about): Credtent, Inc. is a Delaware Public Benefit Corporation and a Certified B Corp, founded by E.R. Burgess and Dr. Galen Buckwalter.
 - [FAQ](https://credtent.com/faq): Answers for AI companies and content owners on licensing scope, documentation, and valuation limits.
-- [Pricing](https://credtent.com/pricing): Licensing for individual creatives is US$49 a year for sign-ups through December 31, 2026, with audits included; Opt-Out Premium for rights holders starts at US$299 a year. The Collaborithmic Age lists its published book prices.
+- [Pricing](https://credtent.com/pricing): Licensing is open to anyone at Credtent's 15% on deals it makes, with a paid licensing plan for everyone planned for 2027 once AI-company deals close; auditing (Opt-Out Premium) is US$49 a year for an individual or from US$299 a year for an organization. The Collaborithmic Age lists its published book prices.
 - [Contact](https://credtent.com/contact): AI companies can use the licensing form. Content owners start an inquiry in the app. Other questions open an email.
 
 Opt-out and Creative Consent: see https://credtent.org/llms.txt
@@ -436,10 +436,10 @@ ${CAPSULE.orgHome}
 - [Home](https://credtent.org/): ${CAPSULE.orgHome}
 - [Free opt-out](https://credtent.org/opt-out): Register preferences once. Credtent records the reservation and sends notices to AI companies. Free, and not a guarantee.
 - [Creative Consent](https://credtent.org/creative-consent): Full Protection means consent comes first. See how Credtent describes Full, Optional, and No Protection.
-- [Auditing](https://credtent.org/resources/auditing): Every paid plan enrolls works in periodic AI model audits. Audit results are not proof of dataset inclusion.
+- [Auditing](https://credtent.org/resources/auditing): Opt-Out Premium enrolls works in periodic AI model audits. Audit results are not proof of dataset inclusion.
 - [Opt-out limitations](https://credtent.org/resources/opt-out-limitations): What Credtent's free opt-out does not do: it cannot force every company to act, and it does not erase datasets.
 - [Licensing guide](https://credtent.org/guides/ai-training-data-licensing/): What a training license grants, what it does not grant, and how rights holders keep the choice to opt out.
-- [Premium](https://credtent.org/premium): Opt-Out Premium for rights holders (opt-out plus enrollment in periodic AI model audits, no licensing), from US$299 a year.
+- [Premium](https://credtent.org/premium): Opt-Out Premium (opt-out plus enrollment in periodic AI model audits, no licensing): US$49 a year for an individual, from US$299 a year for an organization.
 - [Blog](https://credtent.org/blog): Writing on AI, creative rights, and copyright, published on Substack and Medium.
 - [Contact](https://credtent.org/contact): Contact Credtent about opt-out, Creative Consent, and resources.
 

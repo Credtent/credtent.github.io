@@ -357,9 +357,11 @@ for (const [label, html] of [["com", home], ["org", orgHome]]) {
   for (const img of html.match(/<img\b[^>]*>/g) || []) if (!/\swidth="\d+"/.test(img) || !/\sheight="\d+"/.test(img)) fail(`${label} home image without width and height: ${img.slice(0, 80)}`);
 }
 const premium = fs.readFileSync(path.join(sites["https://credtent.org"], "premium/index.html"), "utf8");
-// EB 2026-10-31 "Hide Premium": the US$49 individual Premium is off public pages until 2026-12-31.
-if (!premium.includes('"@type":"Offer"') || premium.includes('"price":"49"') || !premium.includes('"minPrice":"299"')) {
-  fail("org premium Offer markup must carry the rights-holder 299+ offer and no 49 offer");
+// LD-072 fee model (EB cards 2026-11-17, Vonnegut row N29d) supersedes the 2026-10-31 "Hide Premium" card: the premium
+// Offer markup carries the rights-holder 299+ offer and the individual 49-a-year offer.
+if (!premium.includes('"@id":"https://credtent.org/premium#rights-holders"') || !premium.includes('"minPrice":"299"') ||
+    !premium.includes('"@id":"https://credtent.org/premium#individuals"') || !premium.includes('"price":"49"') || !premium.includes('"billingDuration":"P1Y"')) {
+  fail("org premium Offer markup must carry the rights-holder 299+ offer and the individual 49 a year offer");
 }
 const contact = fs.readFileSync(path.join(sites["https://credtent.com"], "contact/index.html"), "utf8");
 if (/TODO\(Eric\)/.test(contact)) fail("com contact still has a TODO");

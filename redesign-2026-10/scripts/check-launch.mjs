@@ -42,7 +42,8 @@ export const BANNED = [
   { id: "written-into-company", re: /written into the company/i },
   { id: "old-wga-price", re: /\$149\b|\$298\b/ },
   { id: "rounded-book-price", re: /\$(15|25|50)(?![\d.,])/ },
-  { id: "hidden-49-premium", re: /Opt-Out Premium[^.<]{0,80}\$\s?49\b|\$\s?49[^.<]{0,30}\bfor individuals\b/i },
+  // hidden-49-premium retired 2026-11-17: the "Hide Premium" card (2026-10-31) is superseded by the LD-072 fee model
+  // (EB cards 2026-11-17), under which auditing is Opt-Out Premium at US$49 a year for an individual.
   { id: "leading-authority", re: /leading authority/i },
   // Cherryh 2026-11-01, EB-approved: no permanent free promise; only "Credtent does not plan to charge for the free opt-out."
   { id: "free-forever-promise", re: /always free|free,? always|(will )?stays? free|always will be|free forever|\$0<\/span>\s*forever/i },
@@ -499,12 +500,12 @@ export function run() {
     const privacy = fs.readFileSync(path.join(site.dir, "privacy-policy", "index.html"), "utf8");
     if (privacyDateProblem(privacy)) (MODE === "production" ? fails : warns).push(`${site.id}/privacy-policy: "Last Updated" still shows ${PRIVACY_DATE_PLACEHOLDER}; set PRIVACY_LAST_UPDATED in src/lib/privacy.mjs to the launch date`);
   }
-  // Review round 2026-11-01: the .org home never shows US$49 as an Opt-Out Premium price.
+  // LD-072 fee model (2026-11-17, Vonnegut row N28a): the .org home shows Opt-Out Premium for individuals at US$49 a
+  // year and Opt-Out Premium for rights holders from US$299. Replaces the 2026-11-01 and 2026-11-10 promo-label check.
   const orgHome = fs.readFileSync(path.join(sites.org.dir, "index.html"), "utf8");
   const premium = (orgHome.match(/<section[^>]*id="premium"[\s\S]*?<\/section>/) || [""])[0];
   const premiumText = visibleText(premium).replace(/\s+/g, " ");
-  // Copy rewrite 2026-11-10 (Vonnegut H6): the promo label may read "(promo)" or "a year" with "Promotional price" on the next line.
-  if (!/Licensing for individuals \. US\$49 (\(promo\)|a year[ .]*Promotional price)/.test(premiumText) || !/Opt-Out Premium for rights holders \. from US\$299/.test(premiumText)) fails.push("org/index.html: the #premium prices are not labeled \"Licensing for individuals US$49 (promo)\" and \"Opt-Out Premium for rights holders from US$299\"");
+  if (!/Opt-Out Premium for individuals \. US\$49 a year[ .]*Audits for one creator's works\./.test(premiumText) || !/Opt-Out Premium for rights holders \. from US\$299/.test(premiumText)) fails.push("org/index.html: the #premium prices are not labeled \"Opt-Out Premium for individuals US$49 a year\" and \"Opt-Out Premium for rights holders from US$299\"");
   for (const p of LEGACY_ORG_PATHS) if (!resolves(sites.org, p)) fails.push(`org: legacy URL no longer resolves: ${p}`);
   for (const pre of PRECONDITIONS) {
     const v = process.env[pre.env] || "";
