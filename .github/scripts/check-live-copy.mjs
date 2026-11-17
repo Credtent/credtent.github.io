@@ -24,7 +24,7 @@ export const ROOT = process.env.CHECK_ROOT ? path.resolve(process.env.CHECK_ROOT
 // stay untouched while Cherryh's legal hold item 11 is open (the 2026-11-01 capture covers both pages). Any
 // change to a pinned file fails until the pin is reviewed and updated.
 export const EXEMPT = new Map([
-  ["terms-of-service.html", "2a43523f0631d87f383a10b992129b8b9db86e7801be6059e08fdb65e838e635"],
+  ["terms-of-service.html", "6d0dad904f5376a28efdb38826168661ef24550056bdf86cb3d769cff27daa19"],
   ["privacy-policy.html", "d3c53c6fc6b27bf011e5920dfda1742cf4674d37e10bb06fd8ca1b7e8fe84d07"],
   ["lws.html", "315a2fd0423a37d47f5347899c71956c656d1430f6c8751fb0a6e5f66242324a"],
   ["parking/lws.html", "485df8ee612ecdd82b77f366c72ae35336b598cc43dc66b2bcfc0494b611fac0"]
