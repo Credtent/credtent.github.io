@@ -81,7 +81,7 @@ export function orgPages(images) {
           <div class="price-stack">
             <p class="price-meta">Opt-Out Premium for individuals</p>
             <p>${price("US$49")} a year</p>
-            <span class="price-meta">Audits for one creator's works.</span>
+            <span class="price-meta">Audits for one creative's works.</span>
             <p class="price-meta">Opt-Out Premium for rights holders</p>
             <p>from ${price("US$299")}</p>
             <span class="price-meta">a year, scaling with catalog size</span>
@@ -273,7 +273,7 @@ export function orgPages(images) {
         "@id": "https://credtent.org/premium#service",
         name: "Opt-Out Premium",
         provider: { "@id": ORG_ID },
-        description: "Enrollment of rights holders' works in Credtent's periodic AI model audits. Audit results are not proof of dataset inclusion or infringement.",
+        description: "Enrollment of works in Credtent's periodic AI model audits, US$49 a year for an individual or from US$299 a year for an organization. Audit results are not proof of dataset inclusion or infringement.",
         offers: [
           {
             "@type": "Offer",
@@ -295,7 +295,7 @@ export function orgPages(images) {
             name: "Opt-Out Premium for individuals",
             price: "49",
             priceCurrency: "USD",
-            description: "Opt-Out Premium for an individual creator: opt-out plus periodic AI model audits.",
+            description: "Opt-Out Premium for an individual creative: opt-out plus periodic AI model audits.",
             url: "https://credtent.org/premium",
             priceSpecification: {
               "@type": "UnitPriceSpecification",

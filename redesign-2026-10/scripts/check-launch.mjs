@@ -505,7 +505,7 @@ export function run() {
   const orgHome = fs.readFileSync(path.join(sites.org.dir, "index.html"), "utf8");
   const premium = (orgHome.match(/<section[^>]*id="premium"[\s\S]*?<\/section>/) || [""])[0];
   const premiumText = visibleText(premium).replace(/\s+/g, " ");
-  if (!/Opt-Out Premium for individuals \. US\$49 a year[ .]*Audits for one creator's works\./.test(premiumText) || !/Opt-Out Premium for rights holders \. from US\$299/.test(premiumText)) fails.push("org/index.html: the #premium prices are not labeled \"Opt-Out Premium for individuals US$49 a year\" and \"Opt-Out Premium for rights holders from US$299\"");
+  if (!/Opt-Out Premium for individuals \. US\$49 a year[ .]*Audits for one creative's works\./.test(premiumText) || !/Opt-Out Premium for rights holders \. from US\$299/.test(premiumText)) fails.push("org/index.html: the #premium prices are not labeled \"Opt-Out Premium for individuals US$49 a year\" and \"Opt-Out Premium for rights holders from US$299\"");
   for (const p of LEGACY_ORG_PATHS) if (!resolves(sites.org, p)) fails.push(`org: legacy URL no longer resolves: ${p}`);
   for (const pre of PRECONDITIONS) {
     const v = process.env[pre.env] || "";
