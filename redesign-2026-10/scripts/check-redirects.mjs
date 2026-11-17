@@ -358,8 +358,10 @@ for (const [label, html] of [["com", home], ["org", orgHome]]) {
 }
 const premium = fs.readFileSync(path.join(sites["https://credtent.org"], "premium/index.html"), "utf8");
 // EB 2026-10-31 "Hide Premium": the US$49 individual Premium is off public pages until 2026-12-31.
-if (!premium.includes('"@type":"Offer"') || premium.includes('"price":"49"') || !premium.includes('"minPrice":"299"')) {
-  fail("org premium Offer markup must carry the rights-holder 299+ offer and no 49 offer");
+// LD-072 (EB 2026-11-17): the rights-holder Offer is no fee at entry scale for 2026 sign-ups, so it carries
+// price 0 and no 299 minimum.
+if (!premium.includes('"@type":"Offer"') || premium.includes('"price":"49"') || !premium.includes('"price":"0"') || premium.includes('"minPrice":"299"')) {
+  fail("org premium Offer markup must carry the rights-holder no-fee offer (price 0) and no 49 or 299 offer");
 }
 const contact = fs.readFileSync(path.join(sites["https://credtent.com"], "contact/index.html"), "utf8");
 if (/TODO\(Eric\)/.test(contact)) fail("com contact still has a TODO");

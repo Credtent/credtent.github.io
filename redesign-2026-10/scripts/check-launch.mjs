@@ -503,8 +503,9 @@ export function run() {
   const orgHome = fs.readFileSync(path.join(sites.org.dir, "index.html"), "utf8");
   const premium = (orgHome.match(/<section[^>]*id="premium"[\s\S]*?<\/section>/) || [""])[0];
   const premiumText = visibleText(premium).replace(/\s+/g, " ");
-  // Copy rewrite 2026-11-10 (Vonnegut H6): the promo label may read "(promo)" or "a year" with "Promotional price" on the next line.
-  if (!/Licensing for individuals \. US\$49 (\(promo\)|a year[ .]*Promotional price)/.test(premiumText) || !/Opt-Out Premium for rights holders \. from US\$299/.test(premiumText)) fails.push("org/index.html: the #premium prices are not labeled \"Licensing for individuals US$49 (promo)\" and \"Opt-Out Premium for rights holders from US$299\"");
+  // LD-072 copy pass 2026-11-17 (Vonnegut N28a, N28b): both #premium prices read US$0 for 2026 sign-ups, and the
+  // rights-holder price is labeled as entry scale.
+  if (/US\$49/.test(premiumText) || !/Licensing for individuals \. US\$0 \. For sign-ups through December 31, 2026/.test(premiumText) || !/Opt-Out Premium for rights holders \. US\$0 \. at entry scale/.test(premiumText)) fails.push("org/index.html: the #premium prices are not labeled \"Licensing for individuals US$0 For sign-ups through December 31, 2026\" and \"Opt-Out Premium for rights holders US$0 at entry scale\"");
   for (const p of LEGACY_ORG_PATHS) if (!resolves(sites.org, p)) fails.push(`org: legacy URL no longer resolves: ${p}`);
   for (const pre of PRECONDITIONS) {
     const v = process.env[pre.env] || "";
