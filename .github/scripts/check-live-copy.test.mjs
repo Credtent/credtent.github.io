@@ -26,8 +26,8 @@ test("a listed name fails with file, line and rule only, never the name", () => 
   assert.ok(fails.every((f) => !/Example/.test(f)));
 });
 test("claim failures print no page text", () => {
-  const root = tmp({ "p.html": "<p>Opt-Out Premium is $49 a year</p>" });
-  assert.deepEqual(run({ env: { CREDTENT_REVIEW_NAMES: LIST }, localFile: null, root }), ["p.html:1: hidden-49-premium"]);
+  const root = tmp({ "p.html": "<p>Opt-Out Premium is $249 a year</p>" });
+  assert.deepEqual(run({ env: { CREDTENT_REVIEW_NAMES: LIST }, localFile: null, root }), ["p.html:1: superseded-249"]);
 });
 test("coverage: _config.yml excludes are skipped; underscore, dot and unlisted files are scanned; include wins", () => {
   const root = tmp({ "_config.yml": "exclude:\n  - drafts\ninclude:\n  - drafts/keep.md\n", "drafts/x.md": "x", "drafts/keep.md": "k", ".well-known/y.txt": "y", "_includes/z.html": "z", "data.csv": "a,b", ".github/w.yml": "w" });
@@ -46,7 +46,7 @@ test("names in paths, includes, Markdown, CSV and escaped JSON are found; Liquid
 });
 test("markup that renders the same does not hide a claim", () => {
   assert.ok(hit("<p>The opt-out is al<b>ways</b> free.</p>", "free-forever-promise"));
-  assert.ok(hit("<p>Opt-Out Pre<span>mium</span> is $49 a year</p>", "hidden-49-premium"));
+  assert.ok(hit("<p>Opt-Out Premium is $2<span>49</span> a year</p>", "superseded-249"));
   assert.ok(hit("<style>.p::after{content:'always free'}</style>", "free-forever-promise"));
   assert.ok(hit("<script>el.textContent='always free'</script>", "free-forever-promise"));
   assert.ok(hit("<p title=always&#32;free>x</p>", "free-forever-promise"));
@@ -57,7 +57,7 @@ test("entities, attributes and JSON-LD are decoded and scanned", () => {
   assert.ok(hit("<p>a &mdash; b</p>", "em-dash"));
   assert.ok(hit("<p>a &#x2014 b</p>", "em-dash"));
   assert.ok(hit("<p>free&nbsp;forever</p>", "free-forever-promise"));
-  assert.ok(hit("<img alt='Opt-Out Premium is &#x24;49 a year'>", "hidden-49-premium"));
+  assert.ok(hit("<img alt='Opt-Out Premium is &#x24;249 a year'>", "superseded-249"));
   assert.ok(hit('<div data-x="legally obligates"></div>', "pbc-legal-duty-claim"));
   assert.ok(hit('<script type="application/ld+json">{"t":"85% of every deal"}</script>', "85-every-deal"));
 });
@@ -184,4 +184,9 @@ test("a render-time file a person has reviewed is pinned by hash; any change fla
 test("a claim soft-wrapped across a line break in a text file is still read", () => {
   const root = tmp({ "llms.txt": "About\nCredtent\nAegis is here" });
   assert.ok(run({ env: { CREDTENT_REVIEW_NAMES: LIST }, localFile: null, root }).some((f) => /^llms\.txt:\d+: product-name$/.test(f)));
+});
+test("LD-072 (2026-11-17): the $49 Opt-Out Premium auditing price passes", () => {
+  const root = tmp({ "p.html": "<p>Auditing is Opt-Out Premium, $49 a year for an individual or from $299 a year for an organization, scaling with catalog size.</p>" });
+  assert.deepEqual(run({ env: { CREDTENT_REVIEW_NAMES: LIST }, localFile: null, root }), []);
+  assert.ok(!RULES.some((r) => r.id === "hidden-49-premium"));
 });
