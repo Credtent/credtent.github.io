@@ -36,7 +36,7 @@ export function orgPages(images) {
       faq: [
         { q: "What does the free opt-out do?", a: CAPSULE.orgHome },
         { q: "Does registration remove work from datasets?", a: "No. Registration does not automatically remove work from datasets. Credtent records preferences and the notices it sends." },
-        { q: "What is Opt-Out Premium?", a: "Opt-Out Premium for rights holders enrolls their works in Credtent's periodic AI model audits, from US$299 a year. Individual creatives get the same audits with licensing, at US$49 a year for sign-ups through December 31, 2026. Audit results are not proof of dataset inclusion." }
+        { q: "What is Opt-Out Premium?", a: "Opt-Out Premium for rights holders enrolls their works in Credtent's periodic AI model audits. Individual creatives get the same audits with licensing. Both carry no fee for sign-ups through December 31, 2026, for as long as the account stays open; for rights holders that covers entry scale, and larger catalogs are priced with our sales team. Audit results are not proof of dataset inclusion." }
       ],
       main: `<section class="section">
         <div class="wrap">
@@ -52,7 +52,7 @@ export function orgPages(images) {
           <div class="facts">
             <article class="fact"><p class="kicker">Free</p><h3>Opt-out registration</h3><p>Tell AI companies not to train on the work you identify.</p></article>
             <article class="fact"><p class="kicker">Quarterly</p><h3>Opt-out list distribution</h3><p>Credtent sends the opt-out list to AI companies each quarter.</p></article>
-            <article class="fact"><p class="kicker">Optional</p><h3>Periodic AI model audits</h3><p>Every paid plan enrolls your works in periodic AI model audits.</p></article>
+            <article class="fact"><p class="kicker">Optional</p><h3>Periodic AI model audits</h3><p>Every audit or licensing plan enrolls your works in periodic AI model audits.</p></article>
           </div>
         </div>
       </section>
@@ -64,7 +64,7 @@ export function orgPages(images) {
           <div class="steps" style="margin-top:24px">${STEP_ARROWS}
             <article class="step"><p class="kicker">01</p><h3>Register your preferences</h3><p>Tell us which works you want included.</p></article>
             <article class="step"><p class="kicker">02</p><h3>We send your request</h3><p>Credtent sends the opt-out list to AI companies each quarter.</p></article>
-            <article class="step"><p class="kicker">03</p><h3>Add audits if you want them</h3><p>A paid plan enrolls your works in Credtent's periodic AI model audits.</p></article>
+            <article class="step"><p class="kicker">03</p><h3>Add audits if you want them</h3><p>An audit or licensing plan enrolls your works in Credtent's periodic AI model audits.</p></article>
           </div>
           <div class="note-block"><p class="note">We cannot guarantee that every company will act on your request.</p><p class="note">Sent notices are distinct from confirmed receipt or action.</p><p class="note">Registration does not automatically remove work from datasets.</p></div>
         </div>
@@ -74,17 +74,17 @@ export function orgPages(images) {
           <div>
             <p class="eyebrow">Periodic AI model audits</p>
             <h2>Enroll your works in periodic AI model audits.</h2>
-            <p class="lede">Every paid plan includes audit enrollment, and Credtent records the results.</p>
+            <p class="lede">Every audit or licensing plan includes audit enrollment, and Credtent records the results.</p>
             <p class="note">Audit results are not proof of dataset inclusion or infringement.</p>
             <div class="btn-row"><a class="btn" href="/resources/auditing">Understand auditing</a></div>
           </div>
           <div class="price-stack">
             <p class="price-meta">Licensing for individuals</p>
-            <p>${price("US$49")} a year</p>
-            <span class="price-meta">Promotional price for sign-ups through December 31, 2026.</span>
+            <p>${price("US$0")}</p>
+            <span class="price-meta">For sign-ups through December 31, 2026, for as long as your account stays open.</span>
             <p class="price-meta">Opt-Out Premium for rights holders</p>
-            <p>from ${price("US$299")}</p>
-            <span class="price-meta">a year, scaling with catalog size</span>
+            <p>${price("US$0")}</p>
+            <span class="price-meta">at entry scale, for rights holders who sign up by December 31, 2026, for as long as the account stays open; larger catalogs are priced with our sales team</span>
           </div>
         </div>
       </section>
@@ -249,7 +249,7 @@ export function orgPages(images) {
           <article class="card"><h3>It is recorded and dated.</h3><p>Credtent keeps a dated record of each notice it sends. You can point to that record as evidence that the notice was sent.</p><p class="note">The record does not confirm that a company received the notice or acted on it.</p></article>
           <article class="card"><h3>You can license later.</h3><p>The same account that records your opt-out can license your work on your terms, if you choose to opt in.</p></article>
         </div>
-        <p>Every paid plan keeps the same opt-out and adds enrollment in periodic AI model audits.</p>
+        <p>Every audit or licensing plan keeps the same opt-out and adds enrollment in periodic AI model audits.</p>
         <p><a href="/resources/opt-out-limitations">What the opt-out cannot do</a></p>
       </div></section>
       <section class="section section-white"><div class="wrap prose">
@@ -261,10 +261,10 @@ export function orgPages(images) {
     {
       path: "/premium",
       title: "Opt-Out Premium | Credtent",
-      description: "Opt-Out Premium for rights holders enrolls their works in Credtent's periodic AI model audits, from US$299 a year.",
+      description: "Opt-Out Premium for rights holders enrolls their works in Credtent's periodic AI model audits, with no fee at entry scale for sign-ups through December 31, 2026.",
       eyebrow: "Opt-Out Premium",
       h1: "Enroll your works in periodic AI model audits.",
-      capsule: "Opt-Out Premium is for rights holders. From US$299 a year, it enrolls their works in Credtent's periodic AI model audits and does not include licensing.",
+      capsule: "Opt-Out Premium is for rights holders. It enrolls their works in Credtent's periodic AI model audits and does not include licensing, and it carries no fee at entry scale for sign-ups through December 31, 2026; larger catalogs are priced with our sales team.",
       capsuleNote: "Audit results are not proof of dataset inclusion or infringement.",
       actions: `<div class="btn-row"><a class="btn" href="/resources/auditing">Understand auditing</a></div>`,
       crumbs: [{ name: "Opt-Out Premium", href: "https://credtent.org/premium" }],
@@ -279,30 +279,26 @@ export function orgPages(images) {
             "@type": "Offer",
             "@id": "https://credtent.org/premium#rights-holders",
             name: "Opt-Out Premium for rights holders",
+            price: "0",
             priceCurrency: "USD",
-            description: "From US$299 a year for rights holders, scaling with catalog size.",
-            url: "https://credtent.org/premium",
-            priceSpecification: {
-              "@type": "PriceSpecification",
-              minPrice: "299",
-              priceCurrency: "USD",
-              description: "US$299 or more a year for rights holders, scaling with catalog size."
-            }
+            priceValidUntil: "2026-12-31",
+            description: "No fee at entry scale for rights holders who sign up by December 31, 2026, for as long as the account stays open. Catalogs above entry scale are priced with our sales team.",
+            url: "https://credtent.org/premium"
           }
         ]
       }],
       faq: [
         { q: "What does an audit prove?", a: "An audit records how AI models respond, and its results are not proof of dataset inclusion or infringement." },
-        { q: "What does Opt-Out Premium cost?", a: "Opt-Out Premium starts at US$299 a year for rights holders and scales with catalog size." },
-        { q: "Can individual creatives get audits?", a: "Yes. Licensing for individual creatives is US$49 a year for sign-ups through December 31, 2026, and it includes the opt-out and enrolls their works in Credtent's periodic AI model audits." }
+        { q: "What does Opt-Out Premium cost?", a: "Rights holders who sign up by December 31, 2026 pay no fee for Opt-Out Premium at entry scale, for as long as their account stays open. Larger catalogs are priced with our sales team." },
+        { q: "Can individual creatives get audits?", a: "Yes. Licensing for individual creatives includes the opt-out and enrolls their works in Credtent's periodic AI model audits, with no fee for sign-ups through December 31, 2026, for as long as the account stays open." }
       ],
       main: `<section class="section"><div class="wrap premium">
         <div><h2>Which plan fits you</h2><ul>
-          <li>Rights holders: Opt-Out Premium, from US$299 a year, scaling with catalog size.</li>
-          <li>Individual creatives: licensing with audit enrollment, US$49 a year for sign-ups through December 31, 2026.</li>
+          <li>Rights holders: Opt-Out Premium, with no fee at entry scale for sign-ups through December 31, 2026.</li>
+          <li>Individual creatives: licensing with audit enrollment, with no fee for sign-ups through December 31, 2026.</li>
           <li>Everyone: the free opt-out, which does not include audits.</li>
         </ul><div class="btn-row"><a class="btn" href="https://credtent.com/pricing">See all pricing</a><a class="btn btn-ghost" href="${OPT_OUT_FLOW}">Get the free opt-out</a></div></div>
-        <div class="price-stack"><p>${price("US$299+")}</p><span class="price-meta">annually for rights holders, scaling with catalog size</span></div>
+        <div class="price-stack"><p>${price("US$0")}</p><span class="price-meta">at entry scale, for rights holders who sign up by December 31, 2026, for as long as the account stays open; larger catalogs are priced with our sales team</span></div>
       </div></section>`
     },
     {
@@ -327,7 +323,7 @@ export function orgPages(images) {
     {
       path: "/resources/auditing",
       title: "How opt-out auditing works | Credtent",
-      description: "Every paid plan enrolls works in Credtent's periodic AI model audits. Audit results are not proof of dataset inclusion.",
+      description: "Every audit or licensing plan enrolls works in Credtent's periodic AI model audits. Audit results are not proof of dataset inclusion.",
       eyebrow: "Auditing",
       h1: "What an audit can show.",
       capsule: "A periodic AI model audit records how AI models respond, and Credtent keeps the results.",
@@ -335,12 +331,12 @@ export function orgPages(images) {
       crumbs: [{ name: "Resources", href: "https://credtent.org/resources" }, { name: "Auditing", href: "https://credtent.org/resources/auditing" }],
       faq: [
         { q: "Is an audit proof my work was in a training set?", a: "No. It is an observation of a model response, not a dataset inventory." },
-        { q: "Who is it for?", a: "It comes with every paid plan, and the free opt-out does not include it." }
+        { q: "Who is it for?", a: "It comes with every audit or licensing plan, and the free opt-out does not include it." }
       ],
       main: `<section class="section"><div class="wrap prose"><p>Auditing is optional, and the free opt-out records your preferences and notices without it.</p>
         <h2>Who gets audits</h2><ul>
-          <li>Rights holders: Opt-Out Premium, from US$299 a year.</li>
-          <li>Individual creatives: licensing, US$49 a year for sign-ups through December 31, 2026.</li>
+          <li>Rights holders: Opt-Out Premium, with no fee at entry scale for sign-ups through December 31, 2026.</li>
+          <li>Individual creatives: licensing, with no fee for sign-ups through December 31, 2026.</li>
         </ul><p><a href="/premium">See Opt-Out Premium</a></p></div></section>`
     },
     {
@@ -620,11 +616,11 @@ export function orgPages(images) {
         <h3>Your options and what they cost</h3>
         <ul>
           <li>Free opt-out: no charge.</li>
-          <li>Opt-Out Premium for rights holders: from US$299 a year. It enrolls works in periodic AI model audits and does not include licensing.</li>
-          <li>Licensing for individuals: US$49 a year for sign-ups through December 31, 2026, with the same audit enrollment.</li>
-          <li>Rights-Holder Licensing, for publishers and others who represent many creatives: from US$299 a year.</li>
+          <li>Opt-Out Premium for rights holders. It enrolls works in periodic AI model audits and does not include licensing.</li>
+          <li>Licensing for individuals, with the same audit enrollment.</li>
+          <li>Rights-Holder Licensing, for publishers and others who represent many creatives.</li>
         </ul>
-        <p class="note">From 2027, new individual sign-ups pay US$99 a year, and creatives who sign up during the promotion keep US$49 a year through 2028 while the subscription stays active. After 2028, and for anyone who rejoins after a lapse or cancellation, the regular price applies.</p>
+        <p class="note">All three plans carry no fee for sign-ups through December 31, 2026, for as long as the account stays open; for rights holders that covers entry scale, and larger catalogs are priced with our sales team. Credtent earns 15% of the license deals it makes.</p>
         <div class="btn-row"><a class="btn btn-ghost" href="https://credtent.com/pricing">See full pricing</a></div>
         <p>You can move a work between opt-out and licensing later, with no retroactive fees.</p>
       </div></section>`
