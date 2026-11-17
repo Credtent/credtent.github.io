@@ -203,6 +203,10 @@ test("stale-2026-deadline: catches the date forms the pages use, including JSON-
       "<p>through December 31 2026</p>",
       '<script type="application/ld+json">{"priceValidUntil":"2026-12-31"}</script>',
     ]) assert.equal(hit(html, "stale-2026-deadline"), true, html);
+    for (const html of [
+      "<p>Through 2026, licensing costs only Credtent's 15% on deals it makes.</p>",
+      "<p>No plan fee in 2026; a paid licensing plan for everyone is planned for 2027, once AI-company deals close.</p>",
+    ]) assert.equal(hit(html, "stale-2026-deadline"), true, html);
     assert.equal(hit("<p>December 31, 2027</p>", "stale-2026-deadline"), false);
   } finally {
     delete process.env.CHECK_NOW;

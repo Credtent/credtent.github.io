@@ -41,6 +41,9 @@ const TEXT_EXT = /\.(html?|svg|css|scss|sass|js|mjs|md|markdown|txt|xml|json|ya?
 
 // LD-072 dated obligation: 2027-01-01 00:00 America/Los_Angeles.
 export const STALE_FROM_2027 = new Date("2027-01-01T08:00:00.000Z");
+// Dated forms the LD-072 copy uses (Vonnegut 2026-11-17): the deadline itself, and the 2026-only lines that carry no
+// date ("Through 2026, licensing costs only...", "No plan fee in 2026", "a paid licensing plan ... planned for 2027").
+export const STALE_2026_COPY = /\b(December|Dec\.?)\s+31,?\s+2026\b|\b2026-12-31\b|\bthrough 2026\b|\bin 2026\b|\bplanned for 2027\b/i;
 const checkNow = () => (process.env.CHECK_NOW ? new Date(process.env.CHECK_NOW) : new Date());
 
 export const RULES = [
@@ -82,7 +85,7 @@ export const RULES = [
   // LD-072 dated obligation (Clarke 2026-11-17): copy that names the 2026-12-31 deadline ("start paying for auditing
   // by December 31, 2026", "priceValidUntil 2026-12-31") is stale from 2027-01-01 00:00 Pacific. Passes until then;
   // fails from then until the line is rewritten. CHECK_NOW (ISO) overrides the clock for tests.
-  { id: "stale-2026-deadline", test: (text) => checkNow() >= STALE_FROM_2027 && /\b(December|Dec\.?)\s+31,?\s+2026\b|\b2026-12-31\b/i.test(text) }
+  { id: "stale-2026-deadline", test: (text) => checkNow() >= STALE_FROM_2027 && STALE_2026_COPY.test(text) }
 ];
 const ruleHit = (r, text) => (r.test ? r.test(text) : r.re.test(text));
 
