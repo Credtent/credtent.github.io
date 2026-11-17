@@ -212,3 +212,12 @@ test("stale-2026-deadline: catches the date forms the pages use, including JSON-
     delete process.env.CHECK_NOW;
   }
 });
+
+test("the tabletop date (December 31, 2027) does not trip the 2026 rule, and its own rule fires only from 2028 Pacific", () => {
+  const page = "<p>Tabletop game companies (not video game companies) that Credtent has verified receive free auditing through December 31, 2027, which Credtent may extend.</p>";
+  const at = (iso, id) => { process.env.CHECK_NOW = iso; try { return hit(page, id); } finally { delete process.env.CHECK_NOW; } };
+  assert.equal(at("2027-06-01T00:00:00Z", "stale-2026-deadline"), false);
+  assert.equal(at("2027-12-31T23:59:59-08:00", "stale-2027-tabletop-date"), false);
+  assert.equal(at("2028-01-01T00:00:00-08:00", "stale-2027-tabletop-date"), true);
+  assert.equal(hit("<p>get free auditing through at least 2027</p>", "stale-2026-deadline"), false);
+});

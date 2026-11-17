@@ -44,6 +44,8 @@ export const STALE_FROM_2027 = new Date("2027-01-01T08:00:00.000Z");
 // Dated forms the LD-072 copy uses (Vonnegut 2026-11-17): the deadline itself, and the 2026-only lines that carry no
 // date ("Through 2026, licensing costs only...", "No plan fee in 2026", "a paid licensing plan ... planned for 2027").
 export const STALE_2026_COPY = /\b(December|Dec\.?)\s+31,?\s+2026\b|\b2026-12-31\b|\bthrough 2026\b|\bin 2026\b|\bplanned for 2027\b/i;
+export const STALE_FROM_2028 = new Date("2028-01-01T08:00:00.000Z");
+export const STALE_2027_COPY = /\b(December|Dec\.?)\s+31,?\s+2027\b|\b2027-12-31\b|\bthrough at least 2027\b/i;
 const checkNow = () => (process.env.CHECK_NOW ? new Date(process.env.CHECK_NOW) : new Date());
 
 export const RULES = [
@@ -85,7 +87,10 @@ export const RULES = [
   // LD-072 dated obligation (Clarke 2026-11-17): copy that names the 2026-12-31 deadline ("start paying for auditing
   // by December 31, 2026", "priceValidUntil 2026-12-31") is stale from 2027-01-01 00:00 Pacific. Passes until then;
   // fails from then until the line is rewritten. CHECK_NOW (ISO) overrides the clock for tests.
-  { id: "stale-2026-deadline", test: (text) => checkNow() >= STALE_FROM_2027 && STALE_2026_COPY.test(text) }
+  { id: "stale-2026-deadline", test: (text) => checkNow() >= STALE_FROM_2027 && STALE_2026_COPY.test(text) },
+  // LD-072 tabletop exception: free auditing "through December 31, 2027" (or "through at least 2027") is stale from
+  // 2028-01-01 00:00 Pacific unless EB extends it and the line is rewritten. Never fires before 2028.
+  { id: "stale-2027-tabletop-date", test: (text) => checkNow() >= STALE_FROM_2028 && STALE_2027_COPY.test(text) }
 ];
 const ruleHit = (r, text) => (r.test ? r.test(text) : r.re.test(text));
 
