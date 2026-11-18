@@ -9,13 +9,21 @@ const hits = (html, id) => BANNED.find((b) => b.id === id).re.test(scanText(html
 
 test("an entity-encoded em dash is caught", () => assert.ok(hits("<p>a &mdash; b</p>", "em-dash")));
 test("a free-forever promise hidden by &nbsp; is caught", () => assert.ok(hits("<p>free&nbsp;forever</p>", "free-forever-promise")));
-test("a claim in alt text is caught", () => assert.ok(hits('<img alt="Opt-Out Premium is $49 a year">', "hidden-49-premium")));
+test("a claim in alt text is caught", () => assert.ok(hits('<img alt="Opt-Out Premium is $249 a year">', "superseded-249")));
 test("a claim in a JSON-LD string is caught", () => assert.ok(hits('<script type="application/ld+json">{"a":{"text":"legally obligated to"}}</script>', "pbc-legal-duty-claim")));
 test("85% of every deal is caught, standard-terms wording passes", () => {
   assert.ok(hits("<p>Content partners keep 85% of every licensing deal.</p>", "85-every-deal"));
   assert.ok(!hits("<p>Under Credtent's standard terms, content partners keep 85% of each licensing deal.</p>", "85-every-deal"));
 });
-test("a claim rule does not run across two cards", () => assert.ok(!hits("<div><h3>Opt-Out Premium</h3></div><div><p>US$49 licensing</p></div>", "hidden-49-premium")));
+test("a claim rule does not run across two cards", () => {
+  assert.ok(hits("<p>WGA partner program</p>", "wga-partner"));
+  assert.ok(!hits("<div><h3>WGA</h3></div><div><p>partner program</p></div>", "wga-partner"));
+});
+test("LD-072 (2026-11-17): the hidden-49-premium rule is retired and the US$49 auditing line passes", () => {
+  assert.ok(!BANNED.some((b) => b.id === "hidden-49-premium"));
+  const text = scanText("<p>Auditing is Opt-Out Premium, US$49 a year for an individual or from US$299 a year for an organization.</p>");
+  assert.ok(BANNED.every((b) => (b.re ? !b.re.test(text) : !b.test(text))));
+});
 test("the widened WGA discount is caught", () => assert.ok(hits("<p>WGA members receive a discount on certification fees.</p>", "wga-discount-widened")));
 test("upcoming terms and /lws stay noindex in production", () => {
   assert.ok(staysNoindex("terms-of-service/upcoming/index.html"));
@@ -45,8 +53,8 @@ test("terms guard: a noticed swap on or after the date passes", () => {
 });
 
 test("hex and named entities are decoded before the rules run", () => {
-  assert.ok(hits("<p>Opt-Out Premium is &#x24;49 a year</p>", "hidden-49-premium"));
-  assert.ok(hits("<p>Opt-Out Premium is &dollar;49 a year</p>", "hidden-49-premium"));
+  assert.ok(hits("<p>Opt-Out Premium is &#x24;249 a year</p>", "superseded-249"));
+  assert.ok(hits("<p>Opt-Out Premium is &dollar;249 a year</p>", "superseded-249"));
   assert.ok(hits("<p>a &#x2014 b</p>", "em-dash"));
 });
 test("single-quoted and data-* attributes are scanned", () => {
