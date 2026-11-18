@@ -221,3 +221,13 @@ test("the tabletop date (December 31, 2027) does not trip the 2026 rule, and its
   assert.equal(at("2028-01-01T00:00:00-08:00", "stale-2027-tabletop-date"), true);
   assert.equal(hit("<p>get free auditing through at least 2027</p>", "stale-2026-deadline"), false);
 });
+
+test("stale-2026-deadline ignores editorial year mentions", () => {
+  process.env.CHECK_NOW = "2027-06-01T00:00:00Z";
+  try {
+    assert.equal(hit("<h2>AI Training Data Licensing: How It Works in 2026</h2>", "stale-2026-deadline"), false);
+    assert.equal(hit("<p>No plan fee in 2026; a paid licensing plan for everyone is planned for 2027.</p>", "stale-2026-deadline"), true);
+  } finally {
+    delete process.env.CHECK_NOW;
+  }
+});
