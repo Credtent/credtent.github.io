@@ -29,6 +29,11 @@ test("claim failures print no page text", () => {
   const root = tmp({ "p.html": "<p>Opt-Out Premium is $249 a year</p>" });
   assert.deepEqual(run({ env: { CREDTENT_REVIEW_NAMES: LIST }, localFile: null, root }), ["p.html:1: superseded-249"]);
 });
+test("LD-072 (2026-11-17): the $49 Opt-Out Premium auditing price passes", () => {
+  const root = tmp({ "p.html": "<p>Auditing is Opt-Out Premium, $49 a year for an individual or from $299 a year for an organization, scaling with catalog size.</p>" });
+  assert.deepEqual(run({ env: { CREDTENT_REVIEW_NAMES: LIST }, localFile: null, root }), []);
+  assert.ok(!RULES.some((r) => r.id === "hidden-49-premium"));
+});
 test("coverage: _config.yml excludes are skipped; underscore, dot and unlisted files are scanned; include wins", () => {
   const root = tmp({ "_config.yml": "exclude:\n  - drafts\ninclude:\n  - drafts/keep.md\n", "drafts/x.md": "x", "drafts/keep.md": "k", ".well-known/y.txt": "y", "_includes/z.html": "z", "data.csv": "a,b", ".github/w.yml": "w" });
   assert.deepEqual(jekyllExcludes(root), ["drafts"]);
@@ -184,9 +189,4 @@ test("a render-time file a person has reviewed is pinned by hash; any change fla
 test("a claim soft-wrapped across a line break in a text file is still read", () => {
   const root = tmp({ "llms.txt": "About\nCredtent\nAegis is here" });
   assert.ok(run({ env: { CREDTENT_REVIEW_NAMES: LIST }, localFile: null, root }).some((f) => /^llms\.txt:\d+: product-name$/.test(f)));
-});
-test("LD-072 (2026-11-17): the $49 Opt-Out Premium auditing price passes", () => {
-  const root = tmp({ "p.html": "<p>Auditing is Opt-Out Premium, $49 a year for an individual or from $299 a year for an organization, scaling with catalog size.</p>" });
-  assert.deepEqual(run({ env: { CREDTENT_REVIEW_NAMES: LIST }, localFile: null, root }), []);
-  assert.ok(!RULES.some((r) => r.id === "hidden-49-premium"));
 });
