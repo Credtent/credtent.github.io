@@ -9,6 +9,10 @@ on:
     branches: [main]
   push:
     branches: [main]
+  # Daily on main, so dated rules (stale-2026-deadline) fire with no one pushing. A failed scheduled run shows red in
+  # Actions and notifies the repository's workflow-failure recipients; it does not take any page down.
+  schedule:
+    - cron: "17 9 * * *"
 
 permissions:
   contents: read
