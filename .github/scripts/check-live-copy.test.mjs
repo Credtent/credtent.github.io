@@ -190,3 +190,49 @@ test("a claim soft-wrapped across a line break in a text file is still read", ()
   const root = tmp({ "llms.txt": "About\nCredtent\nAegis is here" });
   assert.ok(run({ env: { CREDTENT_REVIEW_NAMES: LIST }, localFile: null, root }).some((f) => /^llms\.txt:\d+: product-name$/.test(f)));
 });
+
+// LD-072 dated obligation (Clarke 2026-11-17): from 2027-01-01 00:00 Pacific a
+// "by December 31, 2026" style deadline on a served page is stale copy.
+test("stale-2026-deadline: passes before 2027-01-01 Pacific, fails from then", () => {
+  const page = "<p>Start paying for auditing by December 31, 2026.</p>";
+  const at = (iso) => { process.env.CHECK_NOW = iso; try { return hit(page, "stale-2026-deadline"); } finally { delete process.env.CHECK_NOW; } };
+  assert.equal(at("2026-12-31T23:59:59-08:00"), false);
+  assert.equal(at("2027-01-01T00:00:00-08:00"), true);
+});
+
+test("stale-2026-deadline: catches the date forms the pages use, including JSON-LD", () => {
+  process.env.CHECK_NOW = "2027-01-02T00:00:00Z";
+  try {
+    for (const html of [
+      "<p>for sign-ups by Dec 31, 2026</p>",
+      "<p>through December 31 2026</p>",
+      '<script type="application/ld+json">{"priceValidUntil":"2026-12-31"}</script>',
+    ]) assert.equal(hit(html, "stale-2026-deadline"), true, html);
+    for (const html of [
+      "<p>Through 2026, licensing costs only Credtent's 15% on deals it makes.</p>",
+      "<p>No plan fee in 2026; a paid licensing plan for everyone is planned for 2027, once AI-company deals close.</p>",
+    ]) assert.equal(hit(html, "stale-2026-deadline"), true, html);
+    assert.equal(hit("<p>December 31, 2027</p>", "stale-2026-deadline"), false);
+  } finally {
+    delete process.env.CHECK_NOW;
+  }
+});
+
+test("the tabletop date (December 31, 2027) does not trip the 2026 rule, and its own rule fires only from 2028 Pacific", () => {
+  const page = "<p>Tabletop game companies (not video game companies) that Credtent has verified receive free auditing through December 31, 2027, which Credtent may extend.</p>";
+  const at = (iso, id) => { process.env.CHECK_NOW = iso; try { return hit(page, id); } finally { delete process.env.CHECK_NOW; } };
+  assert.equal(at("2027-06-01T00:00:00Z", "stale-2026-deadline"), false);
+  assert.equal(at("2027-12-31T23:59:59-08:00", "stale-2027-tabletop-date"), false);
+  assert.equal(at("2028-01-01T00:00:00-08:00", "stale-2027-tabletop-date"), true);
+  assert.equal(hit("<p>get free auditing through at least 2027</p>", "stale-2026-deadline"), false);
+});
+
+test("stale-2026-deadline ignores editorial year mentions", () => {
+  process.env.CHECK_NOW = "2027-06-01T00:00:00Z";
+  try {
+    assert.equal(hit("<h2>AI Training Data Licensing: How It Works in 2026</h2>", "stale-2026-deadline"), false);
+    assert.equal(hit("<p>No plan fee in 2026; a paid licensing plan for everyone is planned for 2027.</p>", "stale-2026-deadline"), true);
+  } finally {
+    delete process.env.CHECK_NOW;
+  }
+});
