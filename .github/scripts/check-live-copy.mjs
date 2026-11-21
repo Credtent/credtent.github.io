@@ -42,8 +42,9 @@ const TEXT_EXT = /\.(html?|svg|css|scss|sass|js|mjs|md|markdown|txt|xml|json|ya?
 export const RULES = [
   { id: "em-dash", re: /[\u2014\u2015\u2e3a\u2e3b]/ },
   { id: "spaced-en-dash", re: /\s\u2013\s/ },
-  // LD-015 item 1.2, EB card "Hide Premium" (2026-10-31): no $49 Opt-Out Premium offer on public pages until 2026-12-31.
-  { id: "hidden-49-premium", re: /Opt-Out Premium[^.<]{0,80}\$\s?49\b|\$\s?49[^.<]{0,40}Opt-Out Premium/i },
+  // Retired 2026-11-17: the "Hide Premium" rule (LD-015 item 1.2, EB card 2026-10-31) is superseded by the LD-072
+  // fee model (EB cards 2026-11-17), under which auditing is Opt-Out Premium at $49 a year for an individual and the
+  // pricing copy states that price. The rule id hidden-49-premium is no longer checked.
   { id: "premium-included-in-49", re: /Everything in Opt-Out Premium/i },
   // LD-058 as amended 2026-10-31 and 2026-11-01: Creator Licensing is not shown at $99 without the $49 promo.
   { id: "licensing-99-without-promo", re: /Creator Licensing[^.<]{0,40}\$\s?99/i },
