@@ -31,8 +31,10 @@ export const EXEMPT = new Map([
 ]);
 // Files that assemble text at run time and that a person has read, pinned to the sha256 reviewed (Clarke,
 // 2026-11-02: components.js builds nav links from ${base} and literal labels, which the claim rules read).
+// Re-reviewed by Clarke 2026-11-22: only the two Creator Sign In hrefs and the footer registration link and label
+// changed (legacy registry to app.credtent.org); no new text is assembled at run time.
 export const REVIEWED_RENDER_TIME = new Map([
-  ["components.js", "8370d89f4275032c4280513886d1cf0f0dd18e78d5dd7118cb834ff301ddd370"]
+  ["components.js", "978af7411891fda0dbf6e85d215797d5e30ca74f9d4c949414947091a33dbee4"]
 ]);
 const CLAIMS = /\.(html?|txt|md|markdown|svg|css|scss|sass|js|mjs|xml|json|ya?ml|webmanifest)$/i;
 // Real binaries, by extension or magic bytes. Anything else is read as text.
