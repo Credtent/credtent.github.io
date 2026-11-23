@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { loadPrivateNames, redactLine } from "./private-names.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const sites = {
@@ -63,7 +64,9 @@ for (const page of pages) {
 }
 
 if (missing.length) {
-  console.error(missing.slice(0, 80).join("\n"));
+  // Never print a path or URL that names a listed entry: it becomes a short hash.
+  const names = loadPrivateNames();
+  console.error(missing.slice(0, 80).map((m) => redactLine(m, names)).join("\n"));
   console.error(`\n${missing.length} link error(s).`);
   process.exit(1);
 }

@@ -12,6 +12,7 @@
 //   allow: <where> Name   Name may appear at <where> (for example "org/standards/index.html" or "root/standards.html"):
 //                         public-market context, or an account EB has cleared by name on public pages
 //                         (/Users/ericburgess/claudia/context/credtent-accounts-canonical.md is the record)
+import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -21,7 +22,9 @@ export const MIN_ENTRIES = 10;
 export const LOCAL_FILE = path.join(path.dirname(fileURLToPath(import.meta.url)), "review-names.local.txt");
 
 export function loadPrivateNames(env = process.env, localFile = LOCAL_FILE) {
-  const src = env.CREDTENT_REVIEW_NAMES || (localFile && fs.existsSync(localFile) ? fs.readFileSync(localFile, "utf8") : "");
+  // In CI only the secret counts: a local file there would come from the pull request itself.
+  const useLocal = !env.CI && localFile && fs.existsSync(localFile);
+  const src = env.CREDTENT_REVIEW_NAMES || (useLocal ? fs.readFileSync(localFile, "utf8") : "");
   const lines = src.split(/[\n|]/).map((s) => s.trim()).filter((s) => s && !s.startsWith("#"));
   const allow = new Set();
   const names = [];
@@ -35,11 +38,12 @@ export function loadPrivateNames(env = process.env, localFile = LOCAL_FILE) {
     if (kind === "allow") allow.add(m[2].toLowerCase().replace(/\s+/g, " "));
     else { names.push(m[2]); ({ drop, block, strip })[kind].push(m[2]); }
   }
-  return { names, drop, block, strip, allow, missing: names.length < MIN_ENTRIES };
+  const unique = [...new Set(names.map((n) => n.toLowerCase().replace(/\s+/g, " ")))];
+  return { names, drop, block, strip, allow, missing: unique.length < MIN_ENTRIES };
 }
 
 // HTML5 named entities that matter for text, including the legacy forms browsers accept without a semicolon.
-const NAMED = { amp: "&", nbsp: " ", quot: '"', apos: "'", lt: "<", gt: ">", mdash: "—", ndash: "–", shy: "", dollar: "$",
+const NAMED = { amp: "&", nbsp: " ", quot: '"', apos: "'", lt: "<", gt: ">", mdash: "\u2014", ndash: "\u2013", horbar: "\u2015", shy: "", dollar: "$",
   rsquo: "’", lsquo: "‘", rdquo: "”", ldquo: "“", hellip: "…", zwj: "", zwnj: "", copy: "©", reg: "®",
   trade: "™", ensp: " ", emsp: " ", thinsp: " ", hairsp: " ", numsp: " ", puncsp: " ", emsp13: " ", emsp14: " ", nbspace: " ",
   zerowidthspace: "", nobreak: "", invisibletimes: "", invisiblecomma: "", invisibleplus: "", applyfunction: "", lrm: "", rlm: "",
@@ -52,7 +56,8 @@ const HOMOGLYPHS = { "А": "A", "В": "B", "Е": "E", "К": "K", "М": "M", "Н"
   "С": "C", "Т": "T", "Х": "X", "а": "a", "е": "e", "о": "o", "р": "p", "с": "c", "у": "y",
   "х": "x", "і": "i", "ј": "j", "ѕ": "s", "Ι": "I", "Ο": "O", "Α": "A", "Β": "B", "Ε": "E",
   "Ζ": "Z", "Η": "H", "Κ": "K", "Μ": "M", "Ν": "N", "Ρ": "P", "Τ": "T", "Χ": "X", "Υ": "Y",
-  "ο": "o", "ν": "v", "Α": "A" };
+  "ο": "o", "ν": "v", "Α": "A",
+  "\u03b1": "a", "\u03b5": "e", "\u03b9": "i", "\u03ba": "k", "\u03c1": "p", "\u03c4": "t", "\u03c5": "u", "\u03c7": "x", "\u0251": "a", "\u0501": "d", "\u04bb": "h", "\u04cf": "l", "\u0131": "i", "\u0405": "S", "\u0406": "I", "\u0408": "J", "\u04ae": "Y", "\u0432": "b", "\u043a": "k", "\u043c": "m", "\u043d": "h", "\u0442": "t", "\u0457": "i", "\u0454": "e", "\u0261": "g", "\u026a": "i", "\u1d0f": "o", "\u1d1c": "u" };
 
 /** Decode named (full text set, legacy forms without ";"), decimal and hex entities, three passes. */
 export function decodeAll(s) {
@@ -74,11 +79,14 @@ export function normalizeText(s) {
   out = out.replace(/(?:%[0-9a-f]{2})+/gi, (m) => { try { return decodeURIComponent(m); } catch { return m; } });
   out = out.replace(/\\u\{([0-9a-f]+)\}|\\u([0-9a-f]{4})|\\x([0-9a-f]{2})/gi, (_, a, b, c) => String.fromCodePoint(parseInt(a || b || c, 16)));
   out = out.replace(/\\([0-9a-f]{1,6}) ?/gi, (_, h) => String.fromCodePoint(Math.min(parseInt(h, 16), 0x10ffff)));
-  out = out.replace(/String\.fromCharCode\(([\d\s,]+)\)/g, (_, list) => `'${list.split(",").map((n) => String.fromCharCode(Number(n))).join("")}'`);
+  out = out.replace(/String\.from(?:CharCode|CodePoint)\(([\dxa-f\s,]+)\)/gi, (_, list) => `'${list.split(",").map((n) => String.fromCodePoint(Number(n.trim()))).join("")}'`);
+  out = out.replace(/atob\(\s*["'`]([A-Za-z0-9+/=\s]+)["'`]\s*\)/g, (m, b) => { try { return `'${Buffer.from(b.replace(/\s+/g, ""), "base64").toString("utf8")}'`; } catch { return m; } });
+  out = out.replace(/["'`]([^"'`]*)["'`]\.split\(\s*["'`]{2}\s*\)\.reverse\(\)\.join\(\s*["'`]{2}\s*\)/g, (_, t) => `'${[...t].reverse().join("")}'`);
+  out = out.replace(/["'`]\.concat\(\s*["'`]/g, "");
   out = out.normalize("NFKC").normalize("NFD").replace(/\p{M}/gu, "").normalize("NFC");
   out = out.replace(/\p{Cf}/gu, "");
   out = [...out].map((ch) => HOMOGLYPHS[ch] || ch).join("");
-  out = out.replace(/[‘’ʼ′`´]/g, "'").replace(/[‐-―−]/g, "-");
+  out = out.replace(/[‘’ʼ′`´]/g, "'").replace(/[\u2010-\u2015\u2212]/g, "-");
   return out.replace(/[\s\p{Zs}]+/gu, " ");
 }
 
@@ -92,38 +100,43 @@ const TAG = /<(?:[^>"']|"[^"]*"|'[^']*')*>/g;
 const stripTags = (s, sep) => s.replace(/<!--[\s\S]*?-->/g, sep).replace(TAG, sep);
 // Literal joins in JS, CSS and Liquid: 'a' + 'b', ['a','b'].join(''), `${'a'}b`, 'a' 'b', "a" | append: "b".
 const joinLiterals = (s) => s
+  .replace(/(["'])([^"']*)\1\s*\|\s*prepend:\s*(["'])([^"']*)\3/g, "'$4$2'")
   .replace(/["'`]\s*\+\s*["'`]/g, "").replace(/["']\s*,\s*["']/g, "").replace(/\$\{\s*["']([^"']*)["']\s*\}/g, "$1")
-  .replace(/(["'])\s+\1/g, "").replace(/["']\s*\|\s*append:\s*["']/g, "");
+  .replace(/(["'])\s+\1/g, "").replace(/["']\s*\|\s*(?:append|prepend):\s*["']/g, "");
 
 /** Every view a name could hide in. */
 export function nameViews(raw) {
   const base = normalizeText(raw);
   const views = [base, joinLiterals(base), stripTags(base, ""), stripTags(base, " ")];
   // data: URIs carry their own markup (an SVG <text>, for example); decode and add them.
-  for (const m of base.matchAll(/data:[^,"')\s]*;base64,([A-Za-z0-9+/=]+)/g)) {
-    try { const inner = normalizeText(Buffer.from(m[1], "base64").toString("utf8")); views.push(inner, stripTags(inner, "")); } catch { /* not text */ }
+  for (const m of base.matchAll(/data:[^,"')]*;base64,([A-Za-z0-9+/=\s]+)/g)) {
+    try { const inner = normalizeText(Buffer.from(m[1].replace(/\s+/g, ""), "base64").toString("utf8")); views.push(inner, stripTags(inner, "")); } catch { /* not text */ }
   }
   views.push(stripTags(joinLiterals(base), " ").replace(/[-_+./]+/g, " "));
   return views;
 }
 
 /** Names found in raw file content that are not allowed at any of the given locations. Callers never print them. */
-export function findNames(raw, wheres, list) {
+export function findNames(raw, wheres, list, { compactMatch = true, minLength = 0 } = {}) {
   const keys = (Array.isArray(wheres) ? wheres : [wheres]).map((w) => w.toLowerCase());
   const views = nameViews(raw);
   const flat = compact(stripTags(joinLiterals(normalizeText(raw)), " "));
   const found = [];
   for (const name of list.names) {
+    if (compact(name).length < minLength) continue;
     const re = nameRegex(name);
     const c = compact(name);
     // The compact match (all separators removed) catches slugs and run-together forms; it is used only for
     // names long enough that a stray substring is unlikely.
-    if (!views.some((v) => re.test(v)) && !(c.length >= 7 && flat.includes(c))) continue;
+    if (!views.some((v) => re.test(v)) && !(compactMatch && c.length >= 7 && flat.includes(c))) continue;
     if (keys.some((k) => list.allow.has(`${k} ${name}`.toLowerCase().replace(/\s+/g, " ")))) continue;
     found.push(name);
   }
   return found;
 }
+
+/** Printable text runs in a binary file (PDF text, XMP and EXIF strings), one per line. */
+export const binaryText = (buf) => (Buffer.from(buf).toString("latin1").match(/[\x20-\x7e]{4,}/g) || []).join("\n");
 
 /** 1-based line numbers of the first hit for each found name, so callers can report a line without the name. */
 export function nameLines(raw, list, names) {
@@ -138,3 +151,44 @@ export function nameLines(raw, list, names) {
 }
 
 export const MISSING_MESSAGE = "private names list missing: set CREDTENT_REVIEW_NAMES or create review-names.local.txt next to private-names.mjs (gitignored). Failing closed.";
+
+/** A location string safe for a public log: unchanged unless it contains a listed name, else a short hash. */
+export function redact(text, list) {
+  if (!list || list.missing || !findNames(String(text), [], { ...list, allow: new Set() }).length) return String(text);
+  return `[redacted:${crypto.createHash("sha256").update(String(text)).digest("hex").slice(0, 12)}]`;
+}
+/** A failure line safe for a public log. Each line of the text is handled on its own: a word that names a
+ * listed entry becomes a short hash; a name spread over several words (or split by extra spaces) is hashed as the
+ * smallest run of words that names it; if a name still shows, the whole line is hashed. */
+export function redactLine(line, list) {
+  if (!list || list.missing) return String(line);
+  const open = { ...list, allow: new Set() };
+  const shows = (t) => findNames(t, [], open).length > 0;
+  const hash = (t) => `[redacted:${crypto.createHash("sha256").update(t).digest("hex").slice(0, 12)}]`;
+  return String(line).split("\n").map((one) => {
+    if (!shows(one)) return one;
+    // Keep a trailing ":<line>:" so the rule and line number stay readable after the path is hashed.
+    let parts = one.split(/(\s+)/).map((part) => {
+      if (/\s/.test(part) || !part) return part;
+      const m = part.match(/^(.*?)(:\d+:?)$/);
+      return m && m[1] ? redact(m[1], list) + m[2] : redact(part, list);
+    });
+    for (let guard = 0; guard < 50 && shows(parts.join("")); guard++) {
+      const words = parts.map((p, i) => [p, i]).filter(([p]) => p && !/^\s+$/.test(p)).map(([, i]) => i);
+      let done = false;
+      for (let size = 2; size <= Math.min(8, words.length) && !done; size++) {
+        for (let k = 0; k + size <= words.length; k++) {
+          const from = words[k], to = words[k + size - 1];
+          const text = parts.slice(from, to + 1).join("");
+          if (!shows(text)) continue;
+          parts = [...parts.slice(0, from), hash(text), ...parts.slice(to + 1)];
+          done = true;
+          break;
+        }
+      }
+      if (!done) break;
+    }
+    const out = parts.join("");
+    return shows(out) ? hash(one) : out;
+  }).join("\n");
+}

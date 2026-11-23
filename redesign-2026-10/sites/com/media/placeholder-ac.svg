@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="480" height="480" viewBox="0 0 480 480" role="img">
-    <rect width="480" height="480" fill="#E7E0D6"/>
-    <circle cx="240" cy="180" r="68" fill="#C9C0B4"/>
-    <ellipse cx="240" cy="400" rx="116" ry="86" fill="#C9C0B4"/>
-    <text x="240" y="196" text-anchor="middle" font-family="Arial, sans-serif" font-size="54" fill="#3A342C">AC</text>
-  </svg>

@@ -17,6 +17,19 @@ function replaceWord(input, from, to) {
   return input.replace(new RegExp("\\b" + from + "\\b", "gi"), (match) => applyCase(match, to));
 }
 
+// Each match is one element: it starts at the last opening tag before the name and never crosses that
+// element's closing tag, so a drop cannot swallow the markup between an earlier element and the name.
+export function dropBlocks(html, names) {
+  let out = String(html);
+  for (const name of names) {
+    for (const tag of ["p", "li", "tr"]) {
+      const re = new RegExp("<" + tag + "\\b[^>]*>(?:(?!<" + tag + "\\b|</" + tag + ">)[\\s\\S])*?\\b" + reName(name) + "\\b[\\s\\S]*?</" + tag + ">", "gi");
+      out = out.replace(re, "");
+    }
+  }
+  return out;
+}
+
 export function scrub(input, { code = false } = {}) {
   if (NAMES.missing) throw new Error(MISSING_MESSAGE);
   let out = String(input);
@@ -30,17 +43,14 @@ export function scrub(input, { code = false } = {}) {
   out = out.replace(/,?\s*and, as of October 2026, routes 85% of gross licensing revenue to rights holders/gi, "");
   out = out.replace(/1822 E\. (?:Rt\.|Route) 66,?\s*(?:Suite A353|Ste #A353)?/g, "1822 E. Route 66, Suite A353");
   out = out.replace(/Glendora, CA(?:\s+91740)?/g, "Glendora, California 91740");
-  out = out.replace(/\u2014/g, ", ");
+  out = out.replace(/\s*\u2014\s*/g, ", ");
+  // A numeric range keeps a hyphen, never an en dash.
+  out = out.replace(/(\d)\u2013(\d)/g, "$1-$2");
   if (!code) {
     const parts = out.split(/(<!--[\s\S]*?-->)/g);
     out = parts.map((part, index) => (index % 2 === 1 ? part : part.replace(/!/g, "."))).join("");
   }
-  for (const name of NAMES.drop) {
-    const block = (tag) => new RegExp("<" + tag + "\\b[\\s\\S]*?\\b" + reName(name) + "\\b[\\s\\S]*?</" + tag + ">", "gi");
-    out = out.replace(block("p"), "");
-    out = out.replace(block("li"), "");
-    out = out.replace(block("tr"), "");
-  }
+  out = dropBlocks(out, NAMES.drop);
   for (const name of NAMES.strip) out = out.replace(new RegExp("\\b" + reName(name) + "\\b", "g"), "");
   out = out.replace(/bridge-illustration\.png/gi, "");
   const leftovers = [];
@@ -49,8 +59,8 @@ export function scrub(input, { code = false } = {}) {
     if (re.test(out)) leftovers.push(token);
   }
   if (leftovers.length) {
-    const hit = out.match(new RegExp(".{0,80}\\b(" + leftovers.join("|") + ")\\b.{0,80}", "i"));
-    throw new Error("Scrub left a blocked token near: " + (hit ? hit[0] : leftovers.join(",")));
+    // The token only, never the page text around it (which could carry a name into a build log).
+    throw new Error("Scrub left a blocked token: " + leftovers.join(","));
   }
   // A private-list name left after scrubbing stops the build; the message never names it.
   if ([...NAMES.drop, ...NAMES.block].some((n) => new RegExp("\\b" + reName(n) + "\\b", "i").test(out))) {

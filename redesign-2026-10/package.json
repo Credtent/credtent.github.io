@@ -4,9 +4,13 @@
   "type": "module",
   "scripts": {
     "build": "node src/build.mjs",
-    "check": "node scripts/check-copy.mjs && node scripts/check-links.mjs && node scripts/check-redirects.mjs && node scripts/check-html.mjs"
+    "test:gates": "node --test scripts/test-ga-and-headers.mjs scripts/test-phone.mjs scripts/test-check-launch.mjs",
+    "gates": "node scripts/check-copy.mjs && node scripts/check-links.mjs && node scripts/check-redirects.mjs && node scripts/check-launch.mjs preview",
+    "check": "npm run test:gates && npm run gates",
+    "check:production": "npm run test:gates && node scripts/check-copy.mjs && node scripts/check-links.mjs && SITE_ENV=production node scripts/check-redirects.mjs && node scripts/check-launch.mjs production",
+    "check:html": "node scripts/check-html.mjs"
   },
   "dependencies": {
-    "sharp": "^0.34.4"
+    "sharp": "^0.35.0"
   }
 }
